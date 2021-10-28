@@ -15,6 +15,11 @@
 		3B4E3FF1272A696F00577625 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B4E3FF0272A696F00577625 /* Assets.xcassets */; };
 		3B4E3FF4272A696F00577625 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B4E3FF2272A696F00577625 /* LaunchScreen.storyboard */; };
 		3B4E4006272A6B5200577625 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3B4E4005272A6B5200577625 /* .swiftlint.yml */; };
+		FAB73315272A707200E1D824 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB73314272A707200E1D824 /* Home.storyboard */; };
+		FAB73317272A707B00E1D824 /* Tracking.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB73316272A707B00E1D824 /* Tracking.storyboard */; };
+		FAB73319272A708A00E1D824 /* Analysis.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB73318272A708A00E1D824 /* Analysis.storyboard */; };
+		FAB7331B272A709300E1D824 /* MyPage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB7331A272A709300E1D824 /* MyPage.storyboard */; };
+		FAB7331D272A70A000E1D824 /* Feed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB7331C272A70A000E1D824 /* Feed.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +34,11 @@
 		3B4E3FF3272A696F00577625 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3B4E3FF5272A696F00577625 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B4E4005272A6B5200577625 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		FAB73314272A707200E1D824 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
+		FAB73316272A707B00E1D824 /* Tracking.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tracking.storyboard; sourceTree = "<group>"; };
+		FAB73318272A708A00E1D824 /* Analysis.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Analysis.storyboard; sourceTree = "<group>"; };
+		FAB7331A272A709300E1D824 /* MyPage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyPage.storyboard; sourceTree = "<group>"; };
+		FAB7331C272A70A000E1D824 /* Feed.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Feed.storyboard; sourceTree = "<group>"; };
 		FFF67BAD0AE292F3B50AE991 /* Pods_Booster.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booster.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -91,6 +101,11 @@
 			children = (
 				3B4E3FF2272A696F00577625 /* LaunchScreen.storyboard */,
 				3B4E3FED272A696E00577625 /* Main.storyboard */,
+				FAB73314272A707200E1D824 /* Home.storyboard */,
+				FAB73316272A707B00E1D824 /* Tracking.storyboard */,
+				FAB73318272A708A00E1D824 /* Analysis.storyboard */,
+				FAB7331A272A709300E1D824 /* MyPage.storyboard */,
+				FAB7331C272A70A000E1D824 /* Feed.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -218,8 +233,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAB73319272A708A00E1D824 /* Analysis.storyboard in Resources */,
 				3B4E4006272A6B5200577625 /* .swiftlint.yml in Resources */,
+				FAB7331D272A70A000E1D824 /* Feed.storyboard in Resources */,
+				FAB73315272A707200E1D824 /* Home.storyboard in Resources */,
+				FAB7331B272A709300E1D824 /* MyPage.storyboard in Resources */,
 				3B4E3FF4272A696F00577625 /* LaunchScreen.storyboard in Resources */,
+				FAB73317272A707B00E1D824 /* Tracking.storyboard in Resources */,
 				3B4E3FF1272A696F00577625 /* Assets.xcassets in Resources */,
 				3B4E3FEF272A696E00577625 /* Main.storyboard in Resources */,
 			);
