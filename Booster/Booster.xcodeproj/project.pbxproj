@@ -17,6 +17,12 @@
 		3B4E4006272A6B5200577625 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3B4E4005272A6B5200577625 /* .swiftlint.yml */; };
 		3BB7E68A272AA0CC00103205 /* BAZARONI.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 3BB7E689272AA0CC00103205 /* BAZARONI.TTF */; };
 		3BB7E68D272AA13B00103205 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB7E68C272AA13B00103205 /* UIFont.swift */; };
+		3BB7E694272AD07B00103205 /* NotoSansKR-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3BB7E68E272AD07A00103205 /* NotoSansKR-Thin.otf */; };
+		3BB7E695272AD07B00103205 /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3BB7E68F272AD07A00103205 /* NotoSansKR-Medium.otf */; };
+		3BB7E696272AD07B00103205 /* NotoSansKR-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3BB7E690272AD07B00103205 /* NotoSansKR-Light.otf */; };
+		3BB7E697272AD07B00103205 /* NotoSansKR-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3BB7E691272AD07B00103205 /* NotoSansKR-Bold.otf */; };
+		3BB7E698272AD07B00103205 /* NotoSansKR-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3BB7E692272AD07B00103205 /* NotoSansKR-Black.otf */; };
+		3BB7E699272AD07B00103205 /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3BB7E693272AD07B00103205 /* NotoSansKR-Regular.otf */; };
 		FAB73315272A707200E1D824 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB73314272A707200E1D824 /* Home.storyboard */; };
 		FAB73317272A707B00E1D824 /* Tracking.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB73316272A707B00E1D824 /* Tracking.storyboard */; };
 		FAB73319272A708A00E1D824 /* Analysis.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB73318272A708A00E1D824 /* Analysis.storyboard */; };
@@ -38,6 +44,12 @@
 		3B4E4005272A6B5200577625 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		3BB7E689272AA0CC00103205 /* BAZARONI.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = BAZARONI.TTF; sourceTree = "<group>"; };
 		3BB7E68C272AA13B00103205 /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
+		3BB7E68E272AD07A00103205 /* NotoSansKR-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Thin.otf"; sourceTree = "<group>"; };
+		3BB7E68F272AD07A00103205 /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.otf"; sourceTree = "<group>"; };
+		3BB7E690272AD07B00103205 /* NotoSansKR-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Light.otf"; sourceTree = "<group>"; };
+		3BB7E691272AD07B00103205 /* NotoSansKR-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Bold.otf"; sourceTree = "<group>"; };
+		3BB7E692272AD07B00103205 /* NotoSansKR-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Black.otf"; sourceTree = "<group>"; };
+		3BB7E693272AD07B00103205 /* NotoSansKR-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Regular.otf"; sourceTree = "<group>"; };
 		FAB73314272A707200E1D824 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		FAB73316272A707B00E1D824 /* Tracking.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tracking.storyboard; sourceTree = "<group>"; };
 		FAB73318272A708A00E1D824 /* Analysis.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Analysis.storyboard; sourceTree = "<group>"; };
@@ -173,6 +185,12 @@
 		3BB7E688272AA0BF00103205 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				3BB7E692272AD07B00103205 /* NotoSansKR-Black.otf */,
+				3BB7E691272AD07B00103205 /* NotoSansKR-Bold.otf */,
+				3BB7E690272AD07B00103205 /* NotoSansKR-Light.otf */,
+				3BB7E68F272AD07A00103205 /* NotoSansKR-Medium.otf */,
+				3BB7E693272AD07B00103205 /* NotoSansKR-Regular.otf */,
+				3BB7E68E272AD07A00103205 /* NotoSansKR-Thin.otf */,
 				3BB7E689272AA0CC00103205 /* BAZARONI.TTF */,
 			);
 			path = Fonts;
@@ -255,15 +273,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BB7E695272AD07B00103205 /* NotoSansKR-Medium.otf in Resources */,
 				3BB7E68A272AA0CC00103205 /* BAZARONI.TTF in Resources */,
 				FAB73319272A708A00E1D824 /* Analysis.storyboard in Resources */,
+				3BB7E698272AD07B00103205 /* NotoSansKR-Black.otf in Resources */,
 				3B4E4006272A6B5200577625 /* .swiftlint.yml in Resources */,
 				FAB7331D272A70A000E1D824 /* Feed.storyboard in Resources */,
 				FAB73315272A707200E1D824 /* Home.storyboard in Resources */,
 				FAB7331B272A709300E1D824 /* MyPage.storyboard in Resources */,
 				3B4E3FF4272A696F00577625 /* LaunchScreen.storyboard in Resources */,
+				3BB7E697272AD07B00103205 /* NotoSansKR-Bold.otf in Resources */,
 				FAB73317272A707B00E1D824 /* Tracking.storyboard in Resources */,
 				3B4E3FF1272A696F00577625 /* Assets.xcassets in Resources */,
+				3BB7E696272AD07B00103205 /* NotoSansKR-Light.otf in Resources */,
+				3BB7E694272AD07B00103205 /* NotoSansKR-Thin.otf in Resources */,
+				3BB7E699272AD07B00103205 /* NotoSansKR-Regular.otf in Resources */,
 				3B4E3FEF272A696E00577625 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -476,6 +500,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -487,7 +512,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -505,6 +530,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -516,7 +542,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
