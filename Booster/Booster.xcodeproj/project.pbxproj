@@ -15,6 +15,8 @@
 		3B4E3FF1272A696F00577625 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B4E3FF0272A696F00577625 /* Assets.xcassets */; };
 		3B4E3FF4272A696F00577625 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B4E3FF2272A696F00577625 /* LaunchScreen.storyboard */; };
 		3B4E4006272A6B5200577625 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3B4E4005272A6B5200577625 /* .swiftlint.yml */; };
+		3BB7E68A272AA0CC00103205 /* BAZARONI.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 3BB7E689272AA0CC00103205 /* BAZARONI.TTF */; };
+		3BB7E68D272AA13B00103205 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB7E68C272AA13B00103205 /* UIFont.swift */; };
 		FAB73315272A707200E1D824 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB73314272A707200E1D824 /* Home.storyboard */; };
 		FAB73317272A707B00E1D824 /* Tracking.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB73316272A707B00E1D824 /* Tracking.storyboard */; };
 		FAB73319272A708A00E1D824 /* Analysis.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB73318272A708A00E1D824 /* Analysis.storyboard */; };
@@ -34,6 +36,8 @@
 		3B4E3FF3272A696F00577625 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3B4E3FF5272A696F00577625 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B4E4005272A6B5200577625 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		3BB7E689272AA0CC00103205 /* BAZARONI.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = BAZARONI.TTF; sourceTree = "<group>"; };
+		3BB7E68C272AA13B00103205 /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		FAB73314272A707200E1D824 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		FAB73316272A707B00E1D824 /* Tracking.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tracking.storyboard; sourceTree = "<group>"; };
 		FAB73318272A708A00E1D824 /* Analysis.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Analysis.storyboard; sourceTree = "<group>"; };
@@ -84,6 +88,7 @@
 		3B4E3FE6272A696E00577625 /* Booster */ = {
 			isa = PBXGroup;
 			children = (
+				3BB7E68B272AA12C00103205 /* Extensions */,
 				3B4E4008272A6CD500577625 /* Models */,
 				3B4E4003272A6A2B00577625 /* AppDelegates */,
 				3B4E4002272A69F400577625 /* Repositories */,
@@ -121,6 +126,7 @@
 		3B4E3FFE272A69B700577625 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3BB7E688272AA0BF00103205 /* Fonts */,
 				3B4E3FF5272A696F00577625 /* Info.plist */,
 				3B4E3FF0272A696F00577625 /* Assets.xcassets */,
 			);
@@ -162,6 +168,22 @@
 			children = (
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		3BB7E688272AA0BF00103205 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				3BB7E689272AA0CC00103205 /* BAZARONI.TTF */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		3BB7E68B272AA12C00103205 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3BB7E68C272AA13B00103205 /* UIFont.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		E0CC376E0FACA7149AEAB802 /* Pods */ = {
@@ -233,6 +255,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BB7E68A272AA0CC00103205 /* BAZARONI.TTF in Resources */,
 				FAB73319272A708A00E1D824 /* Analysis.storyboard in Resources */,
 				3B4E4006272A6B5200577625 /* .swiftlint.yml in Resources */,
 				FAB7331D272A70A000E1D824 /* Feed.storyboard in Resources */,
@@ -294,6 +317,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BB7E68D272AA13B00103205 /* UIFont.swift in Sources */,
 				3B4E3FEC272A696E00577625 /* ViewController.swift in Sources */,
 				3B4E3FE8272A696E00577625 /* AppDelegate.swift in Sources */,
 				3B4E3FEA272A696E00577625 /* SceneDelegate.swift in Sources */,
