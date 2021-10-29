@@ -7,7 +7,7 @@
 <center><a href="https://drive.google.com/file/d/1CNYS-sfW_2_-8XrEFUkVxtWWV8voyOw8/view?usp=sharing">🌈 기획서<a href="https://github.com/boostcampwm-2021/iOS01-Booster/wiki">📁 위키<br></a>
 <br>
     
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fboostcampwm-2021%2FiOS01-Booster&count_bg=%23FF5C00&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Booster%F0%9F%9A%80%F0%9F%94%A5&edge_flat=false)](https://hits.seeyoufarm.com)
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fboostcampwm-2021%2FiOS01-Booster&count_bg=%23FF5C00&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Booster%F0%9F%9A%80%F0%9F%94%A5&edge_flat=false)](https://hits.seeyoufarm.com)<br>
 [![Swift](https://img.shields.io/badge/swift-v5.5-orange?logo=swift)](https://developer.apple.com/kr/swift/) [![Xcode](https://img.shields.io/badge/xcode-v13.0-blue?logo=xcode)](https://developer.apple.com/kr/xcode/)
 [![Cocoapods](https://img.shields.io/badge/Cocoapods-6933FF?logo=cocoapods)](https://cocoapods.org/) [![SwiftLint](https://img.shields.io/badge/SwiftLint-FF9E0F)](https://github.com/realm/SwiftLint) [![Figma](https://img.shields.io/badge/Figma-0C0C0C?logo=figma)](https://github.com/realm/SwiftLint)
 </center>
