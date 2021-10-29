@@ -12,15 +12,21 @@
 [![Cocoapods](https://img.shields.io/badge/Cocoapods-6933FF?logo=cocoapods)](https://cocoapods.org/) [![SwiftLint](https://img.shields.io/badge/SwiftLint-FF9E0F)](https://github.com/realm/SwiftLint) [![Figma](https://img.shields.io/badge/Figma-0C0C0C?logo=figma)](https://github.com/realm/SwiftLint)
 </center>
 </div>
+    
 ---
 
 
 ## 멤버
+<div align="center">
+<center>
+    
 | <img src="https://cdn4.iconfinder.com/data/icons/logos-3/504/Swift-2-512.png" width=15px> S014_김태훈 | <img src="https://cdn4.iconfinder.com/data/icons/logos-3/504/Swift-2-512.png" width=15px> S025_신명섭 | <img src="https://cdn4.iconfinder.com/data/icons/logos-3/504/Swift-2-512.png" width=15px> S050_이하원 | <img src="https://cdn4.iconfinder.com/data/icons/logos-3/504/Swift-2-512.png" width=15px> S060_최희주 |
 |:-:|:-:|:-:|:-:|
 |<img src="https://i.imgur.com/I3g5HkU.png" width="150">|<img src="https://i.imgur.com/GNC10jI.png" width="150">|<img src="https://i.imgur.com/jFNY6Sy.png" width="150">|<img src="https://i.imgur.com/cdOsNrV.png" width="150">
 | [@KTH-INHA-16](https://github.com/KTH-INHA-16) | [@s1gnature](https://github.com/s1gnature)   | [@Hani-Levenshtein](https://github.com/Hani-Levenshtein)       | [@rose6649](https://github.com/rose6649)   |
-
+    
+</center>
+</div>
 
 ## 팀 룰
 - 시간 약속 🕑
