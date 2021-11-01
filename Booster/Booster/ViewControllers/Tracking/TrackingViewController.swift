@@ -23,6 +23,8 @@ class TrackingViewController: UIViewController {
     }
 
     private func locationAuth() {
+        let distanceFilter: CLLocationDistance = 5
+        locationManager.distanceFilter = distanceFilter
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
