@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		1C3613AE7D2A68CE3264FA35 /* Pods_Booster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFF67BAD0AE292F3B50AE991 /* Pods_Booster.framework */; };
 		3B0EB30C272FBE0B005B5AFC /* CircleRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0EB30B272FBE0B005B5AFC /* CircleRenderer.swift */; };
+		3B0EB31E272FD1D7005B5AFC /* TrackingProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0EB31D272FD1D7005B5AFC /* TrackingProgressViewController.swift */; };
+		3B0EB321272FD248005B5AFC /* TrackingProgressMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0EB320272FD248005B5AFC /* TrackingProgressMapViewController.swift */; };
+		3B0EB323272FD26E005B5AFC /* TrackingProgressInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0EB322272FD26E005B5AFC /* TrackingProgressInfoViewController.swift */; };
 		3B4E3FE8272A696E00577625 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4E3FE7272A696E00577625 /* AppDelegate.swift */; };
 		3B4E3FEA272A696E00577625 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4E3FE9272A696E00577625 /* SceneDelegate.swift */; };
 		3B4E3FEF272A696E00577625 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B4E3FED272A696E00577625 /* Main.storyboard */; };
@@ -39,6 +42,9 @@
 		2765B4B3651662BDB6E801D4 /* Pods-Booster.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booster.debug.xcconfig"; path = "Target Support Files/Pods-Booster/Pods-Booster.debug.xcconfig"; sourceTree = "<group>"; };
 		32F204ADAD4BAE4318631952 /* Pods-Booster.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booster.release.xcconfig"; path = "Target Support Files/Pods-Booster/Pods-Booster.release.xcconfig"; sourceTree = "<group>"; };
 		3B0EB30B272FBE0B005B5AFC /* CircleRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleRenderer.swift; sourceTree = "<group>"; };
+		3B0EB31D272FD1D7005B5AFC /* TrackingProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingProgressViewController.swift; sourceTree = "<group>"; };
+		3B0EB320272FD248005B5AFC /* TrackingProgressMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingProgressMapViewController.swift; sourceTree = "<group>"; };
+		3B0EB322272FD26E005B5AFC /* TrackingProgressInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingProgressInfoViewController.swift; sourceTree = "<group>"; };
 		3B4E3FE4272A696E00577625 /* Booster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Booster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4E3FE7272A696E00577625 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B4E3FE9272A696E00577625 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +110,17 @@
 			path = Tracking;
 			sourceTree = "<group>";
 		};
+		3B0EB31F272FD225005B5AFC /* Tracking */ = {
+			isa = PBXGroup;
+			children = (
+				3BB7E69C272AD42200103205 /* TrackingViewController.swift */,
+				3B0EB31D272FD1D7005B5AFC /* TrackingProgressViewController.swift */,
+				3B0EB320272FD248005B5AFC /* TrackingProgressMapViewController.swift */,
+				3B0EB322272FD26E005B5AFC /* TrackingProgressInfoViewController.swift */,
+			);
+			path = Tracking;
+			sourceTree = "<group>";
+		};
 		3B4E3FDB272A696E00577625 = {
 			isa = PBXGroup;
 			children = (
@@ -156,8 +173,8 @@
 		3B4E3FFC272A698B00577625 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				3B0EB31F272FD225005B5AFC /* Tracking */,
 				3BB7E69A272AD40400103205 /* HomeViewController.swift */,
-				3BB7E69C272AD42200103205 /* TrackingViewController.swift */,
 				3BB7E69E272AD43F00103205 /* AnalysisViewController.swift */,
 				3BB7E6A0272AD45200103205 /* MyPageViewController.swift */,
 				3BB7E6A2272AD46800103205 /* FeedViewController.swift */,
@@ -364,10 +381,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B0EB321272FD248005B5AFC /* TrackingProgressMapViewController.swift in Sources */,
 				3B0EB30C272FBE0B005B5AFC /* CircleRenderer.swift in Sources */,
+				3B0EB323272FD26E005B5AFC /* TrackingProgressInfoViewController.swift in Sources */,
 				3BB7E69D272AD42200103205 /* TrackingViewController.swift in Sources */,
 				3BB7E68D272AA13B00103205 /* UIFont.swift in Sources */,
 				3BB7E6A1272AD45300103205 /* MyPageViewController.swift in Sources */,
+				3B0EB31E272FD1D7005B5AFC /* TrackingProgressViewController.swift in Sources */,
 				3BB7E69F272AD43F00103205 /* AnalysisViewController.swift in Sources */,
 				3B4E3FE8272A696E00577625 /* AppDelegate.swift in Sources */,
 				3B4E3FEA272A696E00577625 /* SceneDelegate.swift in Sources */,
