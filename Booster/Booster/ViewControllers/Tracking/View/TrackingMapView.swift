@@ -1,10 +1,3 @@
-//
-//  MapView.swift
-//  Booster
-//
-//  Created by mong on 2021/11/01.
-//
-
 import Foundation
 import UIKit
 import MapKit
@@ -23,7 +16,7 @@ class TrackingMapView: MKMapView {
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
+
         configure()
         locationAuth()
     }
@@ -37,7 +30,7 @@ class TrackingMapView: MKMapView {
     private func locationAuth() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        
+
         switch CLLocationManager.locationServicesEnabled() {
         case true:
             DispatchQueue.main.async { [weak self] in

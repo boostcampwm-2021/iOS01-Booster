@@ -21,6 +21,12 @@ class TrackingProgressMapViewController: UIViewController {
         layoutConfig()
         mapView.delegate = self
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        let countdownView = CountdownView(frame: view.frame)
+        view.addSubview(countdownView)
+        countdownView.start()
+    }
     // MARK: - @IBActions
 
     // MARK: - @objc

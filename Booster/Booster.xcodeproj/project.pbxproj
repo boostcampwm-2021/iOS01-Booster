@@ -32,6 +32,7 @@
 		3BB7E6A1272AD45300103205 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB7E6A0272AD45200103205 /* MyPageViewController.swift */; };
 		3BB7E6A3272AD46800103205 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB7E6A2272AD46800103205 /* FeedViewController.swift */; };
 		FA28B03D272FD5E7009D7630 /* TrackingMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA28B03C272FD5E7009D7630 /* TrackingMapView.swift */; };
+		FA28B03F272FE5FB009D7630 /* CountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA28B03E272FE5FB009D7630 /* CountdownView.swift */; };
 		FAB73315272A707200E1D824 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB73314272A707200E1D824 /* Home.storyboard */; };
 		FAB73317272A707B00E1D824 /* Tracking.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB73316272A707B00E1D824 /* Tracking.storyboard */; };
 		FAB73319272A708A00E1D824 /* Analysis.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB73318272A708A00E1D824 /* Analysis.storyboard */; };
@@ -68,6 +69,7 @@
 		3BB7E6A0272AD45200103205 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		3BB7E6A2272AD46800103205 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		FA28B03C272FD5E7009D7630 /* TrackingMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingMapView.swift; sourceTree = "<group>"; };
+		FA28B03E272FE5FB009D7630 /* CountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownView.swift; sourceTree = "<group>"; };
 		FAB73314272A707200E1D824 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		FAB73316272A707B00E1D824 /* Tracking.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tracking.storyboard; sourceTree = "<group>"; };
 		FAB73318272A708A00E1D824 /* Analysis.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Analysis.storyboard; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				FA28B03C272FD5E7009D7630 /* TrackingMapView.swift */,
+				FA28B03E272FE5FB009D7630 /* CountdownView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -402,6 +405,7 @@
 				3B0EB31E272FD1D7005B5AFC /* TrackingProgressViewController.swift in Sources */,
 				3BB7E69F272AD43F00103205 /* AnalysisViewController.swift in Sources */,
 				3B4E3FE8272A696E00577625 /* AppDelegate.swift in Sources */,
+				FA28B03F272FE5FB009D7630 /* CountdownView.swift in Sources */,
 				3B4E3FEA272A696E00577625 /* SceneDelegate.swift in Sources */,
 				3BB7E6A3272AD46800103205 /* FeedViewController.swift in Sources */,
 				3BB7E69B272AD40400103205 /* HomeViewController.swift in Sources */,
