@@ -16,7 +16,7 @@ class CircleRenderer: MKCircleRenderer {
 
         let gradientCenter = CGPoint(x: rect.midX, y: rect.midY)
         let gradientRadius = min(rect.size.width, rect.size.height) / 2
-        
+
         context.drawRadialGradient(gradient,
                                    startCenter: gradientCenter,
                                    startRadius: 0,

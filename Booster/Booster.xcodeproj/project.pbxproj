@@ -96,6 +96,14 @@
 			path = Renderers;
 			sourceTree = "<group>";
 		};
+		3B0EB31A272FCC6B005B5AFC /* Tracking */ = {
+			isa = PBXGroup;
+			children = (
+				FAB73316272A707B00E1D824 /* Tracking.storyboard */,
+			);
+			path = Tracking;
+			sourceTree = "<group>";
+		};
 		3B4E3FDB272A696E00577625 = {
 			isa = PBXGroup;
 			children = (
@@ -124,7 +132,6 @@
 				3B4E4003272A6A2B00577625 /* AppDelegates */,
 				3B4E4002272A69F400577625 /* Repositories */,
 				3B4E4001272A69ED00577625 /* ViewModels */,
-				3B4E3FFF272A69D500577625 /* Views */,
 				3B4E3FFE272A69B700577625 /* Resources */,
 				3B4E3FFC272A698B00577625 /* ViewControllers */,
 				3B4E3FFB272A697B00577625 /* Storyboards */,
@@ -135,10 +142,10 @@
 		3B4E3FFB272A697B00577625 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				3B0EB31A272FCC6B005B5AFC /* Tracking */,
 				3B4E3FF2272A696F00577625 /* LaunchScreen.storyboard */,
 				3B4E3FED272A696E00577625 /* Main.storyboard */,
 				FAB73314272A707200E1D824 /* Home.storyboard */,
-				FAB73316272A707B00E1D824 /* Tracking.storyboard */,
 				FAB73318272A708A00E1D824 /* Analysis.storyboard */,
 				FAB7331A272A709300E1D824 /* MyPage.storyboard */,
 				FAB7331C272A70A000E1D824 /* Feed.storyboard */,
@@ -166,13 +173,6 @@
 				3B4E3FF0272A696F00577625 /* Assets.xcassets */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		3B4E3FFF272A69D500577625 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		3B4E4001272A69ED00577625 /* ViewModels */ = {
