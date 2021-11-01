@@ -12,6 +12,7 @@
 		3B0EB31E272FD1D7005B5AFC /* TrackingProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0EB31D272FD1D7005B5AFC /* TrackingProgressViewController.swift */; };
 		3B0EB321272FD248005B5AFC /* TrackingProgressMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0EB320272FD248005B5AFC /* TrackingProgressMapViewController.swift */; };
 		3B0EB323272FD26E005B5AFC /* TrackingProgressInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0EB322272FD26E005B5AFC /* TrackingProgressInfoViewController.swift */; };
+		3B0EB326272FD724005B5AFC /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0EB325272FD724005B5AFC /* HealthKit.framework */; };
 		3B4E3FE8272A696E00577625 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4E3FE7272A696E00577625 /* AppDelegate.swift */; };
 		3B4E3FEA272A696E00577625 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4E3FE9272A696E00577625 /* SceneDelegate.swift */; };
 		3B4E3FEF272A696E00577625 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B4E3FED272A696E00577625 /* Main.storyboard */; };
@@ -45,6 +46,8 @@
 		3B0EB31D272FD1D7005B5AFC /* TrackingProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingProgressViewController.swift; sourceTree = "<group>"; };
 		3B0EB320272FD248005B5AFC /* TrackingProgressMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingProgressMapViewController.swift; sourceTree = "<group>"; };
 		3B0EB322272FD26E005B5AFC /* TrackingProgressInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingProgressInfoViewController.swift; sourceTree = "<group>"; };
+		3B0EB324272FD724005B5AFC /* Booster.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Booster.entitlements; sourceTree = "<group>"; };
+		3B0EB325272FD724005B5AFC /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		3B4E3FE4272A696E00577625 /* Booster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Booster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4E3FE7272A696E00577625 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B4E3FE9272A696E00577625 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +83,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C3613AE7D2A68CE3264FA35 /* Pods_Booster.framework in Frameworks */,
+				3B0EB326272FD724005B5AFC /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +93,7 @@
 		1CF21C398E7000BBC1BD4E07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3B0EB325272FD724005B5AFC /* HealthKit.framework */,
 				FFF67BAD0AE292F3B50AE991 /* Pods_Booster.framework */,
 			);
 			name = Frameworks;
@@ -143,6 +148,7 @@
 		3B4E3FE6272A696E00577625 /* Booster */ = {
 			isa = PBXGroup;
 			children = (
+				3B0EB324272FD724005B5AFC /* Booster.entitlements */,
 				3B0EB30A272FB30F005B5AFC /* Renderers */,
 				3BB7E68B272AA12C00103205 /* Extensions */,
 				3B4E4008272A6CD500577625 /* Models */,
@@ -540,6 +546,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Booster/Booster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
@@ -570,6 +577,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Booster/Booster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;

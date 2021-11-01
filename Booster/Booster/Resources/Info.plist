@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSHealthShareUsageDescription</key>
+	<string>운동 중 필요한 정보를 얻고 보여주기 위해 권한이 필요합니다.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>운동 중 필요한 정보를 얻고 보여주기 위해 권한이 필요합니다.</string>
+	<key>NSHealthClinicalHealthRecordsShareUsageDescription</key>
+	<string>운동 중 필요한 정보를 얻고 보여주기 위해 권한이 필요합니다.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>트래킹 및 현재 위치를 보여주기 위해 권한이 필요합니다.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
