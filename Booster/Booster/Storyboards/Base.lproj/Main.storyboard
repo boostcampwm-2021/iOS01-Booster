@@ -20,7 +20,7 @@
         <scene sceneID="bBI-4P-gay">
             <objects>
                 <viewControllerPlaceholder storyboardIdentifier="Tracking" storyboardName="Tracking" id="WDC-fW-hqj" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="pjy-3z-oIg"/>
+                    <tabBarItem key="tabBarItem" title="트래킹" id="pjy-3z-oIg"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NQI-ME-RkV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -64,7 +64,7 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="gPf-l2-P7d">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
                         <segue destination="ecx-f6-j6h" kind="relationship" relationship="viewControllers" id="Fha-ai-NKQ"/>

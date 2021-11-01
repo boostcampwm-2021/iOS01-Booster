@@ -1,30 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wXd-j9-ZVj">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--트래킹-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" sceneMemberID="viewController">
+                <viewController id="Y6W-OH-hqX" customClass="TrackingViewController" customModule="Booster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZzC-UF-L6k">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="tintColor" red="1" green="0.33152735230000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xud-Sp-XDJ">
+                                <rect key="frame" x="157" y="673" width="100" height="100"/>
+                                <color key="backgroundColor" red="1" green="0.33152735230000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="Gkj-Y2-n3V"/>
+                                    <constraint firstAttribute="width" constant="100" id="NCM-a8-RvX"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="시작">
+                                            <attributes>
+                                                <font key="NSFont" size="25" name="NotoSansKR-Bold"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ZzC-UF-L6k" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="Etg-At-HqY"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="xud-Sp-XDJ" secondAttribute="bottom" constant="40" id="GSF-gz-svb"/>
+                            <constraint firstItem="xud-Sp-XDJ" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="j7X-cs-Teg"/>
+                            <constraint firstItem="ZzC-UF-L6k" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="lxs-Bx-7bn"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="ZzC-UF-L6k" secondAttribute="bottom" id="mwf-Yo-0vd"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="ZzC-UF-L6k" secondAttribute="trailing" id="xqe-cL-LmS"/>
+                        </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="트래킹" image="heart" catalog="system" id="r2e-KS-f1C"/>
+                    <navigationItem key="navigationItem" id="aOz-4v-6u3"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="nextButton" destination="xud-Sp-XDJ" id="TQ0-BN-axQ"/>
+                        <outlet property="trackingMapView" destination="ZzC-UF-L6k" id="a6G-gU-gTL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="128" y="98"/>
+            <point key="canvasLocation" x="1037.68115942029" y="97.767857142857139"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="OpJ-13-fvS">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wXd-j9-ZVj" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="KoR-UW-7LE">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="Bw2-FA-Qg8"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pfc-MT-SmI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="127.53623188405798" y="97.767857142857139"/>
         </scene>
     </scenes>
     <resources>
+        <image name="heart" catalog="system" width="128" height="109"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
