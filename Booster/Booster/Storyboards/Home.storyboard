@@ -4,29 +4,117 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="BAZARONI.TTF">
+            <string>Bazaronite</string>
+        </array>
+        <array key="NotoSansKR-Light.otf">
+            <string>NotoSansKR-Light</string>
+        </array>
+        <array key="NotoSansKR-Regular.otf">
+            <string>NotoSansKR-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
-        <!--View Controller-->
+        <!--Home View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeViewController" id="Y6W-OH-hqX" customClass="HomeViewController" customModule="Booster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ssn-6d-STD">
+                                <rect key="frame" x="188.5" y="355.5" width="53.5" height="95.5"/>
+                                <fontDescription key="fontDescription" name="Bazaronite" family="Bazaronite" pointSize="80"/>
+                                <color key="textColor" red="0.92941176470588238" green="0.92941176470588238" blue="0.92941176470588238" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="576-pf-rBg">
+                                <rect key="frame" x="333" y="74.5" width="17" height="30"/>
+                                <fontDescription key="fontDescription" name="Bazaronite" family="Bazaronite" pointSize="25"/>
+                                <color key="textColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IOt-Vq-NdU">
+                                <rect key="frame" x="64" y="74.5" width="17" height="30"/>
+                                <fontDescription key="fontDescription" name="Bazaronite" family="Bazaronite" pointSize="25"/>
+                                <color key="textColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DK1-7W-5Tf">
+                                <rect key="frame" x="200" y="74.5" width="17" height="30"/>
+                                <fontDescription key="fontDescription" name="Bazaronite" family="Bazaronite" pointSize="25"/>
+                                <color key="textColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="kcal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F17-N7-fTR">
+                                <rect key="frame" x="56" y="114.5" width="28.5" height="22"/>
+                                <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="15"/>
+                                <color key="textColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time active" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w4J-fM-4aL">
+                                <rect key="frame" x="168.5" y="114.5" width="77.5" height="22"/>
+                                <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="15"/>
+                                <color key="textColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="km" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xHn-DV-MaZ">
+                                <rect key="frame" x="329" y="114.5" width="22.5" height="22"/>
+                                <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="15"/>
+                                <color key="textColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Goal 10000" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZn-KZ-HUf">
+                                <rect key="frame" x="187" y="471" width="40.5" height="43.5"/>
+                                <fontDescription key="fontDescription" name="NotoSansKR-Light" family="Noto Sans KR" pointSize="15"/>
+                                <color key="textColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hourly" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FqG-gg-gIl">
+                                <rect key="frame" x="30" y="661" width="46" height="22"/>
+                                <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="15"/>
+                                <color key="textColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="FqG-gg-gIl" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="4No-r3-mb8"/>
+                            <constraint firstItem="576-pf-rBg" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" multiplier="1.65" id="4gU-Ot-wec"/>
+                            <constraint firstItem="F17-N7-fTR" firstAttribute="top" secondItem="IOt-Vq-NdU" secondAttribute="bottom" constant="10" id="5KZ-2Y-8L3"/>
+                            <constraint firstItem="IOt-Vq-NdU" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" multiplier="0.2" id="61J-pS-Qju"/>
+                            <constraint firstItem="TZn-KZ-HUf" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="8Jl-ms-AJ2"/>
+                            <constraint firstItem="Ssn-6d-STD" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" multiplier="0.9" id="8Vn-4G-Ip2"/>
+                            <constraint firstItem="w4J-fM-4aL" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="Fpl-0F-OB4"/>
+                            <constraint firstItem="TZn-KZ-HUf" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" multiplier="1.1" id="KfM-fJ-FOK"/>
+                            <constraint firstItem="DK1-7W-5Tf" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" multiplier="1.008" id="Mj9-dP-EXh"/>
+                            <constraint firstItem="DK1-7W-5Tf" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" multiplier="0.2" id="TlP-AN-wVg"/>
+                            <constraint firstItem="FqG-gg-gIl" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" multiplier="1.5" id="TxX-2f-8JI"/>
+                            <constraint firstItem="xHn-DV-MaZ" firstAttribute="centerX" secondItem="576-pf-rBg" secondAttribute="centerX" multiplier="0.996" id="Zh7-Ct-618"/>
+                            <constraint firstItem="IOt-Vq-NdU" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" multiplier="0.35" id="abj-cV-5f4"/>
+                            <constraint firstItem="Ssn-6d-STD" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" multiplier="1.04" id="cvj-ls-Jg8"/>
+                            <constraint firstItem="xHn-DV-MaZ" firstAttribute="top" secondItem="576-pf-rBg" secondAttribute="bottom" constant="10" id="jbE-D7-EUl"/>
+                            <constraint firstItem="w4J-fM-4aL" firstAttribute="top" secondItem="DK1-7W-5Tf" secondAttribute="bottom" constant="10" id="mad-Fk-COx"/>
+                            <constraint firstItem="576-pf-rBg" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" multiplier="0.2" id="non-pq-QWR"/>
+                            <constraint firstItem="F17-N7-fTR" firstAttribute="centerX" secondItem="IOt-Vq-NdU" secondAttribute="centerX" multiplier="0.97" id="uKr-hb-i34"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="goalLabel" destination="TZn-KZ-HUf" id="TU4-Ra-AQ7"/>
+                        <outlet property="kcalLabel" destination="IOt-Vq-NdU" id="mHf-Oa-YZ3"/>
+                        <outlet property="kmLabel" destination="576-pf-rBg" id="Xhi-iJ-LE1"/>
+                        <outlet property="timeActiveLabel" destination="DK1-7W-5Tf" id="gcb-mb-QTF"/>
+                        <outlet property="todayTotalStepCountLabel" destination="Ssn-6d-STD" id="gdw-or-0vE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="128" y="98"/>
+            <point key="canvasLocation" x="127.53623188405798" y="97.767857142857139"/>
         </scene>
     </scenes>
-    <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>
