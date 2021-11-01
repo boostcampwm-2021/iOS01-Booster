@@ -13,15 +13,13 @@ class TrackingViewController: UIViewController {
         super.viewDidLoad()
 
         locationAuth()
+
+        nextButton.layer.cornerRadius = nextButton.bounds.width/2
         trackingMapView.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
-    }
-
-    private func makeButton() {
-        nextButton.layer.cornerRadius = nextButton.bounds.width/2
     }
 
     private func locationAuth() {
@@ -36,12 +34,6 @@ class TrackingViewController: UIViewController {
             }
         case false:
             break
-        }
-    }
-
-    private func userLocation() {
-        DispatchQueue.main.async { [weak self] in
-            self?.locationManager.startUpdatingLocation()
         }
     }
 }
