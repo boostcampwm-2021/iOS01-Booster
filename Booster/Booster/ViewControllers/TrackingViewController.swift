@@ -45,7 +45,7 @@ extension TrackingViewController: CLLocationManagerDelegate {
         }
 
         let regionRadius: CLLocationDistance = 100
-        let overlayRadius: CLLocationDistance = 15
+        let overlayRadius: CLLocationDistance = 20
         let coordRegion = MKCoordinateRegion(center: current.coordinate,
                                              latitudinalMeters: regionRadius*2,
                                              longitudinalMeters: regionRadius*2)
@@ -61,11 +61,9 @@ extension TrackingViewController: CLLocationManagerDelegate {
 
 extension TrackingViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        var circleRenderer = MKCircleRenderer()
+        var circleRenderer = CircleRenderer()
         if let overlay = overlay as? MKCircle {
-            circleRenderer = MKCircleRenderer(circle: overlay)
-            circleRenderer.fillColor = UIColor.init(red: 1.000, green: 0.332, blue: 0.000, alpha: 1)
-            circleRenderer.alpha = 0.1
+            circleRenderer = CircleRenderer(circle: overlay)
         }
 
         return circleRenderer
