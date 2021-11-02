@@ -11,7 +11,6 @@
 		3B0EB30C272FBE0B005B5AFC /* CircleRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0EB30B272FBE0B005B5AFC /* CircleRenderer.swift */; };
 		3B0EB31E272FD1D7005B5AFC /* TrackingProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0EB31D272FD1D7005B5AFC /* TrackingProgressViewController.swift */; };
 		3B0EB321272FD248005B5AFC /* TrackingProgressMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0EB320272FD248005B5AFC /* TrackingProgressMapViewController.swift */; };
-		3B0EB323272FD26E005B5AFC /* TrackingProgressInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0EB322272FD26E005B5AFC /* TrackingProgressInfoViewController.swift */; };
 		3B0EB326272FD724005B5AFC /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0EB325272FD724005B5AFC /* HealthKit.framework */; };
 		3B0EB328272FE76D005B5AFC /* NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0EB327272FE76D005B5AFC /* NSAttributedString.swift */; };
 		3B4E3FE8272A696E00577625 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4E3FE7272A696E00577625 /* AppDelegate.swift */; };
@@ -48,7 +47,6 @@
 		3B0EB30B272FBE0B005B5AFC /* CircleRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleRenderer.swift; sourceTree = "<group>"; };
 		3B0EB31D272FD1D7005B5AFC /* TrackingProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingProgressViewController.swift; sourceTree = "<group>"; };
 		3B0EB320272FD248005B5AFC /* TrackingProgressMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingProgressMapViewController.swift; sourceTree = "<group>"; };
-		3B0EB322272FD26E005B5AFC /* TrackingProgressInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingProgressInfoViewController.swift; sourceTree = "<group>"; };
 		3B0EB325272FD724005B5AFC /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		3B0EB327272FE76D005B5AFC /* NSAttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedString.swift; sourceTree = "<group>"; };
 		3B195ABC2730D6F700EB8533 /* Booster.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Booster.entitlements; sourceTree = "<group>"; };
@@ -128,7 +126,6 @@
 				3BB7E69C272AD42200103205 /* TrackingViewController.swift */,
 				3B0EB31D272FD1D7005B5AFC /* TrackingProgressViewController.swift */,
 				3B0EB320272FD248005B5AFC /* TrackingProgressMapViewController.swift */,
-				3B0EB322272FD26E005B5AFC /* TrackingProgressInfoViewController.swift */,
 			);
 			path = Tracking;
 			sourceTree = "<group>";
@@ -406,7 +403,6 @@
 			files = (
 				3B0EB321272FD248005B5AFC /* TrackingProgressMapViewController.swift in Sources */,
 				3B0EB30C272FBE0B005B5AFC /* CircleRenderer.swift in Sources */,
-				3B0EB323272FD26E005B5AFC /* TrackingProgressInfoViewController.swift in Sources */,
 				3BB7E69D272AD42200103205 /* TrackingViewController.swift in Sources */,
 				FA28B03D272FD5E7009D7630 /* TrackingMapView.swift in Sources */,
 				3BB7E68D272AA13B00103205 /* UIFont.swift in Sources */,

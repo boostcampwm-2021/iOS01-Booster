@@ -36,7 +36,7 @@ class TrackingProgressMapViewController: UIViewController {
 //        let countdownView = CountdownView(frame: view.frame)
 //        view.addSubview(countdownView)
 //        countdownView.start()
-        pedometer.startUpdates(from: Date()) { [weak self ] (data, error) in
+        pedometer.startUpdates(from: Date()) { [weak self ] (data, _) in
             if let data = data {
                 print("\(data.numberOfSteps)")
                 DispatchQueue.main.async {
