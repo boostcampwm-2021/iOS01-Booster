@@ -9,6 +9,15 @@ class TrackingProgressMapViewController: UIViewController {
 
     // MARK: - Variables
     private var mapView: MKMapView!
+    private var pedometerLabel: UILabel = {
+        let label = UILabel()
+
+        label.text = "1232"
+        label.font = .bazaronite(size: 60)
+        label.textColor = .black
+
+        return label
+    }()
 
     // MARK: - Subscript
 
@@ -16,16 +25,17 @@ class TrackingProgressMapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView = TrackingMapView(frame: view.frame)
-        view.addSubview(mapView)
-
-        layoutConfig()
         mapView.delegate = self
+
+        UIConfig()
+        layoutConfig()
+
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        let countdownView = CountdownView(frame: view.frame)
-        view.addSubview(countdownView)
-        countdownView.start()
+//        let countdownView = CountdownView(frame: view.frame)
+//        view.addSubview(countdownView)
+//        countdownView.start()
     }
     // MARK: - @IBActions
 
@@ -34,10 +44,20 @@ class TrackingProgressMapViewController: UIViewController {
     // MARK: - functions
     private func layoutConfig() {
         mapView.translatesAutoresizingMaskIntoConstraints = false
-        let leading = NSLayoutConstraint(item: mapView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0).isActive = true
-        let top = NSLayoutConstraint(item: mapView, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 0).isActive = true
-        let trailing = NSLayoutConstraint(item: mapView, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
-        let bottom = NSLayoutConstraint(item: mapView, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
+        pedometerLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        let mapViewLeading = NSLayoutConstraint(item: mapView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0).isActive = true
+        let mapViewTop = NSLayoutConstraint(item: mapView, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 0).isActive = true
+        let mapViewTrailing = NSLayoutConstraint(item: mapView, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
+        let mapViewBottom = NSLayoutConstraint(item: mapView, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
+
+        let pedometerLabelTrailing = NSLayoutConstraint(item: pedometerLabel, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: -10).isActive = true
+        let pedometerLabelBottom = NSLayoutConstraint(item: pedometerLabel, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: -10).isActive = true
+    }
+
+    private func UIConfig() {
+        view.addSubview(mapView)
+        view.addSubview(pedometerLabel)
     }
 }
 

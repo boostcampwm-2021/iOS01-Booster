@@ -32,7 +32,7 @@ class CountdownView: UIView {
         countdownLabel.frame = CGRect(x: 0, y: self.center.y, width: 10, height: 10)
         countdownLabel.text = "\(countdown)"
 
-        UIView.animate(withDuration: 0.5, delay: 0,
+        UIView.animate(withDuration: 0.4, delay: 0,
                        options: .curveEaseIn,
                        animations: { [unowned self] in
 //            countdownLabel.font = .bazaronite(size: 200)
@@ -40,8 +40,8 @@ class CountdownView: UIView {
 //            countdownLabel.transform = countdownLabel.transform.scaledBy(x: 2, y: 2)
         },
                        completion: { [unowned self] _ in
-            UIView.animate(withDuration: 0.5,
-                           delay: 0,
+            UIView.animate(withDuration: 0.6,
+                           delay: 0.2,
                            options: .curveEaseOut,
                            animations: {
 //                countdownLabel.font = .bazaronite(size: 100)

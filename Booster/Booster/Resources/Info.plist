@@ -6,6 +6,8 @@
 	<string>트래킹 및 현재 위치를 보여주기 위해 권한이 필요합니다.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>트래킹 및 현재 위치를 보여주기 위해 권한이 필요합니다.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>걸음 수 트래킹을 위해 권한이 필요합니다</string>
 	<key>NSLocationUsageDescription</key>
 	<string>트래킹 및 현재 위치를 보여주기 위해 권한이 필요합니다.</string>
 	<key>UIAppFonts</key>
