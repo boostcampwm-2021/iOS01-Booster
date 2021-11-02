@@ -60,8 +60,8 @@ class TrackingProgressInfoViewController: UIViewController {
     private func makeAttributedText(content: String, title: String) -> NSMutableAttributedString {
         let mutableString = NSMutableAttributedString()
 
-        let contentText: NSAttributedString = .make(text: content, font: .bazaronite(size: 35), color: .black)
-        let titleText: NSAttributedString = .make(text: title, font: .notoSansKR(.light, 15), color: .black)
+        let contentText: NSAttributedString = .makeAttributedString(text: content, font: .bazaronite(size: 35), color: .black)
+        let titleText: NSAttributedString = .makeAttributedString(text: title, font: .notoSansKR(.light, 15), color: .black)
 
         [contentText, titleText].forEach {
             mutableString.append($0)
