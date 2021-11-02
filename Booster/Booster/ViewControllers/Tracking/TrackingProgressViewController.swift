@@ -21,9 +21,18 @@ class TrackingProgressViewController: UIViewController {
     private var timer: Timer = Timer()
     private var startDate: Date = Date()
     private var manager: CLLocationManager = CLLocationManager()
-    private let pedometer = CMPedometer()
     private var startLocation: CLLocation?
     private var lastLocation: CLLocation?
+    private lazy var imagePickerController: UIImagePickerController = {
+       let pickerController = UIImagePickerController()
+        pickerController.sourceType = .camera
+        pickerController.allowsEditing = true
+        pickerController.cameraDevice = .rear
+        pickerController.cameraCaptureMode = .photo
+        pickerController.delegate = self
+        return pickerController
+    }()
+    private let pedometer = CMPedometer()
 
     @IBOutlet weak var mapView: TrackingMapView!
     @IBOutlet weak var pedometerLabel: UILabel!
@@ -132,7 +141,12 @@ class TrackingProgressViewController: UIViewController {
     }
 
     @IBAction func leftTouchUp(_ sender: UIButton) {
-
+        switch isPause {
+        case false:
+            present(imagePickerController, animated: true)
+        case true:
+            break
+        }
     }
 
     @IBAction func rightTouchUp(_ sender: Any) {
@@ -213,5 +227,14 @@ extension TrackingProgressViewController: MKMapViewDelegate {
         polyLineRenderer.lineWidth = 8
 
         return polyLineRenderer
+    }
+}
+
+extension TrackingProgressViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            print(image)
+        }
+        picker.dismiss(animated: true, completion: nil)
     }
 }
