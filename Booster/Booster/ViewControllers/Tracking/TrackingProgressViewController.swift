@@ -237,6 +237,7 @@ extension TrackingProgressViewController: MKMapViewDelegate {
         customView.photoImageView.image = UIImage(systemName: "camera")
         customView.photoImageView.backgroundColor = .white
         annotationView?.addSubview(customView)
+        annotationView?.centerOffset = CGPoint(x: -customView.frame.width / 2.0, y: -customView.frame.height)
 
         return annotationView
     }
