@@ -43,6 +43,7 @@ class TrackingProgressViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = false
+        mapView.start()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -135,8 +136,8 @@ class TrackingProgressViewController: UIViewController {
         if !mapView.addMileStonePhoto() {
             let alert = UIAlertController.simpleAlert(title: "추가 실패", message: "mapView에 위치 데이터 존재하지 않음")
             present(alert, animated: true, completion: nil)
+            return
         }
-        print("## add!")
     }
 
     @IBAction func rightTouchUp(_ sender: Any) {

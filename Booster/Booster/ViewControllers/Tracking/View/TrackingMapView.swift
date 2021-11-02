@@ -13,6 +13,8 @@ class TrackingMapView: MKMapView {
 
         configure()
         locationAuth()
+
+        mapType = .standard
     }
 
     required init?(coder: NSCoder) {
@@ -43,6 +45,7 @@ class TrackingMapView: MKMapView {
         guard let currentPoint = currentCoordinate() else { return false }
         let annotation = MKPointAnnotation()
         annotation.coordinate = CLLocationCoordinate2D(latitude: currentPoint.latitude, longitude: currentPoint.longitude)
+        addAnnotation(annotation)
 
         return true
     }
