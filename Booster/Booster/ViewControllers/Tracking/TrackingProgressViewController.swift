@@ -39,6 +39,7 @@ class TrackingProgressViewController: UIViewController {
         textField.attributedPlaceholder = .makeAttributedString(text: "제목", font: .notoSansKR(.medium, 25), color: .lightGray)
         textField.autocorrectionType = .no
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.delegate = self
         return textField
     }()
     private lazy var contentTextView: UITextView = {
@@ -71,6 +72,7 @@ class TrackingProgressViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        configureNotifications()
         configure()
         locationAuth()
         delegate?.location(mapView: mapView)
@@ -88,6 +90,15 @@ class TrackingProgressViewController: UIViewController {
                 }
             }
         }
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+
+    func configureNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     private func configure() {
@@ -244,6 +255,26 @@ class TrackingProgressViewController: UIViewController {
         timeLabel.attributedText = makeAttributedText(content: timeContent, title: timeTitle)
         kcalLabel.attributedText = makeAttributedText(content: kcalContent, title: kcalTitle)
     }
+
+    @objc
+    private func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+           let tabBarHeight = self.tabBarController?.tabBar.frame.height {
+            let keyboardRect = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRect.height
+            view.frame.origin.y -= keyboardHeight - tabBarHeight
+        }
+    }
+
+    @objc
+    private func keyboardWillHide(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+           let tabBarHeight = self.tabBarController?.tabBar.frame.height {
+            let keyboardRect = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRect.height
+            view.frame.origin.y += keyboardHeight - tabBarHeight
+        }
+    }
 }
 
 extension TrackingProgressViewController: CLLocationManagerDelegate {
@@ -304,17 +335,31 @@ extension TrackingProgressViewController: UIImagePickerControllerDelegate & UINa
 }
 
 extension TrackingProgressViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            textView.resignFirstResponder()
+        }
+        return true
+    }
+
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.lightGray {
             textView.text = nil
-            textView.textColor = UIColor.white
+            textView.textColor = .white
         }
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
             textView.text = "오늘 산책은 어땠나요?"
-            textView.textColor = UIColor.lightGray
+            textView.textColor = .lightGray
         }
+    }
+}
+
+extension TrackingProgressViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

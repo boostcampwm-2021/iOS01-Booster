@@ -164,7 +164,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xiY-zH-yaJ"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="RB0-kQ-AuZ" firstAttribute="top" secondItem="xiY-zH-yaJ" secondAttribute="top" id="9Qg-Gy-HSS"/>
                             <constraint firstItem="xiY-zH-yaJ" firstAttribute="trailing" secondItem="RB0-kQ-AuZ" secondAttribute="trailing" id="Lmc-I6-4k1"/>
@@ -223,6 +223,9 @@
         <image name="pause" catalog="system" width="88" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGroupedBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
