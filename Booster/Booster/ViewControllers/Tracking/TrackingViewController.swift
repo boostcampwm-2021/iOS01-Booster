@@ -2,7 +2,7 @@ import UIKit
 import MapKit
 
 protocol TrackingProgressDelegate: AnyObject {
-    func location(viewController: TrackingProgressViewController)
+    func location(mapView: TrackingMapView)
 }
 
 class TrackingViewController: UIViewController {
@@ -52,8 +52,8 @@ class TrackingViewController: UIViewController {
 }
 
 extension TrackingViewController: TrackingProgressDelegate {
-    func location(viewController: TrackingProgressViewController) {
-        viewController.mapView.configure(location: current)
+    func location(mapView: TrackingMapView) {
+        mapView.configure(location: current)
     }
 }
 

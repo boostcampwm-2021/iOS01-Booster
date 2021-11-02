@@ -32,6 +32,25 @@ class TrackingProgressViewController: UIViewController {
         pickerController.delegate = self
         return pickerController
     }()
+    private lazy var titleTextField: UITextField = {
+        let textField = UITextField(frame: self.view.frame)
+        textField.font = .notoSansKR(.medium, 25)
+        textField.textColor = .white
+        textField.attributedPlaceholder = .makeAttributedString(text: "제목", font: .notoSansKR(.medium, 25), color: .lightGray)
+        textField.autocorrectionType = .no
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    private lazy var contentTextView: UITextView = {
+        let textView = UITextView()
+        textView.backgroundColor = .black
+        textView.font = .notoSansKR(.light, 17)
+        textView.text = "오늘 산책은 어땠나요?"
+        textView.textColor = .lightGray
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.delegate = self
+        return textView
+    }()
     private let pedometer = CMPedometer()
 
     @IBOutlet weak var mapView: TrackingMapView!
@@ -42,28 +61,31 @@ class TrackingProgressViewController: UIViewController {
     @IBOutlet weak var leftButton: UIButton!
     @IBOutlet weak var rightButton: UIButton!
     @IBOutlet weak var infoView: UIView!
+    @IBOutlet weak var pedometerTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var pedometerTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var mapViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var kcalTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var timeTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var distanceTopConstraint: NSLayoutConstraint!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configure()
         locationAuth()
+        delegate?.location(mapView: mapView)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = false
-        delegate?.location(viewController: self)
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        pedometer.startUpdates(from: Date()) { [weak self ] (data, _) in
+        pedometer.startUpdates(from: Date()) { [weak self] (data, _) in
             if let data = data {
-                print("\(data.numberOfSteps)")
                 DispatchQueue.main.async {
                     self?.pedometerLabel.text = "\(data.numberOfSteps.intValue)"
                 }
-            } else {
-                print("## error")
             }
         }
     }
@@ -89,6 +111,9 @@ class TrackingProgressViewController: UIViewController {
         rightButton.layer.cornerRadius = radius
 
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingTimer), userInfo: nil, repeats: true)
+        [mapView, kcalLabel, timeLabel, distanceLabel, pedometerLabel].forEach {
+            $0?.translatesAutoresizingMaskIntoConstraints = false
+        }
         mapView.delegate = self
     }
 
@@ -107,6 +132,18 @@ class TrackingProgressViewController: UIViewController {
         leftButton.setImage(isPause ? Image.camera : Image.stop, for: .normal)
     }
 
+    private func configureWrite() {
+        infoView.addSubview(titleTextField)
+        infoView.addSubview(contentTextView)
+        titleTextField.topAnchor.constraint(equalTo: kcalLabel.bottomAnchor, constant: 20).isActive = true
+        titleTextField.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -20).isActive = true
+        titleTextField.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 20).isActive = true
+        contentTextView.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 20).isActive = true
+        contentTextView.bottomAnchor.constraint(equalTo: infoView.bottomAnchor, constant: -10).isActive = true
+        contentTextView.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -20).isActive = true
+        contentTextView.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 20).isActive = true
+    }
+
     private func locationAuth() {
         if CLLocationManager.locationServicesEnabled() {
             manager.delegate = self
@@ -118,6 +155,30 @@ class TrackingProgressViewController: UIViewController {
             }
             manager.distanceFilter = 10
         }
+    }
+
+    private func stopAnimation() {
+        UIView.animate(withDuration: 1, animations: { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.leftButton.isHidden = true
+            self.rightButton.isHidden = true
+            self.pedometerLabel.textColor = .white
+            self.mapViewBottomConstraint.constant = self.view.frame.maxY - 290
+            self.pedometerTrailingConstraint.constant = self.view.frame.maxX - 165
+            self.pedometerTopConstraint.constant = 20
+            [self.timeTopConstraint, self.kcalTopConstraint, self.distanceTopConstraint].forEach {
+                $0.constant = 130
+            }
+            self.view.layoutIfNeeded()
+            self.infoView.layoutIfNeeded()
+        }, completion: { [weak self] _ in
+            guard let self = self else {
+                return
+            }
+            self.configureWrite()
+        })
     }
 
     private func makeTimerText(second: Int, minute: Int) -> String {
@@ -145,7 +206,7 @@ class TrackingProgressViewController: UIViewController {
         case false:
             present(imagePickerController, animated: true)
         case true:
-            break
+            stopAnimation()
         }
     }
 
@@ -239,5 +300,21 @@ extension TrackingProgressViewController: UIImagePickerControllerDelegate & UINa
             print(image)
         }
         picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension TrackingProgressViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.white
+        }
+    }
+
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "오늘 산책은 어땠나요?"
+            textView.textColor = UIColor.lightGray
+        }
     }
 }
