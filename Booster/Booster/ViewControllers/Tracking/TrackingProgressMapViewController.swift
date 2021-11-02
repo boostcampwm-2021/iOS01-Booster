@@ -1,6 +1,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import CoreMotion
 
 class TrackingProgressMapViewController: UIViewController {
     // MARK: - Enum
@@ -9,6 +10,7 @@ class TrackingProgressMapViewController: UIViewController {
 
     // MARK: - Variables
     private var mapView: MKMapView!
+    private let pedometer = CMPedometer()
     private var pedometerLabel: UILabel = {
         let label = UILabel()
 
@@ -18,7 +20,6 @@ class TrackingProgressMapViewController: UIViewController {
 
         return label
     }()
-
     // MARK: - Subscript
 
     // MARK: - viewDidLoad or init
@@ -29,13 +30,22 @@ class TrackingProgressMapViewController: UIViewController {
 
         UIConfig()
         layoutConfig()
-
     }
 
     override func viewDidAppear(_ animated: Bool) {
 //        let countdownView = CountdownView(frame: view.frame)
 //        view.addSubview(countdownView)
 //        countdownView.start()
+        pedometer.startUpdates(from: Date()) { [weak self ] (data, error) in
+            if let data = data {
+                print("\(data.numberOfSteps)")
+                DispatchQueue.main.async {
+                    self?.pedometerLabel.text = "\(data.numberOfSteps.intValue)"
+                }
+            } else {
+                print("## error")
+            }
+        }
     }
     // MARK: - @IBActions
 
