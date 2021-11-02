@@ -2,7 +2,6 @@ import UIKit
 import MapKit
 import CoreLocation
 import CoreMotion
-import HealthKit
 
 class TrackingProgressViewController: UIViewController {
     enum Color {
@@ -69,7 +68,7 @@ class TrackingProgressViewController: UIViewController {
     }
 
     private func configure() {
-        let timeContent = makeTimerText(second: 0, minute: 0, hour: 0)
+        let timeContent = makeTimerText(second: 0, minute: 0)
         let kcalContent = "0\n"
         let distanceContent = "0\n"
         let kcalTitle = "kcal"
@@ -120,9 +119,8 @@ class TrackingProgressViewController: UIViewController {
         }
     }
 
-    private func makeTimerText(second: Int, minute: Int, hour: Int) -> String {
+    private func makeTimerText(second: Int, minute: Int) -> String {
         var text = ""
-        text += "\(hour == 0 ? "" : "\(hour < 10 ? "0\(hour): " : "\(hour):")")"
         text += "\(minute < 10 ? "0\(minute)'" : "\(minute)'")"
         text += "\(second < 10 ? "0\(second)\"\n" : "\(second)\"\n")"
         return text
@@ -175,9 +173,8 @@ class TrackingProgressViewController: UIViewController {
         let time = -Int(startDate.timeIntervalSinceNow) + self.time
         let seconds = time % 60
         let minutes = (time / 60) % 60
-        let hours = (time / 3600)
 
-        let timeContent = makeTimerText(second: seconds, minute: minutes, hour: hours)
+        let timeContent = makeTimerText(second: seconds, minute: minutes)
         let timeTitle = "time"
         let kcalContent = "\(Int(60 / 15 * 0.9 * Double(minutes)))\n"
         let kcalTitle = "kcal"
