@@ -5,7 +5,8 @@ import MapKit
 class TrackingMapView: MKMapView {
     private var locationManager = CLLocationManager()
     private var overlay: MKOverlay = MKCircle()
-    private var locationPath: [CLLocationCoordinate2D] = []
+    private var locationPath: [CLLocationCoordinate2D?] = []
+    private var isRunning: Bool = false
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -19,6 +20,38 @@ class TrackingMapView: MKMapView {
 
         configure()
         locationAuth()
+    }
+
+    func start() {
+        isRunning = true
+    }
+
+    func pause() {
+        isRunning = false
+        locationPath.append(nil)
+    }
+
+    func stop() {
+
+    }
+
+    func currentCoordinate() -> CLLocationCoordinate2D? {
+        return locationPath.last ?? nil
+    }
+
+    func addMileStonePhoto() -> Bool {
+        guard let currentPoint = currentCoordinate() else { return false }
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2D(latitude: currentPoint.latitude, longitude: currentPoint.longitude)
+
+        return true
+    }
+
+    func addMileStonePhoto(latitude lat: CLLocationDegrees, longitude long: CLLocationDegrees) {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+
+        addAnnotation(annotation)
     }
 
     private func configure() {
@@ -40,17 +73,12 @@ class TrackingMapView: MKMapView {
             break
         }
     }
-}
-
-extension TrackingMapView: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        updateUserLocationOverlay(location: locations.first)
-        drawPath(to: locations.first?.coordinate)
-    }
 
     private func drawPath(to currentCoordinate: CLLocationCoordinate2D?) {
         guard let currentCoordinate = currentCoordinate else { return }
-        guard let prevCoordinate = locationPath.last else {
+        guard let latestCoordinate = locationPath.last,
+              let prevCoordinate = latestCoordinate
+        else {
             locationPath.append(currentCoordinate)
             return
         }
@@ -79,5 +107,12 @@ extension TrackingMapView: CLLocationManagerDelegate {
         setRegion(coordRegion, animated: true)
 
         addOverlay(overlay)
+    }
+}
+
+extension TrackingMapView: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        updateUserLocationOverlay(location: locations.first)
+        if isRunning { drawPath(to: locations.first?.coordinate) }
     }
 }

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="PhotoAnnotationView" customModule="Booster" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="115" height="118"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PD4-dn-uXH">
+                    <rect key="frame" x="43.5" y="45" width="28" height="28"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fCw-BQ-9eW">
+                            <rect key="frame" x="2" y="2" width="24" height="24"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="12"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="0.36078431372549019" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="28" id="9qr-0g-Xib"/>
+                        <constraint firstItem="fCw-BQ-9eW" firstAttribute="leading" secondItem="PD4-dn-uXH" secondAttribute="leading" constant="2" id="Hxc-Io-iqZ"/>
+                        <constraint firstItem="fCw-BQ-9eW" firstAttribute="top" secondItem="PD4-dn-uXH" secondAttribute="top" constant="2" id="JIc-5t-crp"/>
+                        <constraint firstAttribute="bottom" secondItem="fCw-BQ-9eW" secondAttribute="bottom" constant="2" id="JKz-IG-Vhp"/>
+                        <constraint firstAttribute="height" constant="28" id="XoY-zr-pKk"/>
+                        <constraint firstItem="fCw-BQ-9eW" firstAttribute="centerY" secondItem="PD4-dn-uXH" secondAttribute="centerY" id="Y0z-Iv-WWA"/>
+                        <constraint firstItem="fCw-BQ-9eW" firstAttribute="centerX" secondItem="PD4-dn-uXH" secondAttribute="centerX" id="u1a-ov-j2M"/>
+                        <constraint firstAttribute="trailing" secondItem="fCw-BQ-9eW" secondAttribute="trailing" constant="2" id="uAx-GZ-gyA"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="14"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="PD4-dn-uXH" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="U8p-nI-Q24"/>
+                <constraint firstItem="PD4-dn-uXH" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="jUV-0P-jkJ"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="backgroundView" destination="PD4-dn-uXH" id="qgJ-NO-Pl8"/>
+                <outlet property="photoImageView" destination="fCw-BQ-9eW" id="3X3-Nt-jeo"/>
+            </connections>
+            <point key="canvasLocation" x="-22.463768115942031" y="248.4375"/>
+        </view>
+    </objects>
+</document>

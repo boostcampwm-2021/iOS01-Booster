@@ -34,6 +34,9 @@
 		3BB7E6A3272AD46800103205 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB7E6A2272AD46800103205 /* FeedViewController.swift */; };
 		FA28B03D272FD5E7009D7630 /* TrackingMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA28B03C272FD5E7009D7630 /* TrackingMapView.swift */; };
 		FA28B03F272FE5FB009D7630 /* CountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA28B03E272FE5FB009D7630 /* CountdownView.swift */; };
+		FAA79EAB273114260096F789 /* PhotoAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA79EAA273114260096F789 /* PhotoAnnotationView.swift */; };
+		FAA79EAD273120650096F789 /* PhotoAnnotationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAA79EAC273120650096F789 /* PhotoAnnotationView.xib */; };
+		FAA79EAF2731277B0096F789 /* UIAlertController+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA79EAE2731277B0096F789 /* UIAlertController+Extention.swift */; };
 		FAB73315272A707200E1D824 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB73314272A707200E1D824 /* Home.storyboard */; };
 		FAB73317272A707B00E1D824 /* Tracking.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB73316272A707B00E1D824 /* Tracking.storyboard */; };
 		FAB73319272A708A00E1D824 /* Analysis.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB73318272A708A00E1D824 /* Analysis.storyboard */; };
@@ -73,6 +76,9 @@
 		3BB7E6A2272AD46800103205 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		FA28B03C272FD5E7009D7630 /* TrackingMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingMapView.swift; sourceTree = "<group>"; };
 		FA28B03E272FE5FB009D7630 /* CountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownView.swift; sourceTree = "<group>"; };
+		FAA79EAA273114260096F789 /* PhotoAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAnnotationView.swift; sourceTree = "<group>"; };
+		FAA79EAC273120650096F789 /* PhotoAnnotationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoAnnotationView.xib; sourceTree = "<group>"; };
+		FAA79EAE2731277B0096F789 /* UIAlertController+Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extention.swift"; sourceTree = "<group>"; };
 		FAB73314272A707200E1D824 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		FAB73316272A707B00E1D824 /* Tracking.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tracking.storyboard; sourceTree = "<group>"; };
 		FAB73318272A708A00E1D824 /* Analysis.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Analysis.storyboard; sourceTree = "<group>"; };
@@ -251,6 +257,7 @@
 			children = (
 				3BB7E68C272AA13B00103205 /* UIFont.swift */,
 				3B0EB327272FE76D005B5AFC /* NSAttributedString.swift */,
+				FAA79EAE2731277B0096F789 /* UIAlertController+Extention.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -269,6 +276,8 @@
 			children = (
 				FA28B03C272FD5E7009D7630 /* TrackingMapView.swift */,
 				FA28B03E272FE5FB009D7630 /* CountdownView.swift */,
+				FAA79EAA273114260096F789 /* PhotoAnnotationView.swift */,
+				FAA79EAC273120650096F789 /* PhotoAnnotationView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -346,6 +355,7 @@
 				FAB73317272A707B00E1D824 /* Tracking.storyboard in Resources */,
 				3B4E3FF1272A696F00577625 /* Assets.xcassets in Resources */,
 				3BB7E696272AD07B00103205 /* NotoSansKR-Light.otf in Resources */,
+				FAA79EAD273120650096F789 /* PhotoAnnotationView.xib in Resources */,
 				3BB7E694272AD07B00103205 /* NotoSansKR-Thin.otf in Resources */,
 				3BB7E699272AD07B00103205 /* NotoSansKR-Regular.otf in Resources */,
 				3B4E3FEF272A696E00577625 /* Main.storyboard in Resources */,
@@ -412,7 +422,9 @@
 				3B4E3FE8272A696E00577625 /* AppDelegate.swift in Sources */,
 				FA28B03F272FE5FB009D7630 /* CountdownView.swift in Sources */,
 				3B4E3FEA272A696E00577625 /* SceneDelegate.swift in Sources */,
+				FAA79EAB273114260096F789 /* PhotoAnnotationView.swift in Sources */,
 				3BB7E6A3272AD46800103205 /* FeedViewController.swift in Sources */,
+				FAA79EAF2731277B0096F789 /* UIAlertController+Extention.swift in Sources */,
 				3B0EB328272FE76D005B5AFC /* NSAttributedString.swift in Sources */,
 				3BB7E69B272AD40400103205 /* HomeViewController.swift in Sources */,
 			);

@@ -132,7 +132,11 @@ class TrackingProgressViewController: UIViewController {
     }
 
     @IBAction func leftTouchUp(_ sender: UIButton) {
-
+        if !mapView.addMileStonePhoto() {
+            let alert = UIAlertController.simpleAlert(title: "추가 실패", message: "mapView에 위치 데이터 존재하지 않음")
+            present(alert, animated: true, completion: nil)
+        }
+        print("## add!")
     }
 
     @IBAction func rightTouchUp(_ sender: Any) {
@@ -140,6 +144,7 @@ class TrackingProgressViewController: UIViewController {
         isPause.toggle()
         switch isPause {
         case false:
+            mapView.start()
             startDate = Date()
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingTimer), userInfo: nil, repeats: true)
             DispatchQueue.main.async { [weak self] in
@@ -147,6 +152,7 @@ class TrackingProgressViewController: UIViewController {
                 self?.manager.startMonitoringSignificantLocationChanges()
             }
         case true:
+            mapView.pause()
             self.time -= Int(startDate.timeIntervalSinceNow)
             startLocation = nil
             timer.invalidate()
@@ -213,5 +219,24 @@ extension TrackingProgressViewController: MKMapViewDelegate {
         polyLineRenderer.lineWidth = 8
 
         return polyLineRenderer
+    }
+
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation { return nil }
+
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "photoMarker")
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "photoMarker")
+            annotationView!.canShowCallout = true
+        } else {
+            annotationView?.annotation = annotation
+        }
+
+        guard let customView = UINib(nibName: "PhotoAnnotationView", bundle: nil).instantiate(withOwner: self, options: nil).first as? PhotoAnnotationView else { return nil }
+        customView.photoImageView.image = UIImage(systemName: "camera")
+        customView.photoImageView.backgroundColor = .white
+        annotationView?.addSubview(customView)
+
+        return annotationView
     }
 }
