@@ -1,6 +1,5 @@
 import UIKit
 import MapKit
-import CoreLocation
 import CoreMotion
 
 class TrackingProgressViewController: UIViewController {
@@ -15,6 +14,7 @@ class TrackingProgressViewController: UIViewController {
         static let play = UIImage(systemName: "play")
     }
 
+    weak var delegate: TrackingProgressDelegate?
     private var time: Int = 0
     private var distance: Double = 0.0
     private var isPause: Bool = false
@@ -52,6 +52,7 @@ class TrackingProgressViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = false
+        delegate?.location(viewController: self)
     }
 
     override func viewDidAppear(_ animated: Bool) {
