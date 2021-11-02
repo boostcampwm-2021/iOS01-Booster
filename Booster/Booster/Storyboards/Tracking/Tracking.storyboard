@@ -186,9 +186,10 @@
                                 </constraints>
                                 <color key="tintColor" red="1" green="0.33152735230000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain">
-                                    <imageReference key="image" image="pause" catalog="system" symbolScale="large"/>
-                                </buttonConfiguration>
+                                <buttonConfiguration key="configuration" style="plain" image="pause" catalog="system"/>
+                                <connections>
+                                    <action selector="rightTouchUp:" destination="iDn-j6-LGf" eventType="touchUpInside" id="Xqu-eB-jKJ"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NJg-AX-Bvz">
                                 <rect key="frame" x="50" y="129" width="100" height="100"/>
@@ -201,6 +202,9 @@
                                 <buttonConfiguration key="configuration" style="plain">
                                     <imageReference key="image" image="camera" catalog="system" symbolScale="large"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="leftTouchUp:" destination="iDn-j6-LGf" eventType="touchUpInside" id="r6b-Fk-WTN"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Kds-TS-Voi"/>

@@ -4,15 +4,23 @@ import MapKit
 
 class TrackingProgressInfoViewController: UIViewController {
     enum Color {
-        static let orange: UIColor = UIColor.init(red: 1.0, green: 0.332, blue: 0.0, alpha: 1)
+        static let orange = UIColor.init(red: 1.0, green: 0.332, blue: 0.0, alpha: 1)
+    }
+
+    enum Image {
+        static let pause = UIImage(systemName: "pause")
+        static let camera = UIImage(systemName: "camera")
+        static let stop = UIImage(systemName: "stop")
+        static let play = UIImage(systemName: "play")
     }
 
     private var manager: CLLocationManager = CLLocationManager()
     private var startLocation: CLLocation?
     private var lastLocation: CLLocation?
+    private var time: Int = 0
     private var distance: Double = 0.0
     private var timer: Timer = Timer()
-    private var date: Date = Date()
+    private var startDate: Date = Date()
     private var isPause: Bool = false
 
     @IBOutlet weak var kcalLabel: UILabel!
@@ -26,8 +34,6 @@ class TrackingProgressInfoViewController: UIViewController {
 
         configure()
         locationAuth()
-
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingTimer), userInfo: nil, repeats: true)
     }
 
     private func configure() {
@@ -47,6 +53,23 @@ class TrackingProgressInfoViewController: UIViewController {
         leftButton.layer.borderColor = UIColor.black.cgColor
         leftButton.layer.cornerRadius = radius
         rightButton.layer.cornerRadius = radius
+
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingTimer), userInfo: nil, repeats: true)
+    }
+
+    private func update() {
+        [distanceLabel, timeLabel, kcalLabel].forEach {
+            $0?.textColor = self.isPause ? .black : .white
+        }
+
+        view.backgroundColor = isPause ? Color.orange : .black
+        rightButton.backgroundColor = isPause ? .black : Color.orange
+        leftButton.backgroundColor = isPause ? Color.orange : .black
+        leftButton.layer.borderColor = isPause ? UIColor.black.cgColor : Color.orange.cgColor
+        leftButton.tintColor = isPause ? .black : Color.orange
+        rightButton.tintColor = isPause ? Color.orange : .black
+        rightButton.setImage(isPause ? Image.pause : Image.play, for: .normal)
+        leftButton.setImage(isPause ? Image.camera : Image.stop, for: .normal)
     }
 
     private func locationAuth() {
@@ -83,9 +106,33 @@ class TrackingProgressInfoViewController: UIViewController {
         return mutableString
     }
 
+    @IBAction func leftTouchUp(_ sender: UIButton) {
+
+    }
+
+    @IBAction func rightTouchUp(_ sender: Any) {
+        update()
+        isPause.toggle()
+        switch isPause {
+        case false:
+            startDate = Date()
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingTimer), userInfo: nil, repeats: true)
+            DispatchQueue.main.async { [weak self] in
+                self?.manager.startUpdatingLocation()
+                self?.manager.startMonitoringSignificantLocationChanges()
+            }
+        case true:
+            self.time -= Int(startDate.timeIntervalSinceNow)
+            startLocation = nil
+            timer.invalidate()
+            manager.stopUpdatingLocation()
+            manager.stopMonitoringSignificantLocationChanges()
+        }
+    }
+
     @objc
     private func trackingTimer() {
-        let time = -Int(date.timeIntervalSinceNow)
+        let time = -Int(startDate.timeIntervalSinceNow) + self.time
         let seconds = time % 60
         let minutes = (time / 60) % 60
         let hours = (time / 3600)
