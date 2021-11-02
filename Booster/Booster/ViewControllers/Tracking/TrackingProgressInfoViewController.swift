@@ -3,39 +3,50 @@ import CoreLocation
 import MapKit
 
 class TrackingProgressInfoViewController: UIViewController {
+    enum Color {
+        static let orange: UIColor = UIColor.init(red: 1.0, green: 0.332, blue: 0.0, alpha: 1)
+    }
+
     private var manager: CLLocationManager = CLLocationManager()
     private var startLocation: CLLocation?
     private var lastLocation: CLLocation?
     private var distance: Double = 0.0
     private var timer: Timer = Timer()
     private var date: Date = Date()
+    private var isPause: Bool = false
 
     @IBOutlet weak var kcalLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var leftButton: UIButton!
     @IBOutlet weak var rightButton: UIButton!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        defaultLabel()
+        configure()
         locationAuth()
 
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingTimer), userInfo: nil, repeats: true)
     }
 
-    private func defaultLabel() {
+    private func configure() {
         let timeContent = makeTimerText(second: 0, minute: 0, hour: 0)
         let kcalContent = "0\n"
         let distanceContent = "0\n"
         let kcalTitle = "kcal"
         let timeTitle = "time"
         let distaceTitle = "km"
+        let radius: CGFloat = 50
 
         kcalLabel.attributedText = makeAttributedText(content: kcalContent, title: kcalTitle)
         timeLabel.attributedText = makeAttributedText(content: timeContent, title: timeTitle)
         distanceLabel.attributedText = makeAttributedText(content: distanceContent, title: distaceTitle)
+
+        leftButton.layer.borderWidth = 1
+        leftButton.layer.borderColor = UIColor.black.cgColor
+        leftButton.layer.cornerRadius = radius
+        rightButton.layer.cornerRadius = radius
     }
 
     private func locationAuth() {
