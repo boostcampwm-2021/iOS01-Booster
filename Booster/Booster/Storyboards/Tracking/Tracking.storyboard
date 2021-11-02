@@ -138,7 +138,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YWQ-h5-4pz">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YWQ-h5-4pz">
                                         <rect key="frame" x="357" y="-80" width="37" height="72"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="60"/>
                                         <nil key="textColor"/>
@@ -190,6 +190,10 @@
                         <outlet property="pedometerTopConstraint" destination="uI6-zq-evI" id="vfL-Ob-Fp3"/>
                         <outlet property="pedometerTrailingConstraint" destination="QkQ-12-AKD" id="d5h-eC-MAQ"/>
                         <outlet property="rightButton" destination="Jrh-bJ-YFM" id="YBT-Tc-reU"/>
+                        <outlet property="rightButtonBottomConstraint" destination="Bbp-hf-XBu" id="hTM-Af-1HG"/>
+                        <outlet property="rightButtonHeightConstraint" destination="L19-Id-Cxs" id="ySh-Jy-YFh"/>
+                        <outlet property="rightButtonTrailingConstraint" destination="Z3c-MP-UHf" id="Mdw-Ex-Uzs"/>
+                        <outlet property="rightButtonWidthConstraint" destination="dOT-3R-KR7" id="A6x-3c-KfR"/>
                         <outlet property="timeLabel" destination="Rf2-h1-ajx" id="Ejo-Xe-45d"/>
                         <outlet property="timeTopConstraint" destination="hZM-yv-ssL" id="fc3-gI-NsS"/>
                     </connections>

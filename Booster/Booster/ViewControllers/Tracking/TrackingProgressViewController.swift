@@ -17,6 +17,7 @@ class TrackingProgressViewController: UIViewController {
     weak var delegate: TrackingProgressDelegate?
     private var time: Int = 0
     private var distance: Double = 0.0
+    private var isEnd: Bool = false
     private var isPause: Bool = false
     private var timer: Timer = Timer()
     private var startDate: Date = Date()
@@ -44,7 +45,7 @@ class TrackingProgressViewController: UIViewController {
     }()
     private lazy var contentTextView: UITextView = {
         let textView = UITextView()
-        textView.backgroundColor = .black
+        textView.backgroundColor = .clear
         textView.font = .notoSansKR(.light, 17)
         textView.text = "오늘 산책은 어땠나요?"
         textView.textColor = .lightGray
@@ -52,6 +53,7 @@ class TrackingProgressViewController: UIViewController {
         textView.delegate = self
         return textView
     }()
+
     private let pedometer = CMPedometer()
 
     @IBOutlet weak var mapView: TrackingMapView!
@@ -68,6 +70,10 @@ class TrackingProgressViewController: UIViewController {
     @IBOutlet weak var kcalTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var timeTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var distanceTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var rightButtonHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var rightButtonWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var rightButtonTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var rightButtonBottomConstraint: NSLayoutConstraint!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -122,7 +128,7 @@ class TrackingProgressViewController: UIViewController {
         rightButton.layer.cornerRadius = radius
 
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingTimer), userInfo: nil, repeats: true)
-        [mapView, kcalLabel, timeLabel, distanceLabel, pedometerLabel].forEach {
+        [mapView, kcalLabel, timeLabel, distanceLabel, pedometerLabel, rightButton].forEach {
             $0?.translatesAutoresizingMaskIntoConstraints = false
         }
         mapView.delegate = self
@@ -141,6 +147,22 @@ class TrackingProgressViewController: UIViewController {
         rightButton.tintColor = isPause ? Color.orange : .black
         rightButton.setImage(isPause ? Image.pause : Image.play, for: .normal)
         leftButton.setImage(isPause ? Image.camera : Image.stop, for: .normal)
+
+        switch isPause {
+        case true:
+            startDate = Date()
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingTimer), userInfo: nil, repeats: true)
+            DispatchQueue.main.async { [weak self] in
+                self?.manager.startUpdatingLocation()
+                self?.manager.startMonitoringSignificantLocationChanges()
+            }
+        case false:
+            self.time -= Int(startDate.timeIntervalSinceNow)
+            startLocation = nil
+            timer.invalidate()
+            manager.stopUpdatingLocation()
+            manager.stopMonitoringSignificantLocationChanges()
+        }
     }
 
     private func configureWrite() {
@@ -169,19 +191,24 @@ class TrackingProgressViewController: UIViewController {
     }
 
     private func stopAnimation() {
+        self.leftButton.isHidden = true
         UIView.animate(withDuration: 1, animations: { [weak self] in
-            guard let self = self else {
+            guard let self = self, let content = self.pedometerLabel.text else {
                 return
             }
-            self.leftButton.isHidden = true
-            self.rightButton.isHidden = true
-            self.pedometerLabel.textColor = .white
+            self.rightButtonWidthConstraint.constant = 70
+            self.rightButtonHeightConstraint.constant = 70
+            self.rightButton.layer.cornerRadius = 35
+            self.rightButtonTrailingConstraint.constant = 25
+            self.rightButtonBottomConstraint.constant = 25
+            self.pedometerLabel.textColor = Color.orange
             self.mapViewBottomConstraint.constant = self.view.frame.maxY - 290
-            self.pedometerTrailingConstraint.constant = self.view.frame.maxX - 165
+            self.pedometerTrailingConstraint.constant = self.view.frame.maxX - 230
             self.pedometerTopConstraint.constant = 20
             [self.timeTopConstraint, self.kcalTopConstraint, self.distanceTopConstraint].forEach {
                 $0.constant = 130
             }
+            self.pedometerLabel.attributedText = self.makeAttributedText(content: content, title: " steps", contentFont: .bazaronite(size: 60), titleFont: .notoSansKR(.regular, 20), color: Color.orange)
             self.view.layoutIfNeeded()
             self.infoView.layoutIfNeeded()
         }, completion: { [weak self] _ in
@@ -189,6 +216,7 @@ class TrackingProgressViewController: UIViewController {
                 return
             }
             self.configureWrite()
+            self.infoView.bringSubviewToFront(self.rightButton)
         })
     }
 
@@ -199,11 +227,11 @@ class TrackingProgressViewController: UIViewController {
         return text
     }
 
-    private func makeAttributedText(content: String, title: String) -> NSMutableAttributedString {
+    private func makeAttributedText(content: String, title: String, contentFont: UIFont = .bazaronite(size: 30), titleFont: UIFont = .notoSansKR(.light, 15), color: UIColor = .black) -> NSMutableAttributedString {
         let mutableString = NSMutableAttributedString()
 
-        let contentText: NSAttributedString = .makeAttributedString(text: content, font: .bazaronite(size: 30), color: .black)
-        let titleText: NSAttributedString = .makeAttributedString(text: title, font: .notoSansKR(.light, 15), color: .black)
+        let contentText: NSAttributedString = .makeAttributedString(text: content, font: contentFont, color: color)
+        let titleText: NSAttributedString = .makeAttributedString(text: title, font: titleFont, color: color)
 
         [contentText, titleText].forEach {
             mutableString.append($0)
@@ -217,27 +245,18 @@ class TrackingProgressViewController: UIViewController {
         case false:
             present(imagePickerController, animated: true)
         case true:
+            isEnd.toggle()
             stopAnimation()
         }
     }
 
     @IBAction func rightTouchUp(_ sender: Any) {
-        update()
-        isPause.toggle()
-        switch isPause {
-        case false:
-            startDate = Date()
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingTimer), userInfo: nil, repeats: true)
-            DispatchQueue.main.async { [weak self] in
-                self?.manager.startUpdatingLocation()
-                self?.manager.startMonitoringSignificantLocationChanges()
-            }
+        switch isEnd {
         case true:
-            self.time -= Int(startDate.timeIntervalSinceNow)
-            startLocation = nil
-            timer.invalidate()
-            manager.stopUpdatingLocation()
-            manager.stopMonitoringSignificantLocationChanges()
+            break
+        case false:
+            update()
+            isPause.toggle()
         }
     }
 
@@ -262,7 +281,7 @@ class TrackingProgressViewController: UIViewController {
            let tabBarHeight = self.tabBarController?.tabBar.frame.height {
             let keyboardRect = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRect.height
-            view.frame.origin.y -= keyboardHeight - tabBarHeight
+            view.frame.origin.y = -(keyboardHeight - tabBarHeight)
         }
     }
 
