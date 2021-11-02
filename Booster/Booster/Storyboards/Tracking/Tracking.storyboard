@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -176,6 +177,28 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mF5-2I-bDA">
+                                <rect key="frame" x="264" y="109" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="2to-uw-w7e"/>
+                                    <constraint firstAttribute="height" constant="100" id="pbh-Jq-gdK"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain">
+                                    <imageReference key="image" image="pause" catalog="system" symbolScale="large"/>
+                                </buttonConfiguration>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NJg-AX-Bvz">
+                                <rect key="frame" x="50" y="109" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="fEa-ni-Le9"/>
+                                    <constraint firstAttribute="height" constant="100" id="ybe-6V-Vll"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain">
+                                    <imageReference key="image" image="camera" catalog="system" symbolScale="large"/>
+                                </buttonConfiguration>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Kds-TS-Voi"/>
                         <color key="backgroundColor" red="1" green="0.33152735230000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -184,13 +207,19 @@
                             <constraint firstItem="Obe-jp-nkx" firstAttribute="top" secondItem="w9Q-Bb-W61" secondAttribute="top" constant="45" id="BvK-bq-ooZ"/>
                             <constraint firstItem="YON-T4-vKu" firstAttribute="leading" secondItem="w9Q-Bb-W61" secondAttribute="leading" constant="20" id="DSA-sQ-Wun"/>
                             <constraint firstItem="Obe-jp-nkx" firstAttribute="centerX" secondItem="w9Q-Bb-W61" secondAttribute="centerX" id="PhS-E8-70T"/>
+                            <constraint firstItem="Kds-TS-Voi" firstAttribute="bottom" secondItem="mF5-2I-bDA" secondAttribute="bottom" constant="60" id="Ve3-hM-WDK"/>
                             <constraint firstItem="YON-T4-vKu" firstAttribute="top" secondItem="w9Q-Bb-W61" secondAttribute="top" constant="45" id="kak-xR-d8a"/>
+                            <constraint firstItem="Kds-TS-Voi" firstAttribute="trailing" secondItem="mF5-2I-bDA" secondAttribute="trailing" constant="50" id="ndk-oF-bxS"/>
+                            <constraint firstItem="Kds-TS-Voi" firstAttribute="bottom" secondItem="NJg-AX-Bvz" secondAttribute="bottom" constant="60" id="wkh-nb-JBk"/>
+                            <constraint firstItem="NJg-AX-Bvz" firstAttribute="leading" secondItem="Kds-TS-Voi" secondAttribute="leading" constant="50" id="xBh-Um-hr1"/>
                             <constraint firstItem="KCp-qX-aH4" firstAttribute="top" secondItem="w9Q-Bb-W61" secondAttribute="top" constant="45" id="z0O-1S-Lha"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="distanceLabel" destination="KCp-qX-aH4" id="K2d-y8-bAh"/>
                         <outlet property="kcalLabel" destination="YON-T4-vKu" id="bZe-Fn-BNC"/>
+                        <outlet property="leftButton" destination="NJg-AX-Bvz" id="Cdi-fb-IcQ"/>
+                        <outlet property="rightButton" destination="mF5-2I-bDA" id="o7S-p4-F04"/>
                         <outlet property="timeLabel" destination="Obe-jp-nkx" id="dVT-XP-P8T"/>
                     </connections>
                 </viewController>
@@ -200,7 +229,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="camera" catalog="system" width="128" height="94"/>
         <image name="heart" catalog="system" width="128" height="109"/>
+        <image name="pause" catalog="system" width="88" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

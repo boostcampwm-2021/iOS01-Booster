@@ -13,7 +13,9 @@ class TrackingProgressInfoViewController: UIViewController {
     @IBOutlet weak var kcalLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
-
+    @IBOutlet weak var leftButton: UIButton!
+    @IBOutlet weak var rightButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -60,7 +62,7 @@ class TrackingProgressInfoViewController: UIViewController {
     private func makeAttributedText(content: String, title: String) -> NSMutableAttributedString {
         let mutableString = NSMutableAttributedString()
 
-        let contentText: NSAttributedString = .makeAttributedString(text: content, font: .bazaronite(size: 35), color: .black)
+        let contentText: NSAttributedString = .makeAttributedString(text: content, font: .bazaronite(size: 30), color: .black)
         let titleText: NSAttributedString = .makeAttributedString(text: title, font: .notoSansKR(.light, 15), color: .black)
 
         [contentText, titleText].forEach {
