@@ -55,7 +55,7 @@ class TrackingMapView: MKMapView {
 
         addAnnotation(annotation)
     }
-  
+
     func configure(location: CLLocation) {
         let regionRadius: CLLocationDistance = 100
         let coordRegion = MKCoordinateRegion(center: location.coordinate,
