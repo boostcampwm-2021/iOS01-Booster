@@ -93,22 +93,3 @@ class TrackingMapView: MKMapView {
         showsUserLocation = true
     }
 }
-
-// extension TrackingMapView: MKMapViewDelegate {
-//    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-//        var circleRenderer = CircleRenderer()
-//        if let overlay = overlay as? MKCircle {
-//            circleRenderer = CircleRenderer(circle: overlay)
-//        }
-//        guard let polyLine = overlay as? MKPolyline else {
-//            return MKPolylineRenderer()
-//        }
-//
-//        let polyLineRenderer = MKPolylineRenderer(polyline: polyLine)
-//
-//        polyLineRenderer.strokeColor = UIColor(red: 255/255, green: 92/255, blue: 0/255, alpha: 1)
-//        polyLineRenderer.lineWidth = 8
-//
-//        return polyLineRenderer
-//    }
-// }

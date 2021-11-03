@@ -15,8 +15,8 @@ final class TrackingProgressViewModel {
         trackingModel.coordinates.append(coordinate)
     }
 
-    func append(mileStoe: MileStone) {
-
+    func append(mileStone: MileStone) {
+        trackingModel.milestones.append(mileStone)
     }
 
     func appends(coordinates: [Coordinate?]) {

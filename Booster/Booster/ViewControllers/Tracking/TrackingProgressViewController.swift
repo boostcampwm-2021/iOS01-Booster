@@ -354,7 +354,7 @@ extension TrackingProgressViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if let overlay = overlay as? MKCircle {
             let circleRenderer = CircleRenderer(circle: overlay)
-            
+
             return circleRenderer
         }
 
@@ -380,8 +380,11 @@ extension TrackingProgressViewController: MKMapViewDelegate {
             annotationView?.annotation = annotation
         }
 
-        guard let customView = UINib(nibName: "PhotoAnnotationView", bundle: nil).instantiate(withOwner: self, options: nil).first as? PhotoAnnotationView else { return nil }
-        customView.photoImageView.image = UIImage(systemName: "camera")
+        guard let customView = UINib(nibName: "PhotoAnnotationView", bundle: nil).instantiate(withOwner: self, options: nil).first as? PhotoAnnotationView,
+              let mileStone = trackingProgressViewModel?.trackingModel.milestones.last
+        else { return nil }
+
+        customView.photoImageView.image = UIImage(data: mileStone.imageData)
         customView.photoImageView.backgroundColor = .white
         annotationView?.addSubview(customView)
         annotationView?.centerOffset = CGPoint(x: -customView.frame.width / 2.0, y: -customView.frame.height)
@@ -393,7 +396,12 @@ extension TrackingProgressViewController: MKMapViewDelegate {
 extension TrackingProgressViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-
+            guard let currentCoordinate = trackingProgressViewModel?.latestCoordinate(),
+                  let imageData = image.pngData()
+            else { return }
+            let mileStone = MileStone(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude, imageData: imageData)
+            trackingProgressViewModel?.append(mileStone: mileStone)
+            mapView.addMileStonePhoto(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude)
         }
         picker.dismiss(animated: true, completion: nil)
     }
