@@ -1,24 +1,36 @@
 import Foundation
 
 struct TrackingModel {
-    let startDate: Date
-    var endDate: Date?
+    var startDate: Date
+    var endDate: Date
     var steps: Int
     var calories: Int
     var seconds: Int
     var distance: Double
-    var coordinates: [Coordinate?]
+    var coordinates: [Coordinate]
     var milestones: [MileStone]
-    var title: String?
-    var content: String?
+    var title: String
+    var content: String
 
-    init() {
-        self.startDate = Date()
-        self.steps = 0
-        self.calories = 0
-        self.seconds = 0
-        self.distance = 0
-        self.coordinates = []
-        self.milestones = []
+    init(startDate: Date = Date(),
+         endDate: Date = Date(),
+         steps: Int = 0,
+         calories: Int = 0,
+         seconds: Int = 0,
+         distance: Double = 0,
+         coordinates: [Coordinate] = [],
+         milestones: [MileStone] = [],
+         title: String = "",
+         content: String = "") {
+        self.startDate = startDate
+        self.endDate = endDate
+        self.steps = steps
+        self.calories = calories
+        self.seconds = seconds
+        self.distance = distance
+        self.coordinates = coordinates
+        self.milestones = milestones
+        self.title = title
+        self.content = content
     }
 }

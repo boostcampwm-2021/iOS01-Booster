@@ -15,16 +15,10 @@ class TrackingProgressViewController: UIViewController {
     }
 
     weak var delegate: TrackingProgressDelegate?
-    private var trackingProgressViewModel: TrackingProgressViewModel?
-    private var time: Int = 0
-    private var distance: Double = 0.0
-    private var isEnd: Bool = false
-    private var isPause: Bool = false
-    private var timer: Timer = Timer()
-    private var startDate: Date = Date()
-    private var manager: CLLocationManager?
-    private var startLocation: CLLocation?
-    private var lastLocation: CLLocation?
+    private var viewModel: TrackingProgressViewModel = TrackingProgressViewModel()
+    private var timerDate = Date()
+    private var timer = Timer()
+    private var manager: CLLocationManager = CLLocationManager()
     private lazy var imagePickerController: UIImagePickerController = {
        let pickerController = UIImagePickerController()
         pickerController.sourceType = .camera
@@ -54,7 +48,6 @@ class TrackingProgressViewController: UIViewController {
         textView.delegate = self
         return textView
     }()
-
     private let pedometer = CMPedometer()
 
     @IBOutlet weak var mapView: TrackingMapView!
@@ -140,35 +133,34 @@ class TrackingProgressViewController: UIViewController {
             $0?.translatesAutoresizingMaskIntoConstraints = false
         }
         mapView.delegate = self
-        mapView.locationManager.delegate = self
-        manager = mapView.locationManager
+        manager.delegate = self
     }
 
     private func update() {
+        let isStart: Bool = self.viewModel.state == .start
         [distanceLabel, timeLabel, kcalLabel].forEach {
-            $0?.textColor = self.isPause ? .black : .white
+            $0?.textColor = isStart ? .black : .white
         }
 
-        infoView.backgroundColor = isPause ? Color.orange : .black
-        rightButton.backgroundColor = isPause ? .black : Color.orange
-        leftButton.backgroundColor = isPause ? Color.orange : .black
-        leftButton.layer.borderColor = isPause ? UIColor.black.cgColor : Color.orange.cgColor
-        leftButton.tintColor = isPause ? .black : Color.orange
-        rightButton.tintColor = isPause ? Color.orange : .black
-        rightButton.setImage(isPause ? Image.pause : Image.play, for: .normal)
-        leftButton.setImage(isPause ? Image.camera : Image.stop, for: .normal)
+        infoView.backgroundColor = isStart ? Color.orange : .black
+        rightButton.backgroundColor = isStart ? .black : Color.orange
+        leftButton.backgroundColor = isStart ? Color.orange : .black
+        leftButton.layer.borderColor = isStart ? UIColor.black.cgColor : Color.orange.cgColor
+        leftButton.tintColor = isStart ? .black : Color.orange
+        rightButton.tintColor = isStart ? Color.orange : .black
+        rightButton.setImage(isStart ? Image.pause : Image.play, for: .normal)
+        leftButton.setImage(isStart ? Image.camera : Image.stop, for: .normal)
+        timerDate = isStart ? Date() : timerDate
 
-        switch isPause {
+        switch isStart {
         case true:
-            startDate = Date()
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingTimer), userInfo: nil, repeats: true)
             DispatchQueue.main.async { [weak self] in
                 self?.manager?.startUpdatingLocation()
                 self?.manager?.startMonitoringSignificantLocationChanges()
             }
         case false:
-            self.time -= Int(startDate.timeIntervalSinceNow)
-            startLocation = nil
+            viewModel.update(seconds: viewModel.trackingModel.seconds-Int(timerDate.timeIntervalSinceNow))
             timer.invalidate()
             manager?.stopUpdatingLocation()
             manager?.stopMonitoringSignificantLocationChanges()
@@ -251,31 +243,28 @@ class TrackingProgressViewController: UIViewController {
     }
 
     @IBAction func leftTouchUp(_ sender: UIButton) {
-        switch isPause {
-        case false:
+        switch viewModel.state {
+        case .start:
             present(imagePickerController, animated: true)
-        case true:
-            isEnd.toggle()
-            mapView.stop()
-            trackingProgressViewModel?.toggle()
+        default:
+            viewModel.recordEnd()
             stopAnimation()
         }
     }
 
     @IBAction func rightTouchUp(_ sender: Any) {
-        switch isEnd {
-        case true:
+        switch viewModel.state {
+        case .end:
             break
-        case false:
+        default:
+            viewModel.toggle()
             update()
-            mapView.toggleTrackingState()
-            isPause.toggle()
         }
     }
 
     @objc
     private func trackingTimer() {
-        let time = -Int(startDate.timeIntervalSinceNow) + self.time
+        let time = -Int(timerDate.timeIntervalSinceNow) + viewModel.trackingModel.seconds
         let seconds = time % 60
         let minutes = (time / 60) % 60
 
@@ -312,8 +301,8 @@ class TrackingProgressViewController: UIViewController {
 extension TrackingProgressViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let currentLocation = locations.first?.coordinate else { return }
-        guard let latestCoordinate = trackingProgressViewModel?.latestCoordinate() else {
-            trackingProgressViewModel?.append(coordinate: Coordinate(latitude: currentLocation.latitude, longitude: currentLocation.longitude))
+        guard let latestCoordinate = viewModel.latestCoordinate() else {
+            viewModel.append(coordinate: Coordinate(latitude: currentLocation.latitude, longitude: currentLocation.longitude))
             return
         }
 
@@ -321,24 +310,23 @@ extension TrackingProgressViewController: CLLocationManagerDelegate {
 
         mapView.updateUserLocationOverlay(location: locations.first)
         if mapView.trackingState == .start { mapView.drawPath(from: prevLocation, to: currentLocation) }
-        trackingProgressViewModel?.append(coordinate: Coordinate(latitude: currentLocation.latitude, longitude: currentLocation.longitude))
+        viewModel.append(coordinate: Coordinate(latitude: currentLocation.latitude, longitude: currentLocation.longitude))
 
-        if let start = startLocation {
-            lastLocation = locations.last
-
-            guard let last = lastLocation else {
+        if let start = viewModel.trackingModel.coordinates.last, let startLatitude = start.latitude, let startLongitude = start.longitude {
+            guard let lastLocation = locations.last else {
                 return
             }
-
-            startLocation = lastLocation
-            distance += start.distance(from: last)
+            let coordinate = lastLocation.coordinate
+            viewModel.append(coordinate: Coordinate(latitude: coordinate.latitude, longitude: coordinate.longitude))
+            let startLocation = CLLocation(latitude: startLatitude, longitude: startLongitude)
+            viewModel.update(distance: startLocation.distance(from: lastLocation))
 
             let title = "km"
-            let content = "\(String.init(format: "%.1f", distance/1000))\n"
-
+            let content = "\(String.init(format: "%.1f", viewModel.trackingModel.distance/1000))\n"
             distanceLabel.attributedText = makeAttributedText(content: content, title: title)
         } else {
-            startLocation = locations.first
+            let coordinate = locations.last?.coordinate
+            viewModel.append(coordinate: Coordinate(latitude: coordinate?.latitude, longitude: coordinate?.longitude))
         }
     }
 
