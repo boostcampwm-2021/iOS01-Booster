@@ -1,6 +1,7 @@
+import HealthKit
 import UIKit
 
-class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController {
 
     // MARK: Properties
 
@@ -9,32 +10,56 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var kmLabel: UILabel!
     @IBOutlet weak var todayTotalStepCountLabel: UILabel!
     @IBOutlet weak var goalLabel: UILabel!
+    @IBOutlet weak var stepCountGraphView: CurveGraphView!
+
+    private var homeViewModel = HomeViewModel()
 
     // MARK: Life Cycles
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configure()
+        // requestHealthKitAuthorization()
+        bindHomeViewModel()
     }
 
 }
 
+// MARK: - Setting UI
+
 extension HomeViewController {
 
-    private func configure() {
-        let gradient = gradientLayer(bounds: todayTotalStepCountLabel.bounds, colors: ratioGradientColor(current: 8000, goal: 10000))
+    private func configureTotalStepCountLabelGradient(current: Double, goal: Double) {
+        let gradient = gradientLayer(bounds: todayTotalStepCountLabel.bounds, colors: ratioGradientColor(current: current, goal: goal))
         todayTotalStepCountLabel.textColor = gradientColor(gradientLayer: gradient)
     }
 
-    func ratioGradientColor(current: Double, goal: Double) -> [CGColor] {
-        let currentRatio = Int(current / goal * 10)
-        let whiteColors = [CGColor](repeating: UIColor.white.cgColor, count: 10 - currentRatio)
-        let orangeColors = [CGColor](repeating: UIColor.orange.cgColor, count: currentRatio)
+    private func bindHomeViewModel() {
+        homeViewModel.homeData.bind { [weak self] value in
+            DispatchQueue.main.async {
+                self?.todayTotalStepCountLabel.text = "\(value.totalStepCount)"
+                self?.kmLabel.text = "\(value.km)"
+                self?.kcalLabel.text = "\(value.kcal)"
+                self?.timeActiveLabel.text = value.activeTime.stringToMinutesAndSeconds()
+                self?.todayTotalStepCountLabel.layer.opacity = 0
+                self?.configureTotalStepCountLabelGradient(current: Double(value.totalStepCount), goal: 10000)
+                self?.stepCountGraphView.dataEntries = value.hourlyStepCount
+                self?.stepCountGraphView.dataLabels = ["0", "6", "12", "18", "24"]
+                UIView.animate(withDuration: 2) {
+                    self?.todayTotalStepCountLabel.layer.opacity = 1
+                }
+            }
+        }
+    }
+
+    private func ratioGradientColor(current: Double, goal: Double) -> [CGColor] {
+        let currentRatio = Int(current / goal * 100) > 100 ? 100 : Int(current / goal * 100)
+        let whiteColors = [CGColor](repeating: #colorLiteral(red: 0.9294117647, green: 0.9294117647, blue: 0.9294117647, alpha: 1).cgColor, count: 100 - currentRatio)
+        let orangeColors = [CGColor](repeating: #colorLiteral(red: 1, green: 0.3607843137, blue: 0, alpha: 1).cgColor, count: currentRatio)
 
         return whiteColors + orangeColors
     }
 
-    func gradientLayer(bounds: CGRect, colors: [CGColor]) -> CAGradientLayer {
+    private func gradientLayer(bounds: CGRect, colors: [CGColor]) -> CAGradientLayer {
         let gradient = CAGradientLayer()
         gradient.frame = bounds
         gradient.colors = colors
@@ -43,7 +68,7 @@ extension HomeViewController {
         return gradient
     }
 
-    func gradientColor(gradientLayer: CAGradientLayer) -> UIColor {
+    private func gradientColor(gradientLayer: CAGradientLayer) -> UIColor {
         UIGraphicsBeginImageContextWithOptions(gradientLayer.bounds.size, false, 0.0)
 
         guard let currentContext = UIGraphicsGetCurrentContext() else { return .white }
