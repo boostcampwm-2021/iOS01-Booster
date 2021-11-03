@@ -1,4 +1,3 @@
-import Foundation
 import UIKit
 import MapKit
 
@@ -19,6 +18,14 @@ class TrackingMapView: MKMapView {
 
         configure()
         locationAuth()
+    }
+
+    func configure(location: CLLocation) {
+        let regionRadius: CLLocationDistance = 100
+        let coordRegion = MKCoordinateRegion(center: location.coordinate,
+                                             latitudinalMeters: regionRadius*2,
+                                             longitudinalMeters: regionRadius*2)
+        setRegion(coordRegion, animated: false)
     }
 
     private func configure() {

@@ -1,10 +1,14 @@
 import UIKit
 import MapKit
-import CoreLocation
+
+protocol TrackingProgressDelegate: AnyObject {
+    func location(mapView: TrackingMapView)
+}
 
 class TrackingViewController: UIViewController {
     private var locationManager = CLLocationManager()
     private var overlay: MKOverlay = MKCircle()
+    private var current: CLLocation = CLLocation()
 
     @IBOutlet weak var trackingMapView: MKMapView!
     @IBOutlet weak var nextButton: UIButton!
@@ -20,6 +24,13 @@ class TrackingViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let viewController = segue.destination as? TrackingProgressViewController else {
+            return
+        }
+        viewController.delegate = self
     }
 
     private func locationAuth() {
@@ -40,18 +51,23 @@ class TrackingViewController: UIViewController {
     }
 }
 
+extension TrackingViewController: TrackingProgressDelegate {
+    func location(mapView: TrackingMapView) {
+        mapView.configure(location: current)
+    }
+}
+
 extension TrackingViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let current = locations.first else {
             return
         }
-
+        self.current = current
         let regionRadius: CLLocationDistance = 100
         let overlayRadius: CLLocationDistance = 20
         let coordRegion = MKCoordinateRegion(center: current.coordinate,
                                              latitudinalMeters: regionRadius*2,
                                              longitudinalMeters: regionRadius*2)
-
         trackingMapView.removeOverlay(overlay)
 
         overlay = MKCircle(center: current.coordinate, radius: overlayRadius)
