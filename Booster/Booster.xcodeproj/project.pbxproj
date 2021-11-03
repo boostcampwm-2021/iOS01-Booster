@@ -19,6 +19,7 @@
 		3B4E3FF1272A696F00577625 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B4E3FF0272A696F00577625 /* Assets.xcassets */; };
 		3B4E3FF4272A696F00577625 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B4E3FF2272A696F00577625 /* LaunchScreen.storyboard */; };
 		3B4E4006272A6B5200577625 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3B4E4005272A6B5200577625 /* .swiftlint.yml */; };
+		3BAD9CF427325BD50057639D /* Booster.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3BAD9CF227325BD50057639D /* Booster.xcdatamodeld */; };
 		3BB7E68A272AA0CC00103205 /* BAZARONI.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 3BB7E689272AA0CC00103205 /* BAZARONI.TTF */; };
 		3BB7E68D272AA13B00103205 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB7E68C272AA13B00103205 /* UIFont.swift */; };
 		3BB7E694272AD07B00103205 /* NotoSansKR-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3BB7E68E272AD07A00103205 /* NotoSansKR-Thin.otf */; };
@@ -67,6 +68,7 @@
 		3B4E3FF3272A696F00577625 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3B4E3FF5272A696F00577625 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B4E4005272A6B5200577625 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		3BAD9CF327325BD50057639D /* Booster.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Booster.xcdatamodel; sourceTree = "<group>"; };
 		3BB7E689272AA0CC00103205 /* BAZARONI.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = BAZARONI.TTF; sourceTree = "<group>"; };
 		3BB7E68C272AA13B00103205 /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		3BB7E68E272AD07A00103205 /* NotoSansKR-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Thin.otf"; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 		3B4E3FE6272A696E00577625 /* Booster */ = {
 			isa = PBXGroup;
 			children = (
+				3BAD9CF127325BB60057639D /* CoreData */,
 				3B195ABC2730D6F700EB8533 /* Booster.entitlements */,
 				FAA79EC127325D670096F789 /* Enums */,
 				3B0EB30A272FB30F005B5AFC /* Renderers */,
@@ -235,6 +238,21 @@
 				3B4E3FE7272A696E00577625 /* AppDelegate.swift */,
 			);
 			path = AppDelegates;
+			sourceTree = "<group>";
+		};
+		3B4E4008272A6CD500577625 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		3BAD9CF127325BB60057639D /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				3BAD9CF227325BD50057639D /* Booster.xcdatamodeld */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		3BB7E688272AA0BF00103205 /* Fonts */ = {
@@ -459,6 +477,7 @@
 				3B0EB328272FE76D005B5AFC /* NSAttributedString.swift in Sources */,
 				FAA79EBA27325A8C0096F789 /* Coordinate.swift in Sources */,
 				3BB7E69B272AD40400103205 /* HomeViewController.swift in Sources */,
+				3BAD9CF427325BD50057639D /* Booster.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -684,6 +703,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		3BAD9CF227325BD50057639D /* Booster.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				3BAD9CF327325BD50057639D /* Booster.xcdatamodel */,
+			);
+			currentVersion = 3BAD9CF327325BD50057639D /* Booster.xcdatamodel */;
+			path = Booster.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 3B4E3FDC272A696E00577625 /* Project object */;
 }

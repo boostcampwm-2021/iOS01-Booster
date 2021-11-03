@@ -40,7 +40,7 @@
                                     <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="1G8-i0-KhG" kind="show" id="AY1-rA-gh5"/>
+                                    <segue destination="1G8-i0-KhG" kind="show" identifier="trackingProgressSegue" id="AY1-rA-gh5"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -65,7 +65,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1037.68115942029" y="97.767857142857139"/>
+            <point key="canvasLocation" x="1103" y="98"/>
         </scene>
         <!--Tracking Progress View Controller-->
         <scene sceneID="9dA-dZ-OiX">
@@ -77,13 +77,8 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="RB0-kQ-AuZ" customClass="TrackingMapView" customModule="Booster" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="88" width="414" height="456"/>
+                                <color key="tintColor" red="1" green="0.33152735230000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </mapView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YWQ-h5-4pz">
-                                <rect key="frame" x="394" y="517.5" width="0.0" height="0.0"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BsO-pa-eCU">
                                 <rect key="frame" x="0.0" y="544" width="414" height="269"/>
                                 <subviews>
@@ -143,6 +138,12 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YWQ-h5-4pz">
+                                        <rect key="frame" x="357" y="-80" width="37" height="72"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="60"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.33152735230000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" red="1" green="0.33152735230000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -150,6 +151,7 @@
                                     <constraint firstAttribute="trailing" secondItem="aoN-Wg-v3J" secondAttribute="trailing" constant="20" id="5f7-ZF-YgZ"/>
                                     <constraint firstAttribute="bottom" secondItem="Jrh-bJ-YFM" secondAttribute="bottom" constant="40" id="Bbp-hf-XBu"/>
                                     <constraint firstItem="aoN-Wg-v3J" firstAttribute="top" secondItem="BsO-pa-eCU" secondAttribute="top" constant="45" id="CvU-Cp-Vjk"/>
+                                    <constraint firstAttribute="trailing" secondItem="YWQ-h5-4pz" secondAttribute="trailing" constant="20" id="QkQ-12-AKD"/>
                                     <constraint firstAttribute="trailing" secondItem="Jrh-bJ-YFM" secondAttribute="trailing" constant="50" id="Z3c-MP-UHf"/>
                                     <constraint firstItem="Rf2-h1-ajx" firstAttribute="centerX" secondItem="BsO-pa-eCU" secondAttribute="centerX" id="dVy-nu-mOl"/>
                                     <constraint firstAttribute="bottom" secondItem="8Qx-5I-QtW" secondAttribute="bottom" constant="40" id="eIk-1G-YHc"/>
@@ -157,16 +159,15 @@
                                     <constraint firstItem="Rf2-h1-ajx" firstAttribute="top" secondItem="BsO-pa-eCU" secondAttribute="top" constant="45" id="hZM-yv-ssL"/>
                                     <constraint firstItem="yAN-CY-gSq" firstAttribute="top" secondItem="BsO-pa-eCU" secondAttribute="top" constant="45" id="iGZ-lf-alN"/>
                                     <constraint firstItem="8Qx-5I-QtW" firstAttribute="leading" secondItem="BsO-pa-eCU" secondAttribute="leading" constant="50" id="m39-6g-2KD"/>
+                                    <constraint firstItem="YWQ-h5-4pz" firstAttribute="top" secondItem="BsO-pa-eCU" secondAttribute="top" constant="-80" id="uI6-zq-evI"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xiY-zH-yaJ"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="RB0-kQ-AuZ" firstAttribute="top" secondItem="xiY-zH-yaJ" secondAttribute="top" id="9Qg-Gy-HSS"/>
                             <constraint firstItem="xiY-zH-yaJ" firstAttribute="trailing" secondItem="RB0-kQ-AuZ" secondAttribute="trailing" id="Lmc-I6-4k1"/>
-                            <constraint firstItem="YWQ-h5-4pz" firstAttribute="firstBaseline" secondItem="RB0-kQ-AuZ" secondAttribute="baseline" constant="-10" id="Qy8-gf-RlF"/>
-                            <constraint firstItem="xiY-zH-yaJ" firstAttribute="trailing" secondItem="YWQ-h5-4pz" secondAttribute="trailing" constant="20" id="S88-Xe-T6u"/>
                             <constraint firstItem="BsO-pa-eCU" firstAttribute="bottom" secondItem="xiY-zH-yaJ" secondAttribute="bottom" id="UvY-RM-KBC"/>
                             <constraint firstItem="BsO-pa-eCU" firstAttribute="trailing" secondItem="xiY-zH-yaJ" secondAttribute="trailing" id="WCk-Hw-CAX"/>
                             <constraint firstItem="BsO-pa-eCU" firstAttribute="top" secondItem="RB0-kQ-AuZ" secondAttribute="bottom" id="Xzd-Uk-YM7"/>
@@ -178,13 +179,23 @@
                     <navigationItem key="navigationItem" id="VGC-JZ-0Va"/>
                     <connections>
                         <outlet property="distanceLabel" destination="aoN-Wg-v3J" id="i5I-tO-iDI"/>
+                        <outlet property="distanceTopConstraint" destination="CvU-Cp-Vjk" id="pJ4-XJ-LRu"/>
                         <outlet property="infoView" destination="BsO-pa-eCU" id="u0D-Ng-Xs4"/>
                         <outlet property="kcalLabel" destination="yAN-CY-gSq" id="Byy-hC-bVd"/>
+                        <outlet property="kcalTopConstraint" destination="iGZ-lf-alN" id="rsS-5L-Rtc"/>
                         <outlet property="leftButton" destination="8Qx-5I-QtW" id="HLr-mn-AFk"/>
                         <outlet property="mapView" destination="RB0-kQ-AuZ" id="CF1-hw-nq8"/>
+                        <outlet property="mapViewBottomConstraint" destination="o4Y-2q-f3i" id="GH0-8Z-Vsj"/>
                         <outlet property="pedometerLabel" destination="YWQ-h5-4pz" id="Plf-kO-aB3"/>
+                        <outlet property="pedometerTopConstraint" destination="uI6-zq-evI" id="vfL-Ob-Fp3"/>
+                        <outlet property="pedometerTrailingConstraint" destination="QkQ-12-AKD" id="d5h-eC-MAQ"/>
                         <outlet property="rightButton" destination="Jrh-bJ-YFM" id="YBT-Tc-reU"/>
+                        <outlet property="rightButtonBottomConstraint" destination="Bbp-hf-XBu" id="hTM-Af-1HG"/>
+                        <outlet property="rightButtonHeightConstraint" destination="L19-Id-Cxs" id="ySh-Jy-YFh"/>
+                        <outlet property="rightButtonTrailingConstraint" destination="Z3c-MP-UHf" id="Mdw-Ex-Uzs"/>
+                        <outlet property="rightButtonWidthConstraint" destination="dOT-3R-KR7" id="A6x-3c-KfR"/>
                         <outlet property="timeLabel" destination="Rf2-h1-ajx" id="Ejo-Xe-45d"/>
+                        <outlet property="timeTopConstraint" destination="hZM-yv-ssL" id="fc3-gI-NsS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NVv-J2-Iw9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -216,6 +227,9 @@
         <image name="pause" catalog="system" width="88" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGroupedBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
