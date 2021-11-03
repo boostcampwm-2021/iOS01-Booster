@@ -86,6 +86,7 @@ class TrackingProgressViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = false
+        mapView.start()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -341,6 +342,26 @@ extension TrackingProgressViewController: MKMapViewDelegate {
         polyLineRenderer.lineWidth = 8
 
         return polyLineRenderer
+    }
+
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation { return nil }
+
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "photoMarker")
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "photoMarker")
+            annotationView!.canShowCallout = true
+        } else {
+            annotationView?.annotation = annotation
+        }
+
+        guard let customView = UINib(nibName: "PhotoAnnotationView", bundle: nil).instantiate(withOwner: self, options: nil).first as? PhotoAnnotationView else { return nil }
+        customView.photoImageView.image = UIImage(systemName: "camera")
+        customView.photoImageView.backgroundColor = .white
+        annotationView?.addSubview(customView)
+        annotationView?.centerOffset = CGPoint(x: -customView.frame.width / 2.0, y: -customView.frame.height)
+
+        return annotationView
     }
 }
 

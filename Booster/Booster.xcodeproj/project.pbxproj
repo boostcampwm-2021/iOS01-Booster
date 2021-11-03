@@ -35,6 +35,15 @@
 		3BB7E6A3272AD46800103205 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB7E6A2272AD46800103205 /* FeedViewController.swift */; };
 		FA28B03D272FD5E7009D7630 /* TrackingMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA28B03C272FD5E7009D7630 /* TrackingMapView.swift */; };
 		FA28B03F272FE5FB009D7630 /* CountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA28B03E272FE5FB009D7630 /* CountdownView.swift */; };
+		FAA79EAB273114260096F789 /* PhotoAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA79EAA273114260096F789 /* PhotoAnnotationView.swift */; };
+		FAA79EAD273120650096F789 /* PhotoAnnotationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAA79EAC273120650096F789 /* PhotoAnnotationView.xib */; };
+		FAA79EAF2731277B0096F789 /* UIAlertController+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA79EAE2731277B0096F789 /* UIAlertController+Extention.swift */; };
+		FAA79EBA27325A8C0096F789 /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA79EB927325A8C0096F789 /* Coordinate.swift */; };
+		FAA79EBC27325AA60096F789 /* MileStone.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA79EBB27325AA60096F789 /* MileStone.swift */; };
+		FAA79EBE27325B8E0096F789 /* TrackingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA79EBD27325B8E0096F789 /* TrackingModel.swift */; };
+		FAA79EC027325C810096F789 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA79EBF27325C810096F789 /* User.swift */; };
+		FAA79EC327325D710096F789 /* TrackingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA79EC227325D710096F789 /* TrackingState.swift */; };
+		FAA79EC627325DC40096F789 /* TrackingProgressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA79EC527325DC40096F789 /* TrackingProgressViewModel.swift */; };
 		FAB73315272A707200E1D824 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB73314272A707200E1D824 /* Home.storyboard */; };
 		FAB73317272A707B00E1D824 /* Tracking.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB73316272A707B00E1D824 /* Tracking.storyboard */; };
 		FAB73319272A708A00E1D824 /* Analysis.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB73318272A708A00E1D824 /* Analysis.storyboard */; };
@@ -75,6 +84,15 @@
 		3BB7E6A2272AD46800103205 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		FA28B03C272FD5E7009D7630 /* TrackingMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingMapView.swift; sourceTree = "<group>"; };
 		FA28B03E272FE5FB009D7630 /* CountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownView.swift; sourceTree = "<group>"; };
+		FAA79EAA273114260096F789 /* PhotoAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAnnotationView.swift; sourceTree = "<group>"; };
+		FAA79EAC273120650096F789 /* PhotoAnnotationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoAnnotationView.xib; sourceTree = "<group>"; };
+		FAA79EAE2731277B0096F789 /* UIAlertController+Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extention.swift"; sourceTree = "<group>"; };
+		FAA79EB927325A8C0096F789 /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
+		FAA79EBB27325AA60096F789 /* MileStone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MileStone.swift; sourceTree = "<group>"; };
+		FAA79EBD27325B8E0096F789 /* TrackingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingModel.swift; sourceTree = "<group>"; };
+		FAA79EBF27325C810096F789 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		FAA79EC227325D710096F789 /* TrackingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingState.swift; sourceTree = "<group>"; };
+		FAA79EC527325DC40096F789 /* TrackingProgressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingProgressViewModel.swift; sourceTree = "<group>"; };
 		FAB73314272A707200E1D824 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		FAB73316272A707B00E1D824 /* Tracking.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tracking.storyboard; sourceTree = "<group>"; };
 		FAB73318272A708A00E1D824 /* Analysis.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Analysis.storyboard; sourceTree = "<group>"; };
@@ -156,13 +174,14 @@
 			children = (
 				3BAD9CF127325BB60057639D /* CoreData */,
 				3B195ABC2730D6F700EB8533 /* Booster.entitlements */,
+				FAA79EC127325D670096F789 /* Enums */,
 				3B0EB30A272FB30F005B5AFC /* Renderers */,
 				3BB7E68B272AA12C00103205 /* Extensions */,
-				3B4E4008272A6CD500577625 /* Models */,
 				3B4E4003272A6A2B00577625 /* AppDelegates */,
 				3B4E4002272A69F400577625 /* Repositories */,
-				3B4E4001272A69ED00577625 /* ViewModels */,
 				3B4E3FFE272A69B700577625 /* Resources */,
+				FAA79EB827325A820096F789 /* Models */,
+				FAA79EC427325DB20096F789 /* ViewModels */,
 				3B4E3FFC272A698B00577625 /* ViewControllers */,
 				3B4E3FFB272A697B00577625 /* Storyboards */,
 			);
@@ -203,13 +222,6 @@
 				3B4E3FF0272A696F00577625 /* Assets.xcassets */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		3B4E4001272A69ED00577625 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		3B4E4002272A69F400577625 /* Repositories */ = {
@@ -262,6 +274,7 @@
 			children = (
 				3BB7E68C272AA13B00103205 /* UIFont.swift */,
 				3B0EB327272FE76D005B5AFC /* NSAttributedString.swift */,
+				FAA79EAE2731277B0096F789 /* UIAlertController+Extention.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -280,8 +293,37 @@
 			children = (
 				FA28B03C272FD5E7009D7630 /* TrackingMapView.swift */,
 				FA28B03E272FE5FB009D7630 /* CountdownView.swift */,
+				FAA79EAA273114260096F789 /* PhotoAnnotationView.swift */,
+				FAA79EAC273120650096F789 /* PhotoAnnotationView.xib */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		FAA79EB827325A820096F789 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FAA79EB927325A8C0096F789 /* Coordinate.swift */,
+				FAA79EBB27325AA60096F789 /* MileStone.swift */,
+				FAA79EBD27325B8E0096F789 /* TrackingModel.swift */,
+				FAA79EBF27325C810096F789 /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		FAA79EC127325D670096F789 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				FAA79EC227325D710096F789 /* TrackingState.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		FAA79EC427325DB20096F789 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				FAA79EC527325DC40096F789 /* TrackingProgressViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -357,6 +399,7 @@
 				FAB73317272A707B00E1D824 /* Tracking.storyboard in Resources */,
 				3B4E3FF1272A696F00577625 /* Assets.xcassets in Resources */,
 				3BB7E696272AD07B00103205 /* NotoSansKR-Light.otf in Resources */,
+				FAA79EAD273120650096F789 /* PhotoAnnotationView.xib in Resources */,
 				3BB7E694272AD07B00103205 /* NotoSansKR-Thin.otf in Resources */,
 				3BB7E699272AD07B00103205 /* NotoSansKR-Regular.otf in Resources */,
 				3B4E3FEF272A696E00577625 /* Main.storyboard in Resources */,
@@ -413,18 +456,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B0EB321272FD248005B5AFC /* TrackingProgressMapViewController.swift in Sources */,
+				FAA79EC327325D710096F789 /* TrackingState.swift in Sources */,
 				3B0EB30C272FBE0B005B5AFC /* CircleRenderer.swift in Sources */,
+				FAA79EBC27325AA60096F789 /* MileStone.swift in Sources */,
 				3BB7E69D272AD42200103205 /* TrackingViewController.swift in Sources */,
+				FAA79EBE27325B8E0096F789 /* TrackingModel.swift in Sources */,
 				FA28B03D272FD5E7009D7630 /* TrackingMapView.swift in Sources */,
 				3BB7E68D272AA13B00103205 /* UIFont.swift in Sources */,
 				3BB7E6A1272AD45300103205 /* MyPageViewController.swift in Sources */,
+				FAA79EC027325C810096F789 /* User.swift in Sources */,
 				3B0EB31E272FD1D7005B5AFC /* TrackingProgressViewController.swift in Sources */,
 				3BB7E69F272AD43F00103205 /* AnalysisViewController.swift in Sources */,
 				3B4E3FE8272A696E00577625 /* AppDelegate.swift in Sources */,
 				FA28B03F272FE5FB009D7630 /* CountdownView.swift in Sources */,
 				3B4E3FEA272A696E00577625 /* SceneDelegate.swift in Sources */,
+				FAA79EAB273114260096F789 /* PhotoAnnotationView.swift in Sources */,
 				3BB7E6A3272AD46800103205 /* FeedViewController.swift in Sources */,
+				FAA79EAF2731277B0096F789 /* UIAlertController+Extention.swift in Sources */,
+				FAA79EC627325DC40096F789 /* TrackingProgressViewModel.swift in Sources */,
 				3B0EB328272FE76D005B5AFC /* NSAttributedString.swift in Sources */,
+				FAA79EBA27325A8C0096F789 /* Coordinate.swift in Sources */,
 				3BB7E69B272AD40400103205 /* HomeViewController.swift in Sources */,
 				3BAD9CF427325BD50057639D /* Booster.xcdatamodeld in Sources */,
 			);
