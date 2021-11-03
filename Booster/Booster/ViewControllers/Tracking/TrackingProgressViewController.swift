@@ -15,13 +15,14 @@ class TrackingProgressViewController: UIViewController {
     }
 
     weak var delegate: TrackingProgressDelegate?
+    private var trackingProgressViewModel: TrackingProgressViewModel?
     private var time: Int = 0
     private var distance: Double = 0.0
     private var isEnd: Bool = false
     private var isPause: Bool = false
     private var timer: Timer = Timer()
     private var startDate: Date = Date()
-    private var manager: CLLocationManager = CLLocationManager()
+    private var manager: CLLocationManager?
     private var startLocation: CLLocation?
     private var lastLocation: CLLocation?
     private lazy var imagePickerController: UIImagePickerController = {
@@ -82,11 +83,17 @@ class TrackingProgressViewController: UIViewController {
         configure()
         locationAuth()
         delegate?.location(mapView: mapView)
+
+        trackingProgressViewModel = TrackingProgressViewModel(user: User(age: 22, nickname: "부스터", gender: "남", height: 180, weight: 80))
     }
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = false
         mapView.start()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        mapView.stop()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -133,6 +140,8 @@ class TrackingProgressViewController: UIViewController {
             $0?.translatesAutoresizingMaskIntoConstraints = false
         }
         mapView.delegate = self
+        mapView.locationManager.delegate = self
+        manager = mapView.locationManager
     }
 
     private func update() {
@@ -154,15 +163,15 @@ class TrackingProgressViewController: UIViewController {
             startDate = Date()
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingTimer), userInfo: nil, repeats: true)
             DispatchQueue.main.async { [weak self] in
-                self?.manager.startUpdatingLocation()
-                self?.manager.startMonitoringSignificantLocationChanges()
+                self?.manager?.startUpdatingLocation()
+                self?.manager?.startMonitoringSignificantLocationChanges()
             }
         case false:
             self.time -= Int(startDate.timeIntervalSinceNow)
             startLocation = nil
             timer.invalidate()
-            manager.stopUpdatingLocation()
-            manager.stopMonitoringSignificantLocationChanges()
+            manager?.stopUpdatingLocation()
+            manager?.stopMonitoringSignificantLocationChanges()
         }
     }
 
@@ -180,14 +189,14 @@ class TrackingProgressViewController: UIViewController {
 
     private func locationAuth() {
         if CLLocationManager.locationServicesEnabled() {
-            manager.delegate = self
-            manager.desiredAccuracy = kCLLocationAccuracyBest
-            manager.requestWhenInUseAuthorization()
+            manager?.delegate = self
+            manager?.desiredAccuracy = kCLLocationAccuracyBest
+            manager?.requestWhenInUseAuthorization()
             DispatchQueue.main.async { [weak self] in
-                self?.manager.startUpdatingLocation()
-                self?.manager.startMonitoringSignificantLocationChanges()
+                self?.manager?.startUpdatingLocation()
+                self?.manager?.startMonitoringSignificantLocationChanges()
             }
-            manager.distanceFilter = 10
+            manager?.distanceFilter = 10
         }
     }
 
@@ -247,6 +256,8 @@ class TrackingProgressViewController: UIViewController {
             present(imagePickerController, animated: true)
         case true:
             isEnd.toggle()
+            mapView.stop()
+            trackingProgressViewModel?.toggle()
             stopAnimation()
         }
     }
@@ -257,6 +268,7 @@ class TrackingProgressViewController: UIViewController {
             break
         case false:
             update()
+            mapView.toggleTrackingState()
             isPause.toggle()
         }
     }
@@ -299,6 +311,18 @@ class TrackingProgressViewController: UIViewController {
 
 extension TrackingProgressViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let currentLocation = locations.first?.coordinate else { return }
+        guard let latestCoordinate = trackingProgressViewModel?.latestCoordinate() else {
+            trackingProgressViewModel?.append(coordinate: Coordinate(latitude: currentLocation.latitude, longitude: currentLocation.longitude))
+            return
+        }
+
+        let prevLocation = CLLocationCoordinate2D(latitude: latestCoordinate.latitude, longitude: latestCoordinate.longitude)
+
+        mapView.updateUserLocationOverlay(location: locations.first)
+        if mapView.trackingState == .start { mapView.drawPath(from: prevLocation, to: currentLocation) }
+        trackingProgressViewModel?.append(coordinate: Coordinate(latitude: currentLocation.latitude, longitude: currentLocation.longitude))
+
         if let start = startLocation {
             lastLocation = locations.last
 
@@ -328,20 +352,21 @@ extension TrackingProgressViewController: CLLocationManagerDelegate {
 
 extension TrackingProgressViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        var circleRenderer = CircleRenderer()
         if let overlay = overlay as? MKCircle {
-            circleRenderer = CircleRenderer(circle: overlay)
+            let circleRenderer = CircleRenderer(circle: overlay)
+            
+            return circleRenderer
         }
-        guard let polyLine = overlay as? MKPolyline else {
-            return MKPolylineRenderer()
+
+        if let polyLine = overlay as? MKPolyline {
+            let polyLineRenderer = MKPolylineRenderer(polyline: polyLine)
+            polyLineRenderer.strokeColor = UIColor(red: 255/255, green: 92/255, blue: 0/255, alpha: 1)
+            polyLineRenderer.lineWidth = 8
+
+            return polyLineRenderer
         }
 
-        let polyLineRenderer = MKPolylineRenderer(polyline: polyLine)
-
-        polyLineRenderer.strokeColor = UIColor(red: 255/255, green: 92/255, blue: 0/255, alpha: 1)
-        polyLineRenderer.lineWidth = 8
-
-        return polyLineRenderer
+        return MKOverlayRenderer()
     }
 
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -368,7 +393,7 @@ extension TrackingProgressViewController: MKMapViewDelegate {
 extension TrackingProgressViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            print(image)
+
         }
         picker.dismiss(animated: true, completion: nil)
     }
