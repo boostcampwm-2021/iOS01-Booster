@@ -10,7 +10,6 @@
 		1C3613AE7D2A68CE3264FA35 /* Pods_Booster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFF67BAD0AE292F3B50AE991 /* Pods_Booster.framework */; };
 		3B0EB30C272FBE0B005B5AFC /* CircleRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0EB30B272FBE0B005B5AFC /* CircleRenderer.swift */; };
 		3B0EB31E272FD1D7005B5AFC /* TrackingProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0EB31D272FD1D7005B5AFC /* TrackingProgressViewController.swift */; };
-		3B0EB321272FD248005B5AFC /* TrackingProgressMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0EB320272FD248005B5AFC /* TrackingProgressMapViewController.swift */; };
 		3B0EB326272FD724005B5AFC /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0EB325272FD724005B5AFC /* HealthKit.framework */; };
 		3B0EB328272FE76D005B5AFC /* NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0EB327272FE76D005B5AFC /* NSAttributedString.swift */; };
 		3B4E3FE8272A696E00577625 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4E3FE7272A696E00577625 /* AppDelegate.swift */; };
@@ -60,7 +59,6 @@
 		32F204ADAD4BAE4318631952 /* Pods-Booster.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booster.release.xcconfig"; path = "Target Support Files/Pods-Booster/Pods-Booster.release.xcconfig"; sourceTree = "<group>"; };
 		3B0EB30B272FBE0B005B5AFC /* CircleRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleRenderer.swift; sourceTree = "<group>"; };
 		3B0EB31D272FD1D7005B5AFC /* TrackingProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingProgressViewController.swift; sourceTree = "<group>"; };
-		3B0EB320272FD248005B5AFC /* TrackingProgressMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingProgressMapViewController.swift; sourceTree = "<group>"; };
 		3B0EB325272FD724005B5AFC /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		3B0EB327272FE76D005B5AFC /* NSAttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedString.swift; sourceTree = "<group>"; };
 		3B195ABC2730D6F700EB8533 /* Booster.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Booster.entitlements; sourceTree = "<group>"; };
@@ -153,7 +151,6 @@
 				FA28B03B272FD5DC009D7630 /* View */,
 				3BB7E69C272AD42200103205 /* TrackingViewController.swift */,
 				3B0EB31D272FD1D7005B5AFC /* TrackingProgressViewController.swift */,
-				3B0EB320272FD248005B5AFC /* TrackingProgressMapViewController.swift */,
 			);
 			path = Tracking;
 			sourceTree = "<group>";
@@ -452,7 +449,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B0EB321272FD248005B5AFC /* TrackingProgressMapViewController.swift in Sources */,
 				3B0EB30C272FBE0B005B5AFC /* CircleRenderer.swift in Sources */,
 				FAA79EBC27325AA60096F789 /* MileStone.swift in Sources */,
 				3BB7E69D272AD42200103205 /* TrackingViewController.swift in Sources */,

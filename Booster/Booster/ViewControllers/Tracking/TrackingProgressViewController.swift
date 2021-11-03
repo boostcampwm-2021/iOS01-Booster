@@ -76,11 +76,17 @@ class TrackingProgressViewController: UIViewController {
         configure()
         locationAuth()
         delegate?.location(mapView: mapView)
+
+        trackingProgressViewModel = TrackingProgressViewModel(user: User(age: 22, nickname: "부스터", gender: "남", height: 180, weight: 80))
     }
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = false
         mapView.start()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        mapView.stop()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -127,6 +133,7 @@ class TrackingProgressViewController: UIViewController {
             $0?.translatesAutoresizingMaskIntoConstraints = false
         }
         mapView.delegate = self
+        manager.delegate = self
     }
 
     private func update() {
@@ -149,14 +156,14 @@ class TrackingProgressViewController: UIViewController {
         case true:
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingTimer), userInfo: nil, repeats: true)
             DispatchQueue.main.async { [weak self] in
-                self?.manager.startUpdatingLocation()
-                self?.manager.startMonitoringSignificantLocationChanges()
+                self?.manager?.startUpdatingLocation()
+                self?.manager?.startMonitoringSignificantLocationChanges()
             }
         case false:
             viewModel.update(seconds: viewModel.trackingModel.seconds-Int(timerDate.timeIntervalSinceNow))
             timer.invalidate()
-            manager.stopUpdatingLocation()
-            manager.stopMonitoringSignificantLocationChanges()
+            manager?.stopUpdatingLocation()
+            manager?.stopMonitoringSignificantLocationChanges()
         }
     }
 
@@ -174,14 +181,14 @@ class TrackingProgressViewController: UIViewController {
 
     private func locationAuth() {
         if CLLocationManager.locationServicesEnabled() {
-            manager.delegate = self
-            manager.desiredAccuracy = kCLLocationAccuracyBest
-            manager.requestWhenInUseAuthorization()
+            manager?.delegate = self
+            manager?.desiredAccuracy = kCLLocationAccuracyBest
+            manager?.requestWhenInUseAuthorization()
             DispatchQueue.main.async { [weak self] in
-                self?.manager.startUpdatingLocation()
-                self?.manager.startMonitoringSignificantLocationChanges()
+                self?.manager?.startUpdatingLocation()
+                self?.manager?.startMonitoringSignificantLocationChanges()
             }
-            manager.distanceFilter = 10
+            manager?.distanceFilter = 10
         }
     }
 
@@ -293,6 +300,18 @@ class TrackingProgressViewController: UIViewController {
 
 extension TrackingProgressViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let currentLocation = locations.first?.coordinate else { return }
+        guard let latestCoordinate = viewModel.latestCoordinate() else {
+            viewModel.append(coordinate: Coordinate(latitude: currentLocation.latitude, longitude: currentLocation.longitude))
+            return
+        }
+
+        let prevLocation = CLLocationCoordinate2D(latitude: latestCoordinate.latitude, longitude: latestCoordinate.longitude)
+
+        mapView.updateUserLocationOverlay(location: locations.first)
+        if mapView.trackingState == .start { mapView.drawPath(from: prevLocation, to: currentLocation) }
+        viewModel.append(coordinate: Coordinate(latitude: currentLocation.latitude, longitude: currentLocation.longitude))
+
         if let start = viewModel.trackingModel.coordinates.last, let startLatitude = start.latitude, let startLongitude = start.longitude {
             guard let lastLocation = locations.last else {
                 return
@@ -321,20 +340,21 @@ extension TrackingProgressViewController: CLLocationManagerDelegate {
 
 extension TrackingProgressViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        var circleRenderer = CircleRenderer()
         if let overlay = overlay as? MKCircle {
-            circleRenderer = CircleRenderer(circle: overlay)
+            let circleRenderer = CircleRenderer(circle: overlay)
+
+            return circleRenderer
         }
-        guard let polyLine = overlay as? MKPolyline else {
-            return MKPolylineRenderer()
+
+        if let polyLine = overlay as? MKPolyline {
+            let polyLineRenderer = MKPolylineRenderer(polyline: polyLine)
+            polyLineRenderer.strokeColor = UIColor(red: 255/255, green: 92/255, blue: 0/255, alpha: 1)
+            polyLineRenderer.lineWidth = 8
+
+            return polyLineRenderer
         }
 
-        let polyLineRenderer = MKPolylineRenderer(polyline: polyLine)
-
-        polyLineRenderer.strokeColor = UIColor(red: 255/255, green: 92/255, blue: 0/255, alpha: 1)
-        polyLineRenderer.lineWidth = 8
-
-        return polyLineRenderer
+        return MKOverlayRenderer()
     }
 
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -348,8 +368,11 @@ extension TrackingProgressViewController: MKMapViewDelegate {
             annotationView?.annotation = annotation
         }
 
-        guard let customView = UINib(nibName: "PhotoAnnotationView", bundle: nil).instantiate(withOwner: self, options: nil).first as? PhotoAnnotationView else { return nil }
-        customView.photoImageView.image = UIImage(systemName: "camera")
+        guard let customView = UINib(nibName: "PhotoAnnotationView", bundle: nil).instantiate(withOwner: self, options: nil).first as? PhotoAnnotationView,
+              let mileStone = trackingProgressViewModel?.trackingModel.milestones.last
+        else { return nil }
+
+        customView.photoImageView.image = UIImage(data: mileStone.imageData)
         customView.photoImageView.backgroundColor = .white
         annotationView?.addSubview(customView)
         annotationView?.centerOffset = CGPoint(x: -customView.frame.width / 2.0, y: -customView.frame.height)
@@ -361,7 +384,12 @@ extension TrackingProgressViewController: MKMapViewDelegate {
 extension TrackingProgressViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            print(image)
+            guard let currentCoordinate = trackingProgressViewModel?.latestCoordinate(),
+                  let imageData = image.pngData()
+            else { return }
+            let mileStone = MileStone(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude, imageData: imageData)
+            trackingProgressViewModel?.append(mileStone: mileStone)
+            mapView.addMileStonePhoto(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude)
         }
         picker.dismiss(animated: true, completion: nil)
     }
