@@ -322,7 +322,7 @@ extension TrackingProgressViewController: CLLocationManagerDelegate {
         if viewModel.state == .start { mapView.drawPath(from: prevCoordinate, to: currentCoordinate) }
 
         viewModel.update(distance: latestLocation.distance(from: currentLocation))
-      
+
         viewModel.append(coordinate: Coordinate(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude))
     }
 
