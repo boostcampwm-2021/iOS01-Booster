@@ -12,6 +12,7 @@ class TrackingProgressViewController: UIViewController {
             case milestone = "milestone"
         }
     }
+    
     enum Color {
         static let orange = UIColor.init(red: 1.0, green: 0.332, blue: 0.0, alpha: 1)
     }
@@ -153,13 +154,13 @@ class TrackingProgressViewController: UIViewController {
         let distanceContent = "\(String.init(format: "%.1f", model.distance/1000))\n"
         let kcalTitle = "kcal"
         let timeTitle = "time"
-        let distaceTitle = "km"
+        let distanceTitle = "km"
         let color: UIColor = viewModel.state == .start ? .black : .white
 
         pedometerLabel.text = "\(model.steps)"
         kcalLabel.attributedText = makeAttributedText(content: kcalContent, title: kcalTitle, color: color)
         timeLabel.attributedText = makeAttributedText(content: timeContent, title: timeTitle, color: color)
-        distanceLabel.attributedText = makeAttributedText(content: distanceContent, title: distaceTitle, color: color)
+        distanceLabel.attributedText = makeAttributedText(content: distanceContent, title: distanceTitle, color: color)
     }
 
     private func update() {
