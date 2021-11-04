@@ -9,12 +9,12 @@ final class TrackingProgressViewModel {
 
     private(set) var trackingModel: Observable<TrackingModel>
     private(set) var user: UserInfo
-    private(set) var state: Observable<TrackingState>
+    private(set) var state: TrackingState
 
     init(trackingModel: TrackingModel = TrackingModel(), user: UserInfo = UserInfo()) {
         self.trackingModel = Observable(trackingModel)
         self.user = user
-        self.state = Observable(.start)
+        self.state = .start
     }
 
     func append(coordinate: Coordinate) {
@@ -35,7 +35,7 @@ final class TrackingProgressViewModel {
 
     func recordEnd() {
         trackingModel.value.endDate = Date()
-        state.value = .end
+        state = .end
     }
 
     func write(title: String) {
@@ -63,7 +63,7 @@ final class TrackingProgressViewModel {
     }
 
     func toggle() {
-        state.value = state.value == .start ? .pause : .start
+        state = state == .start ? .pause : .start
     }
 
     func latestCoordinate() -> Coordinate? {

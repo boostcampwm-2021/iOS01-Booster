@@ -142,7 +142,7 @@ class TrackingProgressViewController: UIViewController {
         let kcalTitle = "kcal"
         let timeTitle = "time"
         let distaceTitle = "km"
-        let color: UIColor = viewModel.state.value == .start ? .black : .white
+        let color: UIColor = viewModel.state == .start ? .black : .white
 
         pedometerLabel.text = "\(model.steps)"
         kcalLabel.attributedText = makeAttributedText(content: kcalContent, title: kcalTitle, color: color)
@@ -151,7 +151,7 @@ class TrackingProgressViewController: UIViewController {
     }
 
     private func update() {
-        let isStart: Bool = self.viewModel.state.value == .start
+        let isStart: Bool = viewModel.state == .start
         print(isStart)
         [distanceLabel, timeLabel, kcalLabel].forEach {
             $0?.textColor = isStart ? .black : .white
@@ -261,7 +261,7 @@ class TrackingProgressViewController: UIViewController {
     }
 
     @IBAction func leftTouchUp(_ sender: UIButton) {
-        switch viewModel.state.value {
+        switch viewModel.state {
         case .start:
             present(imagePickerController, animated: true)
         default:
@@ -271,7 +271,7 @@ class TrackingProgressViewController: UIViewController {
     }
 
     @IBAction func rightTouchUp(_ sender: Any) {
-        switch viewModel.state.value {
+        switch viewModel.state {
         case .end:
             break
         default:
