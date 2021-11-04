@@ -61,7 +61,7 @@ final class TrackingProgressViewModel {
     func toggle() {
         state = state == .start ? .pause : .start
     }
-    
+
     func latestCoordinate() -> Coordinate? {
         guard let latestCoordinate = trackingModel.coordinates.last else { return nil }
         return latestCoordinate
