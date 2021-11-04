@@ -295,34 +295,27 @@ extension TrackingProgressViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let currentLocation = locations.last else { return }
         let currentCoordinate = currentLocation.coordinate
-
-        if let latestCoordinate = viewModel.latestCoordinate(),
-           let prevLatitude = latestCoordinate.latitude,
-           let prevLongitude = latestCoordinate.longitude {
-            let prevCoordinate = CLLocationCoordinate2D(latitude: prevLatitude, longitude: prevLongitude)
-
-            mapView.updateUserLocationOverlay(location: locations.first)
-            if viewModel.state == .start { mapView.drawPath(from: prevCoordinate, to: currentCoordinate) }
-            viewModel.append(coordinate: Coordinate(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude))
-        } else {
+        guard let latestCoordinate = viewModel.latestCoordinate(),
+              let prevLatitude = latestCoordinate.latitude,
+              let prevLongitude = latestCoordinate.longitude
+        else {
             viewModel.append(coordinate: Coordinate(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude))
             return
         }
+        let prevCoordinate = CLLocationCoordinate2D(latitude: prevLatitude, longitude: prevLongitude)
 
-        if let startCoordinate = viewModel.startCoordinate(),
-           let startLatitude = startCoordinate.latitude,
-           let startLongitude = startCoordinate.longitude {
-            viewModel.append(coordinate: Coordinate(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude))
-            let startLocation = CLLocation(latitude: startLatitude, longitude: startLongitude)
-            viewModel.update(distance: startLocation.distance(from: currentLocation))
+        // draw path
+        mapView.updateUserLocationOverlay(location: currentLocation)
+        if viewModel.state == .start { mapView.drawPath(from: prevCoordinate, to: currentCoordinate) }
 
-            let title = "km"
-            let content = "\(String.init(format: "%.1f", viewModel.trackingModel.distance/1000))\n"
-            distanceLabel.attributedText = makeAttributedText(content: content, title: title)
-        } else {
-            let coordinate = locations.last?.coordinate
-            viewModel.append(coordinate: Coordinate(latitude: coordinate?.latitude, longitude: coordinate?.longitude))
-        }
+        // calc info
+        let latestLocation = CLLocation(latitude: prevLatitude, longitude: prevLongitude)
+        viewModel.update(distance: latestLocation.distance(from: currentLocation))
+        let title = "km"
+        let content = "\(String.init(format: "%.1f", viewModel.trackingModel.distance/1000))\n"
+        distanceLabel.attributedText = makeAttributedText(content: content, title: title)
+        
+        viewModel.append(coordinate: Coordinate(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude))
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
