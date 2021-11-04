@@ -82,11 +82,6 @@ class TrackingProgressViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = false
-        mapView.start()
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        mapView.stop()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -311,18 +306,24 @@ class TrackingProgressViewController: UIViewController {
 
 extension TrackingProgressViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let start = viewModel.trackingModel.value.coordinates.last, let startLatitude = start.latitude, let startLongitude = start.longitude {
-            guard let lastLocation = locations.last else {
-                return
-            }
-            let coordinate = lastLocation.coordinate
-            viewModel.append(coordinate: Coordinate(latitude: coordinate.latitude, longitude: coordinate.longitude))
-            let startLocation = CLLocation(latitude: startLatitude, longitude: startLongitude)
-            viewModel.update(distance: startLocation.distance(from: lastLocation))
-        } else {
-            let coordinate = locations.last?.coordinate
-            viewModel.append(coordinate: Coordinate(latitude: coordinate?.latitude, longitude: coordinate?.longitude))
+        guard let currentLocation = locations.last else { return }
+        let currentCoordinate = currentLocation.coordinate
+        guard let latestCoordinate = viewModel.latestCoordinate(),
+              let prevLatitude = latestCoordinate.latitude,
+              let prevLongitude = latestCoordinate.longitude
+        else {
+            viewModel.append(coordinate: Coordinate(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude))
+            return
         }
+        let prevCoordinate = CLLocationCoordinate2D(latitude: prevLatitude, longitude: prevLongitude)
+        let latestLocation = CLLocation(latitude: prevLatitude, longitude: prevLongitude)
+
+        mapView.updateUserLocationOverlay(location: currentLocation)
+        if viewModel.state == .start { mapView.drawPath(from: prevCoordinate, to: currentCoordinate) }
+
+        viewModel.update(distance: latestLocation.distance(from: currentLocation))
+      
+        viewModel.append(coordinate: Coordinate(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude))
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -380,13 +381,13 @@ extension TrackingProgressViewController: UIImagePickerControllerDelegate & UINa
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             guard let currentCoordinate = viewModel.latestCoordinate(),
-                  let imageData = image.pngData(),
                   let currentLatitude = currentCoordinate.latitude,
-                  let currentLongitude = currentCoordinate.longitude
+                  let currentLogitude = currentCoordinate.longitude,
+                  let imageData = image.pngData()
             else { return }
-            let mileStone = MileStone(latitude: currentLatitude, longitude: currentLongitude, imageData: imageData)
+            let mileStone = MileStone(latitude: currentLatitude, longitude: currentLogitude, imageData: imageData)
             viewModel.append(milestone: mileStone)
-            mapView.addMileStonePhoto(latitude: currentLatitude, longitude: currentLongitude)
+            mapView.addMileStonePhoto(latitude: currentLatitude, longitude: currentLogitude)
         }
         picker.dismiss(animated: true, completion: nil)
     }

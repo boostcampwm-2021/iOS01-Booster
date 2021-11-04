@@ -53,7 +53,7 @@ class TrackingViewController: UIViewController {
 
 extension TrackingViewController: TrackingProgressDelegate {
     func location(mapView: TrackingMapView) {
-        mapView.configure(location: current)
+        mapView.setRegion(to: current)
     }
 }
 
