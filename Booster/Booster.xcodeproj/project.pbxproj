@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		1C3613AE7D2A68CE3264FA35 /* Pods_Booster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFF67BAD0AE292F3B50AE991 /* Pods_Booster.framework */; };
+		28A0E00B272FD86B008D7E51 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A0E00A272FD86B008D7E51 /* HomeViewModel.swift */; };
+		28A0E034273110D0008D7E51 /* CurveGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A0E033273110D0008D7E51 /* CurveGraphView.swift */; };
+		28A0E03827321315008D7E51 /* TimeInterval+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A0E03727321315008D7E51 /* TimeInterval+extension.swift */; };
+		28A0E03B27321DF1008D7E51 /* HomeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A0E03A27321DF1008D7E51 /* HomeData.swift */; };
+		28A0E03D27325616008D7E51 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A0E03C27325616008D7E51 /* FeedViewModel.swift */; };
+		28A0E040273256BD008D7E51 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A0E03F273256BD008D7E51 /* FeedTableViewCell.swift */; };
+		28A0E042273257AA008D7E51 /* TrackingRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A0E041273257AA008D7E51 /* TrackingRecord.swift */; };
+		28A0E064273282C9008D7E51 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A0E063273282C8008D7E51 /* EmptyView.swift */; };
 		3B0EB30C272FBE0B005B5AFC /* CircleRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0EB30B272FBE0B005B5AFC /* CircleRenderer.swift */; };
 		3B0EB31E272FD1D7005B5AFC /* TrackingProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0EB31D272FD1D7005B5AFC /* TrackingProgressViewController.swift */; };
 		3B0EB328272FE76D005B5AFC /* NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0EB327272FE76D005B5AFC /* NSAttributedString.swift */; };
@@ -65,6 +73,16 @@
 
 /* Begin PBXFileReference section */
 		2765B4B3651662BDB6E801D4 /* Pods-Booster.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booster.debug.xcconfig"; path = "Target Support Files/Pods-Booster/Pods-Booster.debug.xcconfig"; sourceTree = "<group>"; };
+		28A0E00A272FD86B008D7E51 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewModel.swift; path = Booster/Resources/HomeViewModel.swift; sourceTree = SOURCE_ROOT; };
+		28A0E00C272FD96E008D7E51 /* Booster.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Booster.entitlements; sourceTree = "<group>"; };
+		28A0E00D272FD96E008D7E51 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		28A0E033273110D0008D7E51 /* CurveGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CurveGraphView.swift; path = ../../../../ios/CurveGraphExample/CurveGraphExample/CurveGraphView.swift; sourceTree = "<group>"; };
+		28A0E03727321315008D7E51 /* TimeInterval+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+extension.swift"; sourceTree = "<group>"; };
+		28A0E03A27321DF1008D7E51 /* HomeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeData.swift; path = Booster/Extensions/HomeData.swift; sourceTree = SOURCE_ROOT; };
+		28A0E03C27325616008D7E51 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FeedViewModel.swift; path = Booster/Extensions/FeedViewModel.swift; sourceTree = SOURCE_ROOT; };
+		28A0E03F273256BD008D7E51 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FeedTableViewCell.swift; path = Booster/Extensions/FeedTableViewCell.swift; sourceTree = SOURCE_ROOT; };
+		28A0E041273257AA008D7E51 /* TrackingRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TrackingRecord.swift; path = Booster/Extensions/TrackingRecord.swift; sourceTree = SOURCE_ROOT; };
+		28A0E063273282C8008D7E51 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EmptyView.swift; path = ../../../../../Desktop/EmptyView.swift; sourceTree = "<group>"; };
 		32F204ADAD4BAE4318631952 /* Pods-Booster.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booster.release.xcconfig"; path = "Target Support Files/Pods-Booster/Pods-Booster.release.xcconfig"; sourceTree = "<group>"; };
 		3B0EB30B272FBE0B005B5AFC /* CircleRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleRenderer.swift; sourceTree = "<group>"; };
 		3B0EB31D272FD1D7005B5AFC /* TrackingProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingProgressViewController.swift; sourceTree = "<group>"; };
@@ -256,6 +274,9 @@
 		3B4E3FFF272A69D500577625 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				28A0E033273110D0008D7E51 /* CurveGraphView.swift */,
+				28A0E03F273256BD008D7E51 /* FeedTableViewCell.swift */,
+				28A0E063273282C8008D7E51 /* EmptyView.swift */,
 				379B2C8427318EF7005EF16A /* BarChartView.swift */,
 				37B519432732CBEF003B61B5 /* BarView.swift */,
 			);
@@ -265,6 +286,8 @@
 		3B4E4001272A69ED00577625 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				28A0E00A272FD86B008D7E51 /* HomeViewModel.swift */,
+				28A0E03C27325616008D7E51 /* FeedViewModel.swift */,
 				373EF3D7272F890A00158B15 /* StatisticsViewModel.swift */,
 			);
 			path = AppDelegates;
@@ -293,6 +316,8 @@
 		3BAD9D05273274120057639D /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				28A0E03A27321DF1008D7E51 /* HomeData.swift */,
+				28A0E041273257AA008D7E51 /* TrackingRecord.swift */,
 				3BAD9CF127325BB60057639D /* CoreData */,
 				3BAD9D06273274240057639D /* RepositoryManager.swift */,
 				3785AFB1272FBE41005B0826 /* Observable.swift */,
@@ -321,6 +346,7 @@
 			isa = PBXGroup;
 			children = (
 				3BB7E68C272AA13B00103205 /* UIFont.swift */,
+				28A0E03727321315008D7E51 /* TimeInterval+extension.swift */,
 				3B0EB327272FE76D005B5AFC /* NSAttributedString.swift */,
 				FAA79EAE2731277B0096F789 /* UIAlertController+Extention.swift */,
 				3BA10AB827337535008C1977 /* Observable.swift */,
@@ -501,6 +527,7 @@
 				3785AFB2272FBE41005B0826 /* Observable.swift in Sources */,
 				37A8346227337A7C007714C3 /* HealthStoreManager.swift in Sources */,
 				3BB7E69D272AD42200103205 /* TrackingViewController.swift in Sources */,
+				28A0E00B272FD86B008D7E51 /* HomeViewModel.swift in Sources */,
 				FAA79EBE27325B8E0096F789 /* TrackingModel.swift in Sources */,
 				FA28B03D272FD5E7009D7630 /* TrackingMapView.swift in Sources */,
 				3BB7E68D272AA13B00103205 /* UIFont.swift in Sources */,
@@ -508,6 +535,7 @@
 				3BAD9D0427326B5C0057639D /* Tracking+CoreDataProperties.swift in Sources */,
 				3BAD9D0227326B5C0057639D /* User+CoreDataProperties.swift in Sources */,
 				3BB7E6A1272AD45300103205 /* MyPageViewController.swift in Sources */,
+				28A0E064273282C9008D7E51 /* EmptyView.swift in Sources */,
 				FAA79EC027325C810096F789 /* UserInfo.swift in Sources */,
 				3B0EB31E272FD1D7005B5AFC /* TrackingProgressViewController.swift in Sources */,
 				3BA10AB927337535008C1977 /* Observable.swift in Sources */,
@@ -519,6 +547,10 @@
 				3BAD9D0127326B5C0057639D /* User+CoreDataClass.swift in Sources */,
 				3BA10ABC2733A7BE008C1977 /* TrackingProgressUsecase.swift in Sources */,
 				3B4E3FEA272A696E00577625 /* SceneDelegate.swift in Sources */,
+				28A0E042273257AA008D7E51 /* TrackingRecord.swift in Sources */,
+				28A0E03827321315008D7E51 /* TimeInterval+extension.swift in Sources */,
+				28A0E03B27321DF1008D7E51 /* HomeData.swift in Sources */,
+				28A0E040273256BD008D7E51 /* FeedTableViewCell.swift in Sources */,
 				FAA79EAB273114260096F789 /* PhotoAnnotationView.swift in Sources */,
 				3BB7E6A3272AD46800103205 /* FeedViewController.swift in Sources */,
 				3BAD9D07273274240057639D /* RepositoryManager.swift in Sources */,
@@ -531,6 +563,8 @@
 				379B2C8527318EF7005EF16A /* BarChartView.swift in Sources */,
 				373EF3D8272F890A00158B15 /* StatisticsViewModel.swift in Sources */,
 				3BB7E69B272AD40400103205 /* HomeViewController.swift in Sources */,
+				28A0E034273110D0008D7E51 /* CurveGraphView.swift in Sources */,
+				28A0E03D27325616008D7E51 /* FeedViewModel.swift in Sources */,
 				3BAD9CF427325BD50057639D /* Booster.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
