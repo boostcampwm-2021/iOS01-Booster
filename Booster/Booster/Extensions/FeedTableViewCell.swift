@@ -7,17 +7,27 @@
 
 import UIKit
 
-class FeedTableViewCell: UITableViewCell {
+final class FeedTableViewCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    @IBOutlet weak var cardBackgroundView: UIView!
+    @IBOutlet weak var trackingPathView: UIView!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var kmLabel: UILabel!
+    @IBOutlet weak var totalStepCountLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+
+    func configure(with data: TrackingRecord) {
+        dateLabel.text = stringToDate(data.date)
+        kmLabel.text = "\(data.km)"
+        totalStepCountLabel.text = "\(data.totalSteps)"
+        titleLabel.text = data.title
+        cardBackgroundView.layer.cornerRadius = 25
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    private func stringToDate(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyMMdd"
+        return dateFormatter.string(from: date)
     }
 
 }
