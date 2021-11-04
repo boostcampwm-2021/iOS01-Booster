@@ -12,7 +12,7 @@ class TrackingProgressViewController: UIViewController {
             case milestone = "milestone"
         }
     }
-    
+
     enum Color {
         static let orange = UIColor.init(red: 1.0, green: 0.332, blue: 0.0, alpha: 1)
     }

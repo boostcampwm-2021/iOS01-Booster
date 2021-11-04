@@ -26,7 +26,7 @@ struct StatisticsCollection {
         for statistics in statisticsCollection {
             average += statistics.step
         }
-        return average/self.count
+        return self.count != 0 ? average/self.count : 0
     }
 
     mutating func append(statistics: Statistics) {

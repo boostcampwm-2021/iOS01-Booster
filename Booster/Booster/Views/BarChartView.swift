@@ -28,9 +28,9 @@ final class BarChartView: UIView {
             self.setNeedsLayout()
         }
     }
-    
+
     // MARK: - init
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         addGesture()
@@ -45,9 +45,9 @@ final class BarChartView: UIView {
         super.init(coder: aDecoder)
         addGesture()
     }
-    
+
     // MARK: - @objc
-    
+
     @objc private func drawStatistics(_ sender: UIGestureRecognizer) {
         var tappedLocation: CGPoint = sender.location(in: self.graphView)
         let tappedGraphIndex: Int = Int(tappedLocation.x / self.xOffset)
@@ -89,9 +89,8 @@ final class BarChartView: UIView {
 
     }
 
-    
     // MARK: - functions
-    
+
     override func layoutSubviews() {
         self.graphView.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height - self.bottomSpace)
         self.addSubview(self.graphView)
@@ -117,7 +116,7 @@ final class BarChartView: UIView {
         self.graphView.addGestureRecognizer(tapGesture)
         self.graphView.addGestureRecognizer(panGesture)
     }
-    
+
     private func configureCGPoints(using statisticsCollection: StatisticsCollection) -> [CGPoint] {
 
         guard let maxStatistics = statisticsCollection.maxStatistics() else { return [CGPoint]() }

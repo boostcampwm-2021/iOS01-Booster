@@ -64,7 +64,7 @@ final class StatisticsViewModel {
         guard let stepCountType = HKQuantityType.quantityType(forIdentifier: .stepCount),
               let oneyearago = Calendar.current.date(byAdding: duration, value: -1, to: Date()) else { return }
         let startDate = Calendar.current.startOfDay(for: oneyearago)
-        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: .now, options: [.strictStartDate, .strictEndDate])
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: Date(), options: [.strictStartDate, .strictEndDate])
 
         let anchorDate = Calendar.current.startOfDay(for: Date())
 
