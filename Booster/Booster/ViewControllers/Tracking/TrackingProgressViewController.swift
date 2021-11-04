@@ -32,9 +32,10 @@ class TrackingProgressViewController: UIViewController {
     }()
     private lazy var titleTextField: UITextField = {
         let textField = UITextField(frame: self.view.frame)
+        let title = "제목"
         textField.font = .notoSansKR(.medium, 25)
         textField.textColor = .white
-        textField.attributedPlaceholder = .makeAttributedString(text: "제목", font: .notoSansKR(.medium, 25), color: .lightGray)
+        textField.attributedPlaceholder = .makeAttributedString(text: title, font: .notoSansKR(.medium, 25), color: .lightGray)
         textField.autocorrectionType = .no
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.delegate = self
@@ -42,9 +43,10 @@ class TrackingProgressViewController: UIViewController {
     }()
     private lazy var contentTextView: UITextView = {
         let textView = UITextView()
+        let emptyText = "오늘 산책은 어땠나요?"
         textView.backgroundColor = .clear
         textView.font = .notoSansKR(.light, 17)
-        textView.text = "오늘 산책은 어땠나요?"
+        textView.text = emptyText
         textView.textColor = .lightGray
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.delegate = self
@@ -270,7 +272,13 @@ class TrackingProgressViewController: UIViewController {
     @IBAction func rightTouchUp(_ sender: Any) {
         switch viewModel.state {
         case .end:
-            break
+            viewModel.save { message in
+                let title = "저장 여부"
+                let alert = UIAlertController.simpleAlert(title: title, message: message)
+                DispatchQueue.main.async {
+                    self.present(alert, animated: true)
+                }
+            }
         default:
             viewModel.toggle()
             update()
@@ -301,7 +309,7 @@ class TrackingProgressViewController: UIViewController {
            let tabBarHeight = self.tabBarController?.tabBar.frame.height {
             let keyboardRect = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRect.height
-            view.frame.origin.y += keyboardHeight - tabBarHeight
+            view.frame.origin.y += (keyboardHeight - tabBarHeight)
         }
     }
 }
@@ -408,13 +416,16 @@ extension TrackingProgressViewController: UITextViewDelegate {
             textView.text = nil
             textView.textColor = .white
         }
+        rightButton.isHidden = true
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
-            textView.text = "오늘 산책은 어땠나요?"
+            let emptyText = "오늘 산책은 어땠나요?"
+            textView.text = emptyText
             textView.textColor = .lightGray
         }
+        rightButton.isHidden = false
     }
 
     func textViewDidChangeSelection(_ textView: UITextView) {
