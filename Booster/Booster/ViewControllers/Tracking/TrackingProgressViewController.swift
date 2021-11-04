@@ -12,6 +12,7 @@ class TrackingProgressViewController: UIViewController {
         static let camera = UIImage(systemName: "camera")
         static let stop = UIImage(systemName: "stop")
         static let play = UIImage(systemName: "play")
+        static let pencil = UIImage(systemName: "pencil")
     }
 
     weak var delegate: TrackingProgressDelegate?
@@ -147,7 +148,6 @@ class TrackingProgressViewController: UIViewController {
 
     private func update() {
         let isStart: Bool = viewModel.state == .start
-        print(isStart)
         [distanceLabel, timeLabel, kcalLabel].forEach {
             $0?.textColor = isStart ? .black : .white
         }
@@ -199,7 +199,7 @@ class TrackingProgressViewController: UIViewController {
                 self?.manager.startUpdatingLocation()
                 self?.manager.startMonitoringSignificantLocationChanges()
             }
-            manager.distanceFilter = 10
+            manager.distanceFilter = 1
         }
     }
 
@@ -209,6 +209,7 @@ class TrackingProgressViewController: UIViewController {
             guard let self = self, let content = self.pedometerLabel.text else {
                 return
             }
+            let title = " steps"
             self.rightButtonWidthConstraint.constant = 70
             self.rightButtonHeightConstraint.constant = 70
             self.rightButton.layer.cornerRadius = 35
@@ -221,7 +222,8 @@ class TrackingProgressViewController: UIViewController {
             [self.timeTopConstraint, self.kcalTopConstraint, self.distanceTopConstraint].forEach {
                 $0.constant = 130
             }
-            self.pedometerLabel.attributedText = self.makeAttributedText(content: content, title: " steps", contentFont: .bazaronite(size: 60), titleFont: .notoSansKR(.regular, 20), color: Color.orange)
+            self.rightButton.setImage(Image.pencil, for: .normal)
+            self.pedometerLabel.attributedText = self.makeAttributedText(content: content, title: title, contentFont: .bazaronite(size: 60), titleFont: .notoSansKR(.regular, 20), color: Color.orange)
             self.view.layoutIfNeeded()
             self.infoView.layoutIfNeeded()
         }, completion: { [weak self] _ in
@@ -414,11 +416,22 @@ extension TrackingProgressViewController: UITextViewDelegate {
             textView.textColor = .lightGray
         }
     }
+
+    func textViewDidChangeSelection(_ textView: UITextView) {
+        viewModel.write(content: textView.text)
+    }
 }
 
 extension TrackingProgressViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        guard let title = textField.text else {
+            return
+        }
+        viewModel.write(title: title)
     }
 }
