@@ -2,8 +2,6 @@ import UIKit
 import MapKit
 
 class TrackingMapView: MKMapView {
-    private(set) var locationManager = CLLocationManager()
-    private(set) var trackingState: TrackingState = .end
     private var overlay: MKOverlay = MKCircle()
 
     override init(frame: CGRect) {
@@ -16,22 +14,6 @@ class TrackingMapView: MKMapView {
         super.init(coder: coder)
 
         configure()
-    }
-
-    func start() {
-        trackingState = .start
-    }
-
-    func pause() {
-        trackingState = .pause
-    }
-
-    func stop() {
-        trackingState = .end
-    }
-
-    func toggleTrackingState() {
-        if trackingState == .pause { trackingState = .start } else if trackingState == .start { trackingState = .pause }
     }
 
     func addMileStonePhoto(on coordinate: CLLocationCoordinate2D) -> Bool {
@@ -49,7 +31,7 @@ class TrackingMapView: MKMapView {
         addAnnotation(annotation)
     }
 
-    func configure(location: CLLocation) {
+    func setRegion(to location: CLLocation) {
         let regionRadius: CLLocationDistance = 100
         let coordRegion = MKCoordinateRegion(center: location.coordinate,
                                              latitudinalMeters: regionRadius*2,
