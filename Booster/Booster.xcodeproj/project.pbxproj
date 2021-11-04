@@ -705,6 +705,7 @@
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "만보기 기능을 업데이트 하기 위해 필요합니다.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "트래킹 및 현재 위치를 보여주기 위해 권한이 필요합니다.";
 				INFOPLIST_KEY_NSLocationUsageDescription = "트래킹 및 현재 위치를 보여주기 위해 권한이 필요합니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "트래킹 및 현재 위치를 보여주기 위해 권한이 필요합니다.";
 				INFOPLIST_KEY_NSMotionUsageDescription = "걸음 수 트래킹을 위해 권한이 필요합니다";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -743,6 +744,7 @@
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "만보기 기능을 업데이트 하기 위해 필요합니다.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "트래킹 및 현재 위치를 보여주기 위해 권한이 필요합니다.";
 				INFOPLIST_KEY_NSLocationUsageDescription = "트래킹 및 현재 위치를 보여주기 위해 권한이 필요합니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "트래킹 및 현재 위치를 보여주기 위해 권한이 필요합니다.";
 				INFOPLIST_KEY_NSMotionUsageDescription = "걸음 수 트래킹을 위해 권한이 필요합니다";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
