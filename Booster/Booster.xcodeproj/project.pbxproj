@@ -19,6 +19,7 @@
 		3B4E3FF4272A696F00577625 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B4E3FF2272A696F00577625 /* LaunchScreen.storyboard */; };
 		3B4E4006272A6B5200577625 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3B4E4005272A6B5200577625 /* .swiftlint.yml */; };
 		3BA10AB927337535008C1977 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA10AB827337535008C1977 /* Observable.swift */; };
+		3BA10ABC2733A7BE008C1977 /* TrackingProgressUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA10ABB2733A7BE008C1977 /* TrackingProgressUsecase.swift */; };
 		3BAD9CF427325BD50057639D /* Booster.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3BAD9CF227325BD50057639D /* Booster.xcdatamodeld */; };
 		3BAD9D0127326B5C0057639D /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAD9CFD27326B5C0057639D /* User+CoreDataClass.swift */; };
 		3BAD9D0227326B5C0057639D /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAD9CFE27326B5C0057639D /* User+CoreDataProperties.swift */; };
@@ -72,6 +73,7 @@
 		3B4E3FF5272A696F00577625 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B4E4005272A6B5200577625 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		3BA10AB827337535008C1977 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		3BA10ABB2733A7BE008C1977 /* TrackingProgressUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingProgressUsecase.swift; sourceTree = "<group>"; };
 		3BAD9CF327325BD50057639D /* Booster.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Booster.xcdatamodel; sourceTree = "<group>"; };
 		3BAD9CFD27326B5C0057639D /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		3BAD9CFE27326B5C0057639D /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
@@ -179,6 +181,7 @@
 		3B4E3FE6272A696E00577625 /* Booster */ = {
 			isa = PBXGroup;
 			children = (
+				3BA10ABA2733A7AA008C1977 /* Usecases */,
 				3BAD9D05273274120057639D /* Repositories */,
 				3B195ABC2730D6F700EB8533 /* Booster.entitlements */,
 				3B0EB30A272FB30F005B5AFC /* Renderers */,
@@ -236,6 +239,14 @@
 				3B4E3FE7272A696E00577625 /* AppDelegate.swift */,
 			);
 			path = AppDelegates;
+			sourceTree = "<group>";
+		};
+		3BA10ABA2733A7AA008C1977 /* Usecases */ = {
+			isa = PBXGroup;
+			children = (
+				3BA10ABB2733A7BE008C1977 /* TrackingProgressUsecase.swift */,
+			);
+			path = Usecases;
 			sourceTree = "<group>";
 		};
 		3BAD9CF127325BB60057639D /* CoreData */ = {
@@ -469,6 +480,7 @@
 				3B4E3FE8272A696E00577625 /* AppDelegate.swift in Sources */,
 				FA28B03F272FE5FB009D7630 /* CountdownView.swift in Sources */,
 				3BAD9D0127326B5C0057639D /* User+CoreDataClass.swift in Sources */,
+				3BA10ABC2733A7BE008C1977 /* TrackingProgressUsecase.swift in Sources */,
 				3B4E3FEA272A696E00577625 /* SceneDelegate.swift in Sources */,
 				FAA79EAB273114260096F789 /* PhotoAnnotationView.swift in Sources */,
 				3BB7E6A3272AD46800103205 /* FeedViewController.swift in Sources */,
