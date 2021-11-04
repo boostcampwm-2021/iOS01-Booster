@@ -24,7 +24,7 @@ class RepositoryManager {
         return container.newBackgroundContext()
     }()
 
-    func save(value: [String: Any], type name: String, completion handler: @escaping (Error?) -> Void ) {
+    func save(value: [String: Any], type name: String, completion handler: @escaping (ResultType<Void, Error>) -> Void ) {
         self.entityName = name
         guard let entity = entity else { return }
         backgroundContext.perform { [weak self] in
@@ -38,9 +38,9 @@ class RepositoryManager {
             let context = self.container.viewContext
             do {
                 try context.save()
-                handler(nil)
+                handler(.success(()))
             } catch let error {
-                handler(error)
+                handler(.failure(error))
             }
         }
     }
