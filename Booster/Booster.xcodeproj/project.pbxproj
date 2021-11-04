@@ -18,6 +18,7 @@
 		3B4E3FF1272A696F00577625 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B4E3FF0272A696F00577625 /* Assets.xcassets */; };
 		3B4E3FF4272A696F00577625 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B4E3FF2272A696F00577625 /* LaunchScreen.storyboard */; };
 		3B4E4006272A6B5200577625 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3B4E4005272A6B5200577625 /* .swiftlint.yml */; };
+		3BA10AB927337535008C1977 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA10AB827337535008C1977 /* Observable.swift */; };
 		3BAD9CF427325BD50057639D /* Booster.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3BAD9CF227325BD50057639D /* Booster.xcdatamodeld */; };
 		3BAD9D0127326B5C0057639D /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAD9CFD27326B5C0057639D /* User+CoreDataClass.swift */; };
 		3BAD9D0227326B5C0057639D /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAD9CFE27326B5C0057639D /* User+CoreDataProperties.swift */; };
@@ -70,6 +71,7 @@
 		3B4E3FF3272A696F00577625 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3B4E3FF5272A696F00577625 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B4E4005272A6B5200577625 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		3BA10AB827337535008C1977 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		3BAD9CF327325BD50057639D /* Booster.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Booster.xcdatamodel; sourceTree = "<group>"; };
 		3BAD9CFD27326B5C0057639D /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		3BAD9CFE27326B5C0057639D /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
@@ -277,6 +279,7 @@
 				3BB7E68C272AA13B00103205 /* UIFont.swift */,
 				3B0EB327272FE76D005B5AFC /* NSAttributedString.swift */,
 				FAA79EAE2731277B0096F789 /* UIAlertController+Extention.swift */,
+				3BA10AB827337535008C1977 /* Observable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 				FAA79EC027325C810096F789 /* UserInfo.swift in Sources */,
 				3B0EB31E272FD1D7005B5AFC /* TrackingProgressViewController.swift in Sources */,
 				3BB7E69F272AD43F00103205 /* AnalysisViewController.swift in Sources */,
+				3BA10AB927337535008C1977 /* Observable.swift in Sources */,
 				3B4E3FE8272A696E00577625 /* AppDelegate.swift in Sources */,
 				FA28B03F272FE5FB009D7630 /* CountdownView.swift in Sources */,
 				3BAD9D0127326B5C0057639D /* User+CoreDataClass.swift in Sources */,

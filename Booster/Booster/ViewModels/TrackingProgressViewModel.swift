@@ -7,63 +7,67 @@ final class TrackingProgressViewModel {
         case end
     }
 
-    private(set) var trackingModel: TrackingModel
+    private(set) var trackingModel: Observable<TrackingModel>
     private(set) var user: UserInfo
     private(set) var state: TrackingState
 
     init(trackingModel: TrackingModel = TrackingModel(), user: UserInfo = UserInfo()) {
-        self.trackingModel = trackingModel
+        self.trackingModel = Observable(trackingModel)
         self.user = user
         self.state = .start
     }
 
     func append(coordinate: Coordinate) {
-        trackingModel.coordinates.append(coordinate)
+        trackingModel.value.coordinates.append(coordinate)
     }
 
     func append(milestone: MileStone) {
-        trackingModel.milestones.append(milestone)
+        trackingModel.value.milestones.append(milestone)
     }
 
     func appends(coordinates: [Coordinate]) {
-        trackingModel.coordinates.append(contentsOf: coordinates)
+        trackingModel.value.coordinates.append(contentsOf: coordinates)
     }
 
     func appends(milestones: [MileStone]) {
-        trackingModel.milestones.append(contentsOf: milestones)
+        trackingModel.value.milestones.append(contentsOf: milestones)
     }
 
     func recordEnd() {
-        trackingModel.endDate = Date()
+        trackingModel.value.endDate = Date()
         state = .end
     }
 
     func write(title: String) {
-        trackingModel.title = title
+        trackingModel.value.title = title
     }
 
     func write(content: String) {
-        trackingModel.content = content
+        trackingModel.value.content = content
     }
 
     func update(seconds: Int) {
-        trackingModel.seconds = seconds
+        trackingModel.value.seconds = seconds
     }
 
     func update(steps: Int) {
-        trackingModel.steps = steps
+        trackingModel.value.steps = steps
     }
 
     func update(distance: Double) {
-        trackingModel.distance += distance
+        trackingModel.value.distance += distance
+    }
+
+    func update(calroies: Int) {
+        trackingModel.value.calories = calroies
     }
 
     func toggle() {
         state = state == .start ? .pause : .start
     }
-    
+
     func latestCoordinate() -> Coordinate? {
-        guard let latestCoordinate = trackingModel.coordinates.last else { return nil }
+        guard let latestCoordinate = trackingModel.value.coordinates.last else { return nil }
         return latestCoordinate
     }
 }

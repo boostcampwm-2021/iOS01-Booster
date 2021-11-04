@@ -2,6 +2,12 @@ import UIKit
 import MapKit
 
 class TrackingMapView: MKMapView {
+    enum TrackingState {
+    case start
+    case pause
+    case end
+    }
+
     private(set) var locationManager = CLLocationManager()
     private(set) var trackingState: TrackingState = .end
     private var overlay: MKOverlay = MKCircle()
