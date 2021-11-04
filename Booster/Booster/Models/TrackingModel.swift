@@ -23,7 +23,6 @@ struct TrackingModel {
          title: String = "",
          content: String = "") {
         self.startDate = startDate
-        self.endDate = endDate
         self.steps = steps
         self.calories = calories
         self.seconds = seconds
