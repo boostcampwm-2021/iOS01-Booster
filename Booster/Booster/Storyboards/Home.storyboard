@@ -80,7 +80,7 @@
                                 <color key="textColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TBK-bI-lVF" customClass="CurveGraphView" customModule="Booster" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TBK-bI-lVF">
                                 <rect key="frame" x="30" y="648" width="354" height="184"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -116,7 +116,6 @@
                         <outlet property="goalLabel" destination="TZn-KZ-HUf" id="TU4-Ra-AQ7"/>
                         <outlet property="kcalLabel" destination="IOt-Vq-NdU" id="mHf-Oa-YZ3"/>
                         <outlet property="kmLabel" destination="576-pf-rBg" id="Xhi-iJ-LE1"/>
-                        <outlet property="stepCountGraphView" destination="TBK-bI-lVF" id="lSG-sI-MdQ"/>
                         <outlet property="timeActiveLabel" destination="DK1-7W-5Tf" id="gcb-mb-QTF"/>
                         <outlet property="todayTotalStepCountLabel" destination="Ssn-6d-STD" id="gdw-or-0vE"/>
                     </connections>
