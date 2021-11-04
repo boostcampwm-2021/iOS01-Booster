@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>만보기 기능을 업데이트 하기 위해 필요합니다.</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>만보기 기능을 위해 당신의 건강을 공유합니다.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>NotoSansKR-Thin.otf</string>
