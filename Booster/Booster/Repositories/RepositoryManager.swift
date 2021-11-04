@@ -1,7 +1,9 @@
 import Foundation
 import CoreData
 
-class RepositoryManager {
+typealias ResultType = RepositoryManager.ResultType
+
+final class RepositoryManager {
     enum ResultType<Success, Failure: Error> {
         case success(Success)
         case failure(Failure)
@@ -16,12 +18,13 @@ class RepositoryManager {
         return NSEntityDescription.entity(forEntityName: entityName, in: container.viewContext)
     }
     private lazy var container: NSPersistentContainer = {
-            let container = NSPersistentContainer(name: entityName)
+            let container = NSPersistentContainer(name: "Booster")
             container.loadPersistentStores { (_, _) in }
             return container
     }()
     private lazy var backgroundContext: NSManagedObjectContext = {
-        return container.newBackgroundContext()
+        let backgroundContext = container.newBackgroundContext()
+        return backgroundContext
     }()
 
     func save(value: [String: Any], type name: String, completion handler: @escaping (ResultType<Void, Error>) -> Void ) {

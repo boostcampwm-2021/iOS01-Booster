@@ -7,16 +7,18 @@ final class TrackingProgressViewModel {
         case end
     }
 
+    private let trackingUsecase: TrackingProgressUsecase
     private(set) var trackingModel: Observable<TrackingModel>
     private(set) var milestones: Observable<[MileStone]>
     private(set) var user: UserInfo
     private(set) var state: TrackingState
 
     init(trackingModel: TrackingModel = TrackingModel(), user: UserInfo = UserInfo()) {
+        trackingUsecase = TrackingProgressUsecase()
         self.trackingModel = Observable(trackingModel)
         self.milestones = Observable([MileStone]())
         self.user = user
-        self.state = .start
+        state = .start
     }
 
     func append(coordinate: Coordinate) {
@@ -78,5 +80,11 @@ final class TrackingProgressViewModel {
     func startCoordinate() -> Coordinate? {
         guard let startCoordinate = trackingModel.value.coordinates.first else { return nil }
         return startCoordinate
+    }
+
+    func save(completion handler: @escaping (String) -> Void) {
+        trackingUsecase.save(model: trackingModel.value) { message in
+            handler(message)
+        }
     }
 }
