@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Rgs-ka-K2j">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Rgs-ka-K2j">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -26,10 +26,10 @@
             </objects>
             <point key="canvasLocation" x="802" y="-36"/>
         </scene>
-        <!--Analysis-->
+        <!--Statistics-->
         <scene sceneID="VYg-4f-MpV">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="Analysis" storyboardName="Analysis" id="huO-gt-DbM" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardIdentifier="Statistics" storyboardName="Statistics" id="huO-gt-DbM" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="DdJ-2s-Oih"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tDj-Gv-jHx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

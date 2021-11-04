@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		1C3613AE7D2A68CE3264FA35 /* Pods_Booster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFF67BAD0AE292F3B50AE991 /* Pods_Booster.framework */; };
+		373EF3D8272F890A00158B15 /* StatisticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373EF3D7272F890A00158B15 /* StatisticsViewModel.swift */; };
+		3785AFB2272FBE41005B0826 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3785AFB1272FBE41005B0826 /* Observable.swift */; };
+		3785AFB4272FC5C7005B0826 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3785AFB3272FC5C7005B0826 /* Statistics.swift */; };
+		379B2C8527318EF7005EF16A /* BarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379B2C8427318EF7005EF16A /* BarChartView.swift */; };
+		37A8346227337A7C007714C3 /* HealthStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A8346127337A7C007714C3 /* HealthStoreManager.swift */; };
+		37A834642733B484007714C3 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A834632733B484007714C3 /* Button.swift */; };
+		37AEC001272DA863007C830C /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37AEC000272DA863007C830C /* HealthKit.framework */; };
+		37B519442732CBEF003B61B5 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B519432732CBEF003B61B5 /* BarView.swift */; };
 		3B4E3FE8272A696E00577625 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4E3FE7272A696E00577625 /* AppDelegate.swift */; };
 		3B4E3FEA272A696E00577625 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4E3FE9272A696E00577625 /* SceneDelegate.swift */; };
 		3B4E3FEF272A696E00577625 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B4E3FED272A696E00577625 /* Main.storyboard */; };
@@ -24,12 +32,12 @@
 		3BB7E699272AD07B00103205 /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3BB7E693272AD07B00103205 /* NotoSansKR-Regular.otf */; };
 		3BB7E69B272AD40400103205 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB7E69A272AD40400103205 /* HomeViewController.swift */; };
 		3BB7E69D272AD42200103205 /* TrackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB7E69C272AD42200103205 /* TrackingViewController.swift */; };
-		3BB7E69F272AD43F00103205 /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB7E69E272AD43F00103205 /* AnalysisViewController.swift */; };
+		3BB7E69F272AD43F00103205 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB7E69E272AD43F00103205 /* StatisticsViewController.swift */; };
 		3BB7E6A1272AD45300103205 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB7E6A0272AD45200103205 /* MyPageViewController.swift */; };
 		3BB7E6A3272AD46800103205 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB7E6A2272AD46800103205 /* FeedViewController.swift */; };
 		FAB73315272A707200E1D824 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB73314272A707200E1D824 /* Home.storyboard */; };
 		FAB73317272A707B00E1D824 /* Tracking.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB73316272A707B00E1D824 /* Tracking.storyboard */; };
-		FAB73319272A708A00E1D824 /* Analysis.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB73318272A708A00E1D824 /* Analysis.storyboard */; };
+		FAB73319272A708A00E1D824 /* Statistics.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB73318272A708A00E1D824 /* Statistics.storyboard */; };
 		FAB7331B272A709300E1D824 /* MyPage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB7331A272A709300E1D824 /* MyPage.storyboard */; };
 		FAB7331D272A70A000E1D824 /* Feed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB7331C272A70A000E1D824 /* Feed.storyboard */; };
 /* End PBXBuildFile section */
@@ -37,6 +45,15 @@
 /* Begin PBXFileReference section */
 		2765B4B3651662BDB6E801D4 /* Pods-Booster.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booster.debug.xcconfig"; path = "Target Support Files/Pods-Booster/Pods-Booster.debug.xcconfig"; sourceTree = "<group>"; };
 		32F204ADAD4BAE4318631952 /* Pods-Booster.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booster.release.xcconfig"; path = "Target Support Files/Pods-Booster/Pods-Booster.release.xcconfig"; sourceTree = "<group>"; };
+		373EF3D7272F890A00158B15 /* StatisticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StatisticsViewModel.swift; path = Booster/ViewControllers/StatisticsViewModel.swift; sourceTree = SOURCE_ROOT; };
+		3785AFB1272FBE41005B0826 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Observable.swift; path = Booster/ViewControllers/Observable.swift; sourceTree = SOURCE_ROOT; };
+		3785AFB3272FC5C7005B0826 /* Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Statistics.swift; path = Booster/ViewControllers/Statistics.swift; sourceTree = SOURCE_ROOT; };
+		379B2C8427318EF7005EF16A /* BarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView.swift; sourceTree = SOURCE_ROOT; };
+		37A8346127337A7C007714C3 /* HealthStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthStoreManager.swift; sourceTree = SOURCE_ROOT; };
+		37A834632733B484007714C3 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = SOURCE_ROOT; };
+		37AEBFFF272DA863007C830C /* Booster.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Booster.entitlements; sourceTree = "<group>"; };
+		37AEC000272DA863007C830C /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		37B519432732CBEF003B61B5 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = SOURCE_ROOT; };
 		3B4E3FE4272A696E00577625 /* Booster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Booster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4E3FE7272A696E00577625 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B4E3FE9272A696E00577625 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -55,12 +72,12 @@
 		3BB7E693272AD07B00103205 /* NotoSansKR-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Regular.otf"; sourceTree = "<group>"; };
 		3BB7E69A272AD40400103205 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		3BB7E69C272AD42200103205 /* TrackingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingViewController.swift; sourceTree = "<group>"; };
-		3BB7E69E272AD43F00103205 /* AnalysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
+		3BB7E69E272AD43F00103205 /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
 		3BB7E6A0272AD45200103205 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		3BB7E6A2272AD46800103205 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		FAB73314272A707200E1D824 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		FAB73316272A707B00E1D824 /* Tracking.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tracking.storyboard; sourceTree = "<group>"; };
-		FAB73318272A708A00E1D824 /* Analysis.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Analysis.storyboard; sourceTree = "<group>"; };
+		FAB73318272A708A00E1D824 /* Statistics.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Statistics.storyboard; sourceTree = "<group>"; };
 		FAB7331A272A709300E1D824 /* MyPage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyPage.storyboard; sourceTree = "<group>"; };
 		FAB7331C272A70A000E1D824 /* Feed.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Feed.storyboard; sourceTree = "<group>"; };
 		FFF67BAD0AE292F3B50AE991 /* Pods_Booster.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booster.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,6 +89,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C3613AE7D2A68CE3264FA35 /* Pods_Booster.framework in Frameworks */,
+				37AEC001272DA863007C830C /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +99,7 @@
 		1CF21C398E7000BBC1BD4E07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				37AEC000272DA863007C830C /* HealthKit.framework */,
 				FFF67BAD0AE292F3B50AE991 /* Pods_Booster.framework */,
 			);
 			name = Frameworks;
@@ -108,6 +127,7 @@
 		3B4E3FE6272A696E00577625 /* Booster */ = {
 			isa = PBXGroup;
 			children = (
+				37AEBFFF272DA863007C830C /* Booster.entitlements */,
 				3BB7E68B272AA12C00103205 /* Extensions */,
 				3B4E4008272A6CD500577625 /* Models */,
 				3B4E4003272A6A2B00577625 /* AppDelegates */,
@@ -128,7 +148,7 @@
 				3B4E3FED272A696E00577625 /* Main.storyboard */,
 				FAB73314272A707200E1D824 /* Home.storyboard */,
 				FAB73316272A707B00E1D824 /* Tracking.storyboard */,
-				FAB73318272A708A00E1D824 /* Analysis.storyboard */,
+				FAB73318272A708A00E1D824 /* Statistics.storyboard */,
 				FAB7331A272A709300E1D824 /* MyPage.storyboard */,
 				FAB7331C272A70A000E1D824 /* Feed.storyboard */,
 			);
@@ -140,7 +160,7 @@
 			children = (
 				3BB7E69A272AD40400103205 /* HomeViewController.swift */,
 				3BB7E69C272AD42200103205 /* TrackingViewController.swift */,
-				3BB7E69E272AD43F00103205 /* AnalysisViewController.swift */,
+				3BB7E69E272AD43F00103205 /* StatisticsViewController.swift */,
 				3BB7E6A0272AD45200103205 /* MyPageViewController.swift */,
 				3BB7E6A2272AD46800103205 /* FeedViewController.swift */,
 			);
@@ -160,6 +180,8 @@
 		3B4E3FFF272A69D500577625 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				379B2C8427318EF7005EF16A /* BarChartView.swift */,
+				37B519432732CBEF003B61B5 /* BarView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -167,6 +189,7 @@
 		3B4E4001272A69ED00577625 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				373EF3D7272F890A00158B15 /* StatisticsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -190,6 +213,10 @@
 		3B4E4008272A6CD500577625 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3785AFB1272FBE41005B0826 /* Observable.swift */,
+				3785AFB3272FC5C7005B0826 /* Statistics.swift */,
+				37A8346127337A7C007714C3 /* HealthStoreManager.swift */,
+				37A834632733B484007714C3 /* Button.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -287,7 +314,7 @@
 			files = (
 				3BB7E695272AD07B00103205 /* NotoSansKR-Medium.otf in Resources */,
 				3BB7E68A272AA0CC00103205 /* BAZARONI.TTF in Resources */,
-				FAB73319272A708A00E1D824 /* Analysis.storyboard in Resources */,
+				FAB73319272A708A00E1D824 /* Statistics.storyboard in Resources */,
 				3BB7E698272AD07B00103205 /* NotoSansKR-Black.otf in Resources */,
 				3B4E4006272A6B5200577625 /* .swiftlint.yml in Resources */,
 				FAB7331D272A70A000E1D824 /* Feed.storyboard in Resources */,
@@ -353,13 +380,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3785AFB2272FBE41005B0826 /* Observable.swift in Sources */,
+				37A8346227337A7C007714C3 /* HealthStoreManager.swift in Sources */,
 				3BB7E69D272AD42200103205 /* TrackingViewController.swift in Sources */,
 				3BB7E68D272AA13B00103205 /* UIFont.swift in Sources */,
 				3BB7E6A1272AD45300103205 /* MyPageViewController.swift in Sources */,
-				3BB7E69F272AD43F00103205 /* AnalysisViewController.swift in Sources */,
+				3785AFB4272FC5C7005B0826 /* Statistics.swift in Sources */,
+				37B519442732CBEF003B61B5 /* BarView.swift in Sources */,
+				3BB7E69F272AD43F00103205 /* StatisticsViewController.swift in Sources */,
 				3B4E3FE8272A696E00577625 /* AppDelegate.swift in Sources */,
 				3B4E3FEA272A696E00577625 /* SceneDelegate.swift in Sources */,
+				37A834642733B484007714C3 /* Button.swift in Sources */,
 				3BB7E6A3272AD46800103205 /* FeedViewController.swift in Sources */,
+				379B2C8527318EF7005EF16A /* BarChartView.swift in Sources */,
+				373EF3D8272F890A00158B15 /* StatisticsViewModel.swift in Sources */,
 				3BB7E69B272AD40400103205 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -508,11 +542,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Booster/Booster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Booster/Resources/Info.plist;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Health Share 가즈아";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Health Update 가즈아";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -538,11 +575,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Booster/Booster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Booster/Resources/Info.plist;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Health Share 가즈아";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Health Update 가즈아";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
