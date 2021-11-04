@@ -8,11 +8,13 @@ final class TrackingProgressViewModel {
     }
 
     private(set) var trackingModel: Observable<TrackingModel>
+    private(set) var milestones: Observable<[MileStone]>
     private(set) var user: UserInfo
     private(set) var state: TrackingState
 
     init(trackingModel: TrackingModel = TrackingModel(), user: UserInfo = UserInfo()) {
         self.trackingModel = Observable(trackingModel)
+        self.milestones = Observable([MileStone]())
         self.user = user
         self.state = .start
     }
@@ -22,7 +24,7 @@ final class TrackingProgressViewModel {
     }
 
     func append(milestone: MileStone) {
-        trackingModel.value.milestones.append(milestone)
+        milestones.value.append(milestone)
     }
 
     func appends(coordinates: [Coordinate]) {
@@ -35,6 +37,7 @@ final class TrackingProgressViewModel {
 
     func recordEnd() {
         trackingModel.value.endDate = Date()
+        trackingModel.value.milestones = milestones.value
         state = .end
     }
 

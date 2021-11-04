@@ -3,6 +3,15 @@ import MapKit
 import CoreMotion
 
 class TrackingProgressViewController: UIViewController {
+    enum NibName: String {
+        case photoAnnotationView = "PhotoAnnotationView"
+    }
+
+    enum Identifier {
+        enum Annotation: String {
+            case milestone = "milestone"
+        }
+    }
     enum Color {
         static let orange = UIColor.init(red: 1.0, green: 0.332, blue: 0.0, alpha: 1)
     }
@@ -110,6 +119,14 @@ class TrackingProgressViewController: UIViewController {
             }
             self.configure(model: model)
         }
+
+        viewModel.milestones.bind({ [weak self] milestones in
+            guard let milestone = milestones.last,
+                  let latitude = milestone.coordinate.latitude,
+                  let longitude = milestone.coordinate.longitude
+            else { return }
+            self?.mapView.addMileStoneAnnotation(latitude: latitude, longitude: longitude)
+        })
     }
 
     private func configure() {
@@ -147,7 +164,6 @@ class TrackingProgressViewController: UIViewController {
 
     private func update() {
         let isStart: Bool = viewModel.state == .start
-        print(isStart)
         [distanceLabel, timeLabel, kcalLabel].forEach {
             $0?.textColor = isStart ? .black : .white
         }
@@ -322,7 +338,6 @@ extension TrackingProgressViewController: CLLocationManagerDelegate {
         if viewModel.state == .start { mapView.drawPath(from: prevCoordinate, to: currentCoordinate) }
 
         viewModel.update(distance: latestLocation.distance(from: currentLocation))
-
         viewModel.append(coordinate: Coordinate(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude))
     }
 
@@ -356,16 +371,16 @@ extension TrackingProgressViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation { return nil }
 
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "photoMarker")
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Identifier.Annotation.milestone.rawValue)
         if annotationView == nil {
-            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "photoMarker")
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: Identifier.Annotation.milestone.rawValue)
             annotationView!.canShowCallout = true
         } else {
             annotationView?.annotation = annotation
         }
 
-        guard let customView = UINib(nibName: "PhotoAnnotationView", bundle: nil).instantiate(withOwner: self, options: nil).first as? PhotoAnnotationView,
-              let mileStone = viewModel.trackingModel.value.milestones.last
+        guard let customView = UINib(nibName: NibName.photoAnnotationView.rawValue, bundle: nil).instantiate(withOwner: self, options: nil).first as? PhotoAnnotationView,
+              let mileStone = viewModel.milestones.value.last
         else { return nil }
 
         customView.photoImageView.image = UIImage(data: mileStone.imageData)
@@ -387,7 +402,6 @@ extension TrackingProgressViewController: UIImagePickerControllerDelegate & UINa
             else { return }
             let mileStone = MileStone(latitude: currentLatitude, longitude: currentLogitude, imageData: imageData)
             viewModel.append(milestone: mileStone)
-            mapView.addMileStonePhoto(latitude: currentLatitude, longitude: currentLogitude)
         }
         picker.dismiss(animated: true, completion: nil)
     }
