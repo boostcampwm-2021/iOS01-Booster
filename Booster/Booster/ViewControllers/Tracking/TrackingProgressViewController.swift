@@ -15,6 +15,7 @@ class TrackingProgressViewController: UIViewController {
     }
 
     weak var delegate: TrackingProgressDelegate?
+    private var lastestTime: Int = 0
     private var viewModel: TrackingProgressViewModel = TrackingProgressViewModel()
     private var timerDate = Date()
     private var timer = Timer()
@@ -76,6 +77,7 @@ class TrackingProgressViewController: UIViewController {
         configure()
         locationAuth()
         delegate?.location(mapView: mapView)
+        bind()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -91,7 +93,7 @@ class TrackingProgressViewController: UIViewController {
         pedometer.startUpdates(from: Date()) { [weak self] (data, _) in
             if let data = data {
                 DispatchQueue.main.async {
-                    self?.pedometerLabel.text = "\(data.numberOfSteps.intValue)"
+                    self?.viewModel.update(steps: data.numberOfSteps.intValue)
                 }
             }
         }
@@ -101,41 +103,56 @@ class TrackingProgressViewController: UIViewController {
         self.view.endEditing(true)
     }
 
-    func configureNotifications() {
+    private func configureNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
+    private func bind() {
+        viewModel.trackingModel.bind { [weak self] model in
+            guard let self = self else {
+                return
+            }
+            self.configure(model: model)
+        }
+    }
+
     private func configure() {
-        let timeContent = makeTimerText(second: 0, minute: 0)
-        let kcalContent = "0\n"
-        let distanceContent = "0\n"
-        let kcalTitle = "kcal"
-        let timeTitle = "time"
-        let distaceTitle = "km"
         let radius: CGFloat = 50
-
-        pedometerLabel.font = .bazaronite(size: 60)
-        pedometerLabel.textColor = .black
-        kcalLabel.attributedText = makeAttributedText(content: kcalContent, title: kcalTitle)
-        timeLabel.attributedText = makeAttributedText(content: timeContent, title: timeTitle)
-        distanceLabel.attributedText = makeAttributedText(content: distanceContent, title: distaceTitle)
-
         leftButton.layer.borderWidth = 1
         leftButton.layer.borderColor = UIColor.black.cgColor
         leftButton.layer.cornerRadius = radius
         rightButton.layer.cornerRadius = radius
+        pedometerLabel.font = .bazaronite(size: 60)
+        pedometerLabel.textColor = .black
 
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingTimer), userInfo: nil, repeats: true)
         [mapView, kcalLabel, timeLabel, distanceLabel, pedometerLabel, rightButton].forEach {
             $0?.translatesAutoresizingMaskIntoConstraints = false
         }
+
         mapView.delegate = self
         manager.delegate = self
     }
 
+    private func configure(model: TrackingModel) {
+        let timeContent = makeTimerText(time: model.seconds)
+        let kcalContent = "\(model.calories)\n"
+        let distanceContent = "\(String.init(format: "%.1f", model.distance/1000))\n"
+        let kcalTitle = "kcal"
+        let timeTitle = "time"
+        let distaceTitle = "km"
+        let color: UIColor = viewModel.state.value == .start ? .black : .white
+
+        pedometerLabel.text = "\(model.steps)"
+        kcalLabel.attributedText = makeAttributedText(content: kcalContent, title: kcalTitle, color: color)
+        timeLabel.attributedText = makeAttributedText(content: timeContent, title: timeTitle, color: color)
+        distanceLabel.attributedText = makeAttributedText(content: distanceContent, title: distaceTitle, color: color)
+    }
+
     private func update() {
-        let isStart: Bool = self.viewModel.state == .start
+        let isStart: Bool = self.viewModel.state.value == .start
+        print(isStart)
         [distanceLabel, timeLabel, kcalLabel].forEach {
             $0?.textColor = isStart ? .black : .white
         }
@@ -158,7 +175,8 @@ class TrackingProgressViewController: UIViewController {
                 self?.manager.startMonitoringSignificantLocationChanges()
             }
         case false:
-            viewModel.update(seconds: viewModel.trackingModel.seconds-Int(timerDate.timeIntervalSinceNow))
+            lastestTime = viewModel.trackingModel.value.seconds
+            viewModel.update(seconds: lastestTime)
             timer.invalidate()
             manager.stopUpdatingLocation()
             manager.stopMonitoringSignificantLocationChanges()
@@ -220,10 +238,12 @@ class TrackingProgressViewController: UIViewController {
         })
     }
 
-    private func makeTimerText(second: Int, minute: Int) -> String {
+    private func makeTimerText(time: Int) -> String {
+        let seconds = time % 60
+        let minutes = (time / 60) % 60
         var text = ""
-        text += "\(minute < 10 ? "0\(minute)'" : "\(minute)'")"
-        text += "\(second < 10 ? "0\(second)\"\n" : "\(second)\"\n")"
+        text += "\(minutes < 10 ? "0\(minutes)'" : "\(minutes)'")"
+        text += "\(seconds < 10 ? "0\(seconds)\"\n" : "\(seconds)\"\n")"
         return text
     }
 
@@ -241,7 +261,7 @@ class TrackingProgressViewController: UIViewController {
     }
 
     @IBAction func leftTouchUp(_ sender: UIButton) {
-        switch viewModel.state {
+        switch viewModel.state.value {
         case .start:
             present(imagePickerController, animated: true)
         default:
@@ -251,7 +271,7 @@ class TrackingProgressViewController: UIViewController {
     }
 
     @IBAction func rightTouchUp(_ sender: Any) {
-        switch viewModel.state {
+        switch viewModel.state.value {
         case .end:
             break
         default:
@@ -262,17 +282,10 @@ class TrackingProgressViewController: UIViewController {
 
     @objc
     private func trackingTimer() {
-        let time = -Int(timerDate.timeIntervalSinceNow) + viewModel.trackingModel.seconds
-        let seconds = time % 60
-        let minutes = (time / 60) % 60
-
-        let timeContent = makeTimerText(second: seconds, minute: minutes)
-        let timeTitle = "time"
-        let kcalContent = "\(Int(60 / 15 * 0.9 * Double(minutes)))\n"
-        let kcalTitle = "kcal"
-
-        timeLabel.attributedText = makeAttributedText(content: timeContent, title: timeTitle)
-        kcalLabel.attributedText = makeAttributedText(content: kcalContent, title: kcalTitle)
+        let time = -Int(timerDate.timeIntervalSinceNow) + lastestTime
+        let calroies = Int(60 / 15 * 0.9 * Double((time / 60) % 60))
+        viewModel.update(seconds: time)
+        viewModel.update(calroies: calroies)
     }
 
     @objc
@@ -298,19 +311,7 @@ class TrackingProgressViewController: UIViewController {
 
 extension TrackingProgressViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let currentLocation = locations.first?.coordinate else { return }
-        guard let latestCoordinate = viewModel.latestCoordinate(), let latestLatitude = latestCoordinate.latitude, let latestLongitude = latestCoordinate.longitude else {
-            viewModel.append(coordinate: Coordinate(latitude: currentLocation.latitude, longitude: currentLocation.longitude))
-            return
-        }
-
-        let prevLocation = CLLocationCoordinate2D(latitude: latestLatitude, longitude: latestLongitude)
-
-        mapView.updateUserLocationOverlay(location: locations.first)
-        if mapView.trackingState == .start { mapView.drawPath(from: prevLocation, to: currentLocation) }
-        viewModel.append(coordinate: Coordinate(latitude: currentLocation.latitude, longitude: currentLocation.longitude))
-
-        if let start = viewModel.trackingModel.coordinates.last, let startLatitude = start.latitude, let startLongitude = start.longitude {
+        if let start = viewModel.trackingModel.value.coordinates.last, let startLatitude = start.latitude, let startLongitude = start.longitude {
             guard let lastLocation = locations.last else {
                 return
             }
@@ -318,10 +319,6 @@ extension TrackingProgressViewController: CLLocationManagerDelegate {
             viewModel.append(coordinate: Coordinate(latitude: coordinate.latitude, longitude: coordinate.longitude))
             let startLocation = CLLocation(latitude: startLatitude, longitude: startLongitude)
             viewModel.update(distance: startLocation.distance(from: lastLocation))
-
-            let title = "km"
-            let content = "\(String.init(format: "%.1f", viewModel.trackingModel.distance/1000))\n"
-            distanceLabel.attributedText = makeAttributedText(content: content, title: title)
         } else {
             let coordinate = locations.last?.coordinate
             viewModel.append(coordinate: Coordinate(latitude: coordinate?.latitude, longitude: coordinate?.longitude))
@@ -367,7 +364,7 @@ extension TrackingProgressViewController: MKMapViewDelegate {
         }
 
         guard let customView = UINib(nibName: "PhotoAnnotationView", bundle: nil).instantiate(withOwner: self, options: nil).first as? PhotoAnnotationView,
-              let mileStone = viewModel.trackingModel.milestones.last
+              let mileStone = viewModel.trackingModel.value.milestones.last
         else { return nil }
 
         customView.photoImageView.image = UIImage(data: mileStone.imageData)
