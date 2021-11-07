@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		28C96FE72737F7BC005BD7BC /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28C96FE62737F7BC005BD7BC /* HealthKit.framework */; };
+		28C96FE92737F7D2005BD7BC /* HomeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28C96FE82737F7D2005BD7BC /* HomeKit.framework */; };
 		3B4E4006272A6B5200577625 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3B4E4005272A6B5200577625 /* .swiftlint.yml */; };
 		A1CB1022457C6BA59AC05A13 /* Pods_Booster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9B5F93E1C78CC8DCF0D16A9 /* Pods_Booster.framework */; };
 		FA614F542733CDAA00B090D9 /* Statistics.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA614F092733CDAA00B090D9 /* Statistics.storyboard */; };
@@ -71,6 +73,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		28C96FE62737F7BC005BD7BC /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		28C96FE82737F7D2005BD7BC /* HomeKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HomeKit.framework; path = System/Library/Frameworks/HomeKit.framework; sourceTree = SDKROOT; };
 		3B4E3FE4272A696E00577625 /* Booster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Booster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4E4005272A6B5200577625 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		A9B5F93E1C78CC8DCF0D16A9 /* Pods_Booster.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booster.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -144,7 +148,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28C96FE92737F7D2005BD7BC /* HomeKit.framework in Frameworks */,
 				A1CB1022457C6BA59AC05A13 /* Pods_Booster.framework in Frameworks */,
+				28C96FE72737F7BC005BD7BC /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,6 +179,8 @@
 		74A04867E8679BF31644B61E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				28C96FE82737F7D2005BD7BC /* HomeKit.framework */,
+				28C96FE62737F7BC005BD7BC /* HealthKit.framework */,
 				A9B5F93E1C78CC8DCF0D16A9 /* Pods_Booster.framework */,
 			);
 			name = Frameworks;
@@ -623,7 +631,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -678,7 +686,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -694,18 +702,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Booster/Booster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Booster/Resources/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "마일스톤에 들어갈 사진을 위해 촬영 권환이 필요합니다.";
-				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "건강 정보를 보여주기 위해 권한이 필요합니다.";
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "만보기 기능을 위해 당신의 건강을 공유합니다.";
-				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "만보기 기능을 업데이트 하기 위해 필요합니다.";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "트래킹 및 현재 위치를 보여주기 위해 권한이 필요합니다.";
-				INFOPLIST_KEY_NSLocationUsageDescription = "트래킹 및 현재 위치를 보여주기 위해 권한이 필요합니다.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "트래킹 및 현재 위치를 보여주기 위해 권한이 필요합니다.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "마일스톤에 들어갈 사진을 찍기 위해 촬영 권한이 필요합니다";
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "건강 정보를 보여주기 위해 권한이 필요합니다";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "만보기 기능을 위해 당신의 걸음 수를 공유합니다";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "만보기 기능을 업데이트 하기 위해 필요합니다";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "트래킹 및 현재 위치를 보여주기 위해 권한이 필요합니다";
+				INFOPLIST_KEY_NSLocationUsageDescription = "트래킹 및 현재 위치를 보여주기 위해 권한이 필요합니다";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "트래킹 및 현재 위치를 보여주기 위해 권한이 필요합니다";
 				INFOPLIST_KEY_NSMotionUsageDescription = "걸음 수 트래킹을 위해 권한이 필요합니다";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -733,18 +742,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Booster/Booster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Booster/Resources/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "마일스톤에 들어갈 사진을 위해 촬영 권환이 필요합니다.";
-				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "건강 정보를 보여주기 위해 권한이 필요합니다.";
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "만보기 기능을 위해 당신의 건강을 공유합니다.";
-				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "만보기 기능을 업데이트 하기 위해 필요합니다.";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "트래킹 및 현재 위치를 보여주기 위해 권한이 필요합니다.";
-				INFOPLIST_KEY_NSLocationUsageDescription = "트래킹 및 현재 위치를 보여주기 위해 권한이 필요합니다.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "트래킹 및 현재 위치를 보여주기 위해 권한이 필요합니다.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "마일스톤에 들어갈 사진을 찍기 위해 촬영 권한이 필요합니다";
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "건강 정보를 보여주기 위해 권한이 필요합니다";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "만보기 기능을 위해 당신의 걸음 수를 공유합니다";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "만보기 기능을 업데이트 하기 위해 필요합니다";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "트래킹 및 현재 위치를 보여주기 위해 권한이 필요합니다";
+				INFOPLIST_KEY_NSLocationUsageDescription = "트래킹 및 현재 위치를 보여주기 위해 권한이 필요합니다";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "트래킹 및 현재 위치를 보여주기 위해 권한이 필요합니다";
 				INFOPLIST_KEY_NSMotionUsageDescription = "걸음 수 트래킹을 위해 권한이 필요합니다";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;

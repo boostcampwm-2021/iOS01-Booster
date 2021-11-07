@@ -25,7 +25,8 @@ final class HomeViewModel {
     private func fetchHourlyStepCountsData() {
         homeData.value.hourlyStepCount = []
         guard let stepCountSampleType = HKSampleType.quantityType(forIdentifier: .stepCount),
-         let anchorDate = Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: Date()) else { return }
+         let anchorDate = Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: Date())
+        else { return }
 
         let now = Date()
         let predicate = createTodayPredicate()
@@ -54,8 +55,10 @@ final class HomeViewModel {
                 from: self?.retrieveTodayStartDate(from: now) ?? now,
                 to: now,
                 with: { [weak self] result, _ in
-                    let distance = floor(result.sumQuantity()?.doubleValue(for: HKUnit.meter()) ?? 0)
-                    self?.homeData.value.km += distance / 1000
+                    let distance = result.sumQuantity()?.doubleValue(for: HKUnit.meter()) ?? 0
+                    let meter = round(distance * 100) / 100
+                    let km = meter / 1000
+                    self?.homeData.value.km += km
                 }
             )
         }
@@ -82,9 +85,9 @@ final class HomeViewModel {
 
     private func fetchTotalStepCountsData() {
         guard let totalStepSampleType = HKSampleType.quantityType(forIdentifier: .stepCount) else { return }
-        let end = Date()
-        let start = retrieveTodayStartDate(from: end)
-        let predicate = HKQuery.predicateForSamples(withStart: start, end: end, options: .strictStartDate)
+        let now = Date()
+        let start = retrieveTodayStartDate(from: now)
+        let predicate = HKQuery.predicateForSamples(withStart: start, end: now, options: .strictStartDate)
 
         HealthStoreManager.shared.requestStatisticsQuery(type: totalStepSampleType, predicate: predicate) { result in
             guard let seconds = result.duration()?.doubleValue(for: .second()),

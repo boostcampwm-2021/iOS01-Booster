@@ -42,7 +42,9 @@ extension HomeViewController {
     }
 
     private func configureTotalStepCountLabelGradient(current: Double, goal: Double) {
-        let gradient = gradientLayer(bounds: todayTotalStepCountLabel.bounds, colors: ratioGradientColor(current: current, goal: goal))
+        let labelSize = 70.0
+        let ratio = (current * labelSize / goal) / 100 + 0.25
+        let gradient = gradientLayer(ratio: [NSNumber(value: ratio), NSNumber(value: ratio)], bounds: todayTotalStepCountLabel.bounds, colors: [#colorLiteral(red: 1, green: 0.3607843137, blue: 0, alpha: 1).cgColor, #colorLiteral(red: 0.9294117647, green: 0.9294117647, blue: 0.9294117647, alpha: 1).cgColor])
         todayTotalStepCountLabel.textColor = gradientColor(gradientLayer: gradient)
     }
 
@@ -50,13 +52,11 @@ extension HomeViewController {
         homeViewModel.homeData.bind { [weak self] value in
             DispatchQueue.main.async {
                 self?.todayTotalStepCountLabel.text = "\(value.totalStepCount)"
-                self?.kmLabel.text = "\(value.km)"
+                self?.kmLabel.text = String(format: "%.2f", value.km)
                 self?.kcalLabel.text = "\(value.kcal)"
                 self?.timeActiveLabel.text = value.activeTime.stringToMinutesAndSeconds()
                 self?.todayTotalStepCountLabel.layer.opacity = 0
                 self?.configureTotalStepCountLabelGradient(current: Double(value.totalStepCount), goal: 10000)
-                // self?.stepCountGraphView.dataEntries = value.hourlyStepCount
-                // self?.stepCountGraphView.dataLabels = ["0", "6", "12", "18", "24"]
                 UIView.animate(withDuration: 2) {
                     self?.todayTotalStepCountLabel.layer.opacity = 1
                 }
@@ -64,26 +64,18 @@ extension HomeViewController {
         }
     }
 
-    private func ratioGradientColor(current: Double, goal: Double) -> [CGColor] {
-        let currentRatio = Int(current / goal * 100) > 100 ? 100 : Int(current / goal * 100)
-        let whiteColors = [CGColor](repeating: #colorLiteral(red: 0.4392156863, green: 0.4392156863, blue: 0.4392156863, alpha: 1).cgColor, count: 100 - currentRatio)
-        let orangeColors = [CGColor](repeating: #colorLiteral(red: 1, green: 0.3607843137, blue: 0, alpha: 1).cgColor, count: currentRatio)
-
-        return whiteColors + orangeColors
-    }
-
-    private func gradientLayer(bounds: CGRect, colors: [CGColor]) -> CAGradientLayer {
+    private func gradientLayer(ratio: [NSNumber], bounds: CGRect, colors: [CGColor]) -> CAGradientLayer {
         let gradient = CAGradientLayer()
         gradient.frame = bounds
         gradient.colors = colors
-        gradient.startPoint = CGPoint(x: 0.5, y: 0)
-        gradient.endPoint = CGPoint(x: 0.5, y: 1)
+        gradient.locations = ratio
+        gradient.startPoint = CGPoint(x: 0.5, y: 1)
+        gradient.endPoint = CGPoint(x: 0.5, y: 0)
         return gradient
     }
 
     private func gradientColor(gradientLayer: CAGradientLayer) -> UIColor {
         UIGraphicsBeginImageContextWithOptions(gradientLayer.bounds.size, false, 0.0)
-
         guard let currentContext = UIGraphicsGetCurrentContext() else { return .white }
         gradientLayer.render(in: currentContext)
         guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return .white }
