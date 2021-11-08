@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7kW-7S-rP7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7kW-7S-rP7">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -34,8 +36,8 @@
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="200" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Gyu-u2-lvs">
                                 <rect key="frame" x="0.0" y="205" width="414" height="608"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="boosterBackground"/>
+                                <color key="sectionIndexBackgroundColor" name="boosterBackground"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FeedTableViewCell" rowHeight="235" id="qsH-Cv-Jea" customClass="FeedTableViewCell" customModule="Booster" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44.5" width="414" height="235"/>
@@ -54,7 +56,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="210000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAN-rn-5lT">
                                                             <rect key="frame" x="20" y="20" width="43" height="14.5"/>
                                                             <fontDescription key="fontDescription" name="Bazaronite" family="Bazaronite" pointSize="12"/>
-                                                            <nil key="textColor"/>
+                                                            <color key="textColor" name="boosterBackground"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="MQc-pn-F2E">
@@ -63,13 +65,13 @@
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qiy-UI-HFl">
                                                                     <rect key="frame" x="0.0" y="0.0" width="45.5" height="24"/>
                                                                     <fontDescription key="fontDescription" name="Bazaronite" family="Bazaronite" pointSize="20"/>
-                                                                    <nil key="textColor"/>
+                                                                    <color key="textColor" name="boosterBackground"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="km" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wbi-rj-9le">
                                                                     <rect key="frame" x="0.0" y="27" width="45.5" height="24"/>
                                                                     <fontDescription key="fontDescription" name="Bazaronite" family="Bazaronite" pointSize="20"/>
-                                                                    <nil key="textColor"/>
+                                                                    <color key="textColor" name="boosterBackground"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
@@ -77,13 +79,13 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iZu-V7-d45">
                                                             <rect key="frame" x="309" y="149" width="30" height="54"/>
                                                             <fontDescription key="fontDescription" name="Bazaronite" family="Bazaronite" pointSize="45"/>
-                                                            <nil key="textColor"/>
+                                                            <color key="textColor" name="boosterBackground"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MCu-y6-SdE">
                                                             <rect key="frame" x="302.5" y="15" width="31.5" height="22"/>
                                                             <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="15"/>
-                                                            <nil key="textColor"/>
+                                                            <color key="textColor" name="boosterBackground"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
@@ -127,7 +129,7 @@
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="boosterBackground"/>
                         <constraints>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Gyu-u2-lvs" secondAttribute="trailing" id="1SE-uj-n4U"/>
                             <constraint firstItem="Gyu-u2-lvs" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="9dX-rE-GBE"/>
@@ -173,5 +175,8 @@
     <resources>
         <image name="newspaper" catalog="system" width="128" height="111"/>
         <image name="newspaper.fill" catalog="system" width="128" height="111"/>
+        <namedColor name="boosterBackground">
+            <color red="0.050980392156862744" green="0.050980392156862744" blue="0.050980392156862744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>
