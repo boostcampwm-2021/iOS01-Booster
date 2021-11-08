@@ -87,4 +87,12 @@ final class TrackingProgressViewModel {
             handler(message)
         }
     }
+
+    func mileStone(at coordinate: Coordinate) -> MileStone? {
+        let target = milestones.value.first(where: { (value) in
+            return value.coordinate == coordinate
+        })
+
+        return target
+    }
 }

@@ -69,6 +69,7 @@
 		FA614F922733D51100B090D9 /* Enroll.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA614F912733D51100B090D9 /* Enroll.storyboard */; };
 		FA614F942733D51C00B090D9 /* EnrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F932733D51C00B090D9 /* EnrollViewController.swift */; };
 		FA614F962738F7A200B090D9 /* MileStonePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F952738F7A200B090D9 /* MileStonePhotoViewController.swift */; };
+		FA614F982738FDA900B090D9 /* MileStonePhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F972738FDA900B090D9 /* MileStonePhotoViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -139,6 +140,7 @@
 		FA614F912733D51100B090D9 /* Enroll.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Enroll.storyboard; sourceTree = "<group>"; };
 		FA614F932733D51C00B090D9 /* EnrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollViewController.swift; sourceTree = "<group>"; };
 		FA614F952738F7A200B090D9 /* MileStonePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MileStonePhotoViewController.swift; sourceTree = "<group>"; };
+		FA614F972738FDA900B090D9 /* MileStonePhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MileStonePhotoViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,6 +241,7 @@
 				FA614F172733CDAA00B090D9 /* HomeViewModel.swift */,
 				FA614F182733CDAA00B090D9 /* TrackingProgressViewModel.swift */,
 				FA614F192733CDAA00B090D9 /* FeedViewModel.swift */,
+				FA614F972738FDA900B090D9 /* MileStonePhotoViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -328,6 +331,7 @@
 		FA614F402733CDAA00B090D9 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				FA614F952738F7A200B090D9 /* MileStonePhotoViewController.swift */,
 				FA614F412733CDAA00B090D9 /* StatisticsViewController.swift */,
 				FA614F422733CDAA00B090D9 /* HomeViewController.swift */,
 				FA614F432733CDAA00B090D9 /* Tracking */,
@@ -343,7 +347,6 @@
 			children = (
 				FA614F442733CDAA00B090D9 /* TrackingProgressViewController.swift */,
 				FA614F452733CDAA00B090D9 /* TrackingViewController.swift */,
-				FA614F952738F7A200B090D9 /* MileStonePhotoViewController.swift */,
 			);
 			path = Tracking;
 			sourceTree = "<group>";
@@ -538,6 +541,7 @@
 				FA614F7B2733CDAA00B090D9 /* Observable.swift in Sources */,
 				FA614F7F2733CDAA00B090D9 /* HomeViewController.swift in Sources */,
 				FA614F8A2733CDAA00B090D9 /* TrackingProgressUsecase.swift in Sources */,
+				FA614F982738FDA900B090D9 /* MileStonePhotoViewModel.swift in Sources */,
 				FA614F742733CDAA00B090D9 /* TrackingRecord.swift in Sources */,
 				FA614F692733CDAA00B090D9 /* RepositoryManager.swift in Sources */,
 				FA614F852733CDAA00B090D9 /* TrackingMapView.swift in Sources */,
