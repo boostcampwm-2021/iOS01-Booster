@@ -16,7 +16,7 @@ final class TrackingProgressUsecase {
 
     private let entity: String
     private let repository: RepositoryManager
-
+    
     init() {
         entity = "Tracking"
         repository = RepositoryManager()
