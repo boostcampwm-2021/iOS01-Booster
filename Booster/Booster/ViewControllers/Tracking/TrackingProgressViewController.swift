@@ -28,6 +28,7 @@ class TrackingProgressViewController: UIViewController {
     weak var delegate: TrackingProgressDelegate?
     private var lastestTime: Int = 0
     private var viewModel: TrackingProgressViewModel = TrackingProgressViewModel()
+    private var pedometerDate = Date()
     private var timerDate = Date()
     private var timer = Timer()
     private var manager: CLLocationManager = CLLocationManager()
@@ -97,16 +98,6 @@ class TrackingProgressViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = false
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        pedometer.startUpdates(from: Date()) { [weak self] data, _ in
-            if let data = data {
-                DispatchQueue.main.async {
-                    self?.viewModel.update(steps: data.numberOfSteps.intValue)
-                }
-            }
-        }
-    }
-
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
@@ -121,6 +112,7 @@ class TrackingProgressViewController: UIViewController {
             guard let self = self else {
                 return
             }
+            self.updatePedometer()
             self.configure(model: model)
         }
 
@@ -185,16 +177,15 @@ class TrackingProgressViewController: UIViewController {
         switch isStart {
         case true:
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackingTimer), userInfo: nil, repeats: true)
-            DispatchQueue.main.async { [weak self] in
-                self?.manager.startUpdatingLocation()
-                self?.manager.startMonitoringSignificantLocationChanges()
-            }
+            pedometerDate = Date()
+            locationAuth()
         case false:
             lastestTime = viewModel.trackingModel.value.seconds
             viewModel.update(seconds: lastestTime)
             timer.invalidate()
             manager.stopUpdatingLocation()
             manager.stopMonitoringSignificantLocationChanges()
+            pedometer.stopUpdates()
         }
     }
 
@@ -219,7 +210,20 @@ class TrackingProgressViewController: UIViewController {
                 self?.manager.startUpdatingLocation()
                 self?.manager.startMonitoringSignificantLocationChanges()
             }
+            updatePedometer()
             manager.distanceFilter = 1
+        }
+    }
+
+    private func updatePedometer() {
+        pedometer.startUpdates(from: pedometerDate) { [weak self] data, _ in
+            guard let self = self, let data = data else { return }
+
+            DispatchQueue.main.async {
+                self.pedometer.stopUpdates()
+                self.pedometerDate = Date()
+                self.viewModel.update(steps: data.numberOfSteps.intValue)
+            }
         }
     }
 
