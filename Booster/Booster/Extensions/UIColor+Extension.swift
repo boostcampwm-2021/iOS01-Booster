@@ -8,5 +8,7 @@
 import UIKit
 
 extension UIColor {
-
+    static let boosterOrange = UIColor(named: "boosterOrange")
+    static let boosterLabel = UIColor(named: "boosterLabel")
+    static let boosterBackground = UIColor(named: "boosterBackground")
 }
