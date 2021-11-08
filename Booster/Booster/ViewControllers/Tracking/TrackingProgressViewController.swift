@@ -13,10 +13,6 @@ class TrackingProgressViewController: UIViewController {
         }
     }
 
-    enum Color {
-        static let orange = UIColor.init(red: 1.0, green: 0.332, blue: 0.0, alpha: 1)
-    }
-
     enum Image {
         static let pause = UIImage(systemName: "pause")
         static let camera = UIImage(systemName: "camera")
@@ -151,7 +147,7 @@ class TrackingProgressViewController: UIViewController {
         let kcalTitle = "kcal"
         let timeTitle = "time"
         let distanceTitle = "km"
-        let stepsColor: UIColor = viewModel.state == .end ? Color.orange : .black
+        let stepsColor: UIColor = viewModel.state == .end ? .boosterOrange : .boosterBackground
         let color: UIColor = viewModel.state == .start ? .black : .white
 
         pedometerLabel.attributedText = makeAttributedText(content: "\(model.steps)",
@@ -170,12 +166,12 @@ class TrackingProgressViewController: UIViewController {
             $0?.textColor = isStart ? .black : .white
         }
 
-        infoView.backgroundColor = isStart ? Color.orange : .black
-        rightButton.backgroundColor = isStart ? .black : Color.orange
-        leftButton.backgroundColor = isStart ? Color.orange : .black
-        leftButton.layer.borderColor = isStart ? UIColor.black.cgColor : Color.orange.cgColor
-        leftButton.tintColor = isStart ? .black : Color.orange
-        rightButton.tintColor = isStart ? Color.orange : .black
+        infoView.backgroundColor = isStart ? .boosterOrange : .boosterBackground
+        rightButton.backgroundColor = isStart ? .boosterBackground : .boosterOrange
+        leftButton.backgroundColor = isStart ? .boosterOrange : .boosterBackground
+        leftButton.layer.borderColor = isStart ? UIColor.boosterBackground.cgColor : UIColor.boosterOrange.cgColor
+        leftButton.tintColor = isStart ? .boosterBackground : .boosterOrange
+        rightButton.tintColor = isStart ? .boosterOrange : .boosterBackground
         rightButton.setImage(isStart ? Image.pause : Image.play, for: .normal)
         leftButton.setImage(isStart ? Image.camera : Image.stop, for: .normal)
         timerDate = isStart ? Date() : timerDate
@@ -245,7 +241,6 @@ class TrackingProgressViewController: UIViewController {
             self.rightButton.layer.cornerRadius = 35
             self.rightButtonTrailingConstraint.constant = 25
             self.rightButtonBottomConstraint.constant = 25
-            self.pedometerLabel.textColor = Color.orange
             self.mapViewBottomConstraint.constant = self.view.frame.maxY - 290
             self.pedometerTrailingConstraint.constant = self.view.frame.maxX - 230
             self.pedometerTopConstraint.constant = 20
@@ -257,7 +252,7 @@ class TrackingProgressViewController: UIViewController {
                                                                          title: title,
                                                                          contentFont: .bazaronite(size: 60),
                                                                          titleFont: .notoSansKR(.regular, 20),
-                                                                         color: Color.orange)
+                                                                         color: .boosterOrange)
             self.view.layoutIfNeeded()
             self.infoView.layoutIfNeeded()
         }, completion: { [weak self] _ in
@@ -420,7 +415,7 @@ extension TrackingProgressViewController: MKMapViewDelegate {
         else { return nil }
 
         customView.photoImageView.image = UIImage(data: mileStone.imageData)
-        customView.photoImageView.backgroundColor = .white
+        customView.photoImageView.backgroundColor = .boosterLabel
         annotationView?.addSubview(customView)
         annotationView?.centerOffset = CGPoint(x: -customView.frame.width / 2.0, y: -customView.frame.height)
 
