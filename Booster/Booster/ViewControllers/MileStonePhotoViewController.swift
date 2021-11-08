@@ -7,12 +7,17 @@
 
 import UIKit
 
+protocol MileStonePhotoViewControllerDelegate: class {
+    func delete(mileStone: MileStone)
+}
+
 class MileStonePhotoViewController: UIViewController {
     // MARK: - Enum
 
     // MARK: - @IBOutlet
 
     // MARK: - Variables
+    weak var delegate: MileStonePhotoViewControllerDelegate?
     private var mileStonePhotoViewModel: MileStonePhotoViewModel?
     private lazy var mileStonePhotoImageView: UIImageView = {
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
@@ -55,6 +60,9 @@ class MileStonePhotoViewController: UIViewController {
     @objc
     private func didTapDeleteButton(_ sender: Any?) {
         print("## delete")
+        guard let mileStone = mileStonePhotoViewModel?.mileStone else { return }
+        dismiss(animated: true, completion: nil)
+        delegate?.delete(mileStone: mileStone)
     }
     // MARK: - functions
     private func layoutConfig() {

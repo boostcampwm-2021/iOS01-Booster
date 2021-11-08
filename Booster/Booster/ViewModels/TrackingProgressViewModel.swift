@@ -95,4 +95,9 @@ final class TrackingProgressViewModel {
 
         return target
     }
+
+    func remove(of mileStone: MileStone) -> MileStone? {
+        guard let index = milestones.value.firstIndex(of: mileStone) else { return nil }
+        return milestones.value.remove(at: index)
+    }
 }

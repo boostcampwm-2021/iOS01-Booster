@@ -33,6 +33,18 @@ class TrackingMapView: MKMapView {
         addAnnotation(annotation)
     }
 
+    func removeMileStoneAnnotation(of mileStone: MileStone) -> Bool {
+        guard let annotation = annotations.first(where: {
+            let coordinate = Coordinate(latitude: $0.coordinate.latitude, longitude: $0.coordinate.longitude)
+            return coordinate == mileStone.coordinate
+        })
+        else { return false }
+        
+        removeAnnotation(annotation)
+        
+        return true
+    }
+
     func setRegion(to location: CLLocation) {
         let regionRadius: CLLocationDistance = 100
         let coordRegion = MKCoordinateRegion(center: location.coordinate,

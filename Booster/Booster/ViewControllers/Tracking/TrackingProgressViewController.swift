@@ -425,6 +425,7 @@ extension TrackingProgressViewController: MKMapViewDelegate {
 
         let mileStonePhotoViewModel = MileStonePhotoViewModel(mileStone: selectedMileStone)
         let mileStonePhotoVC = MileStonePhotoViewController(viewModel: mileStonePhotoViewModel)
+        mileStonePhotoVC.delegate = self
 
         present(mileStonePhotoVC, animated: true, completion: nil)
     }
@@ -486,5 +487,16 @@ extension TrackingProgressViewController: UITextFieldDelegate {
             return
         }
         viewModel.write(title: title)
+    }
+}
+
+extension TrackingProgressViewController: MileStonePhotoViewControllerDelegate {
+    func delete(mileStone: MileStone) {
+        if let _ = viewModel.remove(of: mileStone) {
+            if mapView.removeMileStoneAnnotation(of: mileStone) {
+                let alert = UIAlertController.simpleAlert(title: "삭제 완료", message: "마일스톤을 삭제하였습니다")
+                present(alert, animated: true, completion: nil)
+            }
+        }
     }
 }
