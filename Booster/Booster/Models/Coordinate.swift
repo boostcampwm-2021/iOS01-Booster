@@ -24,3 +24,15 @@ public final class Coordinate: NSObject, NSCoding {
         longitude = lng
     }
 }
+
+extension Coordinate {
+    public static func ==(lhs: Coordinate, rhs: Coordinate) -> Bool {
+        guard let lhsLat = lhs.latitude,
+              let lhsLong = lhs.longitude,
+              let rhsLat = rhs.latitude,
+              let rhsLong = rhs.longitude
+        else { return false }
+
+        return (lhsLat == rhsLat) && (lhsLong == rhsLong)
+    }
+}
