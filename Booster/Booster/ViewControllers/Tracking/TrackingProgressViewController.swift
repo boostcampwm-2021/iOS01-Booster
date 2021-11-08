@@ -98,7 +98,7 @@ class TrackingProgressViewController: UIViewController {
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        pedometer.startUpdates(from: Date()) { [weak self] (data, _) in
+        pedometer.startUpdates(from: Date()) { [weak self] data, _ in
             if let data = data {
                 DispatchQueue.main.async {
                     self?.viewModel.update(steps: data.numberOfSteps.intValue)
@@ -243,7 +243,11 @@ class TrackingProgressViewController: UIViewController {
                 $0.constant = 130
             }
             self.rightButton.setImage(Image.pencil, for: .normal)
-            self.pedometerLabel.attributedText = self.makeAttributedText(content: content, title: title, contentFont: .bazaronite(size: 60), titleFont: .notoSansKR(.regular, 20), color: Color.orange)
+            self.pedometerLabel.attributedText = self.makeAttributedText(content: content,
+                                                                         title: title,
+                                                                         contentFont: .bazaronite(size: 60),
+                                                                         titleFont: .notoSansKR(.regular, 20),
+                                                                         color: Color.orange)
             self.view.layoutIfNeeded()
             self.infoView.layoutIfNeeded()
         }, completion: { [weak self] _ in

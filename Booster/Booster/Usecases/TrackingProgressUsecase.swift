@@ -16,7 +16,7 @@ final class TrackingProgressUsecase {
 
     private let entity: String
     private let repository: RepositoryManager
-    
+
     init() {
         entity = "Tracking"
         repository = RepositoryManager()
@@ -24,13 +24,16 @@ final class TrackingProgressUsecase {
 
     func save(model: TrackingModel, completion handler: @escaping (String) -> Void) {
         guard let coordinates = try? NSKeyedArchiver.archivedData(withRootObject: model.coordinates, requiringSecureCoding: false),
-              let milestones = try? NSKeyedArchiver.archivedData(withRootObject: model.milestones, requiringSecureCoding: false) else {
+             let milestones = try? NSKeyedArchiver.archivedData(withRootObject: model.milestones, requiringSecureCoding: false),
+             let endDate = model.endDate
+        else {
                   handler("archiving error")
                   return
-              }
+        }
+
         let value: [String: Any] = [
             CoreDataKeys.startDate: model.startDate,
-            CoreDataKeys.endDate: model.endDate,
+            CoreDataKeys.endDate: endDate,
             CoreDataKeys.steps: model.steps,
             CoreDataKeys.calories: model.calories,
             CoreDataKeys.seconds: model.seconds,
@@ -40,7 +43,7 @@ final class TrackingProgressUsecase {
             CoreDataKeys.title: model.title,
             CoreDataKeys.content: model.content
         ]
-        print(value)
+
         repository.save(value: value, type: entity) { response in
             switch response {
             case .success:
