@@ -318,25 +318,10 @@ class TrackingProgressViewController: UIViewController {
 
     @objc
     private func trackingTimer() {
-        var isMoved = true
-        let timerTime = -Int(timerDate.timeIntervalSinceNow)
-        let time = timerTime + lastestTime
+        let time = -Int(timerDate.timeIntervalSinceNow) + lastestTime
         let calroies = Int(60 / 15 * 0.9 * Double((time / 60) % 60))
-
-        pedometer.queryPedometerData(from: Date(timeIntervalSinceNow: -300), to: Date()) { data, _ in
-            guard let data = data, let distance = data.distance?.intValue else { return }
-            isMoved = distance > 5
-            print(isMoved, distance, timerTime)
-        }
-
-        switch isMoved && timerTime <= 300 {
-        case true:
-            viewModel.update(seconds: time)
-            viewModel.update(calroies: calroies)
-        case false:
-            viewModel.toggle()
-            update()
-        }
+        viewModel.update(seconds: time)
+        viewModel.update(calroies: calroies)
     }
 
     @objc
