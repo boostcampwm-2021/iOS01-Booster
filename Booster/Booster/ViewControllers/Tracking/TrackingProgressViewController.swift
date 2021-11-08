@@ -151,13 +151,14 @@ class TrackingProgressViewController: UIViewController {
         let kcalTitle = "kcal"
         let timeTitle = "time"
         let distanceTitle = "km"
+        let stepsColor: UIColor = viewModel.state == .end ? Color.orange : .black
         let color: UIColor = viewModel.state == .start ? .black : .white
 
         pedometerLabel.attributedText = makeAttributedText(content: "\(model.steps)",
                                                            title: stepsTitle,
                                                            contentFont: .bazaronite(size: 60),
                                                            titleFont: .notoSansKR(.regular, 20),
-                                                           color: Color.orange)
+                                                           color: stepsColor)
         kcalLabel.attributedText = makeAttributedText(content: kcalContent, title: kcalTitle, color: color)
         timeLabel.attributedText = makeAttributedText(content: timeContent, title: timeTitle, color: color)
         distanceLabel.attributedText = makeAttributedText(content: distanceContent, title: distanceTitle, color: color)
