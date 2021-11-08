@@ -82,9 +82,9 @@ final class TrackingProgressViewModel {
         return startCoordinate
     }
 
-    func save(completion handler: @escaping (String) -> Void) {
-        trackingUsecase.save(model: trackingModel.value) { message in
-            handler(message)
+    func save(completion handler: @escaping (TrackingError?) -> Void) {
+        trackingUsecase.save(model: trackingModel.value) { error in
+            handler(error)
         }
     }
 }
