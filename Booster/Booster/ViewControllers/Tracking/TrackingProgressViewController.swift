@@ -303,11 +303,10 @@ class TrackingProgressViewController: UIViewController {
     @IBAction func rightTouchUp(_ sender: Any) {
         switch viewModel.state {
         case .end:
-            viewModel.save { message in
-                let title = "저장 여부"
-                let alert = UIAlertController.simpleAlert(title: title, message: message)
+            viewModel.save { error in
+                guard error == nil else { return }
                 DispatchQueue.main.async {
-                    self.present(alert, animated: true)
+                    self.navigationController?.popViewController(animated: true)
                 }
             }
         default:

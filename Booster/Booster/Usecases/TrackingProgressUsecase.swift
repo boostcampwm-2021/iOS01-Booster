@@ -7,7 +7,7 @@ final class TrackingProgressUsecase {
         case modelError
         case repositoryError(Error)
     }
-    
+
     private enum CoreDataKeys {
         static let startDate: String = "startDate"
         static let endDate: String = "endDate"
