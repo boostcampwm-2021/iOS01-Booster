@@ -20,6 +20,15 @@ class MileStonePhotoViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
+    private lazy var deleteButton: UIButton = {
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 20))
+        button.setTitleColor(.systemIndigo, for: .normal)
+        button.setTitle("delete", for: .normal)
+        button.addTarget(self, action: #selector(didTapDeleteButton(_:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+
+        return button
+    }()
     // MARK: - Subscript
 
     // MARK: - viewDidLoad or init
@@ -36,10 +45,22 @@ class MileStonePhotoViewController: UIViewController {
     override func viewDidLoad() {
         view.backgroundColor = .white
         view.addSubview(mileStonePhotoImageView)
+        view.addSubview(deleteButton)
+
+        layoutConfig()
     }
     // MARK: - @IBActions
 
     // MARK: - @objc
-
+    @objc
+    private func didTapDeleteButton(_ sender: Any?) {
+        print("## delete")
+    }
     // MARK: - functions
+    private func layoutConfig() {
+        view.addConstraints([
+            deleteButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
+            deleteButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+        ])
+    }
 }
