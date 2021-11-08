@@ -14,6 +14,7 @@ class TrackingProgressViewController: UIViewController {
     }
 
     enum Image {
+        static let arrowLeft = UIImage(systemName: "arrow.left")
         static let pause = UIImage(systemName: "pause")
         static let camera = UIImage(systemName: "camera")
         static let stop = UIImage(systemName: "stop")
@@ -123,6 +124,8 @@ class TrackingProgressViewController: UIViewController {
 
     private func configure() {
         let radius: CGFloat = 50
+        let backButton = UIBarButtonItem(image: Image.arrowLeft, style: .plain, target: self, action: #selector(touchBackButton(_:)))
+        backButton.tintColor = .boosterBackground
         leftButton.layer.borderWidth = 1
         leftButton.layer.borderColor = UIColor.black.cgColor
         leftButton.layer.cornerRadius = radius
@@ -134,6 +137,9 @@ class TrackingProgressViewController: UIViewController {
         [mapView, kcalLabel, timeLabel, distanceLabel, pedometerLabel, rightButton].forEach {
             $0?.translatesAutoresizingMaskIntoConstraints = false
         }
+
+        navigationItem.hidesBackButton = true
+        navigationItem.leftBarButtonItem = backButton
 
         mapView.delegate = self
         manager.delegate = self
@@ -332,6 +338,18 @@ class TrackingProgressViewController: UIViewController {
             viewModel.toggle()
             update()
         }
+    }
+
+    @objc
+    private func touchBackButton(_ sender: UIBarButtonItem) {
+        let title = "되돌아가기"
+        let message = "현재 기록 상황을 저장하지 않습니다. 정말로 되돌아가시겠습니까?"
+        let alert: UIAlertController = .alert(title: title,
+                                              message: message,
+                                              success: { _ in
+            self.navigationController?.popViewController(animated: true)
+        })
+        present(alert, animated: true)
     }
 
     @objc

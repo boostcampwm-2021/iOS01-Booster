@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--트래킹-->
+        <!--Tracking View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
                 <viewController id="Y6W-OH-hqX" customClass="TrackingViewController" customModule="Booster" customModuleProvider="target" sceneMemberID="viewController">
@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                                 <color key="tintColor" red="1" green="0.33152735230000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xud-Sp-XDJ">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xud-Sp-XDJ">
                                 <rect key="frame" x="157" y="673" width="100" height="100"/>
                                 <color key="backgroundColor" name="boosterOrange"/>
                                 <constraints>
@@ -56,7 +56,7 @@
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="ZzC-UF-L6k" secondAttribute="trailing" id="xqe-cL-LmS"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="트래킹" image="heart" catalog="system" id="r2e-KS-f1C"/>
+                    <tabBarItem key="tabBarItem" title="" image="heart" catalog="system" id="r2e-KS-f1C"/>
                     <navigationItem key="navigationItem" id="aOz-4v-6u3"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
