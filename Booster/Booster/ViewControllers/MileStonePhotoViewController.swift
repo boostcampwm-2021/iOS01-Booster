@@ -14,7 +14,12 @@ class MileStonePhotoViewController: UIViewController {
 
     // MARK: - Variables
     private var mileStonePhotoViewModel: MileStonePhotoViewModel?
-
+    private lazy var mileStonePhotoImageView: UIImageView = {
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
+        imageView.image = UIImage(data: mileStonePhotoViewModel?.mileStone.imageData ?? Data())
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
     // MARK: - Subscript
 
     // MARK: - viewDidLoad or init
@@ -30,6 +35,7 @@ class MileStonePhotoViewController: UIViewController {
 
     override func viewDidLoad() {
         view.backgroundColor = .white
+        view.addSubview(mileStonePhotoImageView)
     }
     // MARK: - @IBActions
 

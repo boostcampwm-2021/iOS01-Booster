@@ -8,7 +8,7 @@
 import Foundation
 
 final class MileStonePhotoViewModel {
-    private var mileStone: MileStone
+    let mileStone: MileStone
 
     init(mileStone: MileStone) {
         self.mileStone = mileStone
