@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wXd-j9-ZVj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wXd-j9-ZVj">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -46,7 +45,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ZzC-UF-L6k" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="Etg-At-HqY"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="xud-Sp-XDJ" secondAttribute="bottom" constant="40" id="GSF-gz-svb"/>
@@ -77,7 +76,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="RB0-kQ-AuZ" customClass="TrackingMapView" customModule="Booster" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="414" height="456"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="544"/>
                                 <color key="tintColor" red="1" green="0.33152735230000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BsO-pa-eCU">
@@ -165,9 +164,9 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xiY-zH-yaJ"/>
-                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="RB0-kQ-AuZ" firstAttribute="top" secondItem="xiY-zH-yaJ" secondAttribute="top" id="9Qg-Gy-HSS"/>
+                            <constraint firstItem="RB0-kQ-AuZ" firstAttribute="top" secondItem="MAc-M0-Psa" secondAttribute="top" id="9Qg-Gy-HSS"/>
                             <constraint firstItem="xiY-zH-yaJ" firstAttribute="trailing" secondItem="RB0-kQ-AuZ" secondAttribute="trailing" id="Lmc-I6-4k1"/>
                             <constraint firstItem="BsO-pa-eCU" firstAttribute="bottom" secondItem="xiY-zH-yaJ" secondAttribute="bottom" id="UvY-RM-KBC"/>
                             <constraint firstItem="BsO-pa-eCU" firstAttribute="trailing" secondItem="xiY-zH-yaJ" secondAttribute="trailing" id="WCk-Hw-CAX"/>
@@ -226,11 +225,5 @@
         <image name="camera" catalog="system" width="128" height="94"/>
         <image name="heart" catalog="system" width="128" height="109"/>
         <image name="pause" catalog="system" width="88" height="128"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGroupedBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
     </resources>
 </document>
