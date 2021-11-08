@@ -147,12 +147,17 @@ class TrackingProgressViewController: UIViewController {
         let timeContent = makeTimerText(time: model.seconds)
         let kcalContent = "\(model.calories)\n"
         let distanceContent = "\(String.init(format: "%.1f", model.distance/1000))\n"
+        let stepsTitle = "\(viewModel.state == .end ? " steps" : "")"
         let kcalTitle = "kcal"
         let timeTitle = "time"
         let distanceTitle = "km"
         let color: UIColor = viewModel.state == .start ? .black : .white
 
-        pedometerLabel.text = "\(model.steps)"
+        pedometerLabel.attributedText = makeAttributedText(content: "\(model.steps)",
+                                                           title: stepsTitle,
+                                                           contentFont: .bazaronite(size: 60),
+                                                           titleFont: .notoSansKR(.regular, 20),
+                                                           color: Color.orange)
         kcalLabel.attributedText = makeAttributedText(content: kcalContent, title: kcalTitle, color: color)
         timeLabel.attributedText = makeAttributedText(content: timeContent, title: timeTitle, color: color)
         distanceLabel.attributedText = makeAttributedText(content: distanceContent, title: distanceTitle, color: color)
@@ -321,21 +326,17 @@ class TrackingProgressViewController: UIViewController {
 
     @objc
     private func keyboardWillShow(_ notification: Notification) {
-        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
-           let tabBarHeight = self.tabBarController?.tabBar.frame.height {
-            let keyboardRect = keyboardFrame.cgRectValue
-            let keyboardHeight = keyboardRect.height
-            view.frame.origin.y = -(keyboardHeight - tabBarHeight)
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
+            view.frame.origin.y == 0 {
+            view.frame.origin.y = -keyboardSize.height
         }
     }
 
     @objc
     private func keyboardWillHide(_ notification: Notification) {
-        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
-           let tabBarHeight = self.tabBarController?.tabBar.frame.height {
-            let keyboardRect = keyboardFrame.cgRectValue
-            let keyboardHeight = keyboardRect.height
-            view.frame.origin.y += (keyboardHeight - tabBarHeight)
+        if view.frame.origin.y != 0 {
+            view.frame.origin.y = 0
+            view.setNeedsLayout()
         }
     }
 }
@@ -468,5 +469,13 @@ extension TrackingProgressViewController: UITextFieldDelegate {
             return
         }
         viewModel.write(title: title)
+    }
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        rightButton.isHidden = true
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        rightButton.isHidden = false
     }
 }

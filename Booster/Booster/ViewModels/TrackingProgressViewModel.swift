@@ -56,7 +56,6 @@ final class TrackingProgressViewModel {
     }
 
     func update(steps: Int) {
-        print(steps)
         trackingModel.value.steps += steps
     }
 
@@ -76,10 +75,6 @@ final class TrackingProgressViewModel {
     func latestCoordinate() -> Coordinate? {
         guard let latestCoordinate = trackingModel.value.coordinates.last else { return nil }
         return latestCoordinate
-    }
-
-    func startDate() -> Date {
-        trackingModel.value.startDate
     }
 
     func startCoordinate() -> Coordinate? {
