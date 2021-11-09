@@ -1,5 +1,14 @@
+//
+//  Tracking+CoreDataProperties.swift
+//  Booster
+//
+//  Created by 김태훈 on 2021/11/09.
+//
+//
+
 import Foundation
 import CoreData
+
 
 extension Tracking {
 
@@ -17,9 +26,10 @@ extension Tracking {
     @NSManaged public var startDate: Date?
     @NSManaged public var steps: Int64
     @NSManaged public var title: String?
+    @NSManaged public var imageData: Data?
 
 }
 
-extension Tracking: Identifiable {
+extension Tracking : Identifiable {
 
 }
