@@ -21,8 +21,9 @@ class MileStonePhotoViewController: UIViewController {
     private var mileStonePhotoViewModel: MileStonePhotoViewModel?
     private lazy var mileStonePhotoImageView: UIImageView = {
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
-        imageView.image = UIImage(data: mileStonePhotoViewModel?.mileStone.imageData ?? Data())
+        imageView.image = UIImage(data: mileStonePhotoViewModel?.mileStone.imageData ?? Data())?.withTintColor(.white)
         imageView.contentMode = .scaleAspectFit
+
         return imageView
     }()
     private lazy var deleteButton: UIButton = {
@@ -48,22 +49,28 @@ class MileStonePhotoViewController: UIViewController {
     }
 
     override func viewDidLoad() {
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.boosterBackground
         view.addSubview(mileStonePhotoImageView)
         view.addSubview(deleteButton)
 
         layoutConfig()
     }
+
     // MARK: - @IBActions
 
     // MARK: - @objc
     @objc
     private func didTapDeleteButton(_ sender: Any?) {
-        print("## delete")
         guard let mileStone = mileStonePhotoViewModel?.mileStone else { return }
         dismiss(animated: true, completion: nil)
         delegate?.delete(mileStone: mileStone)
     }
+
+    @objc
+    private func didTapBackButton(_ sender: Any?) {
+        navigationController?.popViewController(animated: true)
+    }
+
     // MARK: - functions
     private func layoutConfig() {
         view.addConstraints([

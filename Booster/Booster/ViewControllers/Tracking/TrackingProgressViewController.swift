@@ -295,13 +295,20 @@ class TrackingProgressViewController: UIViewController {
     @IBAction func leftTouchUp(_ sender: UIButton) {
         switch viewModel.state {
         case .start:
-            #if targetEnvironment(simulator)
-            guard let currentCoordinate = viewModel.latestCoordinate(),
-                  let currentLatitude = currentCoordinate.latitude,
-                  let currentLogitude = currentCoordinate.longitude,
+            guard let currentLatitude = manager.location?.coordinate.latitude,
+                  let currentLongitude = manager.location?.coordinate.longitude,
                   let imageData = UIImage(systemName: "camera")?.pngData()
             else { return }
-            let mileStone = MileStone(latitude: currentLatitude, longitude: currentLogitude, imageData: imageData)
+
+            if viewModel.isMileStoneExistAt(latitude: currentLatitude, longitude: currentLongitude) {
+                let alert = UIAlertController.simpleAlert(title: "추가 실패", message: "이미 다른 마일스톤이 존재합니다.\n 작성한 마일스톤을 제거해주세요")
+                present(alert, animated: true, completion: nil)
+
+                return
+            }
+
+            #if targetEnvironment(simulator)
+            let mileStone = MileStone(latitude: currentLatitude, longitude: currentLongitude, imageData: imageData)
             viewModel.append(milestone: mileStone)
             #else
             present(imagePickerController, animated: true)
@@ -426,7 +433,11 @@ extension TrackingProgressViewController: MKMapViewDelegate {
 
         return MKOverlayRenderer()
     }
-
+    
+    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
+        mapView.view(for: mapView.userLocation)?.isEnabled = false
+    }
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation { return nil }
 
@@ -438,6 +449,7 @@ extension TrackingProgressViewController: MKMapViewDelegate {
             guard let customView = UINib(nibName: NibName.photoAnnotationView.rawValue, bundle: nil).instantiate(withOwner: self, options: nil).first as? PhotoAnnotationView,
                   let mileStone = viewModel.milestones.value.last
             else { return nil }
+            
             customView.frame.origin.x = customView.frame.origin.x - customView.frame.width / 2.0
             customView.frame.origin.y = customView.frame.origin.y - customView.frame.height
             annotationView!.frame.origin.x = annotationView!.frame.origin.x - customView.frame.width / 2.0
@@ -456,14 +468,10 @@ extension TrackingProgressViewController: MKMapViewDelegate {
 
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if view.annotation is MKUserLocation { return }
+
         mapView.deselectAnnotation(view.annotation, animated: false)
         let coordinate = Coordinate(latitude: view.annotation?.coordinate.latitude, longitude: view.annotation?.coordinate.longitude)
         guard let selectedMileStone = viewModel.mileStone(at: coordinate) else { return }
-
-        customView.photoImageView.image = UIImage(data: mileStone.imageData)
-        customView.photoImageView.backgroundColor = .boosterLabel
-        annotationView?.addSubview(customView)
-        annotationView?.centerOffset = CGPoint(x: -customView.frame.width / 2.0, y: -customView.frame.height)
 
         let mileStonePhotoViewModel = MileStonePhotoViewModel(mileStone: selectedMileStone)
         let mileStonePhotoVC = MileStonePhotoViewController(viewModel: mileStonePhotoViewModel)
@@ -476,12 +484,11 @@ extension TrackingProgressViewController: MKMapViewDelegate {
 extension TrackingProgressViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            guard let currentCoordinate = viewModel.latestCoordinate(),
-                  let currentLatitude = currentCoordinate.latitude,
-                  let currentLogitude = currentCoordinate.longitude,
+            guard let currentLatitude = manager.location?.coordinate.latitude,
+                  let currentLongitude = manager.location?.coordinate.longitude,
                   let imageData = image.pngData()
             else { return }
-            let mileStone = MileStone(latitude: currentLatitude, longitude: currentLogitude, imageData: imageData)
+            let mileStone = MileStone(latitude: currentLatitude, longitude: currentLongitude, imageData: imageData)
             viewModel.append(milestone: mileStone)
         }
         picker.dismiss(animated: true, completion: nil)

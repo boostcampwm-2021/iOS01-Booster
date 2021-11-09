@@ -39,9 +39,9 @@ class TrackingMapView: MKMapView {
             return coordinate == mileStone.coordinate
         })
         else { return false }
-        
+
         removeAnnotation(annotation)
-        
+
         return true
     }
 
@@ -87,5 +87,7 @@ class TrackingMapView: MKMapView {
         setUserTrackingMode(.follow, animated: true)
         mapType = .standard
         showsUserLocation = true
+        userLocation.title = ""
+        tintColor = UIColor.boosterOrange
     }
 }
