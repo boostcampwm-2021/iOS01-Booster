@@ -2,7 +2,7 @@ import Foundation
 
 struct TrackingModel {
     var startDate: Date
-    var endDate: Date
+    var endDate: Date?
     var steps: Int
     var calories: Int
     var seconds: Int
@@ -13,7 +13,7 @@ struct TrackingModel {
     var content: String
 
     init(startDate: Date = Date(),
-         endDate: Date = Date(),
+         endDate: Date? = nil,
          steps: Int = 0,
          calories: Int = 0,
          seconds: Int = 0,
@@ -23,7 +23,7 @@ struct TrackingModel {
          title: String = "",
          content: String = "") {
         self.startDate = startDate
-        self.endDate = endDate
+        self.endDate = nil
         self.steps = steps
         self.calories = calories
         self.seconds = seconds
