@@ -120,7 +120,6 @@
                                             <outlet property="titleLabel" destination="MCu-y6-SdE" id="Mwh-Zv-2ys"/>
                                             <outlet property="totalStepCountLabel" destination="iZu-V7-d45" id="Bka-Xo-1qL"/>
                                             <outlet property="trackingPathView" destination="GhR-y2-vnQ" id="ra2-FY-7uR"/>
-                                            <segue destination="SNN-pe-2iF" kind="show" id="KEK-UJ-byo"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -151,13 +150,13 @@
         <!--Detail Feed View Controller-->
         <scene sceneID="Q7V-vS-jzf">
             <objects>
-                <viewController id="SNN-pe-2iF" customClass="DetailFeedViewController" customModule="Booster" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailFeedViewController" id="SNN-pe-2iF" customClass="DetailFeedViewController" customModule="Booster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1Og-uv-51R">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H06-jc-bhO">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ecH-rG-cv5">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1165"/>

@@ -9,7 +9,8 @@ final class FeedViewController: UIViewController {
     private let feedViewModel = FeedViewModel()
     private lazy var emptyView: EmptyView = {
         let view = EmptyView.init(frame: self.tableView.frame)
-        view.apply(title: "아직 산책기록이 없어요\n오늘 한 번 천천히 걸어볼까요?", image: UIImage(named: "foot") ?? UIImage())
+        let emptyViewTitle = "아직 산책기록이 없어요\n오늘 한 번 천천히 걸어볼까요?"
+        view.apply(title: emptyViewTitle, image: UIImage(assetName: .foot) ?? UIImage())
         return view
     }()
 
@@ -20,6 +21,7 @@ final class FeedViewController: UIViewController {
 
         bindFeedViewModel()
         tableView.dataSource = self
+        tableView.delegate = self
     }
 
 }
@@ -42,16 +44,6 @@ extension FeedViewController {
         }
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let sender = sender as? FeedTableViewCell,
-         let index = tableView.indexPath(for: sender)?.row
-        else { return }
-
-        guard let nextViewController = segue.destination as? DetailFeedViewController
-        else { return }
-        nextViewController.trackingInfo = feedViewModel.dataAtIndex(index)
-    }
-
 }
 
 // MARK: - TableView DataSource
@@ -63,13 +55,26 @@ extension FeedViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "FeedTableViewCell", for: indexPath) as? FeedTableViewCell,
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: FeedTableViewCell.identifier, for: indexPath) as? FeedTableViewCell,
               let data = feedViewModel.dataAtIndex(indexPath.row)
         else { return UITableViewCell() }
 
         cell.configure(with: data)
 
         return cell
+    }
+
+}
+
+// MARK: - TableView Delegate
+
+extension FeedViewController: UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: DetailFeedViewController.identifier) as? DetailFeedViewController else { return }
+        nextViewController.trackingInfo = feedViewModel.dataAtIndex(indexPath.row)
+
+        navigationController?.pushViewController(nextViewController, animated: true)
     }
 
 }
