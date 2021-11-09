@@ -295,7 +295,17 @@ class TrackingProgressViewController: UIViewController {
     @IBAction func leftTouchUp(_ sender: UIButton) {
         switch viewModel.state {
         case .start:
+            #if targetEnvironment(simulator)
+            guard let currentCoordinate = viewModel.latestCoordinate(),
+                  let currentLatitude = currentCoordinate.latitude,
+                  let currentLogitude = currentCoordinate.longitude,
+                  let imageData = UIImage(systemName: "camera")?.pngData()
+            else { return }
+            let mileStone = MileStone(latitude: currentLatitude, longitude: currentLogitude, imageData: imageData)
+            viewModel.append(milestone: mileStone)
+            #else
             present(imagePickerController, animated: true)
+            #endif
         default:
             viewModel.recordEnd()
             stopAnimation()
@@ -421,23 +431,45 @@ extension TrackingProgressViewController: MKMapViewDelegate {
         if annotation is MKUserLocation { return nil }
 
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Identifier.Annotation.milestone.rawValue)
+        annotationView?.canShowCallout = false
         if annotationView == nil {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: Identifier.Annotation.milestone.rawValue)
-            annotationView!.canShowCallout = true
+
+            guard let customView = UINib(nibName: NibName.photoAnnotationView.rawValue, bundle: nil).instantiate(withOwner: self, options: nil).first as? PhotoAnnotationView,
+                  let mileStone = viewModel.milestones.value.last
+            else { return nil }
+            customView.frame.origin.x = customView.frame.origin.x - customView.frame.width / 2.0
+            customView.frame.origin.y = customView.frame.origin.y - customView.frame.height
+            annotationView!.frame.origin.x = annotationView!.frame.origin.x - customView.frame.width / 2.0
+            annotationView!.frame.origin.y = annotationView!.frame.origin.y - customView.frame.height
+
+            customView.photoImageView.image = UIImage(data: mileStone.imageData)
+            customView.photoImageView.backgroundColor = .white
+
+            annotationView!.addSubview(customView)
         } else {
             annotationView?.annotation = annotation
         }
 
-        guard let customView = UINib(nibName: NibName.photoAnnotationView.rawValue, bundle: nil).instantiate(withOwner: self, options: nil).first as? PhotoAnnotationView,
-              let mileStone = viewModel.milestones.value.last
-        else { return nil }
+        return annotationView
+    }
+
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if view.annotation is MKUserLocation { return }
+        mapView.deselectAnnotation(view.annotation, animated: false)
+        let coordinate = Coordinate(latitude: view.annotation?.coordinate.latitude, longitude: view.annotation?.coordinate.longitude)
+        guard let selectedMileStone = viewModel.mileStone(at: coordinate) else { return }
 
         customView.photoImageView.image = UIImage(data: mileStone.imageData)
         customView.photoImageView.backgroundColor = .boosterLabel
         annotationView?.addSubview(customView)
         annotationView?.centerOffset = CGPoint(x: -customView.frame.width / 2.0, y: -customView.frame.height)
 
-        return annotationView
+        let mileStonePhotoViewModel = MileStonePhotoViewModel(mileStone: selectedMileStone)
+        let mileStonePhotoVC = MileStonePhotoViewController(viewModel: mileStonePhotoViewModel)
+        mileStonePhotoVC.delegate = self
+
+        present(mileStonePhotoVC, animated: true, completion: nil)
     }
 }
 
@@ -505,5 +537,16 @@ extension TrackingProgressViewController: UITextFieldDelegate {
 
     func textFieldDidEndEditing(_ textField: UITextField) {
         rightButton.isHidden = false
+    }
+}
+
+extension TrackingProgressViewController: MileStonePhotoViewControllerDelegate {
+    func delete(mileStone: MileStone) {
+        if let _ = viewModel.remove(of: mileStone) {
+            if mapView.removeMileStoneAnnotation(of: mileStone) {
+                let alert = UIAlertController.simpleAlert(title: "삭제 완료", message: "마일스톤을 삭제하였습니다")
+                present(alert, animated: true, completion: nil)
+            }
+        }
     }
 }

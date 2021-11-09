@@ -87,4 +87,17 @@ final class TrackingProgressViewModel {
             handler(error)
         }
     }
+
+    func mileStone(at coordinate: Coordinate) -> MileStone? {
+        let target = milestones.value.first(where: { (value) in
+            return value.coordinate == coordinate
+        })
+
+        return target
+    }
+
+    func remove(of mileStone: MileStone) -> MileStone? {
+        guard let index = milestones.value.firstIndex(of: mileStone) else { return nil }
+        return milestones.value.remove(at: index)
+    }
 }

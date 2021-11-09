@@ -24,3 +24,9 @@ public final class MileStone: NSObject, NSCoding {
         }
     }
 }
+
+extension MileStone {
+    public static func ==(lhs: MileStone, rhs: MileStone) -> Bool {
+        return lhs.coordinate == rhs.coordinate
+    }
+}

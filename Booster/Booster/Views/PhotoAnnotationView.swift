@@ -15,7 +15,7 @@ class PhotoAnnotationView: UIView {
         let path = UIBezierPath()
         path.lineWidth = 2
 
-        let point1 = CGPoint(x: backgroundView.frame.midX, y: self.frame.maxY)
+        let point1 = CGPoint(x: backgroundView.frame.midX, y: self.frame.height)
         let point2 = CGPoint(x: backgroundView.frame.minX + (backgroundView.frame.width / 3.0), y: backgroundView.frame.maxY - 2)
         let point3 = CGPoint(x: backgroundView.frame.maxX - (backgroundView.frame.width / 3.0), y: backgroundView.frame.maxY - 2)
 
