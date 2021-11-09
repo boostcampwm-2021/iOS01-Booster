@@ -59,7 +59,6 @@ class MileStonePhotoViewController: UIViewController {
     // MARK: - @objc
     @objc
     private func didTapDeleteButton(_ sender: Any?) {
-        print("## delete")
         guard let mileStone = mileStonePhotoViewModel?.mileStone else { return }
         dismiss(animated: true, completion: nil)
         delegate?.delete(mileStone: mileStone)

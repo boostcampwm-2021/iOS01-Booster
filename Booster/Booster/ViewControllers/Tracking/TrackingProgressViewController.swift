@@ -296,12 +296,12 @@ class TrackingProgressViewController: UIViewController {
         switch viewModel.state {
         case .start:
             #if targetEnvironment(simulator)
-            guard let currentCoordinate = viewModel.latestCoordinate(),
-                  let currentLatitude = currentCoordinate.latitude,
-                  let currentLogitude = currentCoordinate.longitude,
+
+            guard let currentLatitude = manager.location?.coordinate.latitude,
+                  let currentLongitude = manager.location?.coordinate.longitude,
                   let imageData = UIImage(systemName: "camera")?.pngData()
             else { return }
-            let mileStone = MileStone(latitude: currentLatitude, longitude: currentLogitude, imageData: imageData)
+            let mileStone = MileStone(latitude: currentLatitude, longitude: currentLongitude, imageData: imageData)
             viewModel.append(milestone: mileStone)
             #else
             present(imagePickerController, animated: true)
@@ -460,11 +460,6 @@ extension TrackingProgressViewController: MKMapViewDelegate {
         let coordinate = Coordinate(latitude: view.annotation?.coordinate.latitude, longitude: view.annotation?.coordinate.longitude)
         guard let selectedMileStone = viewModel.mileStone(at: coordinate) else { return }
 
-        customView.photoImageView.image = UIImage(data: mileStone.imageData)
-        customView.photoImageView.backgroundColor = .boosterLabel
-        annotationView?.addSubview(customView)
-        annotationView?.centerOffset = CGPoint(x: -customView.frame.width / 2.0, y: -customView.frame.height)
-
         let mileStonePhotoViewModel = MileStonePhotoViewModel(mileStone: selectedMileStone)
         let mileStonePhotoVC = MileStonePhotoViewController(viewModel: mileStonePhotoViewModel)
         mileStonePhotoVC.delegate = self
@@ -476,12 +471,11 @@ extension TrackingProgressViewController: MKMapViewDelegate {
 extension TrackingProgressViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            guard let currentCoordinate = viewModel.latestCoordinate(),
-                  let currentLatitude = currentCoordinate.latitude,
-                  let currentLogitude = currentCoordinate.longitude,
+            guard let currentLatitude = manager.location?.coordinate.latitude,
+                  let currentLongitude = manager.location?.coordinate.longitude,
                   let imageData = image.pngData()
             else { return }
-            let mileStone = MileStone(latitude: currentLatitude, longitude: currentLogitude, imageData: imageData)
+            let mileStone = MileStone(latitude: currentLatitude, longitude: currentLongitude, imageData: imageData)
             viewModel.append(milestone: mileStone)
         }
         picker.dismiss(animated: true, completion: nil)
