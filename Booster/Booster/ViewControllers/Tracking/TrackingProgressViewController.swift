@@ -472,11 +472,11 @@ extension TrackingProgressViewController: MKMapViewDelegate {
 
         return MKOverlayRenderer()
     }
-    
+
     func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
         mapView.view(for: mapView.userLocation)?.isEnabled = false
     }
-    
+
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation { return nil }
 
@@ -488,7 +488,7 @@ extension TrackingProgressViewController: MKMapViewDelegate {
             guard let customView = UINib(nibName: NibName.photoAnnotationView.rawValue, bundle: nil).instantiate(withOwner: self, options: nil).first as? PhotoAnnotationView,
                   let mileStone = viewModel.milestones.value.last
             else { return nil }
-            
+
             customView.frame.origin.x = customView.frame.origin.x - customView.frame.width / 2.0
             customView.frame.origin.y = customView.frame.origin.y - customView.frame.height
             annotationView!.frame.origin.x = annotationView!.frame.origin.x - customView.frame.width / 2.0
