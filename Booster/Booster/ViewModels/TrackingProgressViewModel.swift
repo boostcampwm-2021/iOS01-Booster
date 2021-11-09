@@ -83,9 +83,23 @@ final class TrackingProgressViewModel {
     }
 
     func save(completion handler: @escaping (TrackingError?) -> Void) {
-        trackingUsecase.save(model: trackingModel.value) { error in
-            handler(error)
-        }
+        trackingUsecase.bind(handler: handler)
+        trackingUsecase.save(model: trackingModel.value)
+        trackingUsecase.save(count: Double(trackingModel.value.steps),
+                             start: trackingModel.value.startDate,
+                             end: trackingModel.value.endDate ?? Date(),
+                             quantity: .steps,
+                             unit: .count)
+        trackingUsecase.save(count: trackingModel.value.distance,
+                             start: trackingModel.value.startDate,
+                             end: trackingModel.value.endDate ?? Date(),
+                             quantity: .runing,
+                             unit: .kilometer)
+        trackingUsecase.save(count: Double(trackingModel.value.calories),
+                             start: trackingModel.value.startDate,
+                             end: trackingModel.value.endDate ?? Date(),
+                             quantity: .energy,
+                             unit: .calorie)
     }
 
     func mileStone(at coordinate: Coordinate) -> MileStone? {

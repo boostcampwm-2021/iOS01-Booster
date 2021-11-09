@@ -39,9 +39,9 @@ class TrackingMapView: MKMapView {
             return coordinate == mileStone.coordinate
         })
         else { return false }
-        
+
         removeAnnotation(annotation)
-        
+
         return true
     }
 
