@@ -7,31 +7,49 @@ final class FeedViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
 
     private let feedViewModel = FeedViewModel()
-    private lazy var emptyView = EmptyView()
+    private lazy var emptyView: EmptyView = {
+        let view = EmptyView.init(frame: self.tableView.frame)
+        view.apply(title: "아직 산책기록이 없어요\n오늘 한 번 천천히 걸어볼까요?", image: UIImage(named: "foot") ?? UIImage())
+        return view
+    }()
 
     // MARK: Life Cycles
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureEmptyUI()
+
         bindFeedViewModel()
         tableView.dataSource = self
     }
 
-    private func configureEmptyUI() {
-        emptyView = EmptyView.init(frame: self.tableView.frame)
-        emptyView.apply(title: "아직 산책기록이 없어요\n오늘 한 번 천천히 걸어볼까요?", image: UIImage(named: "foot") ?? UIImage())
-        self.view.addSubview(emptyView)
-    }
+}
+
+// MARK: - Bind & Prepare Segue
+
+extension FeedViewController {
 
     private func bindFeedViewModel() {
         feedViewModel.trackingRecords.bind { [weak self] _ in
-             if self?.feedViewModel.recordCount() == 0 { return }
+            guard let self = self else { return }
+            if self.feedViewModel.recordCount() == 0 {
+                self.view.addSubview(self.emptyView)
+                return
+            }
             DispatchQueue.main.async {
-                self?.emptyView.removeFromSuperview()
-                self?.tableView.reloadData()
+                self.emptyView.removeFromSuperview()
+                self.tableView.reloadData()
             }
         }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let sender = sender as? FeedTableViewCell,
+         let index = tableView.indexPath(for: sender)?.row
+        else { return }
+
+        guard let nextViewController = segue.destination as? DetailFeedViewController
+        else { return }
+        nextViewController.trackingInfo = feedViewModel.dataAtIndex(index)
     }
 
 }

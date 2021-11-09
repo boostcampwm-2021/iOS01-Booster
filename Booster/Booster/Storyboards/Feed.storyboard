@@ -12,6 +12,9 @@
         <array key="BAZARONI.TTF">
             <string>Bazaronite</string>
         </array>
+        <array key="NotoSansKR-Light.otf">
+            <string>NotoSansKR-Light</string>
+        </array>
         <array key="NotoSansKR-Medium.otf">
             <string>NotoSansKR-Medium</string>
         </array>
@@ -20,7 +23,7 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Feed View Controller-->
+        <!--나의 발자취-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
                 <viewController storyboardIdentifier="FeedViewController" id="Y6W-OH-hqX" customClass="FeedViewController" customModule="Booster" customModuleProvider="target" sceneMemberID="viewController">
@@ -28,14 +31,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="나의 발자취들" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7W3-As-wpQ">
-                                <rect key="frame" x="30" y="88" width="110.5" height="87"/>
-                                <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans KR" pointSize="30"/>
-                                <color key="textColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="200" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Gyu-u2-lvs">
-                                <rect key="frame" x="0.0" y="205" width="414" height="608"/>
+                                <rect key="frame" x="0.0" y="118" width="414" height="695"/>
                                 <color key="backgroundColor" name="boosterBackground"/>
                                 <color key="sectionIndexBackgroundColor" name="boosterBackground"/>
                                 <prototypes>
@@ -123,6 +120,7 @@
                                             <outlet property="titleLabel" destination="MCu-y6-SdE" id="Mwh-Zv-2ys"/>
                                             <outlet property="totalStepCountLabel" destination="iZu-V7-d45" id="Bka-Xo-1qL"/>
                                             <outlet property="trackingPathView" destination="GhR-y2-vnQ" id="ra2-FY-7uR"/>
+                                            <segue destination="SNN-pe-2iF" kind="show" id="KEK-UJ-byo"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -133,14 +131,14 @@
                         <constraints>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Gyu-u2-lvs" secondAttribute="trailing" id="1SE-uj-n4U"/>
                             <constraint firstItem="Gyu-u2-lvs" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="9dX-rE-GBE"/>
-                            <constraint firstItem="Gyu-u2-lvs" firstAttribute="top" secondItem="7W3-As-wpQ" secondAttribute="bottom" constant="30" id="EB8-r5-G4J"/>
-                            <constraint firstItem="7W3-As-wpQ" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="Llw-qF-VII"/>
-                            <constraint firstItem="7W3-As-wpQ" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="fuX-mS-bd5"/>
+                            <constraint firstItem="Gyu-u2-lvs" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="30" id="hO9-kR-FMt"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="Gyu-u2-lvs" secondAttribute="bottom" id="mgd-vX-JbT"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="newspaper" catalog="system" selectedImage="newspaper.fill" id="0Kj-SX-TW1"/>
-                    <navigationItem key="navigationItem" id="kBW-Wo-njA"/>
+                    <navigationItem key="navigationItem" title="나의 발자취" id="kBW-Wo-njA">
+                        <barButtonItem key="backBarButtonItem" title=" " id="w4L-29-js0"/>
+                    </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="Gyu-u2-lvs" id="hhm-ce-9NN"/>
@@ -150,16 +148,177 @@
             </objects>
             <point key="canvasLocation" x="1037.68115942029" y="97.767857142857139"/>
         </scene>
+        <!--Detail Feed View Controller-->
+        <scene sceneID="Q7V-vS-jzf">
+            <objects>
+                <viewController id="SNN-pe-2iF" customClass="DetailFeedViewController" customModule="Booster" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1Og-uv-51R">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H06-jc-bhO">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ecH-rG-cv5">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1165"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="산책 제목" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IQ7-gI-wGX">
+                                                <rect key="frame" x="30" y="30" width="112.5" height="35"/>
+                                                <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans KR" pointSize="30"/>
+                                                <color key="textColor" name="boosterLabel"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="gangnam-gu" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fmg-7e-yqO">
+                                                <rect key="frame" x="30" y="70" width="69" height="14"/>
+                                                <fontDescription key="fontDescription" name="NotoSansKR-Light" family="Noto Sans KR" pointSize="12"/>
+                                                <color key="textColor" name="boosterLabel"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="gCe-Qv-haU">
+                                                <rect key="frame" x="30" y="94" width="354" height="354"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="gCe-Qv-haU" secondAttribute="height" multiplier="1:1" id="cJO-Xl-ovD"/>
+                                                </constraints>
+                                            </mapView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2230" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B7Q-Cx-YM2">
+                                                <rect key="frame" x="30" y="474" width="111.5" height="58.5"/>
+                                                <fontDescription key="fontDescription" name="Bazaronite" family="Bazaronite" pointSize="50"/>
+                                                <color key="textColor" name="boosterOrange"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="steps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ph3-zt-nOG">
+                                                <rect key="frame" x="146.5" y="499" width="49" height="23.5"/>
+                                                <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="20"/>
+                                                <color key="textColor" name="boosterOrange"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EpB-cC-q10">
+                                                <rect key="frame" x="58.5" y="572.5" width="28" height="30"/>
+                                                <fontDescription key="fontDescription" name="Bazaronite" family="Bazaronite" pointSize="25"/>
+                                                <color key="textColor" name="boosterLabel"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="kcal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uRb-Us-F76">
+                                                <rect key="frame" x="56.5" y="612.5" width="28" height="17.5"/>
+                                                <fontDescription key="fontDescription" name="NotoSansKR-Light" family="Noto Sans KR" pointSize="15"/>
+                                                <color key="textColor" name="boosterLabel"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TeL-Ss-n73">
+                                                <rect key="frame" x="192.5" y="612.5" width="29" height="17.5"/>
+                                                <fontDescription key="fontDescription" name="NotoSansKR-Light" family="Noto Sans KR" pointSize="15"/>
+                                                <color key="textColor" name="boosterLabel"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="252552" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HR9-G6-PmX">
+                                                <rect key="frame" x="167" y="572.5" width="83.5" height="30"/>
+                                                <fontDescription key="fontDescription" name="Bazaronite" family="Bazaronite" pointSize="25"/>
+                                                <color key="textColor" name="boosterLabel"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="124225" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJw-v9-DGj">
+                                                <rect key="frame" x="300" y="572.5" width="83.5" height="30"/>
+                                                <fontDescription key="fontDescription" name="Bazaronite" family="Bazaronite" pointSize="25"/>
+                                                <color key="textColor" name="boosterLabel"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="BvC-uD-hJr">
+                                                <rect key="frame" x="30" y="660" width="354" height="466"/>
+                                                <color key="backgroundColor" name="boosterBackground"/>
+                                                <color key="tintColor" name="boosterOrange"/>
+                                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                <color key="textColor" name="boosterLabel"/>
+                                                <fontDescription key="fontDescription" name="NotoSansKR-Light" family="Noto Sans KR" pointSize="20"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="km" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ekR-0F-WEU">
+                                                <rect key="frame" x="329.5" y="612.5" width="21" height="17.5"/>
+                                                <fontDescription key="fontDescription" name="NotoSansKR-Light" family="Noto Sans KR" pointSize="15"/>
+                                                <color key="textColor" name="boosterLabel"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" name="boosterBackground"/>
+                                        <constraints>
+                                            <constraint firstItem="ph3-zt-nOG" firstAttribute="bottom" secondItem="B7Q-Cx-YM2" secondAttribute="bottom" constant="-10" id="69T-zS-AVL"/>
+                                            <constraint firstItem="BvC-uD-hJr" firstAttribute="leading" secondItem="ecH-rG-cv5" secondAttribute="leading" constant="30" id="6n0-Yh-AgM"/>
+                                            <constraint firstItem="ph3-zt-nOG" firstAttribute="leading" secondItem="B7Q-Cx-YM2" secondAttribute="trailing" constant="5" id="6pf-H5-nsu"/>
+                                            <constraint firstItem="gCe-Qv-haU" firstAttribute="leading" secondItem="ecH-rG-cv5" secondAttribute="leading" constant="30" id="8ze-tr-Ag4"/>
+                                            <constraint firstItem="uRb-Us-F76" firstAttribute="top" secondItem="EpB-cC-q10" secondAttribute="bottom" constant="10" id="A8K-Kg-WAC"/>
+                                            <constraint firstItem="BvC-uD-hJr" firstAttribute="height" secondItem="ecH-rG-cv5" secondAttribute="height" multiplier="0.4" id="Bbl-PW-DT2"/>
+                                            <constraint firstItem="ekR-0F-WEU" firstAttribute="top" secondItem="NJw-v9-DGj" secondAttribute="bottom" constant="10" id="EgE-ia-94I"/>
+                                            <constraint firstItem="ekR-0F-WEU" firstAttribute="centerX" secondItem="NJw-v9-DGj" secondAttribute="centerX" multiplier="0.996" id="Ern-VA-dkd"/>
+                                            <constraint firstItem="HR9-G6-PmX" firstAttribute="centerY" secondItem="EpB-cC-q10" secondAttribute="centerY" id="GDb-Pj-kOs"/>
+                                            <constraint firstItem="IQ7-gI-wGX" firstAttribute="top" secondItem="ecH-rG-cv5" secondAttribute="top" constant="30" id="IOk-ee-oOH"/>
+                                            <constraint firstItem="B7Q-Cx-YM2" firstAttribute="top" secondItem="gCe-Qv-haU" secondAttribute="bottom" constant="26" id="IgJ-h8-occ"/>
+                                            <constraint firstItem="NJw-v9-DGj" firstAttribute="centerY" secondItem="HR9-G6-PmX" secondAttribute="centerY" id="Q3B-yL-cDA"/>
+                                            <constraint firstItem="EpB-cC-q10" firstAttribute="top" secondItem="B7Q-Cx-YM2" secondAttribute="bottom" constant="40" id="WhE-s4-Hfn"/>
+                                            <constraint firstAttribute="trailing" secondItem="gCe-Qv-haU" secondAttribute="trailing" constant="30" id="ZdA-Cw-E1v"/>
+                                            <constraint firstAttribute="trailing" secondItem="BvC-uD-hJr" secondAttribute="trailing" constant="30" id="aBf-Np-4Tm"/>
+                                            <constraint firstItem="TeL-Ss-n73" firstAttribute="centerX" secondItem="ecH-rG-cv5" secondAttribute="centerX" id="aJS-hd-K3F"/>
+                                            <constraint firstItem="IQ7-gI-wGX" firstAttribute="leading" secondItem="ecH-rG-cv5" secondAttribute="leading" constant="30" id="bmG-LK-fiH"/>
+                                            <constraint firstItem="TeL-Ss-n73" firstAttribute="top" secondItem="HR9-G6-PmX" secondAttribute="bottom" constant="10" id="g3n-CJ-Ne4"/>
+                                            <constraint firstItem="fmg-7e-yqO" firstAttribute="top" secondItem="IQ7-gI-wGX" secondAttribute="bottom" constant="5" id="hwP-KN-Bxs"/>
+                                            <constraint firstItem="fmg-7e-yqO" firstAttribute="leading" secondItem="IQ7-gI-wGX" secondAttribute="leading" id="mAQ-99-0ua"/>
+                                            <constraint firstItem="B7Q-Cx-YM2" firstAttribute="leading" secondItem="gCe-Qv-haU" secondAttribute="leading" id="oMt-2A-YyO"/>
+                                            <constraint firstItem="BvC-uD-hJr" firstAttribute="top" secondItem="uRb-Us-F76" secondAttribute="bottom" constant="30" id="pG2-7w-zr2"/>
+                                            <constraint firstItem="NJw-v9-DGj" firstAttribute="centerX" secondItem="ecH-rG-cv5" secondAttribute="centerX" multiplier="1.65" id="pw5-Oo-kn8"/>
+                                            <constraint firstItem="gCe-Qv-haU" firstAttribute="top" secondItem="fmg-7e-yqO" secondAttribute="bottom" constant="10" id="uBy-U9-QZy"/>
+                                            <constraint firstItem="uRb-Us-F76" firstAttribute="centerX" secondItem="EpB-cC-q10" secondAttribute="centerX" multiplier="0.97" id="uGV-eB-HQo"/>
+                                            <constraint firstItem="EpB-cC-q10" firstAttribute="centerX" secondItem="ecH-rG-cv5" secondAttribute="centerX" multiplier="0.35" id="vRq-V5-J4m"/>
+                                            <constraint firstItem="HR9-G6-PmX" firstAttribute="centerX" secondItem="ecH-rG-cv5" secondAttribute="centerX" multiplier="1.008" id="vcf-e9-WXa"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="ecH-rG-cv5" firstAttribute="width" secondItem="h8P-QU-Yoj" secondAttribute="width" id="79Q-fm-Oqi"/>
+                                    <constraint firstItem="ecH-rG-cv5" firstAttribute="top" secondItem="y5m-Ei-sfK" secondAttribute="top" id="8ss-YO-ypB"/>
+                                    <constraint firstItem="ecH-rG-cv5" firstAttribute="bottom" secondItem="y5m-Ei-sfK" secondAttribute="bottom" id="DPh-HB-fLz"/>
+                                    <constraint firstItem="ecH-rG-cv5" firstAttribute="trailing" secondItem="y5m-Ei-sfK" secondAttribute="trailing" id="KZd-fz-ATI"/>
+                                    <constraint firstItem="ecH-rG-cv5" firstAttribute="leading" secondItem="y5m-Ei-sfK" secondAttribute="leading" id="mla-SC-3um"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="y5m-Ei-sfK"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="h8P-QU-Yoj"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="SSh-xW-eYH"/>
+                        <color key="backgroundColor" name="boosterBackground"/>
+                        <constraints>
+                            <constraint firstItem="ecH-rG-cv5" firstAttribute="height" secondItem="1Og-uv-51R" secondAttribute="height" multiplier="1.3" id="Pks-UF-N91"/>
+                            <constraint firstItem="H06-jc-bhO" firstAttribute="top" secondItem="SSh-xW-eYH" secondAttribute="top" id="QMi-bX-98V"/>
+                            <constraint firstItem="H06-jc-bhO" firstAttribute="leading" secondItem="SSh-xW-eYH" secondAttribute="leading" id="TGB-Yq-dya"/>
+                            <constraint firstItem="SSh-xW-eYH" firstAttribute="trailing" secondItem="H06-jc-bhO" secondAttribute="trailing" id="mSQ-qZ-zyK"/>
+                            <constraint firstItem="SSh-xW-eYH" firstAttribute="bottom" secondItem="H06-jc-bhO" secondAttribute="bottom" id="nHD-wq-XC1"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="cYC-aO-Ox6">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="GPP-8c-MDj"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="locationInfoLabel" destination="fmg-7e-yqO" id="abW-0v-V0D"/>
+                        <outlet property="mapView" destination="gCe-Qv-haU" id="hvC-1M-ox1"/>
+                        <outlet property="stepCountsLabel" destination="B7Q-Cx-YM2" id="ILD-Ty-DIC"/>
+                        <outlet property="titleLabel" destination="IQ7-gI-wGX" id="PhN-PO-4Os"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="psD-uM-Jpp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1751" y="98"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="j4Y-rs-hEH">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7kW-7S-rP7" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" id="VuG-05-Ips">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" backIndicatorImage="arrow.backward" catalog="system" largeTitles="YES" backIndicatorTransitionMaskImage="arrow.backward" id="VuG-05-Ips">
+                        <rect key="frame" x="0.0" y="44" width="414" height="102"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" name="boosterBackground"/>
+                        <color key="tintColor" name="boosterLabel"/>
+                        <color key="barTintColor" name="boosterBackground"/>
                         <textAttributes key="largeTitleTextAttributes">
-                            <color key="textColor" red="0.92941176470588238" green="0.92941176470588238" blue="0.92941176470588238" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans KR" pointSize="30"/>
+                            <color key="textColor" name="boosterLabel"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -173,10 +332,17 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrow.backward" catalog="system" width="128" height="98"/>
         <image name="newspaper" catalog="system" width="128" height="111"/>
         <image name="newspaper.fill" catalog="system" width="128" height="111"/>
         <namedColor name="boosterBackground">
-            <color red="0.050980392156862744" green="0.050980392156862744" blue="0.050980392156862744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.050999999046325684" green="0.050999999046325684" blue="0.050999999046325684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="boosterLabel">
+            <color red="0.92900002002716064" green="0.92900002002716064" blue="0.92900002002716064" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="boosterOrange">
+            <color red="1" green="0.36100000143051147" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
