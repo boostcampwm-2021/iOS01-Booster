@@ -1,5 +1,6 @@
 import UIKit
 import MapKit
+import HealthKit
 import CoreMotion
 
 class TrackingProgressViewController: UIViewController {
@@ -100,8 +101,14 @@ class TrackingProgressViewController: UIViewController {
     }
 
     private func configureNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.keyboardWillShow(_:)),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.keyboardWillHide(_:)),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
     }
 
     private func bind() {
@@ -279,7 +286,12 @@ class TrackingProgressViewController: UIViewController {
         return text
     }
 
-    private func makeAttributedText(content: String, title: String, contentFont: UIFont = .bazaronite(size: 30), titleFont: UIFont = .notoSansKR(.light, 15), color: UIColor = .black) -> NSMutableAttributedString {
+    private func makeAttributedText(content: String,
+                                    title: String,
+                                    contentFont: UIFont = .bazaronite(size: 30),
+                                    titleFont: UIFont = .notoSansKR(.light, 15),
+                                    color: UIColor = .black)
+    -> NSMutableAttributedString {
         let mutableString = NSMutableAttributedString()
 
         let contentText: NSAttributedString = .makeAttributedString(text: content, font: contentFont, color: color)
@@ -290,6 +302,15 @@ class TrackingProgressViewController: UIViewController {
         }
 
         return mutableString
+    }
+
+    private func save() {
+        viewModel.save { error in
+            guard error == nil else { return }
+            DispatchQueue.main.async {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
     }
 
     @IBAction func leftTouchUp(_ sender: UIButton) {
@@ -322,10 +343,28 @@ class TrackingProgressViewController: UIViewController {
     @IBAction func rightTouchUp(_ sender: Any) {
         switch viewModel.state {
         case .end:
-            viewModel.save { error in
-                guard error == nil else { return }
-                DispatchQueue.main.async {
-                    self.navigationController?.popViewController(animated: true)
+            let title = "저장 오류"
+            let message = "저장 하기 위해서는 건강앱의 권한이 필요합니다."
+            let store = HKHealthStore()
+            let alert = UIAlertController.simpleAlert(title: title, message: message)
+            var types: Set<HKQuantityType> = []
+            HealthQuantityType.allCases.forEach {
+                if let type = $0.quantity {
+                    types.insert(type)
+                }
+            }
+
+            if HKHealthStore.isHealthDataAvailable() {
+                save()
+            } else {
+                store.requestAuthorization(toShare: types, read: types) { success, error in
+                    if let _ = error {
+                        self.present(alert, animated: true)
+                    } else if success {
+                        self.save()
+                    } else {
+                        self.present(alert, animated: true)
+                    }
                 }
             }
         default:
@@ -340,14 +379,14 @@ class TrackingProgressViewController: UIViewController {
         let timerTime = -Int(timerDate.timeIntervalSinceNow)
         let time = timerTime + lastestTime
         let calroies = Int(60 / 15 * 0.9 * Double((time / 60) % 60))
+        let limit: Double = 300
 
-        pedometer.queryPedometerData(from: Date(timeIntervalSinceNow: -300), to: Date()) { data, _ in
+        pedometer.queryPedometerData(from: Date(timeIntervalSinceNow: -limit), to: Date()) { data, _ in
             guard let data = data, let distance = data.distance?.intValue else { return }
             isMoved = distance > 5
-            print(isMoved, distance, timerTime)
         }
 
-        switch isMoved && timerTime <= 300 {
+        switch isMoved && timerTime <= Int(limit) {
         case true:
             viewModel.update(seconds: time)
             viewModel.update(calroies: calroies)
@@ -478,7 +517,7 @@ extension TrackingProgressViewController: MKMapViewDelegate {
         mileStonePhotoVC.delegate = self
 
         present(mileStonePhotoVC, animated: true, completion: nil)
-    }
+      }
 }
 
 extension TrackingProgressViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {

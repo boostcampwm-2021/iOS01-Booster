@@ -8,7 +8,36 @@
 import Foundation
 import HealthKit
 
+typealias HealthQuantityType = HealthStoreManager.HealthQuantityType
+typealias HealthUnit = HealthStoreManager.HealthUnit
+
 final class HealthStoreManager {
+    enum HealthQuantityType: CaseIterable {
+        case steps, runing, energy
+
+        var quantity: HKQuantityType? {
+            switch self {
+            case .steps: return .quantityType(forIdentifier: .stepCount)
+            case .runing: return .quantityType(forIdentifier: .distanceWalkingRunning)
+            case .energy: return .quantityType(forIdentifier: .activeEnergyBurned)
+            }
+        }
+    }
+
+    enum HealthUnit: CaseIterable {
+        case count, kilometer, calorie
+        var unit: HKUnit {
+            switch self {
+            case .count: return .count()
+            case .kilometer: return .meterUnit(with: .kilo)
+            case .calorie: return .largeCalorie()
+            }
+        }
+    }
+
+    enum HealthKitError: Error {
+        case optionalCasting
+    }
 
     static let shared = HealthStoreManager()
 
@@ -62,4 +91,21 @@ final class HealthStoreManager {
         healthStore?.execute(query)
     }
 
+    func save(count: Double, start: Date, end: Date, quantity: HealthQuantityType, unit: HealthUnit, completion: @escaping (Error?) -> Void) {
+        guard let healthStore = healthStore, let type = quantity.quantity else {
+            completion(HealthKitError.optionalCasting)
+            return
+        }
+
+        let unit = unit.unit
+        let countQuantity = HKQuantity(unit: unit, doubleValue: count)
+        let sample = HKQuantitySample(type: type, quantity: countQuantity, start: start, end: end)
+        healthStore.save(sample) { _, error in
+            guard let error = error else {
+                completion(nil)
+                return
+            }
+            completion(error)
+        }
+    }
 }

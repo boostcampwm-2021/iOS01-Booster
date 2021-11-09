@@ -4,8 +4,9 @@ typealias TrackingError = TrackingProgressUsecase.TrackingError
 
 final class TrackingProgressUsecase {
     enum TrackingError: Error {
+        case countError
         case modelError
-        case repositoryError(Error)
+        case error(Error)
     }
 
     private enum CoreDataKeys {
@@ -21,20 +22,42 @@ final class TrackingProgressUsecase {
         static let content: String = "content"
     }
 
+    private var errors: Observable<[TrackingError?]>
+    private var handler: ((TrackingError?) -> Void)?
     private let entity: String
     private let repository: RepositoryManager
 
     init() {
+        errors = Observable([])
         entity = "Tracking"
         repository = RepositoryManager()
+        errors.bind { values in
+            guard let handler = self.handler else { return }
+
+            if values.count != 4 {
+                handler(.countError)
+                return
+            }
+
+            if let value = values.filter({ $0 != nil }).first, let error = value {
+                handler(error)
+                return
+            }
+
+            handler(nil)
+        }
     }
 
-    func save(model: TrackingModel, completion handler: @escaping (TrackingError?) -> Void) {
+    func bind(handler: @escaping (TrackingError?) -> Void) {
+        self.handler = handler
+    }
+
+    func save(model: TrackingModel) {
         guard let coordinates = try? NSKeyedArchiver.archivedData(withRootObject: model.coordinates, requiringSecureCoding: false),
              let milestones = try? NSKeyedArchiver.archivedData(withRootObject: model.milestones, requiringSecureCoding: false),
              let endDate = model.endDate
         else {
-            handler(.modelError)
+            errors.value.append(.modelError)
             return
         }
 
@@ -51,13 +74,24 @@ final class TrackingProgressUsecase {
             CoreDataKeys.content: model.content
         ]
 
-        repository.save(value: value, type: entity) { response in
+        repository.save(value: value, type: entity) { [weak self] response in
+            guard let self = self else { return }
             switch response {
             case .success:
-                handler(nil)
+                self.errors.value.append(nil)
             case .failure(let error):
-                handler(.repositoryError(error))
+                self.errors.value.append(.error(error))
             }
+        }
+    }
+
+    func save(count: Double, start: Date, end: Date, quantity: HealthQuantityType, unit: HealthUnit) {
+        HealthStoreManager.shared.save(count: count, start: start, end: end, quantity: quantity, unit: unit) { [weak self] error in
+            guard let error = error else {
+                self?.errors.value.append(nil)
+                return
+            }
+            self?.errors.value.append(.error(error))
         }
     }
 }
