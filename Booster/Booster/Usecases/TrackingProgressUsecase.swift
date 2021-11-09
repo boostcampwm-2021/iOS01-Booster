@@ -1,6 +1,13 @@
 import Foundation
 
+typealias TrackingError = TrackingProgressUsecase.TrackingError
+
 final class TrackingProgressUsecase {
+    enum TrackingError: Error {
+        case modelError
+        case repositoryError(Error)
+    }
+
     private enum CoreDataKeys {
         static let startDate: String = "startDate"
         static let endDate: String = "endDate"
@@ -22,15 +29,18 @@ final class TrackingProgressUsecase {
         repository = RepositoryManager()
     }
 
-    func save(model: TrackingModel, completion handler: @escaping (String) -> Void) {
+    func save(model: TrackingModel, completion handler: @escaping (TrackingError?) -> Void) {
         guard let coordinates = try? NSKeyedArchiver.archivedData(withRootObject: model.coordinates, requiringSecureCoding: false),
-              let milestones = try? NSKeyedArchiver.archivedData(withRootObject: model.milestones, requiringSecureCoding: false) else {
-                  handler("archiving error")
-                  return
-              }
+             let milestones = try? NSKeyedArchiver.archivedData(withRootObject: model.milestones, requiringSecureCoding: false),
+             let endDate = model.endDate
+        else {
+            handler(.modelError)
+            return
+        }
+
         let value: [String: Any] = [
             CoreDataKeys.startDate: model.startDate,
-            CoreDataKeys.endDate: model.endDate,
+            CoreDataKeys.endDate: endDate,
             CoreDataKeys.steps: model.steps,
             CoreDataKeys.calories: model.calories,
             CoreDataKeys.seconds: model.seconds,
@@ -40,13 +50,13 @@ final class TrackingProgressUsecase {
             CoreDataKeys.title: model.title,
             CoreDataKeys.content: model.content
         ]
-        print(value)
+
         repository.save(value: value, type: entity) { response in
             switch response {
             case .success:
-                handler("success")
+                handler(nil)
             case .failure(let error):
-                print(error.localizedDescription)
+                handler(.repositoryError(error))
             }
         }
     }

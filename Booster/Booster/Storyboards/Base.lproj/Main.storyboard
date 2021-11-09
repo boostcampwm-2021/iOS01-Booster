@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Rgs-ka-K2j">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Rgs-ka-K2j">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -10,7 +12,7 @@
         <scene sceneID="k8d-V6-5Pj">
             <objects>
                 <viewControllerPlaceholder storyboardIdentifier="Home" storyboardName="Home" id="ecx-f6-j6h" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="kUX-Xc-lcf"/>
+                    <tabBarItem key="tabBarItem" title="" id="kUX-Xc-lcf"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uoZ-I0-QVX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -46,10 +48,10 @@
             </objects>
             <point key="canvasLocation" x="819" y="286"/>
         </scene>
-        <!--MyPage-->
+        <!--User-->
         <scene sceneID="fsS-or-eX2">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="MyPage" storyboardName="MyPage" id="fIQ-xE-VwK" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardIdentifier="User" storyboardName="User" id="fIQ-xE-VwK" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="Uct-yf-afx"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xjq-b7-Mm8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -64,7 +66,9 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="gPf-l2-P7d">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="boosterBackground"/>
+                        <color key="tintColor" name="boosterOrange"/>
+                        <color key="selectedImageTintColor" name="boosterOrange"/>
                     </tabBar>
                     <connections>
                         <segue destination="ecx-f6-j6h" kind="relationship" relationship="viewControllers" id="Fha-ai-NKQ"/>
@@ -79,4 +83,12 @@
             <point key="canvasLocation" x="127.53623188405798" y="97.767857142857139"/>
         </scene>
     </scenes>
+    <resources>
+        <namedColor name="boosterBackground">
+            <color red="0.050980392156862744" green="0.050980392156862744" blue="0.050980392156862744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="boosterOrange">
+            <color red="1" green="0.36100000143051147" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

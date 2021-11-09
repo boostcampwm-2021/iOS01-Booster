@@ -25,7 +25,7 @@ final class HealthStoreManager {
 
     func requestAuthorization(shareTypes: Set<HKSampleType>, readTypes: Set<HKSampleType>, completion: @escaping (Bool) -> Void) {
         healthStore?.requestAuthorization(toShare: shareTypes, read: readTypes) { (success, error) in
-            guard error != nil,
+            guard error == nil,
                   success else { return }
             completion(success)
         }

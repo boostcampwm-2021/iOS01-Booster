@@ -19,7 +19,7 @@ final class RepositoryManager {
     }
     private lazy var container: NSPersistentContainer = {
             let container = NSPersistentContainer(name: "Booster")
-            container.loadPersistentStores { (_, _) in }
+            container.loadPersistentStores { _, _ in }
             return container
     }()
     private lazy var backgroundContext: NSManagedObjectContext = {
@@ -39,6 +39,7 @@ final class RepositoryManager {
                 entityObject.setValue($0.value, forKey: $0.key)
             }
             let context = self.container.viewContext
+
             do {
                 try context.save()
                 handler(.success(()))
@@ -58,6 +59,7 @@ final class RepositoryManager {
             do {
                 let context = try self.container.viewContext.fetch(DataType.fetchRequest())
                 guard let context = context as? [DataType] else { return }
+
                 handler(.success(context))
             } catch let error {
                 handler(.failure(error))
