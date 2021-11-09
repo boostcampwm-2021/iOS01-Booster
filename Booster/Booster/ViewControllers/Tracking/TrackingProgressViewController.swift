@@ -295,12 +295,19 @@ class TrackingProgressViewController: UIViewController {
     @IBAction func leftTouchUp(_ sender: UIButton) {
         switch viewModel.state {
         case .start:
-            #if targetEnvironment(simulator)
-
             guard let currentLatitude = manager.location?.coordinate.latitude,
                   let currentLongitude = manager.location?.coordinate.longitude,
                   let imageData = UIImage(systemName: "camera")?.pngData()
             else { return }
+
+            if viewModel.isMileStoneExistAt(latitude: currentLatitude, longitude: currentLongitude) {
+                let alert = UIAlertController.simpleAlert(title: "추가 실패", message: "이미 다른 마일스톤이 존재합니다.\n 작성한 마일스톤을 제거해주세요")
+                present(alert, animated: true, completion: nil)
+
+                return
+            }
+
+            #if targetEnvironment(simulator)
             let mileStone = MileStone(latitude: currentLatitude, longitude: currentLongitude, imageData: imageData)
             viewModel.append(milestone: mileStone)
             #else

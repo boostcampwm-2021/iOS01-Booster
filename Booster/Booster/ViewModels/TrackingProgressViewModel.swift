@@ -1,4 +1,5 @@
 import Foundation
+import CoreLocation
 
 final class TrackingProgressViewModel {
     enum TrackingState {
@@ -94,6 +95,15 @@ final class TrackingProgressViewModel {
         })
 
         return target
+    }
+
+    func isMileStoneExistAt(latitude: Double, longitude: Double) -> Bool {
+        let coordinate = Coordinate(latitude: latitude, longitude: longitude)
+        for value in milestones.value {
+            if value.coordinate == coordinate { return true }
+        }
+
+        return false
     }
 
     func remove(of mileStone: MileStone) -> MileStone? {
