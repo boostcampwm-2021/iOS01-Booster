@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		28C96FE72737F7BC005BD7BC /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28C96FE62737F7BC005BD7BC /* HealthKit.framework */; };
 		3B4E4006272A6B5200577625 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3B4E4005272A6B5200577625 /* .swiftlint.yml */; };
+		FA473A03273A1D350000C5DC /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA473A02273A1D350000C5DC /* Components.swift */; };
+		FA473A05273A1F8A0000C5DC /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA473A04273A1F8A0000C5DC /* UIImage+Extension.swift */; };
 		FA614F542733CDAA00B090D9 /* Statistics.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA614F092733CDAA00B090D9 /* Statistics.storyboard */; };
 		FA614F552733CDAA00B090D9 /* Feed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA614F0A2733CDAA00B090D9 /* Feed.storyboard */; };
 		FA614F562733CDAA00B090D9 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA614F0B2733CDAA00B090D9 /* Home.storyboard */; };
@@ -78,6 +80,8 @@
 		3B4E3FE4272A696E00577625 /* Booster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Booster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4E4005272A6B5200577625 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		F1F2CDEBD8B4B430B644C56A /* Pods-Booster.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booster.release.xcconfig"; path = "Target Support Files/Pods-Booster/Pods-Booster.release.xcconfig"; sourceTree = "<group>"; };
+		FA473A02273A1D350000C5DC /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		FA473A04273A1F8A0000C5DC /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		FA614F092733CDAA00B090D9 /* Statistics.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Statistics.storyboard; sourceTree = "<group>"; };
 		FA614F0A2733CDAA00B090D9 /* Feed.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Feed.storyboard; sourceTree = "<group>"; };
 		FA614F0B2733CDAA00B090D9 /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
@@ -189,6 +193,14 @@
 				F1F2CDEBD8B4B430B644C56A /* Pods-Booster.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		FA473A01273A1D270000C5DC /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				FA473A02273A1D350000C5DC /* Components.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		FA614F072733CDAA00B090D9 /* Booster */ = {
@@ -315,6 +327,7 @@
 				FA614F3B2733CDAA00B090D9 /* TimeInterval+extension.swift */,
 				FA614F3C2733CDAA00B090D9 /* Observable.swift */,
 				FA614F8F2733D2CA00B090D9 /* UIColor+Extension.swift */,
+				FA473A04273A1F8A0000C5DC /* UIImage+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -354,6 +367,7 @@
 		FA614F482733CDAA00B090D9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FA473A01273A1D270000C5DC /* Components */,
 				FA614F492733CDAA00B090D9 /* PhotoAnnotationView.xib */,
 				FA614F4A2733CDAA00B090D9 /* TrackingMapView.swift */,
 				FA614F4B2733CDAA00B090D9 /* PhotoAnnotationView.swift */,
@@ -520,10 +534,12 @@
 				FA614F792733CDAA00B090D9 /* UIAlertController+Extention.swift in Sources */,
 				FA614F832733CDAA00B090D9 /* FeedViewController.swift in Sources */,
 				FA614F712733CDAA00B090D9 /* MileStone.swift in Sources */,
+				FA473A05273A1F8A0000C5DC /* UIImage+Extension.swift in Sources */,
 				FA614F732733CDAA00B090D9 /* Coordinate.swift in Sources */,
 				FA614F762733CDAA00B090D9 /* TrackingModel.swift in Sources */,
 				FA614F6B2733CDAA00B090D9 /* User+CoreDataProperties.swift in Sources */,
 				FA614F902733D2CA00B090D9 /* UIColor+Extension.swift in Sources */,
+				FA473A03273A1D350000C5DC /* Components.swift in Sources */,
 				FA614F5D2733CDAA00B090D9 /* HomeViewModel.swift in Sources */,
 				FA614F6F2733CDAA00B090D9 /* UserInfo.swift in Sources */,
 				FA614F752733CDAA00B090D9 /* Button.swift in Sources */,

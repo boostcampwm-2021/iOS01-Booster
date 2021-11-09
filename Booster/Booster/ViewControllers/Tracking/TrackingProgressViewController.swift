@@ -433,7 +433,11 @@ extension TrackingProgressViewController: MKMapViewDelegate {
 
         return MKOverlayRenderer()
     }
-
+    
+    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
+        mapView.view(for: mapView.userLocation)?.isEnabled = false
+    }
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation { return nil }
 
@@ -463,6 +467,7 @@ extension TrackingProgressViewController: MKMapViewDelegate {
 
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if view.annotation is MKUserLocation { return }
+
         mapView.deselectAnnotation(view.annotation, animated: false)
         let coordinate = Coordinate(latitude: view.annotation?.coordinate.latitude, longitude: view.annotation?.coordinate.longitude)
         guard let selectedMileStone = viewModel.mileStone(at: coordinate) else { return }
