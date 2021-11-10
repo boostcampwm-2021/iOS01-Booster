@@ -13,7 +13,7 @@ struct HomeData {
     var activeTime: TimeInterval
     var goal: Int
     var totalStepCount: Int
-    var hourlyStepCount: [Int] = []
+    var hourlyStepCount: [Int]
 
     init() {
         kcal = 0
@@ -21,5 +21,6 @@ struct HomeData {
         activeTime = 0
         goal = 0
         totalStepCount = 0
+        hourlyStepCount = []
     }
 }
