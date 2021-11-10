@@ -1,4 +1,5 @@
 import Foundation
+import CoreLocation
 
 final class TrackingProgressViewModel {
     enum TrackingState {
@@ -56,7 +57,7 @@ final class TrackingProgressViewModel {
     }
 
     func update(steps: Int) {
-        trackingModel.value.steps = steps
+        trackingModel.value.steps += steps
     }
 
     func update(distance: Double) {
@@ -82,9 +83,70 @@ final class TrackingProgressViewModel {
         return startCoordinate
     }
 
-    func save(completion handler: @escaping (String) -> Void) {
-        trackingUsecase.save(model: trackingModel.value) { message in
-            handler(message)
+    func save(completion handler: @escaping (TrackingError?) -> Void) {
+        trackingUsecase.bind(handler: handler)
+        trackingUsecase.save(model: trackingModel.value)
+        trackingUsecase.save(count: Double(trackingModel.value.steps),
+                             start: trackingModel.value.startDate,
+                             end: trackingModel.value.endDate ?? Date(),
+                             quantity: .steps,
+                             unit: .count)
+        trackingUsecase.save(count: trackingModel.value.distance,
+                             start: trackingModel.value.startDate,
+                             end: trackingModel.value.endDate ?? Date(),
+                             quantity: .runing,
+                             unit: .kilometer)
+        trackingUsecase.save(count: Double(trackingModel.value.calories),
+                             start: trackingModel.value.startDate,
+                             end: trackingModel.value.endDate ?? Date(),
+                             quantity: .energy,
+                             unit: .calorie)
+    }
+
+    func mileStone(at coordinate: Coordinate) -> MileStone? {
+        let target = milestones.value.first(where: { (value) in
+            return value.coordinate == coordinate
+        })
+
+        return target
+    }
+
+    func isMileStoneExistAt(latitude: Double, longitude: Double) -> Bool {
+        let coordinate = Coordinate(latitude: latitude, longitude: longitude)
+        for value in milestones.value {
+            if value.coordinate == coordinate { return true }
         }
+
+        return false
+    }
+
+    func centerCoordinateOfPath() -> CLLocationCoordinate2D? {
+        guard let startCoordinate = startCoordinate(),
+              let startLat = startCoordinate.latitude,
+              let startLong = startCoordinate.longitude
+        else { return nil }
+        var maxLat: Double = startLat
+        var minLat: Double = startLat
+        var maxLong: Double = startLong
+        var minLong: Double = startLong
+
+        trackingModel.value.coordinates.forEach { (coordinate) in
+            guard let latValue = coordinate.latitude,
+                  let longValue = coordinate.longitude
+            else { return }
+            if maxLat < latValue { maxLat = latValue } else if minLat > latValue { minLat = latValue }
+
+            if maxLong < longValue { maxLong = longValue } else if minLong > longValue { minLong = longValue}
+        }
+
+        let midLat = (maxLat + minLat) / 2.0
+        let midLong = (maxLong + minLong) / 2.0
+
+        return CLLocationCoordinate2D(latitude: midLat, longitude: midLong)
+    }
+
+    func remove(of mileStone: MileStone) -> MileStone? {
+        guard let index = milestones.value.firstIndex(of: mileStone) else { return nil }
+        return milestones.value.remove(at: index)
     }
 }

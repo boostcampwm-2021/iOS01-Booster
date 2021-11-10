@@ -6,6 +6,7 @@
         <attribute name="coordinates" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[Coordinate]"/>
         <attribute name="distance" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="imageData" optional="YES" attributeType="Binary"/>
         <attribute name="milestones" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[MileStone]"/>
         <attribute name="seconds" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -20,7 +21,7 @@
         <attribute name="weight" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <elements>
-        <element name="Tracking" positionX="-54" positionY="27" width="128" height="179"/>
+        <element name="Tracking" positionX="-54" positionY="27" width="128" height="194"/>
         <element name="User" positionX="-63" positionY="-18" width="128" height="104"/>
     </elements>
 </model>

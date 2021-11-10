@@ -19,6 +19,7 @@ class TrackingMapView: MKMapView {
     func addMileStoneAnnotation(on coordinate: CLLocationCoordinate2D) -> Bool {
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
+        annotation.title = "milestone"
         addAnnotation(annotation)
 
         return true
@@ -27,8 +28,21 @@ class TrackingMapView: MKMapView {
     func addMileStoneAnnotation(latitude lat: CLLocationDegrees, longitude long: CLLocationDegrees) {
         let annotation = MKPointAnnotation()
         annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        annotation.title = "milestone"
 
         addAnnotation(annotation)
+    }
+
+    func removeMileStoneAnnotation(of mileStone: MileStone) -> Bool {
+        guard let annotation = annotations.first(where: {
+            let coordinate = Coordinate(latitude: $0.coordinate.latitude, longitude: $0.coordinate.longitude)
+            return coordinate == mileStone.coordinate
+        })
+        else { return false }
+
+        removeAnnotation(annotation)
+
+        return true
     }
 
     func setRegion(to location: CLLocation) {
@@ -46,6 +60,7 @@ class TrackingMapView: MKMapView {
 
         let points: [CLLocationCoordinate2D] = [prevCoordinate, currentCoordinate]
         let line = MKPolyline(coordinates: points, count: points.count)
+        line.title = "path"
 
         addOverlay(line)
     }
@@ -69,9 +84,66 @@ class TrackingMapView: MKMapView {
         addOverlay(overlay)
     }
 
+    func snapShotImageOfPath(backgroundColor color: UIColor = .white, coordinates: [Coordinate], center: CLLocationCoordinate2D, completion: @escaping(UIImage?) -> Void) {
+        let options = MKMapSnapshotter.Options()
+        options.size = CGSize(width: 250, height: 250)
+        options.region = MKCoordinateRegion(center: center, latitudinalMeters: 1000, longitudinalMeters: 1000)
+
+        let snapShotter = MKMapSnapshotter(options: options)
+        snapShotter.start { (snapshot, _) in
+            guard let snapshot = snapshot else { return }
+            let image = snapshot.image
+
+            UIGraphicsBeginImageContext(image.size)
+            color.setFill()
+            UIRectFill(CGRect(origin: .zero, size: image.size))
+
+            guard let context = UIGraphicsGetCurrentContext() else { return }
+            context.setLineWidth(2)
+            context.setStrokeColor(UIColor.boosterOrange.cgColor)
+
+            var prevCoordinate: Coordinate?
+            for coordinate in coordinates {
+                guard let prevLatitude = prevCoordinate?.latitude,
+                      let prevLongitude = prevCoordinate?.longitude,
+                      let currentLatitude = coordinate.latitude,
+                      let currentLongitude = coordinate.longitude
+                else {
+                    guard let latitude = coordinate.latitude,
+                          let longitude = coordinate.longitude
+                    else { return }
+                    prevCoordinate = coordinate
+                    let point = snapshot.point(for: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+                    context.move(to: point)
+                    context.addEllipse(in: CGRect(origin: point, size: CGSize(width: 4, height: 4)))
+                    UIColor.boosterBackground.setFill()
+                    context.drawPath(using: .fill)
+                    UIColor.boosterOrange.setFill()
+                    continue
+                }
+                context.addLine(to: snapshot.point(for: CLLocationCoordinate2D(latitude: currentLatitude, longitude: currentLongitude)))
+                context.move(to: snapshot.point(for: CLLocationCoordinate2D(latitude: currentLatitude, longitude: currentLongitude)))
+                prevCoordinate = coordinate
+            }
+            context.strokePath()
+
+            if let endLatitude = prevCoordinate?.latitude,
+               let endLongitude = prevCoordinate?.longitude {
+                context.addEllipse(in: CGRect(origin: snapshot.point(for: CLLocationCoordinate2D(latitude: endLatitude, longitude: endLongitude)), size: CGSize(width: 4, height: 4)))
+                context.drawPath(using: .fill)
+            }
+
+            let resultImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            completion(resultImage)
+        }
+    }
+
     private func configure() {
         setUserTrackingMode(.follow, animated: true)
         mapType = .standard
         showsUserLocation = true
+        userLocation.title = ""
+        tintColor = UIColor.boosterOrange
     }
 }
