@@ -36,6 +36,7 @@ class TrackingMapView: MKMapView {
     func removeMileStoneAnnotation(of mileStone: MileStone) -> Bool {
         guard let annotation = annotations.first(where: {
             let coordinate = Coordinate(latitude: $0.coordinate.latitude, longitude: $0.coordinate.longitude)
+
             return coordinate == mileStone.coordinate
         })
         else { return false }
@@ -66,9 +67,7 @@ class TrackingMapView: MKMapView {
     }
 
     func updateUserLocationOverlay(location: CLLocation?) {
-        guard let current = location else {
-            return
-        }
+        guard let current = location else { return }
 
         let regionRadius: CLLocationDistance = 100
         let overlayRadius: CLLocationDistance = 20
@@ -84,10 +83,16 @@ class TrackingMapView: MKMapView {
         addOverlay(overlay)
     }
 
-    func snapShotImageOfPath(backgroundColor color: UIColor = .white, coordinates: [Coordinate], center: CLLocationCoordinate2D, completion: @escaping(UIImage?) -> Void) {
+    func snapShotImageOfPath(backgroundColor color: UIColor = .white,
+                             coordinates: [Coordinate],
+                             center: CLLocationCoordinate2D,
+                             completion: @escaping(UIImage?) -> Void) {
+        let dotSize = CGSize(width: 4, height: 4)
         let options = MKMapSnapshotter.Options()
         options.size = CGSize(width: 250, height: 250)
-        options.region = MKCoordinateRegion(center: center, latitudinalMeters: 1000, longitudinalMeters: 1000)
+        options.region = MKCoordinateRegion(center: center,
+                                            latitudinalMeters: 1000,
+                                            longitudinalMeters: 1000)
 
         let snapShotter = MKMapSnapshotter(options: options)
         snapShotter.start { (snapshot, _) in
@@ -104,21 +109,22 @@ class TrackingMapView: MKMapView {
 
             var prevCoordinate: Coordinate?
             for coordinate in coordinates {
-                guard let prevLatitude = prevCoordinate?.latitude,
-                      let prevLongitude = prevCoordinate?.longitude,
-                      let currentLatitude = coordinate.latitude,
+                guard let currentLatitude = coordinate.latitude,
                       let currentLongitude = coordinate.longitude
                 else {
                     guard let latitude = coordinate.latitude,
                           let longitude = coordinate.longitude
                     else { return }
+
                     prevCoordinate = coordinate
                     let point = snapshot.point(for: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+
                     context.move(to: point)
-                    context.addEllipse(in: CGRect(origin: point, size: CGSize(width: 4, height: 4)))
+                    context.addEllipse(in: CGRect(origin: point, size: dotSize))
                     UIColor.boosterBackground.setFill()
                     context.drawPath(using: .fill)
                     UIColor.boosterOrange.setFill()
+
                     continue
                 }
                 context.addLine(to: snapshot.point(for: CLLocationCoordinate2D(latitude: currentLatitude, longitude: currentLongitude)))
@@ -129,12 +135,14 @@ class TrackingMapView: MKMapView {
 
             if let endLatitude = prevCoordinate?.latitude,
                let endLongitude = prevCoordinate?.longitude {
-                context.addEllipse(in: CGRect(origin: snapshot.point(for: CLLocationCoordinate2D(latitude: endLatitude, longitude: endLongitude)), size: CGSize(width: 4, height: 4)))
+                let point = snapshot.point(for: CLLocationCoordinate2D(latitude: endLatitude, longitude: endLongitude))
+                context.addEllipse(in: CGRect(origin: point, size: dotSize))
                 context.drawPath(using: .fill)
             }
 
             let resultImage = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
+
             completion(resultImage)
         }
     }
@@ -144,6 +152,6 @@ class TrackingMapView: MKMapView {
         mapType = .standard
         showsUserLocation = true
         userLocation.title = ""
-        tintColor = UIColor.boosterOrange
+        tintColor = .boosterOrange
     }
 }

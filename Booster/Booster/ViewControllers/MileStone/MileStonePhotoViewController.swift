@@ -35,7 +35,9 @@ class MileStonePhotoViewController: UIViewController, BaseViewControllerTemplate
                                             height: 20))
         button.setTitleColor(.systemIndigo, for: .normal)
         button.setTitle("delete", for: .normal)
-        button.addTarget(self, action: #selector(didTapDeleteButton(_:)), for: .touchUpInside)
+        button.addTarget(self,
+                         action: #selector(deleteButtonDidTap(_:)),
+                         for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
 
         return button
@@ -54,7 +56,7 @@ class MileStonePhotoViewController: UIViewController, BaseViewControllerTemplate
 
     // MARK: - Life Cycles
     override func viewDidLoad() {
-        view.backgroundColor = UIColor.boosterBackground
+        view.backgroundColor = .boosterBackground
         view.addSubview(mileStonePhotoImageView)
         view.addSubview(deleteButton)
 
@@ -62,7 +64,7 @@ class MileStonePhotoViewController: UIViewController, BaseViewControllerTemplate
     }
 
     // MARK: - @objc
-    @objc private func didTapDeleteButton(_ sender: Any?) {
+    @objc private func deleteButtonDidTap(_ sender: Any?) {
         dismiss(animated: true, completion: nil)
         delegate?.delete(mileStone: viewModel.mileStone)
     }

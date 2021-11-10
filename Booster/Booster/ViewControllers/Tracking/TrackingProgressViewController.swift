@@ -113,9 +113,8 @@ class TrackingProgressViewController: UIViewController {
 
     private func bind() {
         viewModel.trackingModel.bind { [weak self] model in
-            guard let self = self else {
-                return
-            }
+            guard let self = self
+            else { return }
             self.updatePedometer()
             self.configure(model: model)
         }
@@ -232,7 +231,8 @@ class TrackingProgressViewController: UIViewController {
 
     private func updatePedometer() {
         pedometer.startUpdates(from: pedometerDate) { [weak self] data, _ in
-            guard let self = self, let data = data else { return }
+            guard let self = self, let data = data
+            else { return }
 
             DispatchQueue.main.async {
                 self.pedometer.stopUpdates()
@@ -244,10 +244,12 @@ class TrackingProgressViewController: UIViewController {
 
     private func stopAnimation() {
         self.leftButton.isHidden = true
-        UIView.animate(withDuration: 1, animations: { [weak self] in
-            guard let self = self, let content = self.pedometerLabel.text else {
-                return
-            }
+        UIView.animate(withDuration: 1,
+                       animations: { [weak self] in
+            guard let self = self,
+                  let content = self.pedometerLabel.text
+            else { return }
+
             let title = " steps"
             self.rightButtonWidthConstraint.constant = 70
             self.rightButtonHeightConstraint.constant = 70
@@ -269,9 +271,9 @@ class TrackingProgressViewController: UIViewController {
             self.view.layoutIfNeeded()
             self.infoView.layoutIfNeeded()
         }, completion: { [weak self] _ in
-            guard let self = self else {
-                return
-            }
+            guard let self = self
+            else { return }
+
             self.configureWrite()
             self.infoView.bringSubviewToFront(self.rightButton)
         })
@@ -306,7 +308,9 @@ class TrackingProgressViewController: UIViewController {
 
     private func save() {
         viewModel.save { error in
-            guard error == nil else { return }
+            guard error == nil
+            else { return }
+
             DispatchQueue.main.async {
                 self.navigationController?.popViewController(animated: true)
             }
@@ -318,18 +322,20 @@ class TrackingProgressViewController: UIViewController {
         case .start:
             guard let currentLatitude = manager.location?.coordinate.latitude,
                   let currentLongitude = manager.location?.coordinate.longitude,
-                  let imageData = UIImage(systemName: "camera")?.pngData()
+                  let imageData = UIImage.systemCamera?.pngData()
             else { return }
 
             if viewModel.isMileStoneExistAt(latitude: currentLatitude, longitude: currentLongitude) {
-                let alert = UIAlertController.simpleAlert(title: "추가 실패", message: "이미 다른 마일스톤이 존재합니다.\n 작성한 마일스톤을 제거해주세요")
+                let alert = UIAlertController.simpleAlert(title: "추가 실패", message: "이미 다른 마일스톤이 존재합니다\n 작성한 마일스톤을 제거해주세요")
                 present(alert, animated: true, completion: nil)
 
                 return
             }
 
             #if targetEnvironment(simulator)
-            let mileStone = MileStone(latitude: currentLatitude, longitude: currentLongitude, imageData: imageData)
+            let mileStone = MileStone(latitude: currentLatitude,
+                                      longitude: currentLongitude,
+                                      imageData: imageData)
             viewModel.append(milestone: mileStone)
             #else
             present(imagePickerController, animated: true)
@@ -382,7 +388,8 @@ class TrackingProgressViewController: UIViewController {
         let limit: Double = 300
 
         pedometer.queryPedometerData(from: Date(timeIntervalSinceNow: -limit), to: Date()) { data, _ in
-            guard let data = data, let distance = data.distance?.intValue else { return }
+            guard let data = data, let distance = data.distance?.intValue
+            else { return }
             isMoved = distance > 5
         }
 
@@ -396,8 +403,7 @@ class TrackingProgressViewController: UIViewController {
         }
     }
 
-    @objc
-    private func touchBackButton(_ sender: UIBarButtonItem) {
+    @objc private func touchBackButton(_ sender: UIBarButtonItem) {
         let title = "되돌아가기"
         let message = "현재 기록 상황을 저장하지 않습니다. 정말로 되돌아가시겠습니까?"
         let alert: UIAlertController = .alert(title: title,
@@ -408,16 +414,14 @@ class TrackingProgressViewController: UIViewController {
         present(alert, animated: true)
     }
 
-    @objc
-    private func keyboardWillShow(_ notification: Notification) {
+    @objc private func keyboardWillShow(_ notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
             view.frame.origin.y == 0 {
             view.frame.origin.y = -keyboardSize.height
         }
     }
 
-    @objc
-    private func keyboardWillHide(_ notification: Notification) {
+    @objc private func keyboardWillHide(_ notification: Notification) {
         if view.frame.origin.y != 0 {
             view.frame.origin.y = 0
             view.setNeedsLayout()
@@ -427,13 +431,16 @@ class TrackingProgressViewController: UIViewController {
 
 extension TrackingProgressViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let currentLocation = locations.last else { return }
+        guard let currentLocation = locations.last
+        else { return }
+
         let currentCoordinate = currentLocation.coordinate
         guard let latestCoordinate = viewModel.latestCoordinate(),
               let prevLatitude = latestCoordinate.latitude,
               let prevLongitude = latestCoordinate.longitude
         else {
-            viewModel.append(coordinate: Coordinate(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude))
+            let coordinate = Coordinate(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude)
+            viewModel.append(coordinate: coordinate)
             return
         }
         let prevCoordinate = CLLocationCoordinate2D(latitude: prevLatitude, longitude: prevLongitude)
@@ -464,7 +471,7 @@ extension TrackingProgressViewController: MKMapViewDelegate {
 
         if let polyLine = overlay as? MKPolyline {
             let polyLineRenderer = MKPolylineRenderer(polyline: polyLine)
-            polyLineRenderer.strokeColor = UIColor(red: 255/255, green: 92/255, blue: 0/255, alpha: 1)
+            polyLineRenderer.strokeColor = .boosterOrange
             polyLineRenderer.lineWidth = 8
 
             return polyLineRenderer
@@ -510,7 +517,8 @@ extension TrackingProgressViewController: MKMapViewDelegate {
 
         mapView.deselectAnnotation(view.annotation, animated: false)
         let coordinate = Coordinate(latitude: view.annotation?.coordinate.latitude, longitude: view.annotation?.coordinate.longitude)
-        guard let selectedMileStone = viewModel.mileStone(at: coordinate) else { return }
+        guard let selectedMileStone = viewModel.mileStone(at: coordinate)
+        else { return }
 
         let mileStonePhotoViewModel = MileStonePhotoViewModel(mileStone: selectedMileStone)
         let mileStonePhotoVC = MileStonePhotoViewController(viewModel: mileStonePhotoViewModel)
@@ -527,7 +535,10 @@ extension TrackingProgressViewController: UIImagePickerControllerDelegate & UINa
                   let currentLongitude = manager.location?.coordinate.longitude,
                   let imageData = image.pngData()
             else { return }
-            let mileStone = MileStone(latitude: currentLatitude, longitude: currentLongitude, imageData: imageData)
+
+            let mileStone = MileStone(latitude: currentLatitude,
+                                      longitude: currentLongitude,
+                                      imageData: imageData)
             viewModel.append(milestone: mileStone)
         }
         picker.dismiss(animated: true, completion: nil)
@@ -535,7 +546,9 @@ extension TrackingProgressViewController: UIImagePickerControllerDelegate & UINa
 }
 
 extension TrackingProgressViewController: UITextViewDelegate {
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    func textView(_ textView: UITextView,
+                  shouldChangeTextIn range: NSRange,
+                  replacementText text: String) -> Bool {
         if text == "\n" {
             textView.resignFirstResponder()
         }
@@ -571,9 +584,8 @@ extension TrackingProgressViewController: UITextFieldDelegate {
     }
 
     func textFieldDidChangeSelection(_ textField: UITextField) {
-        guard let title = textField.text else {
-            return
-        }
+        guard let title = textField.text
+        else { return }
         viewModel.write(title: title)
     }
 

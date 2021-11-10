@@ -17,9 +17,8 @@ public final class Coordinate: NSObject, NSCoding {
     public init?(coder: NSCoder) {
         guard let lat = coder.decodeObject(forKey: "latitude") as? Double,
               let lng = coder.decodeObject(forKey: "longitude") as? Double
-        else {
-            return nil
-        }
+        else { return nil }
+
         latitude = lat
         longitude = lng
     }
