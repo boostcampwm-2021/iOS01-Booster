@@ -88,6 +88,11 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = false
+        self.tabBarController?.tabBar.isHidden = true
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = false
     }
 
     // MARK: - @IBActions
@@ -374,7 +379,7 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
             guard let self = self,
                   let content = self.pedometerLabel.text
             else { return }
-                                                     
+
             let title = " steps"
             self.rightButtonWidthConstraint.constant = 70
             self.rightButtonHeightConstraint.constant = 70
