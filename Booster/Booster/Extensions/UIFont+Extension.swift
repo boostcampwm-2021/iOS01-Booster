@@ -1,7 +1,7 @@
 import UIKit
 
 extension UIFont {
-    public enum NotoSans: String {
+    enum NotoSans: String {
         case thin = "Thin", light = "Light", regular = "Regular", medium = "Medium", bold = "Bold", black = "Black"
     }
 
