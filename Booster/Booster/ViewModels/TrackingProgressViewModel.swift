@@ -120,6 +120,31 @@ final class TrackingProgressViewModel {
         return false
     }
 
+    func centerCoordinateOfPath() -> CLLocationCoordinate2D? {
+        guard let startCoordinate = startCoordinate(),
+              let startLat = startCoordinate.latitude,
+              let startLong = startCoordinate.longitude
+        else { return nil }
+        var maxLat: Double = startLat
+        var minLat: Double = startLat
+        var maxLong: Double = startLong
+        var minLong: Double = startLong
+
+        trackingModel.value.coordinates.forEach { (coordinate) in
+            guard let latValue = coordinate.latitude,
+                  let longValue = coordinate.longitude
+            else { return }
+            if maxLat < latValue { maxLat = latValue } else if minLat > latValue { minLat = latValue }
+
+            if maxLong < longValue { maxLong = longValue } else if minLong > longValue { minLong = longValue}
+        }
+
+        let midLat = (maxLat + minLat) / 2.0
+        let midLong = (maxLong + minLong) / 2.0
+
+        return CLLocationCoordinate2D(latitude: midLat, longitude: midLong)
+    }
+
     func remove(of mileStone: MileStone) -> MileStone? {
         guard let index = milestones.value.firstIndex(of: mileStone) else { return nil }
         return milestones.value.remove(at: index)
