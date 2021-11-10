@@ -8,12 +8,13 @@
 import UIKit
 
 extension UIImage {
-    static let arrowLeft = UIImage(systemName: "arrow.left")
-    static let pause = UIImage(systemName: "pause")
-    static let camera = UIImage(systemName: "camera")
-    static let stop = UIImage(systemName: "stop")
-    static let play = UIImage(systemName: "play")
-    static let pencil = UIImage(systemName: "pencil")
+    static let boosterArrowLeft = UIImage(systemName: "arrow.left")
+
+    static let systemPause = UIImage(systemName: "pause")
+    static let systemCamera = UIImage(systemName: "camera")
+    static let systemStop = UIImage(systemName: "stop")
+    static let systemPlay = UIImage(systemName: "play")
+    static let systemPencil = UIImage(systemName: "pencil")
 
     enum AssetName: String {
         case foot

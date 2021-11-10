@@ -6,3 +6,13 @@
 //
 
 import Foundation
+
+protocol BaseViewControllerTemplate {
+    associatedtype ViewModelType
+    var viewModel: ViewModelType { get set }
+    func configure()
+}
+
+extension BaseViewControllerTemplate {
+    func configure() {}
+}

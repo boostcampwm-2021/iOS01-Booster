@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol MileStonePhotoViewControllerDelegate: class {
+protocol MileStonePhotoViewControllerDelegate: AnyObject {
     func delete(mileStone: MileStone)
 }
 
@@ -59,8 +59,7 @@ class MileStonePhotoViewController: UIViewController {
     // MARK: - @IBActions
 
     // MARK: - @objc
-    @objc
-    private func didTapDeleteButton(_ sender: Any?) {
+    @objc private func didTapDeleteButton(_ sender: Any?) {
         guard let mileStone = mileStonePhotoViewModel?.mileStone else { return }
         dismiss(animated: true, completion: nil)
         delegate?.delete(mileStone: mileStone)

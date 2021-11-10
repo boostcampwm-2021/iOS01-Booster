@@ -513,11 +513,11 @@ extension TrackingProgressViewController: MKMapViewDelegate {
         guard let selectedMileStone = viewModel.mileStone(at: coordinate) else { return }
 
         let mileStonePhotoViewModel = MileStonePhotoViewModel(mileStone: selectedMileStone)
-        let mileStonePhotoVC = MileStonePhotoViewController(viewModel: mileStonePhotoViewModel, testViewModel: viewModel, mapView: self.mapView)
+        let mileStonePhotoVC = MileStonePhotoViewController(viewModel: mileStonePhotoViewModel)
         mileStonePhotoVC.delegate = self
 
         present(mileStonePhotoVC, animated: true, completion: nil)
-      }
+    }
 }
 
 extension TrackingProgressViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
