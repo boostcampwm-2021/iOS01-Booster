@@ -23,7 +23,7 @@ class PhotoAnnotationView: UIView {
         path.addLine(to: point2)
         path.addLine(to: point3)
         path.close()
-        UIColor(red: 255/255, green: 92/255, blue: 0/255, alpha: 1).set()
+        UIColor.boosterOrange.set()
         path.stroke()
         path.fill()
     }

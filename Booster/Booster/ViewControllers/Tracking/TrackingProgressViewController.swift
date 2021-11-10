@@ -373,9 +373,8 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
         UIView.animate(withDuration: 1, animations: { [weak self] in
             guard let self = self,
                   let content = self.pedometerLabel.text
-            else {
-                return
-            }
+            else { return }
+                                                     
             let title = " steps"
             self.rightButtonWidthConstraint.constant = 70
             self.rightButtonHeightConstraint.constant = 70
@@ -397,9 +396,9 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
             self.view.layoutIfNeeded()
             self.infoView.layoutIfNeeded()
         }, completion: { [weak self] _ in
-            guard let self = self else {
-                return
-            }
+            guard let self = self
+            else { return }
+
             self.configureWrite()
             self.infoView.bringSubviewToFront(self.rightButton)
         })
@@ -440,7 +439,7 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
         viewModel.save { error in
             guard error == nil
             else { return }
-            
+
             DispatchQueue.main.async {
                 self.navigationController?.popViewController(animated: true)
             }
@@ -460,7 +459,8 @@ extension TrackingProgressViewController: CLLocationManagerDelegate {
               let prevLatitude = latestCoordinate.latitude,
               let prevLongitude = latestCoordinate.longitude
         else {
-            viewModel.append(coordinate: Coordinate(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude))
+            let coordinate = Coordinate(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude)
+            viewModel.append(coordinate: coordinate)
             return
         }
         let prevCoordinate = CLLocationCoordinate2D(latitude: prevLatitude, longitude: prevLongitude)
@@ -492,7 +492,7 @@ extension TrackingProgressViewController: MKMapViewDelegate {
 
         if let polyLine = overlay as? MKPolyline {
             let polyLineRenderer = MKPolylineRenderer(polyline: polyLine)
-            polyLineRenderer.strokeColor = UIColor(red: 255/255, green: 92/255, blue: 0/255, alpha: 1)
+            polyLineRenderer.strokeColor = .boosterOrange
             polyLineRenderer.lineWidth = 8
 
             return polyLineRenderer
@@ -538,7 +538,8 @@ extension TrackingProgressViewController: MKMapViewDelegate {
 
         mapView.deselectAnnotation(view.annotation, animated: false)
         let coordinate = Coordinate(latitude: view.annotation?.coordinate.latitude, longitude: view.annotation?.coordinate.longitude)
-        guard let selectedMileStone = viewModel.mileStone(at: coordinate) else { return }
+        guard let selectedMileStone = viewModel.mileStone(at: coordinate)
+        else { return }
 
         let mileStonePhotoViewModel = MileStonePhotoViewModel(mileStone: selectedMileStone)
         let mileStonePhotoVC = MileStonePhotoViewController(viewModel: mileStonePhotoViewModel)
@@ -567,7 +568,9 @@ extension TrackingProgressViewController: UIImagePickerControllerDelegate & UINa
 
 // MARK: text view delegate
 extension TrackingProgressViewController: UITextViewDelegate {
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    func textView(_ textView: UITextView,
+                  shouldChangeTextIn range: NSRange,
+                  replacementText text: String) -> Bool {
         if text == "\n" {
             textView.resignFirstResponder()
         }
@@ -605,10 +608,7 @@ extension TrackingProgressViewController: UITextFieldDelegate {
 
     func textFieldDidChangeSelection(_ textField: UITextField) {
         guard let title = textField.text
-        else {
-            return
-        }
-
+        else { return }
         viewModel.write(title: title)
     }
 

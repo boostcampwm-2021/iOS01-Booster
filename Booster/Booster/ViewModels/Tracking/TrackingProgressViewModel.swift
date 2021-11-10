@@ -129,6 +129,7 @@ final class TrackingProgressViewModel {
               let startLat = startCoordinate.latitude,
               let startLong = startCoordinate.longitude
         else { return nil }
+
         var maxLat: Double = startLat
         var minLat: Double = startLat
         var maxLong: Double = startLong
