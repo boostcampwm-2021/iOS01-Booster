@@ -80,7 +80,7 @@ final class TrackingProgressUsecase {
         repository.save(value: value, type: entity) { [weak self] response in
             guard let self = self
             else { return }
-            
+
             switch response {
             case .success:
                 self.errors.value.append(nil)
