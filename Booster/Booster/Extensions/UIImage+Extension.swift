@@ -14,4 +14,12 @@ extension UIImage {
     static let stop = UIImage(systemName: "stop")
     static let play = UIImage(systemName: "play")
     static let pencil = UIImage(systemName: "pencil")
+
+    enum AssetName: String {
+        case foot
+    }
+
+    convenience init?(assetName: AssetName) {
+        self.init(named: assetName.rawValue)
+    }
 }

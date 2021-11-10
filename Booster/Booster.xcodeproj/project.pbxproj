@@ -14,6 +14,10 @@
 		3B4E4006272A6B5200577625 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3B4E4005272A6B5200577625 /* .swiftlint.yml */; };
 		FA473A03273A1D350000C5DC /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA473A02273A1D350000C5DC /* Components.swift */; };
 		FA473A05273A1F8A0000C5DC /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA473A04273A1F8A0000C5DC /* UIImage+Extension.swift */; };
+		28C96FEB27396892005BD7BC /* DetailFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C96FEA27396892005BD7BC /* DetailFeedViewController.swift */; };
+		28C96FED27396F6B005BD7BC /* DetailFeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C96FEC27396F6B005BD7BC /* DetailFeedViewModel.swift */; };
+		28C96FF3273A4634005BD7BC /* UIResponder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C96FF2273A4634005BD7BC /* UIResponder+Extension.swift */; };
+		E8581237F734868FA7180CD2 /* Pods_Booster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B856BA0E9ED939261CD6A39D /* Pods_Booster.framework */; };
 		FA614F542733CDAA00B090D9 /* Statistics.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA614F092733CDAA00B090D9 /* Statistics.storyboard */; };
 		FA614F552733CDAA00B090D9 /* Feed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA614F0A2733CDAA00B090D9 /* Feed.storyboard */; };
 		FA614F562733CDAA00B090D9 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA614F0B2733CDAA00B090D9 /* Home.storyboard */; };
@@ -82,6 +86,11 @@
 		3B38FB16273A72D100F8620D /* Tracking+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tracking+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		3B4E3FE4272A696E00577625 /* Booster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Booster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4E4005272A6B5200577625 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		28C96FEA27396892005BD7BC /* DetailFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFeedViewController.swift; sourceTree = "<group>"; };
+		28C96FEC27396F6B005BD7BC /* DetailFeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFeedViewModel.swift; sourceTree = "<group>"; };
+		28C96FF2273A4634005BD7BC /* UIResponder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extension.swift"; sourceTree = "<group>"; };
+		28C96FF4273A49BC005BD7BC /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		B856BA0E9ED939261CD6A39D /* Pods_Booster.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booster.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1F2CDEBD8B4B430B644C56A /* Pods-Booster.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booster.release.xcconfig"; path = "Target Support Files/Pods-Booster/Pods-Booster.release.xcconfig"; sourceTree = "<group>"; };
 		FA473A02273A1D350000C5DC /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		FA473A04273A1F8A0000C5DC /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
@@ -153,6 +162,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				28C96FE72737F7BC005BD7BC /* HealthKit.framework in Frameworks */,
+				E8581237F734868FA7180CD2 /* Pods_Booster.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				28C96FE62737F7BC005BD7BC /* HealthKit.framework */,
+				B856BA0E9ED939261CD6A39D /* Pods_Booster.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -254,6 +265,7 @@
 				FA614F182733CDAA00B090D9 /* TrackingProgressViewModel.swift */,
 				FA614F192733CDAA00B090D9 /* FeedViewModel.swift */,
 				FA614F972738FDA900B090D9 /* MileStonePhotoViewModel.swift */,
+				28C96FEC27396F6B005BD7BC /* DetailFeedViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -328,6 +340,7 @@
 				FA614F3C2733CDAA00B090D9 /* Observable.swift */,
 				FA614F8F2733D2CA00B090D9 /* UIColor+Extension.swift */,
 				FA473A04273A1F8A0000C5DC /* UIImage+Extension.swift */,
+				28C96FF2273A4634005BD7BC /* UIResponder+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -351,6 +364,7 @@
 				FA614F462733CDAA00B090D9 /* UserViewController.swift */,
 				FA614F472733CDAA00B090D9 /* FeedViewController.swift */,
 				FA614F932733D51C00B090D9 /* EnrollViewController.swift */,
+				28C96FEA27396892005BD7BC /* DetailFeedViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -547,6 +561,7 @@
 				FA614F702733CDAA00B090D9 /* Statistics.swift in Sources */,
 				FA614F7C2733CDAA00B090D9 /* AppDelegate.swift in Sources */,
 				FA614F812733CDAA00B090D9 /* TrackingViewController.swift in Sources */,
+				28C96FED27396F6B005BD7BC /* DetailFeedViewModel.swift in Sources */,
 				FA614F6D2733CDAA00B090D9 /* User+CoreDataClass.swift in Sources */,
 				FA614F822733CDAA00B090D9 /* UserViewController.swift in Sources */,
 				FA614F7E2733CDAA00B090D9 /* StatisticsViewController.swift in Sources */,
@@ -558,6 +573,7 @@
 				FA614F8A2733CDAA00B090D9 /* TrackingProgressUsecase.swift in Sources */,
 				FA614F982738FDA900B090D9 /* MileStonePhotoViewModel.swift in Sources */,
 				FA614F742733CDAA00B090D9 /* TrackingRecord.swift in Sources */,
+				28C96FF3273A4634005BD7BC /* UIResponder+Extension.swift in Sources */,
 				FA614F692733CDAA00B090D9 /* RepositoryManager.swift in Sources */,
 				FA614F852733CDAA00B090D9 /* TrackingMapView.swift in Sources */,
 				FA614F5E2733CDAA00B090D9 /* TrackingProgressViewModel.swift in Sources */,
@@ -571,6 +587,7 @@
 				FA614F722733CDAA00B090D9 /* HomeData.swift in Sources */,
 				3B38FB18273A72D100F8620D /* Tracking+CoreDataProperties.swift in Sources */,
 				FA614F962738F7A200B090D9 /* MileStonePhotoViewController.swift in Sources */,
+				28C96FEB27396892005BD7BC /* DetailFeedViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
