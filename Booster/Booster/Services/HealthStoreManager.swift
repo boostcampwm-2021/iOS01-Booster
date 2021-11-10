@@ -116,7 +116,7 @@ final class HealthStoreManager {
         let unit = unit.unit
         let countQuantity = HKQuantity(unit: unit, doubleValue: count)
         let sample = HKQuantitySample(type: type, quantity: countQuantity, start: start, end: end)
-        
+
         healthStore.save(sample) { _, error in
             guard let error = error
             else {

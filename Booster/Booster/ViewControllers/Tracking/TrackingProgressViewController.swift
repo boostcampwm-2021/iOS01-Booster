@@ -130,6 +130,7 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
             let store = HKHealthStore()
             let alert = UIAlertController.simpleAlert(title: title, message: message)
             var types: Set<HKQuantityType> = []
+
             HealthQuantityType.allCases.forEach {
                 if let type = $0.quantity {
                     types.insert(type)
@@ -197,8 +198,7 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
         }
     }
 
-    @objc
-    private func keyboardWillHide(_ notification: Notification) {
+    @objc private func keyboardWillHide(_ notification: Notification) {
         if view.frame.origin.y != 0 {
             view.frame.origin.y = 0
             view.setNeedsLayout()
@@ -374,7 +374,7 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
             guard let self = self,
                   let content = self.pedometerLabel.text
             else { return }
-                                                     
+
             let title = " steps"
             self.rightButtonWidthConstraint.constant = 70
             self.rightButtonHeightConstraint.constant = 70
@@ -436,6 +436,15 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
     }
 
     private func save() {
+        if let centerCoordinate = viewModel.centerCoordinateOfPath() {
+            let coordinates = viewModel.coordinates()
+            mapView.snapShotImageOfPath(coordinates: coordinates, center: centerCoordinate) { [weak self] (image) in
+                if let imageData = image?.pngData() {
+                    self?.viewModel.addTrackingPathImage(data: imageData)
+                }
+            }
+        }
+
         viewModel.save { error in
             guard error == nil
             else { return }

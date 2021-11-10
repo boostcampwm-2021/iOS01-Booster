@@ -22,6 +22,10 @@ final class TrackingProgressViewModel {
         state = .start
     }
 
+    func addTrackingPathImage(data: Data) {
+        trackingModel.value.imageData = data
+    }
+
     func append(coordinate: Coordinate) {
         trackingModel.value.coordinates.append(coordinate)
     }
@@ -71,6 +75,10 @@ final class TrackingProgressViewModel {
     func toggle() {
         state = state == .start ? .pause : .start
         if state == .pause { trackingModel.value.coordinates.append(Coordinate(latitude: nil, longitude: nil))}
+    }
+
+    func coordinates() -> [Coordinate] {
+        return trackingModel.value.coordinates
     }
 
     func latestCoordinate() -> Coordinate? {
