@@ -1,14 +1,7 @@
 import Foundation
 import CoreData
 
-typealias ResultType = RepositoryManager.ResultType
-
 final class RepositoryManager {
-    enum ResultType<Success, Failure: Error> {
-        case success(Success)
-        case failure(Failure)
-    }
-
     init() {
         entityName = ""
     }
@@ -27,7 +20,7 @@ final class RepositoryManager {
         return backgroundContext
     }()
 
-    func save(value: [String: Any], type name: String, completion handler: @escaping (ResultType<Void, Error>) -> Void ) {
+    func save(value: [String: Any], type name: String, completion handler: @escaping (Result<Void, Error>) -> Void ) {
         self.entityName = name
         guard let entity = entity else { return }
         backgroundContext.perform { [weak self] in
@@ -49,7 +42,7 @@ final class RepositoryManager {
         }
     }
 
-    func fetch<DataType: NSManagedObject>(type name: String, completion handler: @escaping (ResultType<[DataType], Error>) -> Void) {
+    func fetch<DataType: NSManagedObject>(type name: String, completion handler: @escaping (Result<[DataType], Error>) -> Void) {
         self.entityName = name
         backgroundContext.perform { [weak self] in
             guard let self = self else {
