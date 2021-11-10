@@ -19,6 +19,7 @@ class MileStonePhotoViewController: UIViewController {
     // MARK: - Variables
     weak var delegate: MileStonePhotoViewControllerDelegate?
     private var mileStonePhotoViewModel: MileStonePhotoViewModel?
+
     private lazy var mileStonePhotoImageView: UIImageView = {
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
         imageView.image = UIImage(data: mileStonePhotoViewModel?.mileStone.imageData ?? Data())?.withTintColor(.white)
@@ -55,7 +56,6 @@ class MileStonePhotoViewController: UIViewController {
 
         layoutConfig()
     }
-
     // MARK: - @IBActions
 
     // MARK: - @objc
@@ -64,11 +64,6 @@ class MileStonePhotoViewController: UIViewController {
         guard let mileStone = mileStonePhotoViewModel?.mileStone else { return }
         dismiss(animated: true, completion: nil)
         delegate?.delete(mileStone: mileStone)
-    }
-
-    @objc
-    private func didTapBackButton(_ sender: Any?) {
-        navigationController?.popViewController(animated: true)
     }
 
     // MARK: - functions

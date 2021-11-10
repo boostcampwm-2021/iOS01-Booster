@@ -416,6 +416,14 @@ extension TrackingProgressViewController: CLLocationManagerDelegate {
 }
 
 extension TrackingProgressViewController: MKMapViewDelegate {
+//    private class WhiteBackgroundOverlayRenderer: MKOverlayRenderer {
+//        override func draw(_ mapRect: MKMapRect, zoomScale: MKZoomScale, in context: CGContext) {
+//            let drawRect = self.rect(for: mapRect)
+//            context.setFillColor(red: 1, green: 1, blue: 1, alpha: 1.0)
+//            context.fill(drawRect)
+//        }
+//    }
+
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if let overlay = overlay as? MKCircle {
             let circleRenderer = CircleRenderer(circle: overlay)
@@ -433,11 +441,11 @@ extension TrackingProgressViewController: MKMapViewDelegate {
 
         return MKOverlayRenderer()
     }
-    
+
     func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
         mapView.view(for: mapView.userLocation)?.isEnabled = false
     }
-    
+
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation { return nil }
 
@@ -449,7 +457,7 @@ extension TrackingProgressViewController: MKMapViewDelegate {
             guard let customView = UINib(nibName: NibName.photoAnnotationView.rawValue, bundle: nil).instantiate(withOwner: self, options: nil).first as? PhotoAnnotationView,
                   let mileStone = viewModel.milestones.value.last
             else { return nil }
-            
+
             customView.frame.origin.x = customView.frame.origin.x - customView.frame.width / 2.0
             customView.frame.origin.y = customView.frame.origin.y - customView.frame.height
             annotationView!.frame.origin.x = annotationView!.frame.origin.x - customView.frame.width / 2.0
@@ -474,7 +482,7 @@ extension TrackingProgressViewController: MKMapViewDelegate {
         guard let selectedMileStone = viewModel.mileStone(at: coordinate) else { return }
 
         let mileStonePhotoViewModel = MileStonePhotoViewModel(mileStone: selectedMileStone)
-        let mileStonePhotoVC = MileStonePhotoViewController(viewModel: mileStonePhotoViewModel)
+        let mileStonePhotoVC = MileStonePhotoViewController(viewModel: mileStonePhotoViewModel, testViewModel: viewModel, mapView: self.mapView)
         mileStonePhotoVC.delegate = self
 
         present(mileStonePhotoVC, animated: true, completion: nil)
