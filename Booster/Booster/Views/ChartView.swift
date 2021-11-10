@@ -10,7 +10,7 @@ import UIKit
 final class ChartView: UIView {
 
     // MARK: - init
-    
+
     override init(frame: CGRect) {
        super.init(frame: frame)
     }

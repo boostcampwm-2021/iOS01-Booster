@@ -48,5 +48,5 @@ final class BarSelectionAxisChartView: UIView {
         layer.backgroundColor = .init(red: 255/255, green: 92/255, blue: 0, alpha: 1)
         topLayer.addSublayer(layer)
     }
-     
+
 }
