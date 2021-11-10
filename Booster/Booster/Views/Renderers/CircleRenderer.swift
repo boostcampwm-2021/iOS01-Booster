@@ -10,7 +10,10 @@ class CircleRenderer: MKCircleRenderer {
         let gradientColors: [CGFloat] = [1.0, 0.332, 0.0, 0.1, 1.0, 1.0, 1.0, 0.1]
         let colorSpace = CGColorSpaceCreateDeviceRGB()
 
-        guard let gradient = CGGradient(colorSpace: colorSpace, colorComponents: gradientColors, locations: gradientLocations, count: 2) else {
+        guard let gradient = CGGradient(colorSpace: colorSpace,
+                                        colorComponents: gradientColors, 
+                                        locations: gradientLocations,
+                                        count: 2) else {
             return
         }
 

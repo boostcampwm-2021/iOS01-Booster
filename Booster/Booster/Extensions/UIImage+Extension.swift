@@ -8,8 +8,7 @@
 import UIKit
 
 extension UIImage {
-    static let boosterArrowLeft = UIImage(systemName: "arrow.left")
-
+    static let systemArrowLeft = UIImage(systemName: "arrow.left")
     static let systemPause = UIImage(systemName: "pause")
     static let systemCamera = UIImage(systemName: "camera")
     static let systemStop = UIImage(systemName: "stop")

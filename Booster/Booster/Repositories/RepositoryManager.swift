@@ -1,14 +1,7 @@
 import Foundation
 import CoreData
 
-typealias ResultType = RepositoryManager.ResultType
-
 final class RepositoryManager {
-    enum ResultType<Success, Failure: Error> {
-        case success(Success)
-        case failure(Failure)
-    }
-
     init() {
         entityName = ""
     }
@@ -27,13 +20,17 @@ final class RepositoryManager {
         return backgroundContext
     }()
 
-    func save(value: [String: Any], type name: String, completion handler: @escaping (ResultType<Void, Error>) -> Void ) {
+    func save(value: [String: Any],
+              type name: String,
+              completion handler: @escaping (Result<Void, Error>) -> Void ) {
         self.entityName = name
-        guard let entity = entity else { return }
+        guard let entity = entity
+        else { return }
+
         backgroundContext.perform { [weak self] in
-            guard let self = self else {
-                return
-            }
+            guard let self = self
+            else { return }
+
             let entityObject = NSManagedObject(entity: entity, insertInto: self.container.viewContext)
             value.forEach {
                 entityObject.setValue($0.value, forKey: $0.key)
@@ -49,16 +46,18 @@ final class RepositoryManager {
         }
     }
 
-    func fetch<DataType: NSManagedObject>(type name: String, completion handler: @escaping (ResultType<[DataType], Error>) -> Void) {
+    func fetch<DataType: NSManagedObject>(type name: String, completion handler: @escaping (Result<[DataType], Error>) -> Void) {
         self.entityName = name
         backgroundContext.perform { [weak self] in
-            guard let self = self else {
+            guard let self = self
+            else {
                 return
             }
 
             do {
                 let context = try self.container.viewContext.fetch(DataType.fetchRequest())
-                guard let context = context as? [DataType] else { return }
+                guard let context = context as? [DataType]
+                else { return }
 
                 handler(.success(context))
             } catch let error {
