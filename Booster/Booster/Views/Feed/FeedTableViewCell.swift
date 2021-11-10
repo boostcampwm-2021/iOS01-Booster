@@ -8,7 +8,7 @@
 import UIKit
 
 final class FeedTableViewCell: UITableViewCell {
-
+    // MARK: - @IBOutlet
     @IBOutlet weak var cardBackgroundView: UIView!
     @IBOutlet weak var trackingPathView: UIView!
     @IBOutlet weak var dateLabel: UILabel!
@@ -16,6 +16,7 @@ final class FeedTableViewCell: UITableViewCell {
     @IBOutlet weak var totalStepCountLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
 
+    // MARK: - Functions
     func configure(with data: TrackingRecord) {
         dateLabel.text = stringToDate(data.date)
         kmLabel.text = "\(data.km)"
@@ -29,5 +30,4 @@ final class FeedTableViewCell: UITableViewCell {
         dateFormatter.dateFormat = "yyMMdd"
         return dateFormatter.string(from: date)
     }
-
 }
