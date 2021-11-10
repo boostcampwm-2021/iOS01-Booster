@@ -11,21 +11,23 @@ protocol MileStonePhotoViewControllerDelegate: AnyObject {
     func delete(mileStone: MileStone)
 }
 
-class MileStonePhotoViewController: UIViewController {
+class MileStonePhotoViewController: UIViewController, BaseViewControllerTemplate {
+    typealias ViewModelType = MileStonePhotoViewModel
+
     // MARK: - Properties
     weak var delegate: MileStonePhotoViewControllerDelegate?
-    private var mileStonePhotoViewModel: MileStonePhotoViewModel = MileStonePhotoViewModel(mileStone: MileStone())
-
+    var viewModel: MileStonePhotoViewModel = MileStonePhotoViewModel(mileStone: MileStone())
     private lazy var mileStonePhotoImageView: UIImageView = {
         let imageView = UIImageView(frame: CGRect(x: 0,
                                                   y: 0,
                                                   width: view.frame.width,
                                                   height: view.frame.height))
-        imageView.image = UIImage(data: mileStonePhotoViewModel.mileStone.imageData ?? Data())?.withTintColor(.white)
+        imageView.image = UIImage(data: viewModel.mileStone.imageData)?.withTintColor(.white)
         imageView.contentMode = .scaleAspectFit
 
         return imageView
     }()
+
     private lazy var deleteButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 0,
                                             y: 0,
@@ -43,13 +45,13 @@ class MileStonePhotoViewController: UIViewController {
     init(viewModel: MileStonePhotoViewModel) {
         super.init(nibName: nil, bundle: nil)
 
-        self.mileStonePhotoViewModel = viewModel
+        self.viewModel = viewModel
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Life Cycles
     override func viewDidLoad() {
         view.backgroundColor = UIColor.boosterBackground
@@ -62,7 +64,7 @@ class MileStonePhotoViewController: UIViewController {
     // MARK: - @objc
     @objc private func didTapDeleteButton(_ sender: Any?) {
         dismiss(animated: true, completion: nil)
-        delegate?.delete(mileStone: mileStonePhotoViewModel.mileStone)
+        delegate?.delete(mileStone: viewModel.mileStone)
     }
 
     // MARK: - functions
