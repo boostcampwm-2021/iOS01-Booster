@@ -416,14 +416,6 @@ extension TrackingProgressViewController: CLLocationManagerDelegate {
 }
 
 extension TrackingProgressViewController: MKMapViewDelegate {
-//    private class WhiteBackgroundOverlayRenderer: MKOverlayRenderer {
-//        override func draw(_ mapRect: MKMapRect, zoomScale: MKZoomScale, in context: CGContext) {
-//            let drawRect = self.rect(for: mapRect)
-//            context.setFillColor(red: 1, green: 1, blue: 1, alpha: 1.0)
-//            context.fill(drawRect)
-//        }
-//    }
-
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if let overlay = overlay as? MKCircle {
             let circleRenderer = CircleRenderer(circle: overlay)
