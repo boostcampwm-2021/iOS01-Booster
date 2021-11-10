@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19162"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BarAxisChartView" customModule="Booster" customModuleProvider="target">
+            <connections>
+                <outlet property="barChartView" destination="UOi-H6-QXR" id="C7Q-Sv-hDr"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iN0-l3-epB" customClass="BarAxisChartView" customModule="Booster" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UOi-H6-QXR" customClass="ChartView" customModule="Booster" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="717"/>
+                    <color key="backgroundColor" name="boosterBackground"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" name="boosterBackground"/>
+            <constraints>
+                <constraint firstItem="UOi-H6-QXR" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="MKi-TW-34e"/>
+                <constraint firstItem="UOi-H6-QXR" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="T4C-8i-eGu"/>
+                <constraint firstAttribute="trailing" secondItem="UOi-H6-QXR" secondAttribute="trailing" id="p8h-yR-WcF"/>
+                <constraint firstItem="UOi-H6-QXR" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" multiplier="0.8" id="s51-Zt-1Fq"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="132" y="131"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="boosterBackground">
+            <color red="0.050999999046325684" green="0.050999999046325684" blue="0.050999999046325684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
