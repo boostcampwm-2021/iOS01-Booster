@@ -6,6 +6,10 @@ protocol TrackingProgressDelegate: AnyObject {
 }
 
 class TrackingViewController: UIViewController {
+    enum Segue {
+        static let progressSegue = "trackingProgressSegue"
+    }
+
     private var locationManager = CLLocationManager()
     private var overlay: MKOverlay = MKCircle()
     private var current: CLLocation = CLLocation()
@@ -48,6 +52,19 @@ class TrackingViewController: UIViewController {
         case false:
             break
         }
+    }
+
+    @IBAction func startTouchUp(_ sender: UIButton) {
+        let countView = TrackingCountDownView(frame: self.view.frame)
+        countView.bind {
+            self.performSegue(withIdentifier: Segue.progressSegue, sender: nil)
+            countView.removeFromSuperview()
+        }
+
+        UIView.transition(with: self.view, duration: 0.4, options: [.transitionCurlUp]) {
+            self.view.addSubview(countView)
+        }
+        countView.animate()
     }
 }
 

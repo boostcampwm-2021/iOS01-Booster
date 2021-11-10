@@ -20,6 +20,7 @@ final class TrackingProgressUsecase {
         static let milestones: String = "milestones"
         static let title: String = "title"
         static let content: String = "content"
+        static let imageData: String = "imageData"
     }
 
     private var errors: Observable<[TrackingError?]>
@@ -71,7 +72,8 @@ final class TrackingProgressUsecase {
             CoreDataKeys.coordinates: coordinates,
             CoreDataKeys.milestones: milestones,
             CoreDataKeys.title: model.title,
-            CoreDataKeys.content: model.content
+            CoreDataKeys.content: model.content,
+            CoreDataKeys.imageData: model.imageData
         ]
 
         repository.save(value: value, type: entity) { [weak self] response in
