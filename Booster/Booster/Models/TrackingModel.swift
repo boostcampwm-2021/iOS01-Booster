@@ -14,6 +14,7 @@ struct TrackingModel {
     var imageData: Data
 
     init(startDate: Date = Date(),
+         endDate: Date? = nil,
          steps: Int = 0,
          calories: Int = 0,
          seconds: Int = 0,
@@ -33,5 +34,6 @@ struct TrackingModel {
         self.title = title
         self.content = content
         self.imageData = imageData
+        self.endDate = nil
     }
 }

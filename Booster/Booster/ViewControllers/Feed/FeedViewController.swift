@@ -1,80 +1,62 @@
 import UIKit
 
-final class FeedViewController: UIViewController {
-
+final class FeedViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: Properties
+    @IBOutlet weak var collectionView: UICollectionView!
 
-    @IBOutlet private weak var tableView: UITableView!
-
-    private let feedViewModel = FeedViewModel()
-    private lazy var emptyView: EmptyView = {
-        let view = EmptyView.init(frame: self.tableView.frame)
-        let emptyViewTitle = "아직 산책기록이 없어요\n오늘 한 번 천천히 걸어볼까요?"
-        view.apply(title: emptyViewTitle, image: UIImage(assetName: .foot) ?? UIImage())
-        return view
-    }()
+    var viewModel: FeedViewModel = FeedViewModel()
 
     // MARK: Life Cycles
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        bindFeedViewModel()
-        tableView.dataSource = self
-        tableView.delegate = self
+        configure()
     }
 
-}
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.fetch()
+    }
 
-// MARK: - Bind & Prepare Segue
+    func configure() {
+        viewModel.trackingRecords.bind { [weak self] _ in
+            guard let self = self
+            else { return }
 
-extension FeedViewController {
-
-    private func bindFeedViewModel() {
-        feedViewModel.trackingRecords.bind { [weak self] _ in
-            guard let self = self else { return }
-            if self.feedViewModel.recordCount() == 0 {
-                self.view.addSubview(self.emptyView)
-                return
-            }
             DispatchQueue.main.async {
-                self.emptyView.removeFromSuperview()
-                self.tableView.reloadData()
+                self.collectionView.reloadData()
             }
         }
-    }
 
+        collectionView.dataSource = self
+        collectionView.delegate = self
+    }
 }
 
-// MARK: - TableView DataSource
-
-extension FeedViewController: UITableViewDataSource {
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return feedViewModel.recordCount()
+// MARK: - collection view data source delegate
+extension FeedViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModel.recordCount()
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: FeedTableViewCell.identifier, for: indexPath) as? FeedTableViewCell,
-              let data = feedViewModel.dataAtIndex(indexPath.row)
-        else { return UITableViewCell() }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let item = viewModel[indexPath]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: type(of: item).reuseId, for: indexPath)
 
-        cell.configure(with: data)
-
+        item.configure(cell: cell)
         return cell
     }
 
 }
 
-// MARK: - TableView Delegate
+// MARK: -
+extension FeedViewController: UICollectionViewDelegate {
+}
 
-extension FeedViewController: UITableViewDelegate {
+extension FeedViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let height: CGFloat = 175
+        let width = collectionView.frame.width-60
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: DetailFeedViewController.identifier) as? DetailFeedViewController else { return }
-        nextViewController.trackingInfo = feedViewModel.dataAtIndex(indexPath.row)
-
-        navigationController?.pushViewController(nextViewController, animated: true)
+        return CGSize(width: width, height: height)
     }
-
 }

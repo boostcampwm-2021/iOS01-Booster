@@ -7,11 +7,26 @@
 
 import Foundation
 
+typealias FeedCellConfigure = CollectionCellConfigurator<FeedCell, (date: Date,
+                                                                    distance: Double,
+                                                                    step: Int,
+                                                                    imageData: Data)>
+
 final class FeedViewModel {
+    subscript(indexPath: IndexPath) -> CellConfigurator {
+        return FeedCellConfigure(item: (date: trackingRecords.value[indexPath.row].date,
+                                        distance: trackingRecords.value[indexPath.row].distance,
+                                        step: trackingRecords.value[indexPath.row].totalSteps,
+                                        imageData: trackingRecords.value[indexPath.row].imageData))
+    }
 
-    var trackingRecords: Observable<TrackingRecords> = Observable(TrackingRecords())
+    var trackingRecords: Observable<[TrackingRecord]>
+    let usecase: FeedUseCase
 
-    init() { configureTableViewData() }
+    init() {
+        usecase = FeedUseCase()
+        trackingRecords = Observable([])
+    }
 
     func recordCount() -> Int {
         return trackingRecords.value.count
@@ -21,14 +36,9 @@ final class FeedViewModel {
         return trackingRecords.value[index]
     }
 
-    private func configureTableViewData() {
-        // fetch service
-        // and pull on tracking records
-        // example
-        let model: [TrackingRecord] = [TrackingRecord(title: "토요일 야간 산책", date: Date(), km: 2.21, totalSteps: 1002), TrackingRecord(title: "일요일 야간 산책", date: Date(), km: 10.213, totalSteps: 15007), TrackingRecord(title: "월요일 냥냥이랑 오전 산책", date: Date(), km: 5.10, totalSteps: 53226), TrackingRecord(title: "화욜 정연이랑 밤산책", date: Date(), km: 1.21, totalSteps: 4069)]
-        trackingRecords.value.appendAll(model)
-        // if no data
-//        completion(false)
+    func fetch() {
+        usecase.fetch { [weak self] result in
+            self?.trackingRecords.value = result
+        }
     }
-
 }

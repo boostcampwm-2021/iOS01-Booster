@@ -20,11 +20,16 @@ struct TrackingRecords {
     mutating func appendAll(_ data: [TrackingRecord]) {
         list += data
     }
+
+    mutating func list(contetsOf list: [TrackingRecord]) {
+        self.list = list
+    }
 }
 
 struct TrackingRecord {
     let title: String
     let date: Date
-    let km: Double
+    let distance: Double
     let totalSteps: Int
+    let imageData: Data
 }
