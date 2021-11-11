@@ -467,7 +467,7 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
             let coordinates = viewModel.coordinates()
             mapView.snapShotImageOfPath(coordinates: coordinates, center: centerCoordinate) { [weak self] (image) in
                 if let imageData = image?.pngData() {
-                    self?.viewModel.addTrackingPathImage(data: imageData)
+                    self?.viewModel.update(imageData: imageData)
                 }
             }
         }

@@ -22,10 +22,6 @@ final class TrackingProgressViewModel {
         state = .start
     }
 
-    func addTrackingPathImage(data: Data) {
-        trackingModel.value.imageData = data
-    }
-
     func append(coordinate: Coordinate) {
         trackingModel.value.coordinates.append(coordinate)
     }
@@ -168,9 +164,5 @@ final class TrackingProgressViewModel {
         else { return nil }
 
         return milestones.value.remove(at: index)
-    }
-
-    func coordinates() -> [Coordinate] {
-        return trackingModel.value.coordinates
     }
 }

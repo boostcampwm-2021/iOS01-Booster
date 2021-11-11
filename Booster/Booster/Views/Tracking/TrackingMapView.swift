@@ -87,7 +87,7 @@ class TrackingMapView: MKMapView {
                              coordinates: [Coordinate],
                              center: CLLocationCoordinate2D,
                              completion: @escaping(UIImage?) -> Void) {
-        let dotSize = CGSize(width: 4, height: 4)
+        let dotSize = CGSize(width: 8, height: 8)
         let options = MKMapSnapshotter.Options()
         options.size = CGSize(width: 250, height: 250)
         options.region = MKCoordinateRegion(center: center,
@@ -107,31 +107,42 @@ class TrackingMapView: MKMapView {
             context.setLineWidth(2)
             context.setStrokeColor(UIColor.boosterOrange.cgColor)
 
-            var prevCoordinate: Coordinate?
+            var prevCoordinate: Coordinate? = coordinates.first
+            guard let startLatitude = prevCoordinate?.latitude,
+                  let startLongitude = prevCoordinate?.longitude
+            else { return }
+
+            var point = snapshot.point(for: CLLocationCoordinate2D(latitude: startLatitude, longitude: startLongitude))
+            point.x -= dotSize.width / 2.0
+            point.y -= dotSize.height / 2.0
+            UIColor.boosterBackground.setFill()
+            context.addEllipse(in: CGRect(origin: point, size: dotSize))
+            context.drawPath(using: .fill)
+            UIColor.boosterOrange.setFill()
+
             for coordinate in coordinates {
+                if let prevLatitude = prevCoordinate?.latitude,
+                   let prevLongitude = prevCoordinate?.longitude {
+                    context.move(to: snapshot.point(for: CLLocationCoordinate2D(latitude: prevLatitude, longitude: prevLongitude)))
+                } else {
+                    prevCoordinate = coordinate
+                    continue
+                }
+
                 if let currentLatitude = coordinate.latitude,
                    let currentLongitude = coordinate.longitude {
                     context.addLine(to: snapshot.point(for: CLLocationCoordinate2D(latitude: currentLatitude, longitude: currentLongitude)))
                     context.move(to: snapshot.point(for: CLLocationCoordinate2D(latitude: currentLatitude, longitude: currentLongitude)))
-                    prevCoordinate = coordinate
-                } else {
-                    if let latitude = prevCoordinate?.latitude,
-                       let longitude = prevCoordinate?.longitude {
-                        let point = snapshot.point(for: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
-
-                        context.move(to: point)
-                        context.addEllipse(in: CGRect(origin: point, size: dotSize))
-                    }
-                    UIColor.boosterBackground.setFill()
-                    context.drawPath(using: .fill)
-                    UIColor.boosterOrange.setFill()
                 }
+                prevCoordinate = coordinate
             }
             context.strokePath()
 
-            if let endLatitude = prevCoordinate?.latitude,
-               let endLongitude = prevCoordinate?.longitude {
-                let point = snapshot.point(for: CLLocationCoordinate2D(latitude: endLatitude, longitude: endLongitude))
+            let lastCoordinateIndex = coordinates.count - 2
+            if let endLatitude = coordinates[lastCoordinateIndex].latitude,
+               let endLongitude = coordinates[lastCoordinateIndex].longitude {
+                var point = snapshot.point(for: CLLocationCoordinate2D(latitude: endLatitude, longitude: endLongitude))
+                point.y -= dotSize.height / 2.0
                 context.addEllipse(in: CGRect(origin: point, size: dotSize))
                 context.drawPath(using: .fill)
             }
