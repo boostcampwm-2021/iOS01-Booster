@@ -53,7 +53,7 @@ final class HomeViewController: UIViewController, BaseViewControllerTemplate {
         viewModel.homeData.bind { [weak self] value in
             DispatchQueue.main.async {
                 self?.todayTotalStepCountLabel.text = "\(value.totalStepCount)"
-                self?.kmLabel.text = String(format: "%.2f", value.km)
+                self?.kmLabel.text = String(format: "%.2f", value.km/1000)
                 self?.kcalLabel.text = "\(value.kcal)"
                 self?.timeActiveLabel.text = value.activeTime.stringToMinutesAndSeconds()
                 self?.todayTotalStepCountLabel.layer.opacity = 0
