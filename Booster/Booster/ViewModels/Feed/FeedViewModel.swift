@@ -15,10 +15,11 @@ typealias FeedCellConfigure = CollectionCellConfigurator<FeedCell, (date: Date,
 
 final class FeedViewModel {
     subscript(indexPath: IndexPath) -> CellConfigurator {
-        return FeedCellConfigure(item: (date: trackingRecords.value[indexPath.row].startDate,
-                                        distance: trackingRecords.value[indexPath.row].distance,
-                                        step: trackingRecords.value[indexPath.row].steps,
-                                        imageData: trackingRecords.value[indexPath.row].imageData,
+        let isEmpty = recordCount() == 0
+        return FeedCellConfigure(item: (date: isEmpty ? Date() : trackingRecords.value[indexPath.row].startDate,
+                                        distance: isEmpty ? 0 : trackingRecords.value[indexPath.row].distance,
+                                        step: isEmpty ? 0 : trackingRecords.value[indexPath.row].steps,
+                                        imageData: isEmpty ? Data() : trackingRecords.value[indexPath.row].imageData,
                                         isEmpty: recordCount() == 0))
     }
 

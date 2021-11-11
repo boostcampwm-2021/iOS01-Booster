@@ -10,6 +10,11 @@ import UIKit
 class FeedCell: UICollectionViewCell {
     private lazy var emptyView: EmptyView = {
         let view = EmptyView(frame: frame)
+        let title = "아직 산책기록이 없어요\n오늘 한 번 천천히 걸어볼까요?"
+
+        view.apply(title: title, image: .assetFoot)
+        view.backgroundColor = .clear
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
@@ -32,6 +37,7 @@ class FeedCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
+        backgroundColor = .boosterGray
         emptyView.removeFromSuperview()
         dateLabel.text = nil
         distanceLabel.text = nil
@@ -44,7 +50,12 @@ class FeedCell: UICollectionViewCell {
 extension FeedCell: ConfigurableCell {
     func configure(data: (date: Date, distance: Double, step: Int, imageData: Data, isEmpty: Bool)) {
         if data.isEmpty {
+            backgroundColor = .clear
             addSubview(emptyView)
+            emptyView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+            emptyView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+            emptyView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+            emptyView.topAnchor.constraint(equalTo: topAnchor).isActive = true
             return
         }
         let dateFormatter = DateFormatter()
