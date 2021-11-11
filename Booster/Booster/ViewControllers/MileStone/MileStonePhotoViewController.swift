@@ -22,7 +22,7 @@ class MileStonePhotoViewController: UIViewController, BaseViewControllerTemplate
                                                   y: 0,
                                                   width: view.frame.width,
                                                   height: view.frame.height))
-        imageView.image = UIImage(data: viewModel.mileStone.imageData)?.withTintColor(.white)
+        imageView.image = UIImage(data: viewModel.mileStone.imageData)
         imageView.contentMode = .scaleAspectFit
 
         return imageView
