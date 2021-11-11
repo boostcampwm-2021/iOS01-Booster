@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,6 +12,9 @@
     <customFonts key="customFonts">
         <array key="BAZARONI.TTF">
             <string>Bazaronite</string>
+        </array>
+        <array key="NotoSansKR-Regular.otf">
+            <string>NotoSansKR-Regular</string>
         </array>
     </customFonts>
     <scenes>
@@ -23,7 +27,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZAm-ew-NSH">
-                                <rect key="frame" x="30" y="52" width="90" height="133"/>
+                                <rect key="frame" x="30" y="52" width="90" height="138"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="27F-et-NsW">
                                         <rect key="frame" x="0.0" y="0.0" width="90" height="30"/>
@@ -58,13 +62,13 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="일일 평균" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FfD-j0-uiq">
-                                        <rect key="frame" x="0.0" y="38" width="74.5" height="24"/>
-                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="20"/>
+                                        <rect key="frame" x="0.0" y="38" width="79.5" height="29"/>
+                                        <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="9Wi-hC-aXw">
-                                        <rect key="frame" x="0.0" y="70" width="58.5" height="34.5"/>
+                                        <rect key="frame" x="0.0" y="75" width="60.5" height="34.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Uo-QT-eJ9">
                                                 <rect key="frame" x="0.0" y="0.0" width="19.5" height="34.5"/>
@@ -74,32 +78,46 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="걸음" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EuO-6g-Jhj">
-                                                <rect key="frame" x="23.5" y="0.0" width="35" height="34.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <rect key="frame" x="23.5" y="0.0" width="37" height="34.5"/>
+                                                <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zT5-Yx-3KO">
-                                        <rect key="frame" x="0.0" y="112.5" width="41.5" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="117.5" width="41.5" height="20.5"/>
                                         <color key="tintColor" systemColor="tintColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                             </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vFG-gS-Dc3" customClass="BarChartView" customModule="Booster" customModuleProvider="target">
-                                <rect key="frame" x="20" y="193" width="374" height="420"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1MO-Fa-Fmo" userLabel="DescriptionStepLabel">
+                                <rect key="frame" x="186" y="223" width="41.5" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="15"/>
+                                <color key="textColor" name="boosterLabel"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vFG-gS-Dc3" customClass="ChartView" customModule="Booster" customModuleProvider="target">
+                                <rect key="frame" x="20" y="248" width="374" height="565"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yd7-Vs-Ta6" userLabel="DescriptionIntervalLabel">
+                                <rect key="frame" x="186" y="198" width="41.5" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="15"/>
+                                <color key="textColor" name="boosterLabel"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="vFG-gS-Dc3" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" constant="20" id="04p-NS-IsF"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="vFG-gS-Dc3" secondAttribute="bottom" constant="200" id="9UJ-an-SMe"/>
-                            <constraint firstItem="vFG-gS-Dc3" firstAttribute="top" secondItem="ZAm-ew-NSH" secondAttribute="bottom" constant="8" id="GHW-lO-8gh"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="vFG-gS-Dc3" secondAttribute="bottom" id="9UJ-an-SMe"/>
+                            <constraint firstItem="vFG-gS-Dc3" firstAttribute="top" secondItem="ZAm-ew-NSH" secondAttribute="bottom" constant="58" id="GHW-lO-8gh"/>
                             <constraint firstAttribute="trailing" secondItem="vFG-gS-Dc3" secondAttribute="trailing" constant="20" id="Qz2-Ek-Vjn"/>
                             <constraint firstItem="ZAm-ew-NSH" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="8" id="c6B-VR-NJn"/>
                             <constraint firstItem="ZAm-ew-NSH" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="cli-wk-j9o"/>
@@ -108,10 +126,12 @@
                     <tabBarItem key="tabBarItem" title="" image="chart.bar" catalog="system" selectedImage="chart.bar.fill" id="Mx3-ra-BUC"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="averageStepCountLabel" destination="7Uo-QT-eJ9" id="Aci-Cv-8WJ"/>
                         <outlet property="chartView" destination="vFG-gS-Dc3" id="xOB-Ye-1ds"/>
                         <outlet property="dateLabel" destination="zT5-Yx-3KO" id="khw-Gt-DcH"/>
+                        <outlet property="intervalLabel" destination="Yd7-Vs-Ta6" id="g5Y-5V-tzi"/>
                         <outlet property="monthButton" destination="who-he-Jct" id="vJ0-ws-yg1"/>
-                        <outlet property="stepCountLabel" destination="7Uo-QT-eJ9" id="Aci-Cv-8WJ"/>
+                        <outlet property="stepCountLabel" destination="1MO-Fa-Fmo" id="skM-Q1-MXR"/>
                         <outlet property="weekButton" destination="50H-vW-Ism" id="vLi-5h-XDC"/>
                         <outlet property="yearButton" destination="HAj-Sc-TRH" id="HkS-pV-8UC"/>
                     </connections>
@@ -124,6 +144,9 @@
     <resources>
         <image name="chart.bar" catalog="system" width="128" height="90"/>
         <image name="chart.bar.fill" catalog="system" width="128" height="92"/>
+        <namedColor name="boosterLabel">
+            <color red="0.92900002002716064" green="0.92900002002716064" blue="0.92900002002716064" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
