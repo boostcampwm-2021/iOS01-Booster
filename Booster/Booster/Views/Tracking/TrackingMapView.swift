@@ -87,7 +87,7 @@ class TrackingMapView: MKMapView {
                              coordinates: [Coordinate],
                              center: CLLocationCoordinate2D,
                              completion: @escaping(UIImage?) -> Void) {
-        let dotSize = CGSize(width: 8, height: 8)
+        let dotSize = CGSize(width: 16, height: 16)
         let options = MKMapSnapshotter.Options()
         options.size = CGSize(width: 250, height: 250)
         options.region = MKCoordinateRegion(center: center,
@@ -95,7 +95,7 @@ class TrackingMapView: MKMapView {
                                             longitudinalMeters: 1000)
 
         let snapShotter = MKMapSnapshotter(options: options)
-        snapShotter.start { (snapshot, _) in
+        snapShotter.start { [weak self] (snapshot, _) in
             guard let snapshot = snapshot else { return }
             let image = snapshot.image
 
@@ -104,10 +104,10 @@ class TrackingMapView: MKMapView {
             UIRectFill(CGRect(origin: .zero, size: image.size))
 
             guard let context = UIGraphicsGetCurrentContext() else { return }
-            context.setLineWidth(2)
+            context.setLineWidth(4)
             context.setStrokeColor(UIColor.boosterOrange.cgColor)
 
-            var prevCoordinate: Coordinate? = coordinates.first
+            var prevCoordinate: Coordinate? = self?.startCoordinate(coordinates: coordinates)
             guard let startLatitude = prevCoordinate?.latitude,
                   let startLongitude = prevCoordinate?.longitude
             else { return }
@@ -118,7 +118,6 @@ class TrackingMapView: MKMapView {
             UIColor.boosterBackground.setFill()
             context.addEllipse(in: CGRect(origin: point, size: dotSize))
             context.drawPath(using: .fill)
-            UIColor.boosterOrange.setFill()
 
             for coordinate in coordinates {
                 if let prevLatitude = prevCoordinate?.latitude,
@@ -135,12 +134,19 @@ class TrackingMapView: MKMapView {
                     context.move(to: snapshot.point(for: CLLocationCoordinate2D(latitude: currentLatitude, longitude: currentLongitude)))
                 }
                 prevCoordinate = coordinate
-            }
-            context.strokePath()
 
-            let lastCoordinateIndex = coordinates.count - 2
-            if let endLatitude = coordinates[lastCoordinateIndex].latitude,
-               let endLongitude = coordinates[lastCoordinateIndex].longitude {
+                if let gradientColor = self?.gradientColorOfCoordinate(at: coordinate,
+                                                                 coordinates: coordinates,
+                                                                 from: .boosterBackground,
+                                                                 to: .boosterOrange) {
+                    gradientColor.set()
+                    context.strokePath()
+                }
+            }
+
+            if let endCoordinate = self?.endCoordinate(coordinates: coordinates),
+               let endLatitude = endCoordinate.latitude,
+               let endLongitude = endCoordinate.longitude {
                 var point = snapshot.point(for: CLLocationCoordinate2D(latitude: endLatitude, longitude: endLongitude))
                 point.y -= dotSize.height / 2.0
                 context.addEllipse(in: CGRect(origin: point, size: dotSize))
@@ -160,5 +166,35 @@ class TrackingMapView: MKMapView {
         showsUserLocation = true
         userLocation.title = ""
         tintColor = .boosterOrange
+    }
+
+    private func gradientColorOfCoordinate(at coordinate: Coordinate,
+                                           coordinates: [Coordinate],
+                                           from fromColor: UIColor,
+                                           to toColor: UIColor) -> UIColor? {
+        guard let indexOfTargetCoordinate = coordinates.firstIndex(of: coordinate) else { return nil }
+        let percentOfPathProgress = Double(indexOfTargetCoordinate) / Double(coordinates.count)
+
+        let r = fromColor.redValue + ((toColor.redValue - fromColor.redValue) * percentOfPathProgress)
+        let g = fromColor.greenValue + ((toColor.greenValue - fromColor.greenValue) * percentOfPathProgress)
+        let b = fromColor.blueValue + ((toColor.blueValue - fromColor.blueValue) * percentOfPathProgress)
+
+        return UIColor(red: r, green: g, blue: b, alpha: 1)
+    }
+
+    private func startCoordinate(coordinates: [Coordinate]) -> Coordinate? {
+        for coordinate in coordinates {
+            if coordinate.latitude != nil && coordinate.longitude != nil { return coordinate }
+        }
+
+        return nil
+    }
+
+    private func endCoordinate(coordinates: [Coordinate]) -> Coordinate? {
+        for coordinate in coordinates.reversed() {
+            if coordinate.latitude != nil && coordinate.longitude != nil { return coordinate }
+        }
+
+        return nil
     }
 }
