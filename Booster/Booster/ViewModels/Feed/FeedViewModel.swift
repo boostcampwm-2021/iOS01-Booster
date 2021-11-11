@@ -20,10 +20,12 @@ final class FeedViewModel {
                                         imageData: trackingRecords.value[indexPath.row].imageData))
     }
 
-    var trackingRecords: Observable<[TrackingModel]>
-    let usecase: FeedUseCase
+    private(set) var trackingRecords: Observable<[TrackingModel]>
+    private var selectedIndex: IndexPath
+    private let usecase: FeedUseCase
 
     init() {
+        selectedIndex = IndexPath()
         usecase = FeedUseCase()
         trackingRecords = Observable([])
     }
@@ -32,8 +34,12 @@ final class FeedViewModel {
         return trackingRecords.value.count
     }
 
-    func dataAtIndex(_ index: Int) -> TrackingModel? {
-        return trackingRecords.value[index]
+    func selected(_ index: IndexPath) {
+        self.selectedIndex = index
+    }
+
+    func selected() -> TrackingModel {
+        return trackingRecords.value[selectedIndex.row]
     }
 
     func fetch() {
