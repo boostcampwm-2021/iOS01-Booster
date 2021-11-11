@@ -1,12 +1,12 @@
 import UIKit
 
 final class FeedViewController: UIViewController, BaseViewControllerTemplate {
-    enum Segue {
+    private enum Segue {
         static let feedDetailSegue = "feedDetailSegue"
     }
 
     // MARK: Properties
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet private weak var collectionView: UICollectionView!
 
     var viewModel: FeedViewModel = FeedViewModel()
 
@@ -77,6 +77,6 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout {
 
 extension FeedViewController: DetailFeedModelDelegate {
     func detailFeed(viewModel: DetailFeedViewModel) {
-        viewModel.configure(model: self.viewModel.selected())
+        viewModel.update(model: self.viewModel.selected())
     }
 }

@@ -13,11 +13,11 @@ class FeedCell: UICollectionViewCell {
         return view
     }()
 
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var distanceLabel: UILabel!
-    @IBOutlet weak var weekdayLabel: UILabel!
-    @IBOutlet weak var stepLabel: UILabel!
-    @IBOutlet weak var pathImageView: UIImageView!
+    @IBOutlet private weak var dateLabel: UILabel!
+    @IBOutlet private weak var distanceLabel: UILabel!
+    @IBOutlet private weak var weekdayLabel: UILabel!
+    @IBOutlet private weak var stepLabel: UILabel!
+    @IBOutlet private weak var pathImageView: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
