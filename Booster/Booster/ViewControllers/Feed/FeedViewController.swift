@@ -1,8 +1,12 @@
 import UIKit
 
 final class FeedViewController: UIViewController, BaseViewControllerTemplate {
+    private enum Segue {
+        static let feedDetailSegue = "feedDetailSegue"
+    }
+
     // MARK: Properties
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet private weak var collectionView: UICollectionView!
 
     var viewModel: FeedViewModel = FeedViewModel()
 
@@ -15,6 +19,12 @@ final class FeedViewController: UIViewController, BaseViewControllerTemplate {
 
     override func viewWillAppear(_ animated: Bool) {
         viewModel.fetch()
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let detailFeedViewController = segue.destination as? DetailFeedViewController
+        else { return }
+        detailFeedViewController.delegate = self
     }
 
     func configure() {
@@ -35,7 +45,7 @@ final class FeedViewController: UIViewController, BaseViewControllerTemplate {
 // MARK: - collection view data source delegate
 extension FeedViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.recordCount()
+        return viewModel.recordCount() == 0 ? 1 : viewModel.recordCount()
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -45,18 +55,32 @@ extension FeedViewController: UICollectionViewDataSource {
         item.configure(cell: cell)
         return cell
     }
-
 }
 
-// MARK: -
+// MARK: - collection view delegate
 extension FeedViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.selected(indexPath)
+        performSegue(withIdentifier: Segue.feedDetailSegue, sender: nil)
+    }
 }
 
+// MARK: - collection view flow layout delegate
 extension FeedViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height: CGFloat = 175
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath)
+    -> CGSize {
+        let defaultCellHeight: CGFloat = 175
+        let height: CGFloat = viewModel.recordCount() == 0 ? collectionView.frame.height : defaultCellHeight
         let width = collectionView.frame.width-60
 
         return CGSize(width: width, height: height)
+    }
+}
+
+extension FeedViewController: DetailFeedModelDelegate {
+    func detailFeed(viewModel: DetailFeedViewModel) {
+        viewModel.update(model: self.viewModel.selected())
     }
 }

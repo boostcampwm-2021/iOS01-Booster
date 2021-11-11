@@ -8,5 +8,11 @@
 import Foundation
 
 final class DetailFeedViewModel {
+    var trackingModel: Observable<TrackingModel>
 
+    init() { trackingModel = Observable(TrackingModel()) }
+
+    func update(model: TrackingModel) {
+        trackingModel.value = model
+    }
 }

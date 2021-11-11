@@ -62,7 +62,6 @@ final class TrackingProgressUsecase {
             errors.value.append(.modelError)
             return
         }
-
         let value: [String: Any] = [
             CoreDataKeys.startDate: model.startDate,
             CoreDataKeys.endDate: endDate,

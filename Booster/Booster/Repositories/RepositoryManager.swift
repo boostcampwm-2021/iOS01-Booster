@@ -9,9 +9,6 @@ final class RepositoryManager {
     }
 
     private var entityName: String
-    private var entity: NSEntityDescription? {
-        return NSEntityDescription.entity(forEntityName: entityName, in: container.viewContext)
-    }
     private var container: NSPersistentContainer
     private lazy var backgroundContext: NSManagedObjectContext = {
         let backgroundContext = container.newBackgroundContext()
@@ -22,7 +19,7 @@ final class RepositoryManager {
               type name: String,
               completion handler: @escaping (Result<Void, Error>) -> Void ) {
         self.entityName = name
-        guard let entity = entity
+        guard let entity = NSEntityDescription.entity(forEntityName: entityName, in: container.viewContext)
         else { return }
 
         backgroundContext.perform { [weak self] in
@@ -44,8 +41,7 @@ final class RepositoryManager {
         }
     }
 
-    func fetch<DataType: NSManagedObject>(type name: String, completion handler: @escaping (Result<[DataType], Error>) -> Void) {
-        self.entityName = name
+    func fetch<DataType: NSManagedObject>(completion handler: @escaping (Result<[DataType], Error>) -> Void) {
         backgroundContext.perform { [weak self] in
             guard let self = self
             else {

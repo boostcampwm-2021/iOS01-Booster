@@ -8,12 +8,16 @@
 import UIKit
 
 class FeedCell: UICollectionViewCell {
+    private lazy var emptyView: EmptyView = {
+        let view = EmptyView(frame: frame)
+        return view
+    }()
 
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var distanceLabel: UILabel!
-    @IBOutlet weak var weekdayLabel: UILabel!
-    @IBOutlet weak var stepLabel: UILabel!
-    @IBOutlet weak var pathImageView: UIImageView!
+    @IBOutlet private weak var dateLabel: UILabel!
+    @IBOutlet private weak var distanceLabel: UILabel!
+    @IBOutlet private weak var weekdayLabel: UILabel!
+    @IBOutlet private weak var stepLabel: UILabel!
+    @IBOutlet private weak var pathImageView: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,6 +32,7 @@ class FeedCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
+        emptyView.removeFromSuperview()
         dateLabel.text = nil
         distanceLabel.text = nil
         stepLabel.text = nil
@@ -37,7 +42,11 @@ class FeedCell: UICollectionViewCell {
 }
 
 extension FeedCell: ConfigurableCell {
-    func configure(data: (date: Date, distance: Double, step: Int, imageData: Data)) {
+    func configure(data: (date: Date, distance: Double, step: Int, imageData: Data, isEmpty: Bool)) {
+        if data.isEmpty {
+            addSubview(emptyView)
+            return
+        }
         let dateFormatter = DateFormatter()
         let weekdayText = "산책"
         let distanceText = String.init(format: "%.1f", data.distance/1000)

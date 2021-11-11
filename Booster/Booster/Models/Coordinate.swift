@@ -1,8 +1,8 @@
 import Foundation
 
 public final class Coordinate: NSObject, NSCoding {
-    let latitude: Double?
-    let longitude: Double?
+    var latitude: Double?
+    var longitude: Double?
 
     init(latitude: Double? = nil, longitude: Double? = nil) {
         self.latitude = latitude
@@ -15,12 +15,14 @@ public final class Coordinate: NSObject, NSCoding {
     }
 
     public init?(coder: NSCoder) {
-        guard let lat = coder.decodeObject(forKey: "latitude") as? Double,
-              let lng = coder.decodeObject(forKey: "longitude") as? Double
-        else { return nil }
+        super.init()
+        if let latitude = coder.decodeObject(forKey: "latitude") as? Double {
+            self.latitude = latitude
+        }
 
-        latitude = lat
-        longitude = lng
+        if let longitude = coder.decodeObject(forKey: "longitude") as? Double {
+            self.longitude = longitude
+        }
     }
 }
 
