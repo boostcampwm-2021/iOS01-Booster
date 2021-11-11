@@ -67,7 +67,8 @@ class TrackingMapView: MKMapView {
     }
 
     func updateUserLocationOverlay(location: CLLocation?) {
-        guard let current = location else { return }
+        guard let current = location
+        else { return }
 
         let regionRadius: CLLocationDistance = 100
         let overlayRadius: CLLocationDistance = 20
@@ -96,7 +97,9 @@ class TrackingMapView: MKMapView {
 
         let snapShotter = MKMapSnapshotter(options: options)
         snapShotter.start { [weak self] (snapshot, _) in
-            guard let snapshot = snapshot else { return }
+            guard let snapshot = snapshot
+            else { return }
+            
             let image = snapshot.image
             let pathLineWidth: CGFloat = 6
 
@@ -104,7 +107,9 @@ class TrackingMapView: MKMapView {
             color.setFill()
             UIRectFill(CGRect(origin: .zero, size: image.size))
 
-            guard let context = UIGraphicsGetCurrentContext() else { return }
+            guard let context = UIGraphicsGetCurrentContext()
+            else { return }
+            
             context.setLineWidth(pathLineWidth)
             context.setStrokeColor(UIColor.boosterOrange.cgColor)
 
@@ -173,7 +178,9 @@ class TrackingMapView: MKMapView {
                                            coordinates: [Coordinate],
                                            from fromColor: UIColor,
                                            to toColor: UIColor) -> UIColor? {
-        guard let indexOfTargetCoordinate = coordinates.firstIndex(of: coordinate) else { return nil }
+        guard let indexOfTargetCoordinate = coordinates.firstIndex(of: coordinate)
+        else { return nil }
+        
         let percentOfPathProgress = Double(indexOfTargetCoordinate) / Double(coordinates.count)
 
         let red = fromColor.redValue + ((toColor.redValue - fromColor.redValue) * percentOfPathProgress)
