@@ -55,7 +55,6 @@ extension FeedViewController: UICollectionViewDataSource {
         item.configure(cell: cell)
         return cell
     }
-
 }
 
 // MARK: - collection view delegate
