@@ -10,26 +10,26 @@ final class HomeViewController: UIViewController, BaseViewControllerTemplate {
     @IBOutlet weak var goalLabel: UILabel!
     // MARK: - Properties
     var viewModel = HomeViewModel()
-    
+
     // MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         configure()
     }
-    
+
     // MARK: - Functions
     func configure() {
         configureHealthKit()
         bindHomeViewModel()
     }
-    
+
     private func configureHealthKit() {
         guard let activeEnergyBurned = HKSampleType.quantityType(forIdentifier: .activeEnergyBurned),
               let distanceWalkingRunning = HKSampleType.quantityType(forIdentifier: .distanceWalkingRunning),
               let stepCount = HKSampleType.quantityType(forIdentifier: .stepCount)
         else { return }
-        
+
         let shareTypes = Set([activeEnergyBurned, distanceWalkingRunning, stepCount])
         let readTypes = Set([activeEnergyBurned, distanceWalkingRunning, stepCount])
 

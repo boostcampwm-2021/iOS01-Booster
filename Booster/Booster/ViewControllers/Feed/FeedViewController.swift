@@ -3,13 +3,13 @@ import UIKit
 final class FeedViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - @IBOutlet
     @IBOutlet private weak var tableView: UITableView!
-    
+
     // MARK: - Properties
     var viewModel = FeedViewModel()
     private lazy var emptyView: EmptyView = {
         let view = EmptyView.init(frame: tableView.frame)
         let emptyViewTitle = "아직 산책기록이 없어요\n오늘 한 번 천천히 걸어볼까요?"
-        
+
         view.apply(title: emptyViewTitle, image: UIImage.assetFoot)
         return view
     }()
@@ -17,27 +17,27 @@ final class FeedViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         configure()
     }
-    
+
     func configure() {
         bindFeedViewModel()
-        
+
         tableView.dataSource = self
         tableView.delegate = self
     }
-    
+
     private func bindFeedViewModel() {
         viewModel.trackingRecords.bind { [weak self] _ in
             guard let self = self
             else { return }
-            
+
             if self.viewModel.recordCount() == 0 {
                 self.view.addSubview(self.emptyView)
                 return
             }
-            
+
             DispatchQueue.main.async {
                 self.emptyView.removeFromSuperview()
                 self.tableView.reloadData()
