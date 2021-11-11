@@ -98,13 +98,14 @@ class TrackingMapView: MKMapView {
         snapShotter.start { [weak self] (snapshot, _) in
             guard let snapshot = snapshot else { return }
             let image = snapshot.image
+            let pathLineWidth: CGFloat = 6
 
             UIGraphicsBeginImageContext(image.size)
             color.setFill()
             UIRectFill(CGRect(origin: .zero, size: image.size))
 
             guard let context = UIGraphicsGetCurrentContext() else { return }
-            context.setLineWidth(4)
+            context.setLineWidth(pathLineWidth)
             context.setStrokeColor(UIColor.boosterOrange.cgColor)
 
             var prevCoordinate: Coordinate? = self?.startCoordinate(coordinates: coordinates)
@@ -175,11 +176,11 @@ class TrackingMapView: MKMapView {
         guard let indexOfTargetCoordinate = coordinates.firstIndex(of: coordinate) else { return nil }
         let percentOfPathProgress = Double(indexOfTargetCoordinate) / Double(coordinates.count)
 
-        let r = fromColor.redValue + ((toColor.redValue - fromColor.redValue) * percentOfPathProgress)
-        let g = fromColor.greenValue + ((toColor.greenValue - fromColor.greenValue) * percentOfPathProgress)
-        let b = fromColor.blueValue + ((toColor.blueValue - fromColor.blueValue) * percentOfPathProgress)
+        let red = fromColor.redValue + ((toColor.redValue - fromColor.redValue) * percentOfPathProgress)
+        let green = fromColor.greenValue + ((toColor.greenValue - fromColor.greenValue) * percentOfPathProgress)
+        let blue = fromColor.blueValue + ((toColor.blueValue - fromColor.blueValue) * percentOfPathProgress)
 
-        return UIColor(red: r, green: g, blue: b, alpha: 1)
+        return UIColor(red: red, green: green, blue: blue, alpha: 1)
     }
 
     private func startCoordinate(coordinates: [Coordinate]) -> Coordinate? {
