@@ -6,6 +6,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -31,121 +32,109 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="200" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Gyu-u2-lvs">
-                                <rect key="frame" x="0.0" y="118" width="414" height="695"/>
-                                <color key="backgroundColor" name="boosterBackground"/>
-                                <color key="sectionIndexBackgroundColor" name="boosterBackground"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FeedTableViewCell" rowHeight="235" id="qsH-Cv-Jea" customClass="FeedTableViewCell" customModule="Booster" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="235"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qsH-Cv-Jea" id="8QS-1S-XV0">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="235"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="o9V-Yn-X36">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="36u-Xv-cNw">
+                                    <size key="itemSize" width="269" height="190"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="30" minY="30" maxX="30" maxY="30"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FeedCell" id="qX8-zV-M7B" customClass="FeedCell" customModule="Booster" customModuleProvider="target">
+                                        <rect key="frame" x="77" y="30" width="260" height="190"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Wj7-91-8AJ">
+                                            <rect key="frame" x="0.0" y="0.0" width="260" height="190"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ig2-9E-tzD">
-                                                    <rect key="frame" x="30" y="11" width="354" height="213"/>
-                                                    <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GhR-y2-vnQ">
-                                                            <rect key="frame" x="30" y="0.0" width="194.5" height="213"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </view>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="210000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAN-rn-5lT">
-                                                            <rect key="frame" x="20" y="20" width="43" height="14.5"/>
-                                                            <fontDescription key="fontDescription" name="Bazaronite" family="Bazaronite" pointSize="12"/>
-                                                            <color key="textColor" name="boosterBackground"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="MQc-pn-F2E">
-                                                            <rect key="frame" x="20" y="44.5" width="45.5" height="51"/>
-                                                            <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qiy-UI-HFl">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="45.5" height="24"/>
-                                                                    <fontDescription key="fontDescription" name="Bazaronite" family="Bazaronite" pointSize="20"/>
-                                                                    <color key="textColor" name="boosterBackground"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="km" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wbi-rj-9le">
-                                                                    <rect key="frame" x="0.0" y="27" width="45.5" height="24"/>
-                                                                    <fontDescription key="fontDescription" name="Bazaronite" family="Bazaronite" pointSize="20"/>
-                                                                    <color key="textColor" name="boosterBackground"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                            </subviews>
-                                                        </stackView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iZu-V7-d45">
-                                                            <rect key="frame" x="309" y="149" width="30" height="54"/>
-                                                            <fontDescription key="fontDescription" name="Bazaronite" family="Bazaronite" pointSize="45"/>
-                                                            <color key="textColor" name="boosterBackground"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MCu-y6-SdE">
-                                                            <rect key="frame" x="302.5" y="15" width="31.5" height="22"/>
-                                                            <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="15"/>
-                                                            <color key="textColor" name="boosterBackground"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                    <color key="backgroundColor" name="boosterLabel"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6ko-pE-sq5">
+                                                    <rect key="frame" x="20" y="20" width="135" height="150"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstItem="eAN-rn-5lT" firstAttribute="top" secondItem="ig2-9E-tzD" secondAttribute="top" constant="20" id="074-lQ-Pxv"/>
-                                                        <constraint firstItem="GhR-y2-vnQ" firstAttribute="leading" secondItem="ig2-9E-tzD" secondAttribute="leading" constant="30" id="86d-dE-8sX"/>
-                                                        <constraint firstItem="MCu-y6-SdE" firstAttribute="top" secondItem="ig2-9E-tzD" secondAttribute="top" constant="15" id="L2I-82-EQ8"/>
-                                                        <constraint firstAttribute="bottom" secondItem="iZu-V7-d45" secondAttribute="bottom" constant="10" id="MzI-u8-dQv"/>
-                                                        <constraint firstAttribute="trailing" secondItem="MCu-y6-SdE" secondAttribute="trailing" constant="20" id="Qkl-YF-onV"/>
-                                                        <constraint firstItem="MQc-pn-F2E" firstAttribute="leading" secondItem="ig2-9E-tzD" secondAttribute="leading" constant="20" id="WVK-GC-FeQ"/>
-                                                        <constraint firstItem="eAN-rn-5lT" firstAttribute="leading" secondItem="ig2-9E-tzD" secondAttribute="leading" constant="20" id="gPZ-kK-vwB"/>
-                                                        <constraint firstAttribute="trailing" secondItem="iZu-V7-d45" secondAttribute="trailing" constant="15" id="kra-jY-zZp"/>
-                                                        <constraint firstAttribute="bottom" secondItem="GhR-y2-vnQ" secondAttribute="bottom" id="lwj-7e-OGH"/>
-                                                        <constraint firstItem="MQc-pn-F2E" firstAttribute="top" secondItem="eAN-rn-5lT" secondAttribute="bottom" constant="10" id="mbj-mr-NoH"/>
-                                                        <constraint firstItem="GhR-y2-vnQ" firstAttribute="top" secondItem="ig2-9E-tzD" secondAttribute="top" id="s8t-GV-lxB"/>
-                                                        <constraint firstItem="GhR-y2-vnQ" firstAttribute="width" secondItem="ig2-9E-tzD" secondAttribute="width" multiplier="0.55" id="yhg-2P-mGs"/>
+                                                        <constraint firstAttribute="width" constant="135" id="Iaf-vO-2ie"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="750" constant="135" id="PGV-wO-pQU"/>
                                                     </constraints>
-                                                </view>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Lz-29-Ne5">
+                                                    <rect key="frame" x="10" y="5" width="31" height="14.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" name="boosterBackground"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Hf-V6-ZrQ">
+                                                    <rect key="frame" x="10" y="29.5" width="48" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <color key="textColor" name="boosterBackground"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6VG-7y-nXI">
+                                                    <rect key="frame" x="202" y="10" width="38" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" name="boosterBackground"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y82-30-O6e">
+                                                    <rect key="frame" x="112" y="116" width="138" height="54"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="45"/>
+                                                    <color key="textColor" name="boosterBackground"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstItem="ig2-9E-tzD" firstAttribute="leading" secondItem="8QS-1S-XV0" secondAttribute="leading" constant="30" id="0ge-oS-QDG"/>
-                                                <constraint firstAttribute="trailing" secondItem="ig2-9E-tzD" secondAttribute="trailing" constant="30" id="2Iq-CX-ToC"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="ig2-9E-tzD" secondAttribute="bottom" id="6Lb-aC-haw"/>
-                                                <constraint firstItem="ig2-9E-tzD" firstAttribute="centerX" secondItem="8QS-1S-XV0" secondAttribute="centerX" id="Fwb-Ic-fqp"/>
-                                                <constraint firstItem="ig2-9E-tzD" firstAttribute="centerY" secondItem="8QS-1S-XV0" secondAttribute="centerY" id="arT-KO-ATX"/>
-                                                <constraint firstItem="ig2-9E-tzD" firstAttribute="top" secondItem="8QS-1S-XV0" secondAttribute="topMargin" id="sKx-zF-WE4"/>
+                                                <constraint firstAttribute="bottom" secondItem="y82-30-O6e" secondAttribute="bottom" constant="20" id="1KT-fw-BJ3"/>
+                                                <constraint firstAttribute="trailing" secondItem="y82-30-O6e" secondAttribute="trailing" constant="10" id="5ng-Bo-uxT"/>
+                                                <constraint firstItem="8Hf-V6-ZrQ" firstAttribute="leading" secondItem="Wj7-91-8AJ" secondAttribute="leading" constant="10" id="98P-4P-Gi8"/>
+                                                <constraint firstItem="6ko-pE-sq5" firstAttribute="top" secondItem="Wj7-91-8AJ" secondAttribute="top" constant="20" id="9mC-9Q-uxw"/>
+                                                <constraint firstItem="6VG-7y-nXI" firstAttribute="top" secondItem="Wj7-91-8AJ" secondAttribute="top" constant="10" id="OlJ-uZ-WkS"/>
+                                                <constraint firstAttribute="trailing" secondItem="6VG-7y-nXI" secondAttribute="trailing" constant="20" id="Pof-zX-ZqY"/>
+                                                <constraint firstItem="9Lz-29-Ne5" firstAttribute="top" secondItem="Wj7-91-8AJ" secondAttribute="top" constant="5" id="cVt-IR-htc"/>
+                                                <constraint firstAttribute="bottom" secondItem="6ko-pE-sq5" secondAttribute="bottom" constant="20" id="fG9-hb-RKG"/>
+                                                <constraint firstItem="9Lz-29-Ne5" firstAttribute="leading" secondItem="Wj7-91-8AJ" secondAttribute="leading" constant="10" id="gtf-o6-hh8"/>
+                                                <constraint firstItem="6ko-pE-sq5" firstAttribute="leading" secondItem="Wj7-91-8AJ" secondAttribute="leading" constant="20" id="xCk-Xn-oea"/>
+                                                <constraint firstItem="8Hf-V6-ZrQ" firstAttribute="top" secondItem="9Lz-29-Ne5" secondAttribute="bottom" constant="10" id="yDr-jO-0LX"/>
                                             </constraints>
-                                        </tableViewCellContentView>
+                                        </collectionViewCellContentView>
+                                        <color key="backgroundColor" red="0.93710464240000002" green="0.93708735700000001" blue="0.93709760900000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <size key="customSize" width="260" height="190"/>
                                         <connections>
-                                            <outlet property="cardBackgroundView" destination="ig2-9E-tzD" id="Y3k-cX-g3N"/>
-                                            <outlet property="dateLabel" destination="eAN-rn-5lT" id="alN-lH-WPK"/>
-                                            <outlet property="kmLabel" destination="Qiy-UI-HFl" id="Pa3-1t-K7C"/>
-                                            <outlet property="titleLabel" destination="MCu-y6-SdE" id="Mwh-Zv-2ys"/>
-                                            <outlet property="totalStepCountLabel" destination="iZu-V7-d45" id="Bka-Xo-1qL"/>
-                                            <outlet property="trackingPathView" destination="GhR-y2-vnQ" id="ra2-FY-7uR"/>
+                                            <outlet property="dateLabel" destination="9Lz-29-Ne5" id="aAQ-tE-xmo"/>
+                                            <outlet property="distanceLabel" destination="8Hf-V6-ZrQ" id="0eG-h9-IHk"/>
+                                            <outlet property="pathImageView" destination="6ko-pE-sq5" id="cIL-N7-Sjr"/>
+                                            <outlet property="stepLabel" destination="y82-30-O6e" id="LDx-lL-Wbh"/>
+                                            <outlet property="weekdayLabel" destination="6VG-7y-nXI" id="vVJ-8e-sn6"/>
                                         </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" name="boosterBackground"/>
                         <constraints>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Gyu-u2-lvs" secondAttribute="trailing" id="1SE-uj-n4U"/>
-                            <constraint firstItem="Gyu-u2-lvs" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="9dX-rE-GBE"/>
-                            <constraint firstItem="Gyu-u2-lvs" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="30" id="hO9-kR-FMt"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="Gyu-u2-lvs" secondAttribute="bottom" id="mgd-vX-JbT"/>
+                            <constraint firstItem="o9V-Yn-X36" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="7fB-q5-F0c"/>
+                            <constraint firstItem="o9V-Yn-X36" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="Mh7-HZ-8ba"/>
+                            <constraint firstItem="o9V-Yn-X36" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="WUF-LG-c1i"/>
+                            <constraint firstItem="o9V-Yn-X36" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="gbX-UX-QOO"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="newspaper" catalog="system" selectedImage="newspaper.fill" id="0Kj-SX-TW1"/>
-                    <navigationItem key="navigationItem" title="나의 발자취" id="kBW-Wo-njA">
-                        <barButtonItem key="backBarButtonItem" title=" " id="w4L-29-js0"/>
+                    <tabBarItem key="tabBarItem" title="" image="newspaper" catalog="system" selectedImage="newspaper.fill" id="0Kj-SX-TW1">
+                        <color key="badgeColor" name="boosterLabel"/>
+                    </tabBarItem>
+                    <navigationItem key="navigationItem" title="나의 발자취" id="44R-ct-b10">
+                        <barButtonItem key="backBarButtonItem" title=" " id="oWY-Rj-I4s">
+                            <color key="tintColor" name="boosterLabel"/>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="tableView" destination="Gyu-u2-lvs" id="hhm-ce-9NN"/>
+                        <outlet property="collectionView" destination="o9V-Yn-X36" id="6V3-aI-LqE"/>
+                        <segue destination="SNN-pe-2iF" kind="show" identifier="feedDetailSegue" id="FgF-ac-xkN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1037.68115942029" y="97.767857142857139"/>
+            <point key="canvasLocation" x="1036.875" y="97.183098591549296"/>
         </scene>
         <!--Detail Feed View Controller-->
         <scene sceneID="Q7V-vS-jzf">
@@ -156,7 +145,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H06-jc-bhO">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ecH-rG-cv5">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1165"/>
@@ -302,7 +291,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="psD-uM-Jpp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1751" y="98"/>
+            <point key="canvasLocation" x="2132" y="98"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="j4Y-rs-hEH">
@@ -312,9 +301,12 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" backIndicatorImage="arrow.backward" catalog="system" largeTitles="YES" backIndicatorTransitionMaskImage="arrow.backward" id="VuG-05-Ips">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" name="boosterBackground"/>
-                        <color key="tintColor" name="boosterLabel"/>
-                        <color key="barTintColor" name="boosterBackground"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" name="boosterLabel"/>
+                        </textAttributes>
                         <textAttributes key="largeTitleTextAttributes">
                             <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans KR" pointSize="30"/>
                             <color key="textColor" name="boosterLabel"/>

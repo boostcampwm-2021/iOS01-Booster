@@ -33,7 +33,8 @@ final class TrackingProgressUsecase {
         entity = "Tracking"
         repository = RepositoryManager()
         errors.bind { values in
-            guard let handler = self.handler else { return }
+            guard let handler = self.handler
+            else { return }
 
             if values.count != 4 {
                 handler(.countError)
@@ -55,13 +56,12 @@ final class TrackingProgressUsecase {
 
     func save(model: TrackingModel) {
         guard let coordinates = try? NSKeyedArchiver.archivedData(withRootObject: model.coordinates, requiringSecureCoding: false),
-             let milestones = try? NSKeyedArchiver.archivedData(withRootObject: model.milestones, requiringSecureCoding: false),
-             let endDate = model.endDate
+              let milestones = try? NSKeyedArchiver.archivedData(withRootObject: model.milestones, requiringSecureCoding: false),
+              let endDate = model.endDate
         else {
             errors.value.append(.modelError)
             return
         }
-
         let value: [String: Any] = [
             CoreDataKeys.startDate: model.startDate,
             CoreDataKeys.endDate: endDate,
@@ -77,7 +77,9 @@ final class TrackingProgressUsecase {
         ]
 
         repository.save(value: value, type: entity) { [weak self] response in
-            guard let self = self else { return }
+            guard let self = self
+            else { return }
+
             switch response {
             case .success:
                 self.errors.value.append(nil)
@@ -87,9 +89,18 @@ final class TrackingProgressUsecase {
         }
     }
 
-    func save(count: Double, start: Date, end: Date, quantity: HealthQuantityType, unit: HealthUnit) {
-        HealthStoreManager.shared.save(count: count, start: start, end: end, quantity: quantity, unit: unit) { [weak self] error in
-            guard let error = error else {
+    func save(count: Double,
+              start: Date,
+              end: Date,
+              quantity: HealthQuantityType,
+              unit: HealthUnit) {
+        HealthStoreManager.shared.save(count: count,
+                                       start: start,
+                                       end: end,
+                                       quantity: quantity,
+                                       unit: unit) { [weak self] error in
+            guard let error = error
+            else {
                 self?.errors.value.append(nil)
                 return
             }

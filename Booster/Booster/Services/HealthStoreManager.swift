@@ -52,15 +52,22 @@ final class HealthStoreManager {
         }
     }
 
-    func requestAuthorization(shareTypes: Set<HKSampleType>, readTypes: Set<HKSampleType>, completion: @escaping (Bool) -> Void) {
+    func requestAuthorization(shareTypes: Set<HKSampleType>,
+                              readTypes: Set<HKSampleType>,
+                              completion: @escaping (Bool) -> Void) {
         healthStore?.requestAuthorization(toShare: shareTypes, read: readTypes) { (success, error) in
             guard error == nil,
-                  success else { return }
+                  success
+            else { return }
             completion(success)
         }
     }
 
-    func requestStatisticsCollectionQuery(type: HKQuantityType, predicate: NSPredicate, interval: DateComponents, anchorDate: Date, completion: @escaping (HKStatisticsCollection) -> Void) {
+    func requestStatisticsCollectionQuery(type: HKQuantityType,
+                                          predicate: NSPredicate,
+                                          interval: DateComponents,
+                                          anchorDate: Date,
+                                          completion: @escaping (HKStatisticsCollection) -> Void) {
         let query = HKStatisticsCollectionQuery(
             quantityType: type,
             quantitySamplePredicate: predicate,
@@ -78,7 +85,9 @@ final class HealthStoreManager {
         healthStore?.execute(query)
     }
 
-    func requestStatisticsQuery(type: HKQuantityType, predicate: NSPredicate, completion: @escaping (HKStatistics) -> Void) {
+    func requestStatisticsQuery(type: HKQuantityType,
+                                predicate: NSPredicate,
+                                completion: @escaping (HKStatistics) -> Void) {
         let query = HKStatisticsQuery(
             quantityType: type,
             quantitySamplePredicate: predicate,
@@ -91,8 +100,15 @@ final class HealthStoreManager {
         healthStore?.execute(query)
     }
 
-    func save(count: Double, start: Date, end: Date, quantity: HealthQuantityType, unit: HealthUnit, completion: @escaping (Error?) -> Void) {
-        guard let healthStore = healthStore, let type = quantity.quantity else {
+    func save(count: Double,
+              start: Date,
+              end: Date,
+              quantity: HealthQuantityType,
+              unit: HealthUnit,
+              completion: @escaping (Error?) -> Void) {
+        guard let healthStore = healthStore,
+                let type = quantity.quantity
+        else {
             completion(HealthKitError.optionalCasting)
             return
         }
@@ -100,8 +116,10 @@ final class HealthStoreManager {
         let unit = unit.unit
         let countQuantity = HKQuantity(unit: unit, doubleValue: count)
         let sample = HKQuantitySample(type: type, quantity: countQuantity, start: start, end: end)
+
         healthStore.save(sample) { _, error in
-            guard let error = error else {
+            guard let error = error
+            else {
                 completion(nil)
                 return
             }

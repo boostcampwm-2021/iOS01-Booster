@@ -8,16 +8,22 @@ import CoreData
 import MapKit
 import UIKit
 
+protocol DetailFeedModelDelegate: AnyObject {
+    func detailFeed(viewModel: DetailFeedViewModel)
+}
+
 final class DetailFeedViewController: UIViewController, BaseViewControllerTemplate {
-    // MARK: - @IBOutlet
+    weak var delegate: DetailFeedModelDelegate?
+
+    // MARK: Properties
+
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var locationInfoLabel: UILabel!
     @IBOutlet private weak var mapView: MKMapView!
     @IBOutlet private weak var stepCountsLabel: UILabel!
 
-    // MARK: - Properties
-    var trackingInfo: TrackingRecord?
-    var viewModel = DetailFeedViewModel(detailFeedUseCase: DetailFeedUsecase(repository: RepositoryManager()))
+    // var trackingInfo: TrackingRecord?
+    var viewModel = DetailFeedViewModel()
 
     // MARK: - Life Cycles
     override func viewDidLoad() {
@@ -26,8 +32,8 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
         configure()
     }
 
-    // MARK: - Functions
     func configure() {
+        delegate?.detailFeed(viewModel: viewModel)
         mapView.layer.cornerRadius = mapView.frame.height / 15
         mapView.delegate = self
 

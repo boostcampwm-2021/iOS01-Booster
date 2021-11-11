@@ -36,6 +36,7 @@ class TrackingMapView: MKMapView {
     func removeMileStoneAnnotation(of mileStone: MileStone) -> Bool {
         guard let annotation = annotations.first(where: {
             let coordinate = Coordinate(latitude: $0.coordinate.latitude, longitude: $0.coordinate.longitude)
+
             return coordinate == mileStone.coordinate
         })
         else { return false }
@@ -66,9 +67,8 @@ class TrackingMapView: MKMapView {
     }
 
     func updateUserLocationOverlay(location: CLLocation?) {
-        guard let current = location else {
-            return
-        }
+        guard let current = location
+        else { return }
 
         let regionRadius: CLLocationDistance = 100
         let overlayRadius: CLLocationDistance = 20
@@ -84,57 +84,84 @@ class TrackingMapView: MKMapView {
         addOverlay(overlay)
     }
 
-    func snapShotImageOfPath(backgroundColor color: UIColor = .white, coordinates: [Coordinate], center: CLLocationCoordinate2D, completion: @escaping(UIImage?) -> Void) {
+    func snapShotImageOfPath(backgroundColor color: UIColor = .white,
+                             coordinates: [Coordinate],
+                             center: CLLocationCoordinate2D,
+                             completion: @escaping(UIImage?) -> Void) {
+        let dotSize = CGSize(width: 16, height: 16)
         let options = MKMapSnapshotter.Options()
         options.size = CGSize(width: 250, height: 250)
-        options.region = MKCoordinateRegion(center: center, latitudinalMeters: 1000, longitudinalMeters: 1000)
+        options.region = MKCoordinateRegion(center: center,
+                                            latitudinalMeters: 1000,
+                                            longitudinalMeters: 1000)
 
         let snapShotter = MKMapSnapshotter(options: options)
-        snapShotter.start { (snapshot, _) in
-            guard let snapshot = snapshot else { return }
+        snapShotter.start { [weak self] (snapshot, _) in
+            guard let snapshot = snapshot
+            else { return }
+            
             let image = snapshot.image
+            let pathLineWidth: CGFloat = 6
 
             UIGraphicsBeginImageContext(image.size)
             color.setFill()
             UIRectFill(CGRect(origin: .zero, size: image.size))
 
-            guard let context = UIGraphicsGetCurrentContext() else { return }
-            context.setLineWidth(2)
+            guard let context = UIGraphicsGetCurrentContext()
+            else { return }
+            
+            context.setLineWidth(pathLineWidth)
             context.setStrokeColor(UIColor.boosterOrange.cgColor)
 
-            var prevCoordinate: Coordinate?
+            var prevCoordinate: Coordinate? = self?.startCoordinate(coordinates: coordinates)
+            guard let startLatitude = prevCoordinate?.latitude,
+                  let startLongitude = prevCoordinate?.longitude
+            else { return }
+
+            var point = snapshot.point(for: CLLocationCoordinate2D(latitude: startLatitude, longitude: startLongitude))
+            point.x -= dotSize.width / 2.0
+            point.y -= dotSize.height / 2.0
+            UIColor.boosterBackground.setFill()
+            context.addEllipse(in: CGRect(origin: point, size: dotSize))
+            context.drawPath(using: .fill)
+
             for coordinate in coordinates {
-                guard let prevLatitude = prevCoordinate?.latitude,
-                      let prevLongitude = prevCoordinate?.longitude,
-                      let currentLatitude = coordinate.latitude,
-                      let currentLongitude = coordinate.longitude
-                else {
-                    guard let latitude = coordinate.latitude,
-                          let longitude = coordinate.longitude
-                    else { return }
+                if let prevLatitude = prevCoordinate?.latitude,
+                   let prevLongitude = prevCoordinate?.longitude {
+                    context.move(to: snapshot.point(for: CLLocationCoordinate2D(latitude: prevLatitude, longitude: prevLongitude)))
+                } else {
                     prevCoordinate = coordinate
-                    let point = snapshot.point(for: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
-                    context.move(to: point)
-                    context.addEllipse(in: CGRect(origin: point, size: CGSize(width: 4, height: 4)))
-                    UIColor.boosterBackground.setFill()
-                    context.drawPath(using: .fill)
-                    UIColor.boosterOrange.setFill()
                     continue
                 }
-                context.addLine(to: snapshot.point(for: CLLocationCoordinate2D(latitude: currentLatitude, longitude: currentLongitude)))
-                context.move(to: snapshot.point(for: CLLocationCoordinate2D(latitude: currentLatitude, longitude: currentLongitude)))
-                prevCoordinate = coordinate
-            }
-            context.strokePath()
 
-            if let endLatitude = prevCoordinate?.latitude,
-               let endLongitude = prevCoordinate?.longitude {
-                context.addEllipse(in: CGRect(origin: snapshot.point(for: CLLocationCoordinate2D(latitude: endLatitude, longitude: endLongitude)), size: CGSize(width: 4, height: 4)))
+                if let currentLatitude = coordinate.latitude,
+                   let currentLongitude = coordinate.longitude {
+                    context.addLine(to: snapshot.point(for: CLLocationCoordinate2D(latitude: currentLatitude, longitude: currentLongitude)))
+                    context.move(to: snapshot.point(for: CLLocationCoordinate2D(latitude: currentLatitude, longitude: currentLongitude)))
+                }
+                prevCoordinate = coordinate
+
+                if let gradientColor = self?.gradientColorOfCoordinate(at: coordinate,
+                                                                 coordinates: coordinates,
+                                                                 from: .boosterBackground,
+                                                                 to: .boosterOrange) {
+                    gradientColor.set()
+                    context.strokePath()
+                }
+            }
+
+            if let endCoordinate = self?.endCoordinate(coordinates: coordinates),
+               let endLatitude = endCoordinate.latitude,
+               let endLongitude = endCoordinate.longitude {
+                var point = snapshot.point(for: CLLocationCoordinate2D(latitude: endLatitude, longitude: endLongitude))
+                point.y -= dotSize.height / 2.0
+                context.addEllipse(in: CGRect(origin: point, size: dotSize))
                 context.drawPath(using: .fill)
             }
 
             let resultImage = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
+
             completion(resultImage)
         }
     }
@@ -144,6 +171,38 @@ class TrackingMapView: MKMapView {
         mapType = .standard
         showsUserLocation = true
         userLocation.title = ""
-        tintColor = UIColor.boosterOrange
+        tintColor = .boosterOrange
+    }
+
+    private func gradientColorOfCoordinate(at coordinate: Coordinate,
+                                           coordinates: [Coordinate],
+                                           from fromColor: UIColor,
+                                           to toColor: UIColor) -> UIColor? {
+        guard let indexOfTargetCoordinate = coordinates.firstIndex(of: coordinate)
+        else { return nil }
+        
+        let percentOfPathProgress = Double(indexOfTargetCoordinate) / Double(coordinates.count)
+
+        let red = fromColor.redValue + ((toColor.redValue - fromColor.redValue) * percentOfPathProgress)
+        let green = fromColor.greenValue + ((toColor.greenValue - fromColor.greenValue) * percentOfPathProgress)
+        let blue = fromColor.blueValue + ((toColor.blueValue - fromColor.blueValue) * percentOfPathProgress)
+
+        return UIColor(red: red, green: green, blue: blue, alpha: 1)
+    }
+
+    private func startCoordinate(coordinates: [Coordinate]) -> Coordinate? {
+        for coordinate in coordinates {
+            if coordinate.latitude != nil && coordinate.longitude != nil { return coordinate }
+        }
+
+        return nil
+    }
+
+    private func endCoordinate(coordinates: [Coordinate]) -> Coordinate? {
+        for coordinate in coordinates.reversed() {
+            if coordinate.latitude != nil && coordinate.longitude != nil { return coordinate }
+        }
+
+        return nil
     }
 }

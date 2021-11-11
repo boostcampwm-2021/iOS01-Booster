@@ -17,9 +17,13 @@
 		37852AD8273C2D0B00BA3D67 /* StatisticsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37852AD7273C2D0B00BA3D67 /* StatisticsViewModelTests.swift */; };
 		37852AD9273C2FB100BA3D67 /* StatisticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F162733CDAA00B090D9 /* StatisticsViewModel.swift */; };
 		379E3C57273BC182002B0B15 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379E3C56273BC182002B0B15 /* ChartView.swift */; };
+		3B31B5F9273C05D8009D9190 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B31B5F8273C05D8009D9190 /* FeedCell.swift */; };
+		3B31B5FC273C0A66009D9190 /* CellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B31B5FB273C0A66009D9190 /* CellConfigurator.swift */; };
+		3B31B5FF273CD2F7009D9190 /* Tracking+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B31B5FD273CD2F7009D9190 /* Tracking+CoreDataClass.swift */; };
+		3B31B600273CD2F7009D9190 /* Tracking+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B31B5FE273CD2F7009D9190 /* Tracking+CoreDataProperties.swift */; };
 		3B38FB14273A5F3B00F8620D /* TrackingCountDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B38FB13273A5F3B00F8620D /* TrackingCountDownView.swift */; };
-		3B38FB17273A72D100F8620D /* Tracking+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B38FB15273A72D100F8620D /* Tracking+CoreDataClass.swift */; };
-		3B38FB18273A72D100F8620D /* Tracking+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B38FB16273A72D100F8620D /* Tracking+CoreDataProperties.swift */; };
+		3B38FB1A273BABBE00F8620D /* TrackingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B38FB19273BABBE00F8620D /* TrackingViewModel.swift */; };
+		3B38FB1C273BF7CD00F8620D /* FeedUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B38FB1B273BF7CD00F8620D /* FeedUseCase.swift */; };
 		3B4E4006272A6B5200577625 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3B4E4005272A6B5200577625 /* .swiftlint.yml */; };
 		E8581237F734868FA7180CD2 /* Pods_Booster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B856BA0E9ED939261CD6A39D /* Pods_Booster.framework */; };
 		FA473A05273A1F8A0000C5DC /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA473A04273A1F8A0000C5DC /* UIImage+Extension.swift */; };
@@ -53,7 +57,6 @@
 		FA614F712733CDAA00B090D9 /* MileStone.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F312733CDAA00B090D9 /* MileStone.swift */; };
 		FA614F722733CDAA00B090D9 /* HomeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F322733CDAA00B090D9 /* HomeData.swift */; };
 		FA614F732733CDAA00B090D9 /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F332733CDAA00B090D9 /* Coordinate.swift */; };
-		FA614F742733CDAA00B090D9 /* TrackingRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F342733CDAA00B090D9 /* TrackingRecord.swift */; };
 		FA614F762733CDAA00B090D9 /* TrackingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F362733CDAA00B090D9 /* TrackingModel.swift */; };
 		FA614F772733CDAA00B090D9 /* NSAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F382733CDAA00B090D9 /* NSAttributedString+Extension.swift */; };
 		FA614F782733CDAA00B090D9 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F392733CDAA00B090D9 /* UIFont+Extension.swift */; };
@@ -71,7 +74,6 @@
 		FA614F842733CDAA00B090D9 /* PhotoAnnotationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA614F492733CDAA00B090D9 /* PhotoAnnotationView.xib */; };
 		FA614F852733CDAA00B090D9 /* TrackingMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F4A2733CDAA00B090D9 /* TrackingMapView.swift */; };
 		FA614F862733CDAA00B090D9 /* PhotoAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F4B2733CDAA00B090D9 /* PhotoAnnotationView.swift */; };
-		FA614F892733CDAA00B090D9 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F4E2733CDAA00B090D9 /* FeedTableViewCell.swift */; };
 		FA614F8A2733CDAA00B090D9 /* TrackingProgressUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F502733CDAA00B090D9 /* TrackingProgressUsecase.swift */; };
 		FA614F8B2733CDAA00B090D9 /* HealthStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F532733CDAA00B090D9 /* HealthStoreManager.swift */; };
 		FA614F8E2733CF9000B090D9 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F8D2733CF9000B090D9 /* EmptyView.swift */; };
@@ -103,9 +105,13 @@
 		37852ACE273C27F100BA3D67 /* StatisticsModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsModelTests.swift; sourceTree = "<group>"; };
 		37852AD7273C2D0B00BA3D67 /* StatisticsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewModelTests.swift; sourceTree = "<group>"; };
 		379E3C56273BC182002B0B15 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		3B31B5F8273C05D8009D9190 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
+		3B31B5FB273C0A66009D9190 /* CellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfigurator.swift; sourceTree = "<group>"; };
+		3B31B5FD273CD2F7009D9190 /* Tracking+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tracking+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		3B31B5FE273CD2F7009D9190 /* Tracking+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tracking+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		3B38FB13273A5F3B00F8620D /* TrackingCountDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingCountDownView.swift; sourceTree = "<group>"; };
-		3B38FB15273A72D100F8620D /* Tracking+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tracking+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		3B38FB16273A72D100F8620D /* Tracking+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tracking+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		3B38FB19273BABBE00F8620D /* TrackingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingViewModel.swift; sourceTree = "<group>"; };
+		3B38FB1B273BF7CD00F8620D /* FeedUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedUseCase.swift; sourceTree = "<group>"; };
 		3B4E3FE4272A696E00577625 /* Booster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Booster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4E4005272A6B5200577625 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		B856BA0E9ED939261CD6A39D /* Pods_Booster.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booster.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -142,7 +148,6 @@
 		FA614F312733CDAA00B090D9 /* MileStone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MileStone.swift; sourceTree = "<group>"; };
 		FA614F322733CDAA00B090D9 /* HomeData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeData.swift; sourceTree = "<group>"; };
 		FA614F332733CDAA00B090D9 /* Coordinate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
-		FA614F342733CDAA00B090D9 /* TrackingRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingRecord.swift; sourceTree = "<group>"; };
 		FA614F362733CDAA00B090D9 /* TrackingModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingModel.swift; sourceTree = "<group>"; };
 		FA614F382733CDAA00B090D9 /* NSAttributedString+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extension.swift"; sourceTree = "<group>"; };
 		FA614F392733CDAA00B090D9 /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
@@ -160,7 +165,6 @@
 		FA614F492733CDAA00B090D9 /* PhotoAnnotationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoAnnotationView.xib; sourceTree = "<group>"; };
 		FA614F4A2733CDAA00B090D9 /* TrackingMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingMapView.swift; sourceTree = "<group>"; };
 		FA614F4B2733CDAA00B090D9 /* PhotoAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAnnotationView.swift; sourceTree = "<group>"; };
-		FA614F4E2733CDAA00B090D9 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
 		FA614F502733CDAA00B090D9 /* TrackingProgressUsecase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingProgressUsecase.swift; sourceTree = "<group>"; };
 		FA614F512733CDAA00B090D9 /* Booster.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Booster.entitlements; sourceTree = "<group>"; };
 		FA614F532733CDAA00B090D9 /* HealthStoreManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthStoreManager.swift; sourceTree = "<group>"; };
@@ -199,6 +203,14 @@
 				37852ACE273C27F100BA3D67 /* StatisticsModelTests.swift */,
 			);
 			path = StatisticsTests;
+			sourceTree = "<group>";
+		};
+		3B31B5FA273C0A52009D9190 /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
+				3B31B5FB273C0A66009D9190 /* CellConfigurator.swift */,
+			);
+			path = Configurator;
 			sourceTree = "<group>";
 		};
 		3B4E3FDB272A696E00577625 = {
@@ -301,6 +313,7 @@
 			isa = PBXGroup;
 			children = (
 				FA614F182733CDAA00B090D9 /* TrackingProgressViewModel.swift */,
+				3B38FB19273BABBE00F8620D /* TrackingViewModel.swift */,
 			);
 			path = Tracking;
 			sourceTree = "<group>";
@@ -311,13 +324,6 @@
 				FA614F162733CDAA00B090D9 /* StatisticsViewModel.swift */,
 			);
 			path = Statistic;
-			sourceTree = "<group>";
-		};
-		FA473A11273B94760000C5DC /* User */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = User;
 			sourceTree = "<group>";
 		};
 		FA473A12273B947C0000C5DC /* Feed */ = {
@@ -367,7 +373,7 @@
 		FA473A19273BA2050000C5DC /* Feed */ = {
 			isa = PBXGroup;
 			children = (
-				FA614F4E2733CDAA00B090D9 /* FeedTableViewCell.swift */,
+				3B31B5F8273C05D8009D9190 /* FeedCell.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -390,7 +396,6 @@
 			isa = PBXGroup;
 			children = (
 				FA614F082733CDAA00B090D9 /* Storyboards */,
-				FA614F132733CDAA00B090D9 /* Renderers */,
 				FA614F152733CDAA00B090D9 /* ViewModels */,
 				FA614F1A2733CDAA00B090D9 /* Resources */,
 				FA614F252733CDAA00B090D9 /* Repositories */,
@@ -434,7 +439,6 @@
 			children = (
 				FA473A13273B94890000C5DC /* MileStone */,
 				FA473A12273B947C0000C5DC /* Feed */,
-				FA473A11273B94760000C5DC /* User */,
 				FA473A10273B94710000C5DC /* Statistic */,
 				FA473A0F273B946D0000C5DC /* Tracking */,
 				FA473A0E273B94690000C5DC /* Home */,
@@ -479,8 +483,8 @@
 		FA614F272733CDAA00B090D9 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				3B38FB15273A72D100F8620D /* Tracking+CoreDataClass.swift */,
-				3B38FB16273A72D100F8620D /* Tracking+CoreDataProperties.swift */,
+				3B31B5FD273CD2F7009D9190 /* Tracking+CoreDataClass.swift */,
+				3B31B5FE273CD2F7009D9190 /* Tracking+CoreDataProperties.swift */,
 				FA614F292733CDAA00B090D9 /* User+CoreDataProperties.swift */,
 				FA614F2C2733CDAA00B090D9 /* User+CoreDataClass.swift */,
 			);
@@ -495,7 +499,6 @@
 				FA614F312733CDAA00B090D9 /* MileStone.swift */,
 				FA614F322733CDAA00B090D9 /* HomeData.swift */,
 				FA614F332733CDAA00B090D9 /* Coordinate.swift */,
-				FA614F342733CDAA00B090D9 /* TrackingRecord.swift */,
 				FA614F362733CDAA00B090D9 /* TrackingModel.swift */,
 			);
 			path = Models;
@@ -552,6 +555,8 @@
 		FA614F482733CDAA00B090D9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3B31B5FA273C0A52009D9190 /* Configurator */,
+				FA614F132733CDAA00B090D9 /* Renderers */,
 				FA473A1B273BA2130000C5DC /* Home */,
 				FA473A1A273BA20D0000C5DC /* User */,
 				FA473A19273BA2050000C5DC /* Feed */,
@@ -567,6 +572,7 @@
 			children = (
 				FA614F502733CDAA00B090D9 /* TrackingProgressUsecase.swift */,
 				28C9702C273C3041005BD7BC /* DetailFeedUsecase.swift */,
+				3B38FB1B273BF7CD00F8620D /* FeedUseCase.swift */,
 			);
 			path = Usecases;
 			sourceTree = "<group>";
@@ -752,9 +758,10 @@
 			files = (
 				FA614F782733CDAA00B090D9 /* UIFont+Extension.swift in Sources */,
 				FA614F5F2733CDAA00B090D9 /* FeedViewModel.swift in Sources */,
+				3B31B5F9273C05D8009D9190 /* FeedCell.swift in Sources */,
 				FA614F7A2733CDAA00B090D9 /* TimeInterval+extension.swift in Sources */,
 				FA614F5B2733CDAA00B090D9 /* CircleRenderer.swift in Sources */,
-				FA614F892733CDAA00B090D9 /* FeedTableViewCell.swift in Sources */,
+				3B38FB1C273BF7CD00F8620D /* FeedUseCase.swift in Sources */,
 				FA614F802733CDAA00B090D9 /* TrackingProgressViewController.swift in Sources */,
 				FA614F792733CDAA00B090D9 /* UIAlertController+Extention.swift in Sources */,
 				FA614F832733CDAA00B090D9 /* FeedViewController.swift in Sources */,
@@ -766,10 +773,10 @@
 				FA614F902733D2CA00B090D9 /* UIColor+Extension.swift in Sources */,
 				FA614F5D2733CDAA00B090D9 /* HomeViewModel.swift in Sources */,
 				FA614F6F2733CDAA00B090D9 /* UserInfo.swift in Sources */,
-				3B38FB17273A72D100F8620D /* Tracking+CoreDataClass.swift in Sources */,
 				FA614F702733CDAA00B090D9 /* Statistics.swift in Sources */,
 				FA614F7C2733CDAA00B090D9 /* AppDelegate.swift in Sources */,
 				FA614F812733CDAA00B090D9 /* TrackingViewController.swift in Sources */,
+				3B31B5FF273CD2F7009D9190 /* Tracking+CoreDataClass.swift in Sources */,
 				28C96FED27396F6B005BD7BC /* DetailFeedViewModel.swift in Sources */,
 				FA614F6D2733CDAA00B090D9 /* User+CoreDataClass.swift in Sources */,
 				379E3C57273BC182002B0B15 /* ChartView.swift in Sources */,
@@ -782,13 +789,15 @@
 				28C9702D273C3041005BD7BC /* DetailFeedUsecase.swift in Sources */,
 				FA614F8A2733CDAA00B090D9 /* TrackingProgressUsecase.swift in Sources */,
 				FA614F982738FDA900B090D9 /* MileStonePhotoViewModel.swift in Sources */,
-				FA614F742733CDAA00B090D9 /* TrackingRecord.swift in Sources */,
 				28C96FF3273A4634005BD7BC /* UIResponder+Extension.swift in Sources */,
 				FA614F692733CDAA00B090D9 /* RepositoryManager.swift in Sources */,
+				3B31B5FC273C0A66009D9190 /* CellConfigurator.swift in Sources */,
 				FA473A16273B95750000C5DC /* BaseViewControllerTemplate.swift in Sources */,
 				FA614F852733CDAA00B090D9 /* TrackingMapView.swift in Sources */,
 				FA614F5E2733CDAA00B090D9 /* TrackingProgressViewModel.swift in Sources */,
 				FA614F7D2733CDAA00B090D9 /* SceneDelegate.swift in Sources */,
+				3B38FB1A273BABBE00F8620D /* TrackingViewModel.swift in Sources */,
+				3B31B600273CD2F7009D9190 /* Tracking+CoreDataProperties.swift in Sources */,
 				FA614F5C2733CDAA00B090D9 /* StatisticsViewModel.swift in Sources */,
 				FA614F8B2733CDAA00B090D9 /* HealthStoreManager.swift in Sources */,
 				FA614F8E2733CF9000B090D9 /* EmptyView.swift in Sources */,
@@ -796,7 +805,6 @@
 				FA614F6C2733CDAA00B090D9 /* Booster.xcdatamodeld in Sources */,
 				3B38FB14273A5F3B00F8620D /* TrackingCountDownView.swift in Sources */,
 				FA614F722733CDAA00B090D9 /* HomeData.swift in Sources */,
-				3B38FB18273A72D100F8620D /* Tracking+CoreDataProperties.swift in Sources */,
 				FA614F962738F7A200B090D9 /* MileStonePhotoViewController.swift in Sources */,
 				28C96FEB27396892005BD7BC /* DetailFeedViewController.swift in Sources */,
 			);

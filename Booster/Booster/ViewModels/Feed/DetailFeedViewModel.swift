@@ -8,24 +8,11 @@
 import Foundation
 
 final class DetailFeedViewModel {
-    var trackingModel: Observable<[Tracking]> = Observable([Tracking]())
+    var trackingModel: Observable<TrackingModel>
 
-    private let detailFeedUseCase: DetailFeedUsecase
+    init() { trackingModel = Observable(TrackingModel()) }
 
-    init(detailFeedUseCase: DetailFeedUsecase) {
-        self.detailFeedUseCase = detailFeedUseCase
-
-        configure()
-    }
-
-    private func configure() {
-        detailFeedUseCase.execute { response in
-            switch response {
-            case .success(let model):
-                self.trackingModel.value = model
-            case .failure:
-                break
-            }
-        }
+    func update(model: TrackingModel) {
+        trackingModel.value = model
     }
 }

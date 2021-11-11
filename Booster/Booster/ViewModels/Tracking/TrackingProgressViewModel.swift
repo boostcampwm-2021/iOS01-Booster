@@ -52,6 +52,10 @@ final class TrackingProgressViewModel {
         trackingModel.value.content = content
     }
 
+    func update(imageData: Data) {
+        trackingModel.value.imageData = imageData
+    }
+
     func update(seconds: Int) {
         trackingModel.value.seconds = seconds
     }
@@ -73,13 +77,21 @@ final class TrackingProgressViewModel {
         if state == .pause { trackingModel.value.coordinates.append(Coordinate(latitude: nil, longitude: nil))}
     }
 
+    func coordinates() -> [Coordinate] {
+        return trackingModel.value.coordinates
+    }
+
     func latestCoordinate() -> Coordinate? {
-        guard let latestCoordinate = trackingModel.value.coordinates.last else { return nil }
+        guard let latestCoordinate = trackingModel.value.coordinates.last
+        else { return nil }
+
         return latestCoordinate
     }
 
     func startCoordinate() -> Coordinate? {
-        guard let startCoordinate = trackingModel.value.coordinates.first else { return nil }
+        guard let startCoordinate = trackingModel.value.coordinates.first
+        else { return nil }
+
         return startCoordinate
     }
 
@@ -125,6 +137,7 @@ final class TrackingProgressViewModel {
               let startLat = startCoordinate.latitude,
               let startLong = startCoordinate.longitude
         else { return nil }
+
         var maxLat: Double = startLat
         var minLat: Double = startLat
         var maxLong: Double = startLong
@@ -134,6 +147,7 @@ final class TrackingProgressViewModel {
             guard let latValue = coordinate.latitude,
                   let longValue = coordinate.longitude
             else { return }
+
             if maxLat < latValue { maxLat = latValue } else if minLat > latValue { minLat = latValue }
 
             if maxLong < longValue { maxLong = longValue } else if minLong > longValue { minLong = longValue}
@@ -146,7 +160,9 @@ final class TrackingProgressViewModel {
     }
 
     func remove(of mileStone: MileStone) -> MileStone? {
-        guard let index = milestones.value.firstIndex(of: mileStone) else { return nil }
+        guard let index = milestones.value.firstIndex(of: mileStone)
+        else { return nil }
+
         return milestones.value.remove(at: index)
     }
 }
