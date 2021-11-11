@@ -17,7 +17,7 @@ final class DetailFeedViewController: UIViewController {
     @IBOutlet private weak var mapView: MKMapView!
     @IBOutlet private weak var stepCountsLabel: UILabel!
 
-    var trackingInfo: TrackingRecord?
+    // var trackingInfo: TrackingRecord?
 
     // MARK: Life Cycles
 

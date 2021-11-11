@@ -20,21 +20,33 @@ class FeedUseCase {
         repository = RepositoryManager()
     }
 
-    func fetch(completion handler: @escaping ([TrackingRecord]) -> Void) {
+    func fetch(completion handler: @escaping ([TrackingModel]) -> Void) {
         repository.fetch { (response: Result<[Tracking], Error>) in
             switch response {
             case .success(let result):
-                var trackingModels: [TrackingRecord] = []
+                var trackingModels: [TrackingModel] = []
                 result.forEach { value in
                     if let startDate = value.startDate,
+                       let coordinatesData = value.coordinates,
+                       let milestonesData = value.milestones,
+                       let coordinates = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(coordinatesData) as? [Coordinate],
+                       let milestones = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(milestonesData) as? [MileStone],
                        let title = value.title,
-                       let imageData = value.imageData {
-                        let trackingRecord = TrackingRecord(title: title,
-                                                            date: startDate,
-                                                            distance: value.distance,
-                                                            totalSteps: Int(value.steps),
-                                                            imageData: imageData)
-                        trackingModels.append(trackingRecord)
+                       let content = value.content,
+                       let imageData = value.imageData,
+                       let endDate = value.endDate {
+                        let trackingModel = TrackingModel(startDate: startDate,
+                                                          endDate: endDate,
+                                                          steps: Int(value.steps),
+                                                          calories: Int(value.calories),
+                                                          seconds: Int(value.seconds),
+                                                          distance: value.distance,
+                                                          coordinates: coordinates,
+                                                          milestones: milestones,
+                                                          title: title,
+                                                          content: content,
+                                                          imageData: imageData)
+                        trackingModels.append(trackingModel)
                     }
 
                     handler(trackingModels)

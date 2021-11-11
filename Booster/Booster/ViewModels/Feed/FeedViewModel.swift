@@ -14,13 +14,13 @@ typealias FeedCellConfigure = CollectionCellConfigurator<FeedCell, (date: Date,
 
 final class FeedViewModel {
     subscript(indexPath: IndexPath) -> CellConfigurator {
-        return FeedCellConfigure(item: (date: trackingRecords.value[indexPath.row].date,
+        return FeedCellConfigure(item: (date: trackingRecords.value[indexPath.row].startDate,
                                         distance: trackingRecords.value[indexPath.row].distance,
-                                        step: trackingRecords.value[indexPath.row].totalSteps,
+                                        step: trackingRecords.value[indexPath.row].steps,
                                         imageData: trackingRecords.value[indexPath.row].imageData))
     }
 
-    var trackingRecords: Observable<[TrackingRecord]>
+    var trackingRecords: Observable<[TrackingModel]>
     let usecase: FeedUseCase
 
     init() {
@@ -32,7 +32,7 @@ final class FeedViewModel {
         return trackingRecords.value.count
     }
 
-    func dataAtIndex(_ index: Int) -> TrackingRecord? {
+    func dataAtIndex(_ index: Int) -> TrackingModel? {
         return trackingRecords.value[index]
     }
 
