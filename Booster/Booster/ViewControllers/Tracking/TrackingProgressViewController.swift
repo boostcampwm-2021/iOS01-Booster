@@ -450,7 +450,8 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
 
             self.mapView.snapShotImageOfPath(backgroundColor: .clear,
                                              coordinates: coordinates,
-                                             center: center) { image in
+                                             center: center,
+                                             range: self.viewModel.distance()) { image in
                 guard let data = image?.pngData()
                 else {
                     self.save()
@@ -465,7 +466,9 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
     private func save() {
         if let centerCoordinate = viewModel.centerCoordinateOfPath() {
             let coordinates = viewModel.coordinates()
-            mapView.snapShotImageOfPath(coordinates: coordinates, center: centerCoordinate) { [weak self] (image) in
+            mapView.snapShotImageOfPath(coordinates: coordinates,
+                                        center: centerCoordinate,
+                                        range: viewModel.distance()) { [weak self] (image) in
                 if let imageData = image?.pngData() {
                     self?.viewModel.update(imageData: imageData)
                 }

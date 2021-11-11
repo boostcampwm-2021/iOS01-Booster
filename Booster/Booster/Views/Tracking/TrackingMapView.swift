@@ -87,13 +87,14 @@ class TrackingMapView: MKMapView {
     func snapShotImageOfPath(backgroundColor color: UIColor = .white,
                              coordinates: [Coordinate],
                              center: CLLocationCoordinate2D,
+                             range: Double,
                              completion: @escaping(UIImage?) -> Void) {
         let dotSize = CGSize(width: 16, height: 16)
         let options = MKMapSnapshotter.Options()
         options.size = CGSize(width: 250, height: 250)
         options.region = MKCoordinateRegion(center: center,
-                                            latitudinalMeters: 1000,
-                                            longitudinalMeters: 1000)
+                                            latitudinalMeters: range,
+                                            longitudinalMeters: range)
 
         let snapShotter = MKMapSnapshotter(options: options)
         snapShotter.start { [weak self] (snapshot, _) in

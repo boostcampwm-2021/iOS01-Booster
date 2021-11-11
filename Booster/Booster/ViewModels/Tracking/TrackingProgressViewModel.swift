@@ -165,4 +165,8 @@ final class TrackingProgressViewModel {
 
         return milestones.value.remove(at: index)
     }
+
+    func distance() -> Double {
+        return trackingModel.value.distance
+    }
 }
