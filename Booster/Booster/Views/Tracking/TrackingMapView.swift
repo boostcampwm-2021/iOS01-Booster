@@ -99,7 +99,7 @@ class TrackingMapView: MKMapView {
         snapShotter.start { [weak self] (snapshot, _) in
             guard let snapshot = snapshot
             else { return }
-            
+
             let image = snapshot.image
             let pathLineWidth: CGFloat = 6
 
@@ -109,7 +109,7 @@ class TrackingMapView: MKMapView {
 
             guard let context = UIGraphicsGetCurrentContext()
             else { return }
-            
+
             context.setLineWidth(pathLineWidth)
             context.setStrokeColor(UIColor.boosterOrange.cgColor)
 
@@ -180,7 +180,7 @@ class TrackingMapView: MKMapView {
                                            to toColor: UIColor) -> UIColor? {
         guard let indexOfTargetCoordinate = coordinates.firstIndex(of: coordinate)
         else { return nil }
-        
+
         let percentOfPathProgress = Double(indexOfTargetCoordinate) / Double(coordinates.count)
 
         let red = fromColor.redValue + ((toColor.redValue - fromColor.redValue) * percentOfPathProgress)

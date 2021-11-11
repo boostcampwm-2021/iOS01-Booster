@@ -15,8 +15,8 @@ final class DetailFeedUsecase {
         self.repository = repository
     }
 
-    func execute(completion: @escaping (ResultType<[Tracking], Error>) -> Void) {
-        repository.fetch(type: "Tracking") { response in
+    func execute(completion: @escaping (Result<[Tracking], Error>) -> Void) {
+        repository.fetch { (response: Result<[Tracking], Error>) in
             completion(response)
         }
     }

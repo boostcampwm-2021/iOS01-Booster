@@ -37,25 +37,25 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
         mapView.layer.cornerRadius = mapView.frame.height / 15
         mapView.delegate = self
 
-        viewModel.trackingModel.bind { [weak self] value in
-            guard let self = self
-            else { return }
-            value.forEach {
-                self.titleLabel.text = $0.title
-                self.locationInfoLabel.text = "\($0.endDate ?? Date())"
-                self.stepCountsLabel.text = "\($0.steps)"
-
-                var points: [CLLocationCoordinate2D] = []
-                let point1 = CLLocationCoordinate2DMake(37.6659862, 126.7710653)
-                let point2 = CLLocationCoordinate2DMake(37.6667059, 126.7714045)
-                let point3 = CLLocationCoordinate2DMake(37.6688112, 126.7705767)
-                points.append(point1)
-                points.append(point2)
-                points.append(point3)
-
-                self.createPolyLine(points: points)
-            }
-        }
+//        viewModel.trackingModel.bind { [weak self] value in
+//            guard let self = self
+//            else { return }
+//            value.forEach {
+//                self.titleLabel.text = $0.title
+//                self.locationInfoLabel.text = "\($0.endDate ?? Date())"
+//                self.stepCountsLabel.text = "\($0.steps)"
+//
+//                var points: [CLLocationCoordinate2D] = []
+//                let point1 = CLLocationCoordinate2DMake(37.6659862, 126.7710653)
+//                let point2 = CLLocationCoordinate2DMake(37.6667059, 126.7714045)
+//                let point3 = CLLocationCoordinate2DMake(37.6688112, 126.7705767)
+//                points.append(point1)
+//                points.append(point2)
+//                points.append(point3)
+//
+//                self.createPolyLine(points: points)
+//            }
+//        }
     }
 
     private func createPolyLine(points: [CLLocationCoordinate2D]) {
@@ -64,9 +64,9 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
         let lineDraw = MKPolyline(coordinates: points, count: points.count)
         mapView.addOverlay(lineDraw)
     }
-    
-    //우리나라기준 위도 약 1도: 110km, 1분 1.8km, 1초 30m
-    //경도 약 1도: 88.74km, 1분: 1.479km, 1초: 0.024km = 24m
+
+    // 우리나라기준 위도 약 1도: 110km, 1분 1.8km, 1초 30m
+    // 경도 약 1도: 88.74km, 1분: 1.479km, 1초: 0.024km = 24m
     private func configureWholeRegion(points: [CLLocationCoordinate2D]) {
     }
 }
