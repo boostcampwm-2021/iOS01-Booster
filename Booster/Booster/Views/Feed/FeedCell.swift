@@ -37,7 +37,7 @@ class FeedCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        backgroundColor = .boosterGray
+        backgroundColor = .boosterLabel
         emptyView.removeFromSuperview()
         dateLabel.text = nil
         distanceLabel.text = nil

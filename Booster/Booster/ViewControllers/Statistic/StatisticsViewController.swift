@@ -45,25 +45,25 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
 
     // MARK: - @IBActions
     @IBAction private func weekButtonDidTap(_ sender: UIButton) {
-        weekButton.tintColor  = UIColor.boosterLabel
-        monthButton.tintColor = .gray
-        yearButton.tintColor  = .gray
+        weekButton.tintColor  = .boosterLabel
+        monthButton.tintColor = .boosterGray
+        yearButton.tintColor  = .boosterGray
         viewModel.selectedDuration.value = .week
         viewModel.selectedStatistics.value = (index: nil, coordinate: nil)
     }
 
     @IBAction private func monthButtonDidTap(_ sender: UIButton) {
-        weekButton.tintColor  = .gray
-        monthButton.tintColor = UIColor.boosterLabel
-        yearButton.tintColor  = .gray
+        weekButton.tintColor  = .boosterGray
+        monthButton.tintColor = .boosterLabel
+        yearButton.tintColor  = .boosterGray
         viewModel.selectedDuration.value = .month
         viewModel.selectedStatistics.value = (index: nil, coordinate: nil)
     }
 
     @IBAction private func yearButtonDidTap(_ sender: UIButton) {
-        weekButton.tintColor  = .gray
-        monthButton.tintColor = .gray
-        yearButton.tintColor  = UIColor.boosterLabel
+        weekButton.tintColor  = .boosterGray
+        monthButton.tintColor = .boosterGray
+        yearButton.tintColor  = .boosterLabel
         viewModel.selectedDuration.value = .year
         viewModel.selectedStatistics.value = (index: nil, coordinate: nil)
     }

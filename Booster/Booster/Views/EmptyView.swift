@@ -33,7 +33,7 @@ final class EmptyView: UIView {
     func apply(title: String, image: UIImage) {
         imageView.image = image
         titlelabel.text = title
-        titlelabel.textColor = .boosterLabel
+        titlelabel.textColor = .boosterGray
         titlelabel.numberOfLines = 2
         titlelabel.textAlignment = .center
         titlelabel.font = .notoSansKR(.regular, 17)

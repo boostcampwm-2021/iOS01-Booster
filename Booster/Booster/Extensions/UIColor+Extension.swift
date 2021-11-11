@@ -34,7 +34,7 @@ extension UIColor {
     }()
 
     static let boosterLabel: UIColor = {
-        return UIColor(named: "boosterLabel") ?? UIColor(hex: 0xECECEC)
+        return UIColor(named: "boosterLabel") ?? UIColor(hex: 0xEDEDED)
     }()
 
     static let boosterBackground: UIColor = {
@@ -42,6 +42,6 @@ extension UIColor {
     }()
 
     static let boosterGray: UIColor = {
-        return UIColor(named: "boosterGray") ?? UIColor(hex: 0xEDEDED)
+        return UIColor(named: "boosterGray") ?? UIColor(hex: 0x707070)
     }()
 }
