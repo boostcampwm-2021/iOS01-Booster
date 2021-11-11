@@ -142,13 +142,13 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
             }
 
             if HKHealthStore.isHealthDataAvailable() {
-                save()
+                makeImageData()
             } else {
                 store.requestAuthorization(toShare: types, read: types) { success, error in
                     if let _ = error {
                         self.present(alert, animated: true)
                     } else if success {
-                        self.save()
+                        self.makeImageData()
                     } else {
                         self.present(alert, animated: true)
                     }
@@ -202,8 +202,7 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
         }
     }
 
-    @objc
-    private func keyboardWillHide(_ notification: Notification) {
+    @objc private func keyboardWillHide(_ notification: Notification) {
         if view.frame.origin.y != 0 {
             view.frame.origin.y = 0
             view.setNeedsLayout()
@@ -438,6 +437,28 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
         }
 
         return mutableString
+    }
+
+    private func makeImageData() {
+        DispatchQueue.global().async { [weak self] in
+            guard let self = self,
+                  let center = self.viewModel.centerCoordinateOfPath()
+            else { return }
+
+            let coordinates = self.viewModel.coordinates()
+
+            self.mapView.snapShotImageOfPath(backgroundColor: .clear,
+                                             coordinates: coordinates,
+                                             center: center) { image in
+                guard let data = image?.pngData()
+                else {
+                    self.save()
+                    return
+                }
+                self.viewModel.update(imageData: data)
+                self.save()
+            }
+        }
     }
 
     private func save() {

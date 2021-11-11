@@ -109,27 +109,23 @@ class TrackingMapView: MKMapView {
 
             var prevCoordinate: Coordinate?
             for coordinate in coordinates {
-                guard let currentLatitude = coordinate.latitude,
-                      let currentLongitude = coordinate.longitude
-                else {
-                    guard let latitude = coordinate.latitude,
-                          let longitude = coordinate.longitude
-                    else { return }
-
+                if let currentLatitude = coordinate.latitude,
+                   let currentLongitude = coordinate.longitude {
+                    context.addLine(to: snapshot.point(for: CLLocationCoordinate2D(latitude: currentLatitude, longitude: currentLongitude)))
+                    context.move(to: snapshot.point(for: CLLocationCoordinate2D(latitude: currentLatitude, longitude: currentLongitude)))
                     prevCoordinate = coordinate
-                    let point = snapshot.point(for: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+                } else {
+                    if let latitude = prevCoordinate?.latitude,
+                       let longitude = prevCoordinate?.longitude {
+                        let point = snapshot.point(for: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
 
-                    context.move(to: point)
-                    context.addEllipse(in: CGRect(origin: point, size: dotSize))
+                        context.move(to: point)
+                        context.addEllipse(in: CGRect(origin: point, size: dotSize))
+                    }
                     UIColor.boosterBackground.setFill()
                     context.drawPath(using: .fill)
                     UIColor.boosterOrange.setFill()
-
-                    continue
                 }
-                context.addLine(to: snapshot.point(for: CLLocationCoordinate2D(latitude: currentLatitude, longitude: currentLongitude)))
-                context.move(to: snapshot.point(for: CLLocationCoordinate2D(latitude: currentLatitude, longitude: currentLongitude)))
-                prevCoordinate = coordinate
             }
             context.strokePath()
 

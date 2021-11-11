@@ -52,6 +52,10 @@ final class TrackingProgressViewModel {
         trackingModel.value.content = content
     }
 
+    func update(imageData: Data) {
+        trackingModel.value.imageData = imageData
+    }
+
     func update(seconds: Int) {
         trackingModel.value.seconds = seconds
     }
@@ -156,5 +160,9 @@ final class TrackingProgressViewModel {
         else { return nil }
 
         return milestones.value.remove(at: index)
+    }
+
+    func coordinates() -> [Coordinate] {
+        return trackingModel.value.coordinates
     }
 }
