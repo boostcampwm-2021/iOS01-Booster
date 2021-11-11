@@ -67,8 +67,12 @@ extension FeedViewController: UICollectionViewDelegate {
 
 // MARK: - collection view flow layout delegate
 extension FeedViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height: CGFloat = viewModel.recordCount() == 0 ? collectionView.frame.height : 175
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath)
+    -> CGSize {
+        let defaultCellHeight: CGFloat = 175
+        let height: CGFloat = viewModel.recordCount() == 0 ? collectionView.frame.height : defaultCellHeight
         let width = collectionView.frame.width-60
 
         return CGSize(width: width, height: height)
