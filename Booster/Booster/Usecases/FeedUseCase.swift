@@ -21,7 +21,7 @@ class FeedUseCase {
     }
 
     func fetch(completion handler: @escaping ([TrackingRecord]) -> Void) {
-        repository.fetch(type: EntityName.tracking) { (response: Result<[Tracking], Error>) in
+        repository.fetch { (response: Result<[Tracking], Error>) in
             switch response {
             case .success(let result):
                 var trackingModels: [TrackingRecord] = []
