@@ -3,6 +3,8 @@ import CoreData
 
 final class RepositoryManager {
     init() {
+        container = NSPersistentContainer(name: "Booster")
+        container.loadPersistentStores { _, _ in }
         entityName = ""
     }
 
@@ -10,11 +12,7 @@ final class RepositoryManager {
     private var entity: NSEntityDescription? {
         return NSEntityDescription.entity(forEntityName: entityName, in: container.viewContext)
     }
-    private lazy var container: NSPersistentContainer = {
-            let container = NSPersistentContainer(name: "Booster")
-            container.loadPersistentStores { _, _ in }
-            return container
-    }()
+    private var container: NSPersistentContainer
     private lazy var backgroundContext: NSManagedObjectContext = {
         let backgroundContext = container.newBackgroundContext()
         return backgroundContext
