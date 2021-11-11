@@ -9,7 +9,7 @@ import HealthKit
 
 final class HomeViewModel {
     var homeData: Observable<HomeData> = Observable(HomeData())
-    
+
     init() { }
 
     func fetchQueries() {
@@ -100,7 +100,7 @@ final class HomeViewModel {
     private func fetchTotalStepCountsData() {
         guard let totalStepSampleType = HKSampleType.quantityType(forIdentifier: .stepCount)
         else { return }
-        
+
         let now = Date()
         let start = retrieveTodayStartDate(from: now)
         let predicate = HKQuery.predicateForSamples(withStart: start,

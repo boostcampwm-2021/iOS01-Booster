@@ -4,18 +4,18 @@ final class EmptyView: UIView {
     // MARK: - Properties
     private let imageView = UIImageView()
     private let titlelabel = UILabel()
-    
+
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureLayout()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         configureLayout()
     }
-    
+
     // MARK: - Functions
     private func configureLayout() {
         addSubview(imageView)
@@ -29,7 +29,7 @@ final class EmptyView: UIView {
         titlelabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         titlelabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 40).isActive = true
     }
-    
+
     func apply(title: String, image: UIImage) {
         imageView.image = image
         titlelabel.text = title
