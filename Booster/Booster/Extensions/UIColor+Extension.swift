@@ -28,4 +28,8 @@ extension UIColor {
     static let boosterBackground: UIColor = {
         return UIColor(named: "boosterBackground") ?? UIColor(hex: 0xFF5C00)
     }()
+
+    static let boosterGray: UIColor = {
+        return UIColor(named: "boosterGray") ?? UIColor(hex: 0xEDEDED)
+    }()
 }
