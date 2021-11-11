@@ -10,14 +10,16 @@ import Foundation
 typealias FeedCellConfigure = CollectionCellConfigurator<FeedCell, (date: Date,
                                                                     distance: Double,
                                                                     step: Int,
-                                                                    imageData: Data)>
+                                                                    imageData: Data,
+                                                                    isEmpty: Bool)>
 
 final class FeedViewModel {
     subscript(indexPath: IndexPath) -> CellConfigurator {
         return FeedCellConfigure(item: (date: trackingRecords.value[indexPath.row].startDate,
                                         distance: trackingRecords.value[indexPath.row].distance,
                                         step: trackingRecords.value[indexPath.row].steps,
-                                        imageData: trackingRecords.value[indexPath.row].imageData))
+                                        imageData: trackingRecords.value[indexPath.row].imageData,
+                                        isEmpty: recordCount() == 0))
     }
 
     private(set) var trackingRecords: Observable<[TrackingModel]>

@@ -45,7 +45,7 @@ final class FeedViewController: UIViewController, BaseViewControllerTemplate {
 // MARK: - collection view data source delegate
 extension FeedViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.recordCount()
+        return viewModel.recordCount() == 0 ? 1 : viewModel.recordCount()
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -69,7 +69,7 @@ extension FeedViewController: UICollectionViewDelegate {
 // MARK: - collection view flow layout delegate
 extension FeedViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height: CGFloat = 175
+        let height: CGFloat = viewModel.recordCount() == 0 ? collectionView.frame.height : 175
         let width = collectionView.frame.width-60
 
         return CGSize(width: width, height: height)
