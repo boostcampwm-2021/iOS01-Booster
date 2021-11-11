@@ -8,7 +8,6 @@
 import UIKit
 
 final class ChartView: UIView {
-
     private let graphLayer = CALayer()
     private let textLayer  = CALayer()
 

@@ -13,7 +13,9 @@ struct StatisticsCollection: Equatable {
     }
 
     func maxStatistics() -> Statistics? {
-        guard var maxStatistics = statisticsCollection.first else { return nil }
+        guard var maxStatistics = statisticsCollection.first
+        else { return nil }
+        
         for statistics in statisticsCollection {
             maxStatistics = max(maxStatistics, statistics)
         }
@@ -35,6 +37,7 @@ struct StatisticsCollection: Equatable {
 
         return sumStep / days
     }
+    
     func termOfStatistics(component: Calendar.Component) -> String {
         guard let startDate = statisticsCollection.first?.date,
               let endDate = statisticsCollection.last?.date,

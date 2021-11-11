@@ -45,7 +45,7 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
 
     // MARK: - @IBActions
     @IBAction private func weekButtonDidTap(_ sender: UIButton) {
-        weekButton.tintColor  = .white
+        weekButton.tintColor  = UIColor.boosterLabel
         monthButton.tintColor = .gray
         yearButton.tintColor  = .gray
         viewModel.selectedDuration.value = .week
@@ -54,7 +54,7 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
 
     @IBAction private func monthButtonDidTap(_ sender: UIButton) {
         weekButton.tintColor  = .gray
-        monthButton.tintColor = .white
+        monthButton.tintColor = UIColor.boosterLabel
         yearButton.tintColor  = .gray
         viewModel.selectedDuration.value = .month
         viewModel.selectedStatistics.value = (index: nil, coordinate: nil)
@@ -63,7 +63,7 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
     @IBAction private func yearButtonDidTap(_ sender: UIButton) {
         weekButton.tintColor  = .gray
         monthButton.tintColor = .gray
-        yearButton.tintColor  = .white
+        yearButton.tintColor  = UIColor.boosterLabel
         viewModel.selectedDuration.value = .year
         viewModel.selectedStatistics.value = (index: nil, coordinate: nil)
     }
@@ -124,18 +124,18 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
 
         let statistics: Statistics = viewModel.statistics()[index]
 
-        let x = CGFloat(coordinate) * chartView.frame.width + sideInset
+        let xCoordinate = CGFloat(coordinate) * chartView.frame.width + sideInset
         let stepRatio = 1 - CGFloat(statistics.step) / CGFloat(maxStep)
 
         stepCountLabel.text = "\(statistics.step)걸음"
         stepCountLabel.sizeToFit()
-        stepCountLabel.center.x = x
+        stepCountLabel.center.x = xCoordinate
 
         intervalLabel.text = stepInterval(from: statistics.date)
         intervalLabel.sizeToFit()
-        intervalLabel.center.x = x
+        intervalLabel.center.x = xCoordinate
 
-        barView.frame = CGRect(x: x,
+        barView.frame = CGRect(x: xCoordinate,
                                y: view.frame.height - chartView.frame.height - view.safeAreaInsets.bottom,
                                width: 1,
                                height: chartView.topSpace + chartView.centerSpace * stepRatio)

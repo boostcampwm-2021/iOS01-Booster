@@ -39,7 +39,7 @@ final class StatisticsViewModel {
         var selectedIndex: Int = -1
 
         for index in 0..<statisticsCollection.count {
-            if Float(index) * offset <= xCoordinate && xCoordinate <= Float(index + 1) * offset {
+            if (Float(index) * offset...Float(index + 1) * offset).contains(xCoordinate) {
                 selectedIndex = index
                 break
             }
@@ -58,7 +58,7 @@ final class StatisticsViewModel {
         var selectedIndex: Int = -1
 
         for index in 0..<statisticsCollection.count {
-            if Float(index) * offset <= xCoordinate && xCoordinate <= Float(index + 1) * offset {
+            if (Float(index) * offset...Float(index + 1) * offset).contains(xCoordinate) {
                 selectedIndex = index
                 break
             }
