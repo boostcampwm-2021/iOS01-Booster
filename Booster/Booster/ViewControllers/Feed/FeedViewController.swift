@@ -43,13 +43,16 @@ final class FeedViewController: UIViewController, BaseViewControllerTemplate {
     }
 
     func configure() {
-        viewModel.trackingRecords.bind { [weak self] _ in
-            guard let self = self
-            else { return }
+        viewModel.trackingRecords.bind {  _ in
 
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self
+                else { return }
+
                 self.refershControl.endRefreshing()
+                self.collectionView.performBatchUpdates {
+                    self.collectionView.reloadData()
+                }
             }
         }
 
@@ -102,7 +105,7 @@ extension FeedViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let contentY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
-        
+
         if contentY > contentHeight - scrollView.frame.height {
             viewModel.fetch()
         }
