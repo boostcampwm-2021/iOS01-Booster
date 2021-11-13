@@ -8,10 +8,6 @@
 import Foundation
 
 class FeedUseCase {
-    enum EntityName {
-        static let tracking = "Tracking"
-    }
-
     private let repository: RepositoryManager
     private let entity: String
 
@@ -25,36 +21,58 @@ class FeedUseCase {
             switch response {
             case .success(let result):
                 var trackingModels: [TrackingModel] = []
-                result.forEach { value in
-                    if let startDate = value.startDate,
-                       let coordinatesData = value.coordinates,
-                       let milestonesData = value.milestones,
-                       let coordinates = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(coordinatesData) as? [Coordinate],
-                       let milestones = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(milestonesData) as? [MileStone],
-                       let title = value.title,
-                       let content = value.content,
-                       let imageData = value.imageData,
-                       let endDate = value.endDate {
-                        let trackingModel = TrackingModel(startDate: startDate,
-                                                          endDate: endDate,
-                                                          steps: Int(value.steps),
-                                                          calories: Int(value.calories),
-                                                          seconds: Int(value.seconds),
-                                                          distance: value.distance,
-                                                          coordinates: coordinates,
-                                                          milestones: milestones,
-                                                          title: title,
-                                                          content: content,
-                                                          imageData: imageData)
+                result.forEach { [weak self] value in
+                    if let trackingModel = self?.convert(tracking: value) {
                         trackingModels.append(trackingModel)
                     }
-
-                    handler(trackingModels)
                 }
-
+                handler(trackingModels)
             case .failure:
                 handler([])
             }
         }
+    }
+
+    func fetch(predicate: NSPredicate, completion handler: @escaping ([TrackingModel]) -> Void) {
+        repository.fetch(entityName: entity, predicate: predicate) { (response: Result<[Tracking], Error>) in
+            switch response {
+            case .success(let result):
+                var trackingModels: [TrackingModel] = []
+                result.forEach { [weak self] value in
+                    if let trackingModel = self?.convert(tracking: value) {
+                        trackingModels.append(trackingModel)
+                    }
+                }
+                handler(trackingModels)
+            case .failure:
+                handler([])
+            }
+        }
+    }
+
+    private func convert(tracking: Tracking) -> TrackingModel? {
+        if let startDate = tracking.startDate,
+           let coordinatesData = tracking.coordinates,
+           let milestonesData = tracking.milestones,
+           let coordinates = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(coordinatesData) as? [Coordinate],
+           let milestones = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(milestonesData) as? [MileStone],
+           let title = tracking.title,
+           let content = tracking.content,
+           let imageData = tracking.imageData,
+           let endDate = tracking.endDate {
+            let trackingModel = TrackingModel(startDate: startDate,
+                                              endDate: endDate,
+                                              steps: Int(tracking.steps),
+                                              calories: Int(tracking.calories),
+                                              seconds: Int(tracking.seconds),
+                                              distance: tracking.distance,
+                                              coordinates: coordinates,
+                                              milestones: milestones,
+                                              title: title,
+                                              content: content,
+                                              imageData: imageData)
+            return trackingModel
+        }
+        return nil
     }
 }
