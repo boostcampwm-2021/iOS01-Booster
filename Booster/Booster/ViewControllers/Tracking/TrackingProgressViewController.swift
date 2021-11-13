@@ -166,7 +166,6 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
         var isMoved = true
         let timerTime = -Int(timerDate.timeIntervalSinceNow)
         let time = timerTime + lastestTime
-        let calroies = Int(60 / 15 * 0.9 * Double((time / 60) % 60))
         let limit: Double = 300
 
         pedometer.queryPedometerData(from: Date(timeIntervalSinceNow: -limit), to: Date()) { data, _ in
@@ -178,7 +177,6 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
         switch isMoved && timerTime <= Int(limit) {
         case true:
             viewModel.update(seconds: time)
-            viewModel.update(calroies: calroies)
         case false:
             viewModel.toggle()
             update()
@@ -411,7 +409,7 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
 
     private func makeTimerText(time: Int) -> String {
         let seconds = time % 60
-        let minutes = (time / 60) % 60
+        let minutes = (time / 60)
         var text = ""
         text += "\(minutes < 10 ? "0\(minutes)'" : "\(minutes)'")"
         text += "\(seconds < 10 ? "0\(seconds)\"\n" : "\(seconds)\"\n")"
