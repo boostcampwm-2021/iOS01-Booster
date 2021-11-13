@@ -30,7 +30,7 @@ final class HealthStoreManager {
             switch self {
             case .count: return .count()
             case .kilometer: return .meterUnit(with: .kilo)
-            case .calorie: return .largeCalorie()
+            case .calorie: return .kilocalorie()
             }
         }
     }
