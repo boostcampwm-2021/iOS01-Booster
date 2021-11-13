@@ -60,7 +60,6 @@ extension FeedCell: ConfigurableCell {
         }
         let dateFormatter = DateFormatter()
         let weekdayText = "산책"
-        let distanceText = String.init(format: "%.1f", data.distance/1000)
         dateFormatter.locale = Locale(identifier: "ko_KR")
         dateFormatter.dateFormat = "yyyyMMDD"
 
@@ -68,7 +67,7 @@ extension FeedCell: ConfigurableCell {
 
         dateFormatter.dateFormat = "EEE요일 a "
 
-        distanceLabel.text = "\(distanceText)\nkm"
+        distanceLabel.text = "\(data.distance)\nkm"
         weekdayLabel.text = dateFormatter.string(from: data.date)+weekdayText
         stepLabel.text = "\(data.step)"
         pathImageView.image = UIImage(data: data.imageData)
