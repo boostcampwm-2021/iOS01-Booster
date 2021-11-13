@@ -40,6 +40,7 @@ final class TrackingProgressViewModel {
 
     func recordEnd() {
         trackingModel.value.endDate = Date()
+        convert()
         trackingModel.value.milestones = milestones.value
         state = .end
     }
@@ -168,5 +169,13 @@ final class TrackingProgressViewModel {
 
     func distance() -> Double {
         return trackingModel.value.distance
+    }
+
+    private func convert() {
+        let meter = trackingModel.value.distance
+
+        if let kilometer = Double(String(format: "%.2f", meter/1000)) {
+            trackingModel.value.distance = kilometer
+        }
     }
 }
