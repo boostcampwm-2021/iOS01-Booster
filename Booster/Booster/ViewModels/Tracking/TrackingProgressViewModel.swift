@@ -104,7 +104,7 @@ final class TrackingProgressViewModel {
                              end: trackingModel.value.endDate ?? Date(),
                              quantity: .steps,
                              unit: .count)
-        trackingUsecase.save(count: trackingModel.value.distance / 1000,
+        trackingUsecase.save(count: trackingModel.value.distance,
                              start: trackingModel.value.startDate,
                              end: trackingModel.value.endDate ?? Date(),
                              quantity: .runing,
