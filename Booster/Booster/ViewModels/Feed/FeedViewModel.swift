@@ -25,9 +25,11 @@ final class FeedViewModel {
 
     private(set) var trackingRecords: Observable<[TrackingModel]>
     private var selectedIndex: IndexPath
+    private var difference: Int
     private let usecase: FeedUseCase
 
     init() {
+        difference = 0
         selectedIndex = IndexPath()
         usecase = FeedUseCase()
         trackingRecords = Observable([])
@@ -45,9 +47,38 @@ final class FeedViewModel {
         return trackingRecords.value[selectedIndex.row]
     }
 
+    func reset() {
+        difference = 0
+        fetch()
+    }
+
     func fetch() {
-        usecase.fetch { [weak self] result in
-            self?.trackingRecords.value = result
+        let calendar = Calendar(identifier: .gregorian)
+        let currentDate = Date()
+
+        if let date = calendar.date(byAdding: .day, value: difference, to: currentDate) {
+            let predicate = NSPredicate(format: "startDate <= %@", date as CVarArg)
+            usecase.fetch(predicate: predicate) { [weak self] result in
+                if result.count == 0 { return }
+                
+                self?.asyncFetch(calendar: calendar, currentDate: currentDate)
+            }
+        }
+    }
+
+    private func asyncFetch(calendar: Calendar, currentDate: Date) {
+        if let date = calendar.date(byAdding: .day, value: difference, to: currentDate) as NSDate? {
+            let predicate = NSPredicate(format: "startDate >= %@", date as CVarArg)
+            usecase.fetch(predicate: predicate) { [weak self] response in
+                guard let self = self
+                else { return }
+                if response.count == 0 {
+                    self.difference -= 7
+                    self.asyncFetch(calendar: calendar, currentDate: currentDate)
+                } else {
+                    self.trackingRecords.value = response
+                }
+            }
         }
     }
 }
