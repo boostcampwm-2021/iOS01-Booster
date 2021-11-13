@@ -7,7 +7,7 @@ struct UserInfo {
     let height: Int
     let weight: Int
 
-    init(age: Int = 0, nickname: String = "", gender: String = "", height: Int = 0, weight: Int = 0) {
+    init(age: Int = 25, nickname: String = "", gender: String = "M", height: Int = 170, weight: Int = 60) {
         self.age = age
         self.nickname = nickname
         self.gender = gender
