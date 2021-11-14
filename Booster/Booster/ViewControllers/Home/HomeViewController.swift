@@ -54,18 +54,22 @@ final class HomeViewController: UIViewController, BaseViewControllerTemplate {
     private func bindHomeViewModel() {
         viewModel.homeModel.bind { [weak self] value in
             DispatchQueue.main.async {
-                self?.todayTotalStepCountLabel.text = "\(value.totalStepCount)"
-                self?.kmLabel.text = String(format: "%.2f", value.km)
-                self?.kcalLabel.text = "\(value.kcal)"
-                self?.timeActiveLabel.text = value.activeTime.stringToMinutesAndSeconds()
-                self?.todayTotalStepCountLabel.layer.opacity = 0
-                self?.configureTotalStepCountLabelGradient(current: Double(value.totalStepCount), goal: 10000)
-                self?.configureHourlyChartView()
-
-                UIView.animate(withDuration: 2) {
-                    self?.todayTotalStepCountLabel.layer.opacity = 1
-                }
+                self?.configureLabels(value)
             }
+        }
+    }
+
+    private func configureLabels(_ value: HomeModel) {
+        todayTotalStepCountLabel.text = "\(value.totalStepCount)"
+        kmLabel.text = String(format: "%.2f", value.km)
+        kcalLabel.text = "\(value.kcal)"
+        timeActiveLabel.text = value.activeTime.stringToMinutesAndSeconds()
+        todayTotalStepCountLabel.layer.opacity = 0
+        configureTotalStepCountLabelGradient(current: Double(value.totalStepCount), goal: 10000)
+        configureHourlyChartView()
+
+        UIView.animate(withDuration: 2) {
+            self.todayTotalStepCountLabel.layer.opacity = 1
         }
     }
 
@@ -84,15 +88,16 @@ final class HomeViewController: UIViewController, BaseViewControllerTemplate {
     private func configureStepRatios(using statisticsCollection: StatisticsCollection) -> [CGFloat] {
         guard let maxStep = statisticsCollection.maxStatistics()?.step
         else { return [CGFloat](repeating: 0, count: 25) }
+        
+        if maxStep == 0 { return [CGFloat](repeating: 0, count: 25) }
 
         var stepRatios = [CGFloat]()
-
         for statistics in statisticsCollection.statistics() {
             let step: Int = statistics.step
             let stepRatio = CGFloat(step) / CGFloat(maxStep)
             stepRatios.append(stepRatio)
         }
-
+        
         if stepRatios.count < 25 {
             stepRatios += [CGFloat](repeating: 0, count: 25 - stepRatios.count)
         }

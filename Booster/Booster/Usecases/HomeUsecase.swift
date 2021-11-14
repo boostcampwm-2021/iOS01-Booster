@@ -22,8 +22,8 @@ final class HomeUsecase {
         HealthStoreManager.shared.requestStatisticsCollectionQuery(type: stepCountSampleType,
                                                                    predicate: predicate,
                                                                    interval: DateComponents(hour: 1),
-                                                                   anchorDate: anchorDate) { [weak self] result in
-            result.enumerateStatistics(from: self?.retrieveTodayStartDate(from: now) ?? now,
+                                                                   anchorDate: anchorDate) { result in
+            result.enumerateStatistics(from: Calendar.current.startOfDay(for: now),
                                        to: now,
                                        with: { statistics, _ in
                 completion(statistics)
@@ -36,7 +36,7 @@ final class HomeUsecase {
         else { return }
 
         let now = Date()
-        let start = retrieveTodayStartDate(from: now)
+        let start = Calendar.current.startOfDay(for: now)
         let predicate = HKQuery.predicateForSamples(withStart: start,
                                                     end: now,
                                                     options: .strictStartDate)
@@ -47,12 +47,8 @@ final class HomeUsecase {
     }
 
     private func createTodayPredicate(end: Date = Date()) -> NSPredicate {
-        return HKQuery.predicateForSamples(withStart: retrieveTodayStartDate(from: end),
+        return HKQuery.predicateForSamples(withStart: Calendar.current.startOfDay(for: end),
                                            end: end,
                                            options: .strictStartDate)
-    }
-
-    private func retrieveTodayStartDate(from date: Date = Date()) -> Date {
-        return Calendar.current.startOfDay(for: date)
     }
 }
