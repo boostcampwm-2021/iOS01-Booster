@@ -82,7 +82,7 @@
                                 <color key="textColor" name="boosterLabel"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TBK-bI-lVF">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TBK-bI-lVF" customClass="ChartView" customModule="Booster" customModuleProvider="target">
                                 <rect key="frame" x="30" y="648" width="354" height="135"/>
                                 <color key="backgroundColor" name="boosterBackground"/>
                             </view>
@@ -118,6 +118,7 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="goalLabel" destination="TZn-KZ-HUf" id="TU4-Ra-AQ7"/>
+                        <outlet property="hourlyBarChartView" destination="TBK-bI-lVF" id="lkg-ka-wVa"/>
                         <outlet property="kcalLabel" destination="IOt-Vq-NdU" id="mHf-Oa-YZ3"/>
                         <outlet property="kmLabel" destination="576-pf-rBg" id="Xhi-iJ-LE1"/>
                         <outlet property="timeActiveLabel" destination="DK1-7W-5Tf" id="gcb-mb-QTF"/>

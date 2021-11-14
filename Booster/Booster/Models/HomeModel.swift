@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct HomeData {
+struct HomeModel {
     var kcal: Int
     var km: Double
     var activeTime: TimeInterval
     var goal: Int
     var totalStepCount: Int
-    var hourlyStepCount: [Int]
+    var hourlyStatistics: StatisticsCollection
 
     init() {
         kcal = 0
@@ -21,6 +21,6 @@ struct HomeData {
         activeTime = 0
         goal = 0
         totalStepCount = 0
-        hourlyStepCount = []
+        hourlyStatistics = StatisticsCollection()
     }
 }

@@ -3,11 +3,13 @@ import UIKit
 
 final class HomeViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - @IBOutlet
-    @IBOutlet weak var kcalLabel: UILabel!
-    @IBOutlet weak var timeActiveLabel: UILabel!
-    @IBOutlet weak var kmLabel: UILabel!
-    @IBOutlet weak var todayTotalStepCountLabel: UILabel!
-    @IBOutlet weak var goalLabel: UILabel!
+    @IBOutlet private weak var kcalLabel: UILabel!
+    @IBOutlet private weak var timeActiveLabel: UILabel!
+    @IBOutlet private weak var kmLabel: UILabel!
+    @IBOutlet private weak var todayTotalStepCountLabel: UILabel!
+    @IBOutlet private weak var goalLabel: UILabel!
+    @IBOutlet private weak var hourlyBarChartView: ChartView!
+
     // MARK: - Properties
     var viewModel = HomeViewModel()
 
@@ -50,19 +52,51 @@ final class HomeViewController: UIViewController, BaseViewControllerTemplate {
     }
 
     private func bindHomeViewModel() {
-        viewModel.homeData.bind { [weak self] value in
+        viewModel.homeModel.bind { [weak self] value in
             DispatchQueue.main.async {
                 self?.todayTotalStepCountLabel.text = "\(value.totalStepCount)"
-                self?.kmLabel.text = String(format: "%.2f", value.km/1000)
+                self?.kmLabel.text = String(format: "%.2f", value.km)
                 self?.kcalLabel.text = "\(value.kcal)"
                 self?.timeActiveLabel.text = value.activeTime.stringToMinutesAndSeconds()
                 self?.todayTotalStepCountLabel.layer.opacity = 0
                 self?.configureTotalStepCountLabelGradient(current: Double(value.totalStepCount), goal: 10000)
+                self?.configureHourlyChartView()
+
                 UIView.animate(withDuration: 2) {
                     self?.todayTotalStepCountLabel.layer.opacity = 1
                 }
             }
         }
+    }
+
+    private func configureHourlyChartView() {
+        let stepRatios: [CGFloat] = configureStepRatios(using: viewModel.homeModel.value.hourlyStatistics)
+        var strings = [String](repeating: "", count: 25)
+        for (index, _) in strings.enumerated() {
+            if index % 6 == 0 {
+                strings[index] = "\(index)"
+            }
+        }
+
+        hourlyBarChartView.drawChart(stepRatios: stepRatios, strings: strings)
+    }
+
+    private func configureStepRatios(using statisticsCollection: StatisticsCollection) -> [CGFloat] {
+        guard let maxStep = statisticsCollection.maxStatistics()?.step
+        else { return [CGFloat](repeating: 0, count: 25) }
+
+        var stepRatios = [CGFloat]()
+
+        for statistics in statisticsCollection.statistics() {
+            let step: Int = statistics.step
+            let stepRatio = CGFloat(step) / CGFloat(maxStep)
+            stepRatios.append(stepRatio)
+        }
+
+        if stepRatios.count < 25 {
+            stepRatios += [CGFloat](repeating: 0, count: 25 - stepRatios.count)
+        }
+        return stepRatios
     }
 
     private func gradientLayer(ratio: [NSNumber],
