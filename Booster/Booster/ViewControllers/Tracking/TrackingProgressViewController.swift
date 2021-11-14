@@ -409,7 +409,7 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
 
     private func makeTimerText(time: Int) -> String {
         let seconds = time % 60
-        let minutes = (time / 60)
+        let minutes = time / 60
         var text = ""
         text += "\(minutes < 10 ? "0\(minutes)'" : "\(minutes)'")"
         text += "\(seconds < 10 ? "0\(seconds)\"\n" : "\(seconds)\"\n")"

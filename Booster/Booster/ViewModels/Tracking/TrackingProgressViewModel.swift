@@ -62,7 +62,7 @@ final class TrackingProgressViewModel {
         let minute = Double(seconds) / 60
         let height: Double = Double(user.height)/100 == 0 ? 1 : Double(user.height)/100
         let calroiesPerMinute = (0.035*Double(user.weight))+((pow(velocity, 2)/height)*0.029*Double(user.weight))
-        let calroies: Int = Int(minute * calroiesPerMinute)
+        let calroies: Int = Int(minute*calroiesPerMinute)
 
         trackingModel.value.seconds = seconds
         trackingModel.value.calories = calroies
