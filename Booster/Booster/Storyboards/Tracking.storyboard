@@ -9,6 +9,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="BAZARONI.TTF">
+            <string>Bazaronite</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Tracking View Controller-->
         <scene sceneID="s0d-6b-0kx">
@@ -85,7 +90,7 @@
                                 <rect key="frame" x="0.0" y="544" width="414" height="269"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aoN-Wg-v3J">
-                                        <rect key="frame" x="314" y="45" width="80" height="0.0"/>
+                                        <rect key="frame" x="301.5" y="45" width="80" height="0.0"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="80" id="I3q-Yt-bze"/>
                                         </constraints>
@@ -94,7 +99,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yAN-CY-gSq">
-                                        <rect key="frame" x="20" y="45" width="80" height="0.0"/>
+                                        <rect key="frame" x="32.5" y="45" width="80" height="0.0"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="80" id="XTk-2d-vt4"/>
                                         </constraints>
@@ -132,7 +137,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rf2-h1-ajx">
-                                        <rect key="frame" x="139.5" y="45" width="135" height="0.0"/>
+                                        <rect key="frame" x="141" y="45" width="135" height="0.0"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="135" id="3UU-HD-CDA"/>
                                         </constraints>
@@ -141,23 +146,23 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YWQ-h5-4pz">
-                                        <rect key="frame" x="357" y="-80" width="37" height="72"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="60"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
+                                        <rect key="frame" x="354" y="-80" width="40" height="71.5"/>
+                                        <fontDescription key="fontDescription" name="Bazaronite" family="Bazaronite" pointSize="60"/>
+                                        <color key="textColor" name="boosterBlackLabel"/>
+                                        <color key="highlightedColor" name="boosterBlackLabel"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" name="boosterOrange"/>
                                 <color key="tintColor" red="1" green="0.33152735230000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="aoN-Wg-v3J" secondAttribute="trailing" constant="20" id="5f7-ZF-YgZ"/>
+                                    <constraint firstItem="yAN-CY-gSq" firstAttribute="centerX" secondItem="BsO-pa-eCU" secondAttribute="centerX" multiplier="0.35" id="5CK-zZ-AvU"/>
                                     <constraint firstAttribute="bottom" secondItem="Jrh-bJ-YFM" secondAttribute="bottom" constant="40" id="Bbp-hf-XBu"/>
                                     <constraint firstItem="aoN-Wg-v3J" firstAttribute="top" secondItem="BsO-pa-eCU" secondAttribute="top" constant="45" id="CvU-Cp-Vjk"/>
+                                    <constraint firstItem="aoN-Wg-v3J" firstAttribute="centerX" secondItem="BsO-pa-eCU" secondAttribute="centerX" multiplier="1.65" id="NQ4-0h-40Y"/>
                                     <constraint firstAttribute="trailing" secondItem="YWQ-h5-4pz" secondAttribute="trailing" constant="20" id="QkQ-12-AKD"/>
                                     <constraint firstAttribute="trailing" secondItem="Jrh-bJ-YFM" secondAttribute="trailing" constant="50" id="Z3c-MP-UHf"/>
-                                    <constraint firstItem="Rf2-h1-ajx" firstAttribute="centerX" secondItem="BsO-pa-eCU" secondAttribute="centerX" id="dVy-nu-mOl"/>
+                                    <constraint firstItem="Rf2-h1-ajx" firstAttribute="centerX" secondItem="BsO-pa-eCU" secondAttribute="centerX" multiplier="1.008" id="dVy-nu-mOl"/>
                                     <constraint firstAttribute="bottom" secondItem="8Qx-5I-QtW" secondAttribute="bottom" constant="40" id="eIk-1G-YHc"/>
-                                    <constraint firstItem="yAN-CY-gSq" firstAttribute="leading" secondItem="BsO-pa-eCU" secondAttribute="leading" constant="20" id="gaO-gh-ZZH"/>
                                     <constraint firstItem="Rf2-h1-ajx" firstAttribute="top" secondItem="BsO-pa-eCU" secondAttribute="top" constant="45" id="hZM-yv-ssL"/>
                                     <constraint firstItem="yAN-CY-gSq" firstAttribute="top" secondItem="BsO-pa-eCU" secondAttribute="top" constant="45" id="iGZ-lf-alN"/>
                                     <constraint firstItem="8Qx-5I-QtW" firstAttribute="leading" secondItem="BsO-pa-eCU" secondAttribute="leading" constant="50" id="m39-6g-2KD"/>
@@ -229,6 +234,9 @@
         <image name="pause" catalog="system" width="88" height="128"/>
         <namedColor name="boosterBackground">
             <color red="0.050999999046325684" green="0.050999999046325684" blue="0.050999999046325684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="boosterBlackLabel">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="boosterOrange">
             <color red="1" green="0.36100000143051147" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

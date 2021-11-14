@@ -57,7 +57,7 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
         let textField = UITextField(frame: self.view.frame)
         let title = "제목"
         textField.font = .notoSansKR(.medium, 25)
-        textField.textColor = .white
+        textField.textColor = .boosterLabel
         textField.attributedPlaceholder = .makeAttributedString(text: title,
                                                                 font: .notoSansKR(.medium, 25),
                                                                 color: .lightGray)
@@ -72,7 +72,8 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
         textView.backgroundColor = .clear
         textView.font = .notoSansKR(.light, 17)
         textView.text = emptyText
-        textView.textColor = .lightGray
+         textView.textColor = .lightGray
+        textView.textContainer.lineFragmentPadding = 0
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.delegate = self
         return textView
@@ -106,7 +107,7 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
 
             if viewModel.isMileStoneExistAt(latitude: currentLatitude, longitude: currentLongitude) {
                 let title = "추가 실패"
-                let message = "이미 다른 마일스톤이 존재합니다.\n 작성한 마일스톤을 제거해주세요"
+                let message = "이미 다른 마일스톤이 존재합니다\n작성한 마일스톤을 제거해주세요"
                 let alert = UIAlertController.simpleAlert(title: title, message: message)
                 present(alert, animated: true, completion: nil)
 
@@ -131,7 +132,7 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
         switch viewModel.state {
         case .end:
             let title = "저장 오류"
-            let message = "저장 하기 위해서는 건강앱의 권한이 필요합니다."
+            let message = "저장하기 위해서는 건강앱의 권한이 필요해요"
             let store = HKHealthStore()
             let alert = UIAlertController.simpleAlert(title: title, message: message)
             var types: Set<HKQuantityType> = []
@@ -187,7 +188,7 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
 
     @objc private func touchBackButton(_ sender: UIBarButtonItem) {
         let title = "되돌아가기"
-        let message = "현재 기록 상황을 저장하지 않습니다. 정말로 되돌아가시겠습니까?"
+        let message = "현재 기록 상황이 다 지워집니다\n정말로 되돌아가실 건가요?"
         let alertViewController: UIAlertController = .alert(title: title,
                                               message: message,
                                               success: { _ in
@@ -232,13 +233,13 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
                                          style: .plain,
                                          target: self,
                                          action: #selector(touchBackButton(_:)))
-        backButton.tintColor = .boosterBackground
+        backButton.tintColor = .boosterBlackLabel
         leftButton.layer.borderWidth = 1
-        leftButton.layer.borderColor = UIColor.black.cgColor
+        leftButton.layer.borderColor = UIColor.boosterBackground.cgColor
         leftButton.layer.cornerRadius = radius
         rightButton.layer.cornerRadius = radius
         pedometerLabel.font = .bazaronite(size: 60)
-        pedometerLabel.textColor = .black
+        pedometerLabel.textColor = .boosterBlackLabel
 
         timer = Timer.scheduledTimer(timeInterval: 1,
                                      target: self,
@@ -285,8 +286,8 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
         let kcalTitle = "kcal"
         let timeTitle = "time"
         let distanceTitle = "km"
-        let stepsColor: UIColor = viewModel.state == .end ? .boosterOrange : .boosterBackground
-        let color: UIColor = viewModel.state == .start ? .black : .white
+        let stepsColor: UIColor = viewModel.state == .end ? .boosterOrange : .boosterBlackLabel
+        let color: UIColor = viewModel.state == .start ? .boosterBackground : .boosterLabel
 
         pedometerLabel.attributedText = makeAttributedText(content: "\(model.steps)",
                                                            title: stepsTitle,
@@ -301,7 +302,7 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
     private func update() {
         let isStart: Bool = viewModel.state == .start
         [distanceLabel, timeLabel, kcalLabel].forEach {
-            $0?.textColor = isStart ? .black : .white
+            $0?.textColor = isStart ? .boosterBackground : .boosterLabel
         }
 
         infoView.backgroundColor = isStart ? .boosterOrange : .boosterBackground
@@ -336,13 +337,13 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
     private func configureWrite() {
         infoView.addSubview(titleTextField)
         infoView.addSubview(contentTextView)
-        titleTextField.topAnchor.constraint(equalTo: kcalLabel.bottomAnchor, constant: 20).isActive = true
-        titleTextField.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -20).isActive = true
-        titleTextField.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 20).isActive = true
-        contentTextView.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 20).isActive = true
+        titleTextField.topAnchor.constraint(equalTo: kcalLabel.bottomAnchor, constant: 40).isActive = true
+        titleTextField.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -25).isActive = true
+        titleTextField.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 25).isActive = true
+        contentTextView.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 10).isActive = true
         contentTextView.bottomAnchor.constraint(equalTo: infoView.bottomAnchor, constant: -10).isActive = true
-        contentTextView.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -20).isActive = true
-        contentTextView.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 20).isActive = true
+        contentTextView.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -25).isActive = true
+        contentTextView.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 25).isActive = true
     }
 
     private func locationAuth() {
@@ -620,7 +621,7 @@ extension TrackingProgressViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.lightGray {
             textView.text = nil
-            textView.textColor = .white
+            textView.textColor = .boosterLabel
         }
         rightButton.isHidden = true
     }
@@ -666,7 +667,7 @@ extension TrackingProgressViewController: MileStonePhotoViewControllerDelegate {
     func delete(mileStone: MileStone) {
         if let _ = viewModel.remove(of: mileStone), mapView.removeMileStoneAnnotation(of: mileStone) {
             let title = "삭제 완료"
-            let message = "마일스톤을 삭제하였습니다"
+            let message = "마일스톤을 삭제했어요"
             let alertViewController = UIAlertController.simpleAlert(title: title, message: message)
             present(alertViewController, animated: true)
         }
