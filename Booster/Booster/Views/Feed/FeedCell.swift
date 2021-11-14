@@ -48,7 +48,12 @@ class FeedCell: UICollectionViewCell {
 }
 
 extension FeedCell: ConfigurableCell {
-    func configure(data: (date: Date, distance: Double, step: Int, imageData: Data, isEmpty: Bool)) {
+    func configure(data: (date: Date,
+                          distance: Double,
+                          step: Int,
+                          title: String,
+                          imageData: Data,
+                          isEmpty: Bool)) {
         if data.isEmpty {
             backgroundColor = .clear
             addSubview(emptyView)
@@ -59,18 +64,13 @@ extension FeedCell: ConfigurableCell {
             return
         }
         let dateFormatter = DateFormatter()
-        let weekdayText = "산책"
         dateFormatter.locale = Locale(identifier: "ko_KR")
         dateFormatter.dateFormat = "yyyyMMDD"
 
         dateLabel.text = dateFormatter.string(from: data.date)
-
-        dateFormatter.dateFormat = "EEE요일 a "
-
         distanceLabel.text = "\(data.distance)\nkm"
-        weekdayLabel.text = dateFormatter.string(from: data.date)+weekdayText
+        weekdayLabel.text = data.title
         stepLabel.text = "\(data.step)"
         pathImageView.image = UIImage(data: data.imageData)
-
     }
 }
