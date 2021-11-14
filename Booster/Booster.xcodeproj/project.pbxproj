@@ -36,6 +36,7 @@
 		3B31B61D27410997009D9190 /* StatisticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F162733CDAA00B090D9 /* StatisticsViewModel.swift */; };
 		3B31B61E274109A5009D9190 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F3C2733CDAA00B090D9 /* Observable.swift */; };
 		3B31B61F274109AF009D9190 /* HealthStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F532733CDAA00B090D9 /* HealthStoreManager.swift */; };
+		3B31B62127413664009D9190 /* FeedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B31B62027413664009D9190 /* FeedList.swift */; };
 		3B38FB14273A5F3B00F8620D /* TrackingCountDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B38FB13273A5F3B00F8620D /* TrackingCountDownView.swift */; };
 		3B38FB1A273BABBE00F8620D /* TrackingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B38FB19273BABBE00F8620D /* TrackingViewModel.swift */; };
 		3B38FB1C273BF7CD00F8620D /* FeedUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B38FB1B273BF7CD00F8620D /* FeedUseCase.swift */; };
@@ -132,6 +133,7 @@
 		3B31B5FE273CD2F7009D9190 /* Tracking+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tracking+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		3B31B60527410470009D9190 /* TrackingProgressTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrackingProgressTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B31B60727410470009D9190 /* TrackingProgressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingProgressTests.swift; sourceTree = "<group>"; };
+		3B31B62027413664009D9190 /* FeedList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedList.swift; sourceTree = "<group>"; };
 		3B38FB13273A5F3B00F8620D /* TrackingCountDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingCountDownView.swift; sourceTree = "<group>"; };
 		3B38FB19273BABBE00F8620D /* TrackingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingViewModel.swift; sourceTree = "<group>"; };
 		3B38FB1B273BF7CD00F8620D /* FeedUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedUseCase.swift; sourceTree = "<group>"; };
@@ -541,6 +543,7 @@
 				FA614F322733CDAA00B090D9 /* HomeData.swift */,
 				FA614F332733CDAA00B090D9 /* Coordinate.swift */,
 				FA614F362733CDAA00B090D9 /* TrackingModel.swift */,
+				3B31B62027413664009D9190 /* FeedList.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -898,6 +901,7 @@
 				FA614F6C2733CDAA00B090D9 /* Booster.xcdatamodeld in Sources */,
 				3B38FB14273A5F3B00F8620D /* TrackingCountDownView.swift in Sources */,
 				FA614F722733CDAA00B090D9 /* HomeData.swift in Sources */,
+				3B31B62127413664009D9190 /* FeedList.swift in Sources */,
 				FA614F962738F7A200B090D9 /* MileStonePhotoViewController.swift in Sources */,
 				28C96FEB27396892005BD7BC /* DetailFeedViewController.swift in Sources */,
 			);
