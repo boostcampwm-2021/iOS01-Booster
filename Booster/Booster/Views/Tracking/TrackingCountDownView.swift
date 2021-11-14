@@ -72,6 +72,7 @@ class TrackingCountDownView: UIView {
                        delay: 0.45,
                        options: .curveEaseOut,
                        animations: {
+            self.countLabel.alpha = 1
             self.countLabel.frame.origin.x = self.frame.maxX/2-self.countLabel.frame.width/2
         }, completion: { _ in
             UIView.animate(withDuration: 0.15,
@@ -83,7 +84,6 @@ class TrackingCountDownView: UIView {
             }, completion: { _ in
                 self.countLabel.removeFromSuperview()
                 text = "2"
-                self.countLabel.alpha = 1
                 self.countLabel.text = text
                 self.countLabel.sizeToFit()
                 self.countLabel.frame.origin = CGPoint(x: self.frame.maxX, y: self.frame.maxY/2-self.countLabel.frame.height/2)
@@ -92,6 +92,7 @@ class TrackingCountDownView: UIView {
                                delay: 0,
                                options: .curveEaseOut,
                                animations: {
+                    self.countLabel.alpha = 1
                     self.countLabel.frame.origin.x = self.frame.maxX/2-self.countLabel.frame.width/2
                 }, completion: { _ in
                     UIView.animate(withDuration: 0.15,
@@ -102,7 +103,6 @@ class TrackingCountDownView: UIView {
                         self.countLabel.alpha = 0
                     }, completion: { _ in
                         self.countLabel.removeFromSuperview()
-                        self.countLabel.alpha = 1
                         text = "1"
                         self.countLabel.text = text
                         self.countLabel.sizeToFit()
@@ -112,6 +112,7 @@ class TrackingCountDownView: UIView {
                                        delay: 0,
                                        options: .curveEaseOut,
                                        animations: {
+                            self.countLabel.alpha = 1
                             self.countLabel.frame.origin.x = self.frame.maxX/2-self.countLabel.frame.width/2
                         }, completion: { _ in
                             UIView.animate(withDuration: 0.15,
