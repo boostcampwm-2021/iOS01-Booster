@@ -115,6 +115,6 @@ extension FeedViewController: UIScrollViewDelegate {
 // MARK: - detail feed model delegate
 extension FeedViewController: DetailFeedModelDelegate {
     func detailFeed(viewModel: DetailFeedViewModel) {
-        viewModel.update(model: self.viewModel.selected())
+        viewModel.update(start: self.viewModel.selected())
     }
 }

@@ -43,8 +43,8 @@ final class FeedViewModel {
         self.selectedIndex = index
     }
 
-    func selected() -> TrackingModel {
-        return trackingRecords.value[selectedIndex.row]
+    func selected() -> Date {
+        return trackingRecords.value[selectedIndex.row].startDate
     }
 
     func reset() {
