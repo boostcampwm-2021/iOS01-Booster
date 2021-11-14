@@ -35,7 +35,7 @@ final class TrackingProgressViewModel {
     }
 
     func appends(milestones: [MileStone]) {
-        trackingModel.value.milestones.append(contentsOf: milestones)
+        self.milestones.value.append(contentsOf: milestones)
     }
 
     func recordEnd() {

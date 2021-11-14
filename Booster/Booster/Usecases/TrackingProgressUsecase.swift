@@ -3,10 +3,14 @@ import Foundation
 typealias TrackingError = TrackingProgressUsecase.TrackingError
 
 final class TrackingProgressUsecase {
-    enum TrackingError: Error {
+    enum TrackingError: Error, Equatable {
         case countError
         case modelError
         case error(Error)
+
+        static func == (lhs: TrackingProgressUsecase.TrackingError, rhs: TrackingProgressUsecase.TrackingError) -> Bool {
+            return lhs.localizedDescription == lhs.localizedDescription
+        }
     }
 
     private enum CoreDataKeys {

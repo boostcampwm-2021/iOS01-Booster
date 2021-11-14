@@ -99,5 +99,4 @@ final class StatisticsModelTests: XCTestCase {
         // then
         XCTAssertEqual(averageStep, resultAverageStep)
     }
-
 }
