@@ -27,6 +27,7 @@ class TrackingCountDownView: UIView {
     private lazy var skipLabel: UILabel = {
         let label = UILabel(frame: frame)
         let text = "스크린 탭하여 카운트 다운 스킵하기"
+        label.alpha = 1
         label.text = text
         label.textAlignment = .center
         label.numberOfLines = 2
@@ -78,9 +79,11 @@ class TrackingCountDownView: UIView {
                            options: .curveEaseIn,
                            animations: {
                 self.countLabel.frame.origin.x = 0
+                self.countLabel.alpha = 0
             }, completion: { _ in
                 self.countLabel.removeFromSuperview()
                 text = "2"
+                self.countLabel.alpha = 1
                 self.countLabel.text = text
                 self.countLabel.sizeToFit()
                 self.countLabel.frame.origin = CGPoint(x: self.frame.maxX, y: self.frame.maxY/2-self.countLabel.frame.height/2)
@@ -96,8 +99,10 @@ class TrackingCountDownView: UIView {
                                    options: .curveEaseIn,
                                    animations: {
                         self.countLabel.frame.origin.x = 0
+                        self.countLabel.alpha = 0
                     }, completion: { _ in
                         self.countLabel.removeFromSuperview()
+                        self.countLabel.alpha = 1
                         text = "1"
                         self.countLabel.text = text
                         self.countLabel.sizeToFit()
@@ -114,6 +119,7 @@ class TrackingCountDownView: UIView {
                                            options: .curveEaseIn,
                                            animations: {
                                 self.countLabel.frame.origin.x = 0
+                                self.countLabel.alpha = 0
                             }, completion: { _ in
                                 self.countLabel.removeFromSuperview()
                                 self.completion?()
