@@ -88,7 +88,7 @@ final class HomeViewController: UIViewController, BaseViewControllerTemplate {
     private func configureStepRatios(using statisticsCollection: StatisticsCollection) -> [CGFloat] {
         guard let maxStep = statisticsCollection.maxStatistics()?.step
         else { return [CGFloat](repeating: 0, count: 25) }
-        
+
         if maxStep == 0 { return [CGFloat](repeating: 0, count: 25) }
 
         var stepRatios = [CGFloat]()
@@ -97,7 +97,7 @@ final class HomeViewController: UIViewController, BaseViewControllerTemplate {
             let stepRatio = CGFloat(step) / CGFloat(maxStep)
             stepRatios.append(stepRatio)
         }
-        
+
         if stepRatios.count < 25 {
             stepRatios += [CGFloat](repeating: 0, count: 25 - stepRatios.count)
         }
@@ -119,10 +119,10 @@ final class HomeViewController: UIViewController, BaseViewControllerTemplate {
     private func gradientColor(gradientLayer: CAGradientLayer) -> UIColor {
         UIGraphicsBeginImageContextWithOptions(gradientLayer.bounds.size, false, 0.0)
         guard let currentContext = UIGraphicsGetCurrentContext()
-        else { return .white }
+        else { return .boosterLabel }
         gradientLayer.render(in: currentContext)
         guard let image = UIGraphicsGetImageFromCurrentImageContext()
-        else { return .white }
+        else { return .boosterLabel }
         UIGraphicsEndImageContext()
 
         return UIColor(patternImage: image)

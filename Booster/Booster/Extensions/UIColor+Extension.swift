@@ -44,4 +44,8 @@ extension UIColor {
     static let boosterGray: UIColor = {
         return UIColor(named: "boosterGray") ?? UIColor(hex: 0x707070)
     }()
+
+    static let boosterBlackLabel: UIColor = {
+        return UIColor(named: "boosterBlackLabel") ?? UIColor(hex: 0x000000)
+    }()
 }
