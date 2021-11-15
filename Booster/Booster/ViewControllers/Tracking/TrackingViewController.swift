@@ -12,8 +12,8 @@ class TrackingViewController: UIViewController, BaseViewControllerTemplate {
     }
 
     // MARK: - @IBOutlet
-    @IBOutlet private weak var trackingMapView: MKMapView!
-    @IBOutlet private weak var nextButton: UIButton!
+    @IBOutlet weak var trackingMapView: TrackingMapView!
+    @IBOutlet weak var nextButton: UIButton!
 
     // MARK: - Properties
     var viewModel: TrackingViewModel = TrackingViewModel()
@@ -70,6 +70,9 @@ class TrackingViewController: UIViewController, BaseViewControllerTemplate {
         if CLLocationManager.locationServicesEnabled() {
             DispatchQueue.main.async { [weak self] in
                 self?.locationManager.startUpdatingLocation()
+                if let location = self?.locationManager.location {
+                    self?.trackingMapView.setRegion(to: location)
+                }
             }
         }
     }
