@@ -12,7 +12,7 @@ class TrackingCountDownView: UIView {
     private lazy var cancelButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 25, y: 25, width: 20, height: 20))
         let image = UIImage(systemName: "arrow.left")
-        button.tintColor = .white
+        button.tintColor = .boosterLabel
         button.setImage(image, for: .normal)
         button.addTarget(self, action: #selector(cancelTouchUp(_:)), for: .touchUpInside)
         return button
