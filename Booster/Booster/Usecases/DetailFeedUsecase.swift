@@ -9,13 +9,8 @@ import Foundation
 import CoreData
 
 final class DetailFeedUsecase {
-    private let entityName: String
-    private let repository: RepositoryManager
-
-    init() {
-        entityName = "Tracking"
-        self.repository = RepositoryManager()
-    }
+    private let entityName: String = "Tracking"
+    private let repository: RepositoryManager = RepositoryManager()
 
     func fetch(predicate: NSPredicate, completion handler: @escaping ([TrackingModel]) -> Void) {
         repository.fetch(entityName: entityName, predicate: predicate) { (response: Result<[Tracking], Error>) in
