@@ -19,7 +19,7 @@ class TrackingProgressTests: XCTestCase {
         trackingProgressViewModel = nil
     }
 
-    func test좌표추가() throws {
+    func test_좌표_추가() throws {
         // given
         let coordinate = Coordinate(latitude: nil, longitude: nil)
 
@@ -30,7 +30,7 @@ class TrackingProgressTests: XCTestCase {
         XCTAssertEqual(trackingProgressViewModel.trackingModel.value.coordinates.count, 1, "좌표가 추가되지 않았습니다.")
     }
 
-    func test마일스톤추가() throws {
+    func test_마일스톤_추가() throws {
         // given
         let milestone = MileStone(latitude: 0, longitude: 0, imageData: Data())
 
@@ -41,7 +41,7 @@ class TrackingProgressTests: XCTestCase {
         XCTAssertEqual(trackingProgressViewModel.milestones.value.count, 1, "마일스톤이 추가되지 않았습니다.")
     }
 
-    func test좌표리스트추가() throws {
+    func test_좌표_리스트_추가() throws {
         // given
         let coordinates = [Coordinate].init(repeating: Coordinate(latitude: nil, longitude: nil), count: 3)
 
@@ -52,7 +52,7 @@ class TrackingProgressTests: XCTestCase {
         XCTAssertEqual(trackingProgressViewModel.trackingModel.value.coordinates.count, 3, "좌표 리스트가 추가되지 않았습니다.")
     }
 
-    func test마일스톤리스트추가() throws {
+    func test_마일스톤_리스트_추가() throws {
         // given
         let milestones = [MileStone].init(repeating: MileStone(latitude: 0, longitude: 0, imageData: Data()), count: 3)
 
@@ -63,7 +63,7 @@ class TrackingProgressTests: XCTestCase {
         XCTAssertEqual(trackingProgressViewModel.milestones.value.count, 3, "마일스톤 리스트가 추가되지 않았습니다.")
     }
 
-    func test트래킹중일시정지토글() throws {
+    func test_트래킹중_일시정지_토글() throws {
         // given
         let coordinate = Coordinate(latitude: nil, longitude: nil)
 
@@ -92,7 +92,7 @@ class TrackingProgressTests: XCTestCase {
         XCTAssertNotNil(trackingProgressViewModel.mileStone(at: coordinate))
     }
 
-    func test동일한마일스톤객체존재하지않음() throws {
+    func test_동일한_마일스톤_객체_존재_하지않음() throws {
         // given
         let milestones = [
             MileStone(latitude: 1, longitude: 2, imageData: Data()),
@@ -108,7 +108,7 @@ class TrackingProgressTests: XCTestCase {
         XCTAssertNil(trackingProgressViewModel.mileStone(at: coordinate))
     }
 
-    func test해당위치에마일스톤존재() throws {
+    func test_해당위치에_마일스톤_존재() throws {
         // given
         let milestones = [
             MileStone(latitude: 1, longitude: 2, imageData: Data()),
@@ -123,7 +123,7 @@ class TrackingProgressTests: XCTestCase {
         XCTAssertTrue(trackingProgressViewModel.isMileStoneExistAt(latitude: 4, longitude: 5))
     }
 
-    func test해당위치에마일스톤존재하지않음() throws {
+    func test_해당위치에_마일스톤_존재하지_않음() throws {
         // given
         let milestones = [
             MileStone(latitude: 1, longitude: 2, imageData: Data()),
@@ -138,7 +138,7 @@ class TrackingProgressTests: XCTestCase {
         XCTAssertFalse(trackingProgressViewModel.isMileStoneExistAt(latitude: 10, longitude: 5))
     }
 
-    func test중앙위치() throws {
+    func test_중앙_위치() throws {
         // given
         let coordinates = [
             Coordinate(latitude: 0, longitude: 0),
@@ -156,7 +156,7 @@ class TrackingProgressTests: XCTestCase {
         XCTAssertEqual(result.longitude.binade, center!.longitude.binade)
     }
 
-    func test마일스톤삭제성공() throws {
+    func test_마일스톤_삭제_성공() throws {
         // given
         let milestones = [
             MileStone(latitude: 1, longitude: 2, imageData: Data()),
@@ -172,7 +172,7 @@ class TrackingProgressTests: XCTestCase {
         XCTAssertNotNil(remove)
     }
 
-    func test마일스톤삭제실패() throws {
+    func test_마일스톤_삭제_실패() throws {
         // given
         let milestones = [
             MileStone(latitude: 1, longitude: 2, imageData: Data()),
@@ -189,7 +189,7 @@ class TrackingProgressTests: XCTestCase {
         XCTAssertNil(remove)
     }
 
-    func test기록종료() throws {
+    func test_기록종료() throws {
         // given
         let milestones = [
             MileStone(latitude: 1, longitude: 2, imageData: Data()),
@@ -206,7 +206,7 @@ class TrackingProgressTests: XCTestCase {
         XCTAssert(trackingProgressViewModel.state == .end)
     }
 
-    func test코어데이터기록저장() throws {
+    func test_코어데이터_기록_저장() throws {
         // given
         let milestones = [
             MileStone(latitude: 1, longitude: 2, imageData: Data()),
