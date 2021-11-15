@@ -9,15 +9,49 @@ import Foundation
 import CoreData
 
 final class DetailFeedUsecase {
-    private let repository: RepositoryManager
+    private let entityName: String = "Tracking"
+    private let repository: RepositoryManager = RepositoryManager()
 
-    init(repository: RepositoryManager) {
-        self.repository = repository
+    func fetch(predicate: NSPredicate, completion handler: @escaping ([TrackingModel]) -> Void) {
+        repository.fetch(entityName: entityName, predicate: predicate) { (response: Result<[Tracking], Error>) in
+            switch response {
+            case .success(let result):
+                var trackingModels: [TrackingModel] = []
+                result.forEach { [weak self] value in
+                    if let trackingModel = self?.convert(tracking: value) {
+                        trackingModels.append(trackingModel)
+                    }
+                }
+                handler(trackingModels)
+            case .failure:
+                handler([])
+            }
+        }
     }
 
-    func execute(completion: @escaping (Result<[Tracking], Error>) -> Void) {
-        repository.fetch { (response: Result<[Tracking], Error>) in
-            completion(response)
+    private func convert(tracking: Tracking) -> TrackingModel? {
+        if let startDate = tracking.startDate,
+           let coordinatesData = tracking.coordinates,
+           let milestonesData = tracking.milestones,
+           let coordinates = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(coordinatesData) as? [Coordinate],
+           let milestones = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(milestonesData) as? [MileStone],
+           let title = tracking.title,
+           let content = tracking.content,
+           let imageData = tracking.imageData,
+           let endDate = tracking.endDate {
+            let trackingModel = TrackingModel(startDate: startDate,
+                                              endDate: endDate,
+                                              steps: Int(tracking.steps),
+                                              calories: Int(tracking.calories),
+                                              seconds: Int(tracking.seconds),
+                                              distance: tracking.distance,
+                                              coordinates: coordinates,
+                                              milestones: milestones,
+                                              title: title,
+                                              content: content,
+                                              imageData: imageData)
+            return trackingModel
         }
+        return nil
     }
 }

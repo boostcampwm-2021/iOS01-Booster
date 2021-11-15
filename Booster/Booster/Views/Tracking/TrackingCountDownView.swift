@@ -27,6 +27,7 @@ class TrackingCountDownView: UIView {
     private lazy var skipLabel: UILabel = {
         let label = UILabel(frame: frame)
         let text = "스크린 탭하여 카운트 다운 스킵하기"
+        label.alpha = 1
         label.text = text
         label.textAlignment = .center
         label.numberOfLines = 2
@@ -71,6 +72,7 @@ class TrackingCountDownView: UIView {
                        delay: 0.45,
                        options: .curveEaseOut,
                        animations: {
+            self.countLabel.alpha = 1
             self.countLabel.frame.origin.x = self.frame.maxX/2-self.countLabel.frame.width/2
         }, completion: { _ in
             UIView.animate(withDuration: 0.15,
@@ -78,6 +80,7 @@ class TrackingCountDownView: UIView {
                            options: .curveEaseIn,
                            animations: {
                 self.countLabel.frame.origin.x = 0
+                self.countLabel.alpha = 0
             }, completion: { _ in
                 self.countLabel.removeFromSuperview()
                 text = "2"
@@ -89,6 +92,7 @@ class TrackingCountDownView: UIView {
                                delay: 0,
                                options: .curveEaseOut,
                                animations: {
+                    self.countLabel.alpha = 1
                     self.countLabel.frame.origin.x = self.frame.maxX/2-self.countLabel.frame.width/2
                 }, completion: { _ in
                     UIView.animate(withDuration: 0.15,
@@ -96,6 +100,7 @@ class TrackingCountDownView: UIView {
                                    options: .curveEaseIn,
                                    animations: {
                         self.countLabel.frame.origin.x = 0
+                        self.countLabel.alpha = 0
                     }, completion: { _ in
                         self.countLabel.removeFromSuperview()
                         text = "1"
@@ -107,6 +112,7 @@ class TrackingCountDownView: UIView {
                                        delay: 0,
                                        options: .curveEaseOut,
                                        animations: {
+                            self.countLabel.alpha = 1
                             self.countLabel.frame.origin.x = self.frame.maxX/2-self.countLabel.frame.width/2
                         }, completion: { _ in
                             UIView.animate(withDuration: 0.15,
@@ -114,6 +120,7 @@ class TrackingCountDownView: UIView {
                                            options: .curveEaseIn,
                                            animations: {
                                 self.countLabel.frame.origin.x = 0
+                                self.countLabel.alpha = 0
                             }, completion: { _ in
                                 self.countLabel.removeFromSuperview()
                                 self.completion?()

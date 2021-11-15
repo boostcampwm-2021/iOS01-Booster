@@ -35,11 +35,12 @@ final class TrackingProgressViewModel {
     }
 
     func appends(milestones: [MileStone]) {
-        trackingModel.value.milestones.append(contentsOf: milestones)
+        self.milestones.value.append(contentsOf: milestones)
     }
 
     func recordEnd() {
         trackingModel.value.endDate = Date()
+        convert()
         trackingModel.value.milestones = milestones.value
         state = .end
     }
@@ -57,7 +58,14 @@ final class TrackingProgressViewModel {
     }
 
     func update(seconds: Int) {
+        let velocity: Double = trackingModel.value.distance/Double(seconds)
+        let minute = Double(seconds) / 60
+        let height: Double = Double(user.height)/100 == 0 ? 1 : Double(user.height)/100
+        let calroiesPerMinute = (0.035*Double(user.weight))+((pow(velocity, 2)/height)*0.029*Double(user.weight))
+        let calroies: Int = Int(minute*calroiesPerMinute)
+
         trackingModel.value.seconds = seconds
+        trackingModel.value.calories = calroies
     }
 
     func update(steps: Int) {
@@ -66,10 +74,6 @@ final class TrackingProgressViewModel {
 
     func update(distance: Double) {
         trackingModel.value.distance += distance
-    }
-
-    func update(calroies: Int) {
-        trackingModel.value.calories = calroies
     }
 
     func toggle() {
@@ -103,7 +107,7 @@ final class TrackingProgressViewModel {
                              end: trackingModel.value.endDate ?? Date(),
                              quantity: .steps,
                              unit: .count)
-        trackingUsecase.save(count: trackingModel.value.distance / 1000,
+        trackingUsecase.save(count: trackingModel.value.distance,
                              start: trackingModel.value.startDate,
                              end: trackingModel.value.endDate ?? Date(),
                              quantity: .runing,
@@ -168,5 +172,13 @@ final class TrackingProgressViewModel {
 
     func distance() -> Double {
         return trackingModel.value.distance
+    }
+
+    private func convert() {
+        let meter = trackingModel.value.distance
+
+        if let kilometer = Double(String(format: "%.2f", meter/1000)) {
+            trackingModel.value.distance = kilometer
+        }
     }
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-public final class Coordinate: NSObject, NSCoding {
+final class Coordinate: NSObject, NSCoding {
     var latitude: Double?
     var longitude: Double?
 

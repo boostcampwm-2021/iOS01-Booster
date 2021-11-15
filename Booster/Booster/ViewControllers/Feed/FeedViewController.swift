@@ -9,18 +9,33 @@ final class FeedViewController: UIViewController, BaseViewControllerTemplate {
     @IBOutlet private weak var collectionView: UICollectionView!
 
     var viewModel: FeedViewModel = FeedViewModel()
+    private lazy var refershControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        let text = "새로고침"
+        refreshControl.tintColor = .boosterLabel
+        refreshControl.attributedTitle = .makeAttributedString(text: text,
+                                                               font: .notoSansKR(.regular, 16),
+                                                               color: .label)
+        refreshControl.addTarget(self,
+                                 action: #selector(refreshPull),
+                                 for: .valueChanged)
+        return refreshControl
+    }()
 
     // MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configure()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
         viewModel.fetch()
     }
 
+    // MARK: @objc Methods
+    @objc func refreshPull() {
+        viewModel.reset()
+    }
+
+    // MARK: Functions
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let detailFeedViewController = segue.destination as? DetailFeedViewController
         else { return }
@@ -28,14 +43,20 @@ final class FeedViewController: UIViewController, BaseViewControllerTemplate {
     }
 
     func configure() {
-        viewModel.trackingRecords.bind { [weak self] _ in
-            guard let self = self
-            else { return }
+        viewModel.trackingRecords.bind {  _ in
 
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self
+                else { return }
+
+                self.refershControl.endRefreshing()
+                self.collectionView.performBatchUpdates {
+                    self.collectionView.reloadData()
+                }
             }
         }
+
+        collectionView.refreshControl = refershControl
 
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -79,8 +100,21 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - scroll view delegate
+extension FeedViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let contentY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+
+        if contentY > contentHeight - scrollView.frame.height {
+            viewModel.fetch()
+        }
+    }
+}
+
+// MARK: - detail feed model delegate
 extension FeedViewController: DetailFeedModelDelegate {
     func detailFeed(viewModel: DetailFeedViewModel) {
-        viewModel.update(model: self.viewModel.selected())
+        viewModel.update(start: self.viewModel.selected())
     }
 }

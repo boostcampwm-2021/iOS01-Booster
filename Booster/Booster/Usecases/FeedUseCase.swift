@@ -8,10 +8,6 @@
 import Foundation
 
 class FeedUseCase {
-    enum EntityName {
-        static let tracking = "Tracking"
-    }
-
     private let repository: RepositoryManager
     private let entity: String
 
@@ -20,41 +16,51 @@ class FeedUseCase {
         repository = RepositoryManager()
     }
 
-    func fetch(completion handler: @escaping ([TrackingModel]) -> Void) {
+    func fetch(completion handler: @escaping ([FeedList]) -> Void) {
         repository.fetch { (response: Result<[Tracking], Error>) in
             switch response {
             case .success(let result):
-                var trackingModels: [TrackingModel] = []
-                result.forEach { value in
-                    if let startDate = value.startDate,
-                       let coordinatesData = value.coordinates,
-                       let milestonesData = value.milestones,
-                       let coordinates = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(coordinatesData) as? [Coordinate],
-                       let milestones = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(milestonesData) as? [MileStone],
-                       let title = value.title,
-                       let content = value.content,
-                       let imageData = value.imageData,
-                       let endDate = value.endDate {
-                        let trackingModel = TrackingModel(startDate: startDate,
-                                                          endDate: endDate,
-                                                          steps: Int(value.steps),
-                                                          calories: Int(value.calories),
-                                                          seconds: Int(value.seconds),
-                                                          distance: value.distance,
-                                                          coordinates: coordinates,
-                                                          milestones: milestones,
-                                                          title: title,
-                                                          content: content,
-                                                          imageData: imageData)
-                        trackingModels.append(trackingModel)
+                var feedLists: [FeedList] = []
+                result.forEach { [weak self] value in
+                    if let feedList = self?.convert(tracking: value) {
+                        feedLists.append(feedList)
                     }
-
-                    handler(trackingModels)
                 }
-
+                handler(feedLists)
             case .failure:
                 handler([])
             }
         }
+    }
+
+    func fetch(predicate: NSPredicate, completion handler: @escaping ([FeedList]) -> Void) {
+        repository.fetch(entityName: entity, predicate: predicate) { (response: Result<[Tracking], Error>) in
+            switch response {
+            case .success(let result):
+                var feedLists: [FeedList] = []
+                result.forEach { [weak self] value in
+                    if let feedList = self?.convert(tracking: value) {
+                        feedLists.append(feedList)
+                    }
+                }
+                handler(feedLists)
+            case .failure:
+                handler([])
+            }
+        }
+    }
+
+    private func convert(tracking: Tracking) -> FeedList? {
+        if let startDate = tracking.startDate,
+           let title = tracking.title,
+           let imageData = tracking.imageData {
+            let feedList = FeedList(startDate: startDate,
+                                    steps: Int(tracking.steps),
+                                    distance: tracking.distance,
+                                    title: title,
+                                    imageData: imageData)
+            return feedList
+        }
+        return nil
     }
 }

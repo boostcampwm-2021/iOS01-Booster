@@ -1,6 +1,6 @@
 import Foundation
 
-public final class MileStone: NSObject, NSCoding {
+final class MileStone: NSObject, NSCoding {
     var coordinate: Coordinate
     var imageData: Data
 
