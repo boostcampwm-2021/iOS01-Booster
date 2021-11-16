@@ -52,6 +52,7 @@
 		FA473A43274387920000C5DC /* MyInfoHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA473A42274387920000C5DC /* MyInfoHeaderView.xib */; };
 		FA473A4527438A3E0000C5DC /* MyInfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA473A4427438A3E0000C5DC /* MyInfoHeaderView.swift */; };
 		FA473A49274391740000C5DC /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA473A48274391740000C5DC /* UserViewModel.swift */; };
+		FA473A4B2743A2FB0000C5DC /* UserUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA473A4A2743A2FB0000C5DC /* UserUsecase.swift */; };
 		FA614F542733CDAA00B090D9 /* Statistics.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA614F092733CDAA00B090D9 /* Statistics.storyboard */; };
 		FA614F552733CDAA00B090D9 /* Feed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA614F0A2733CDAA00B090D9 /* Feed.storyboard */; };
 		FA614F562733CDAA00B090D9 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA614F0B2733CDAA00B090D9 /* Home.storyboard */; };
@@ -160,6 +161,7 @@
 		FA473A42274387920000C5DC /* MyInfoHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyInfoHeaderView.xib; sourceTree = "<group>"; };
 		FA473A4427438A3E0000C5DC /* MyInfoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoHeaderView.swift; sourceTree = "<group>"; };
 		FA473A48274391740000C5DC /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		FA473A4A2743A2FB0000C5DC /* UserUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUsecase.swift; sourceTree = "<group>"; };
 		FA614F092733CDAA00B090D9 /* Statistics.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Statistics.storyboard; sourceTree = "<group>"; };
 		FA614F0A2733CDAA00B090D9 /* Feed.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Feed.storyboard; sourceTree = "<group>"; };
 		FA614F0B2733CDAA00B090D9 /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
@@ -649,6 +651,7 @@
 				28C9702C273C3041005BD7BC /* DetailFeedUsecase.swift */,
 				3B38FB1B273BF7CD00F8620D /* FeedUseCase.swift */,
 				28C9702E2740D731005BD7BC /* HomeUsecase.swift */,
+				FA473A4A2743A2FB0000C5DC /* UserUsecase.swift */,
 			);
 			path = Usecases;
 			sourceTree = "<group>";
@@ -945,6 +948,7 @@
 				3B31B5FC273C0A66009D9190 /* CellConfigurator.swift in Sources */,
 				FA473A16273B95750000C5DC /* BaseViewControllerTemplate.swift in Sources */,
 				FA614F852733CDAA00B090D9 /* TrackingMapView.swift in Sources */,
+				FA473A4B2743A2FB0000C5DC /* UserUsecase.swift in Sources */,
 				FA614F5E2733CDAA00B090D9 /* TrackingProgressViewModel.swift in Sources */,
 				FA614F7D2733CDAA00B090D9 /* SceneDelegate.swift in Sources */,
 				3B38FB1A273BABBE00F8620D /* TrackingViewModel.swift in Sources */,
