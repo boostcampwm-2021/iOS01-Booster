@@ -14,17 +14,3 @@ target 'Booster' do
   pod 'RxGesture'
 
 end
-
-target 'StatisticsTests' do
-  use_frameworks!
-  
-  pod 'RxBlocking'
-  pod 'RxTest'
-end 
-
-target 'TrackingProgressTests' do 
-  use_frameworks!
-  
-  pod 'RxBlocking'
-  pod 'RxTest'
-end
