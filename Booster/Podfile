@@ -10,7 +10,7 @@ target 'Booster' do
   pod 'SwiftLint'
   pod 'RxSwift'
   pod 'RxCocoa'
-  pod 'RxDataSource'
+  pod 'RxDataSources'
   pod 'RxGesture'
 
 end
