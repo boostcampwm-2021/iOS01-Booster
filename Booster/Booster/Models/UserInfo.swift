@@ -1,11 +1,11 @@
 import Foundation
 
 struct UserInfo {
-    let age: Int
-    let nickname: String
-    let gender: String
-    let height: Int
-    let weight: Int
+    var age: Int
+    var nickname: String
+    var gender: String
+    var height: Int
+    var weight: Int
 
     init(age: Int = 25, nickname: String = "", gender: String = "M", height: Int = 170, weight: Int = 60) {
         self.age = age

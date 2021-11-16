@@ -8,17 +8,33 @@
 import Foundation
 
 final class UserViewModel {
-    let userModel: UserInfo
+    private let usecase: UserUsecase
+    private var model: UserInfo
 
     init() {
-        userModel = UserInfo(age: 25, nickname: "히로롱", gender: "여", height: 164, weight: 80)
+        usecase = UserUsecase()
+        model = UserInfo(age: 25, nickname: "히로롱", gender: "여", height: 164, weight: 80)
     }
 
     func nickname() -> String {
-        return userModel.nickname
+        return model.nickname
     }
 
     func userPhysicalInfo() -> String {
-        return "\(userModel.age)살, \(userModel.height)cm, \(userModel.weight)kg, \(userModel.gender)"
+        return "\(model.age)살, \(model.height)cm, \(model.weight)kg, \(model.gender)"
+    }
+
+    func editUserInfo(gender: String? = nil, age: Int? = nil, height: Int? = nil, weight: Int? = nil, nickname: String? = nil) {
+        if let gender = gender { model.gender = gender }
+        if let age = age { model.age = age }
+        if let height = height { model.height = height }
+        if let weight = weight { model.weight = weight }
+        if let nickname = nickname { model.nickname = nickname }
+    }
+
+    func save(completion: @escaping (Bool) -> Void) {
+        usecase.editUserInfo(model: model) { (isSaved) in
+            completion(isSaved)
+        }
     }
 }

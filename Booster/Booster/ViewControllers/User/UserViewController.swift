@@ -154,13 +154,28 @@ extension UserViewController: UITableViewDelegate {
             case .changeGoal:
                 break
             case .editUserInfo:
-                break
+                let prevViewModel = viewModel
+                viewModel.editUserInfo(gender: "남", age: 99, height: 180, weight: 80, nickname: "신선도사")
+                viewModel.save { [weak self] (isSaved) in
+                    DispatchQueue.main.async {
+                        var alert = UIAlertController()
+                        if isSaved {
+                            alert = UIAlertController.simpleAlert(title: "", message: "수정 완료")
+                        } else {
+                            alert = UIAlertController.simpleAlert(title: "", message: "수정 실패")
+                            self?.viewModel = prevViewModel
+                        }
+                        self?.present(alert, animated: true) {
+                            self?.userTableView.reloadData()
+                        }
+                    }
+                }
             case .notificationSetting:
                 guard let url = URL(string: UIApplication.openSettingsURLString)
                 else {
                     let alert = UIAlertController.simpleAlert(title: "오류", message: "알 수 없는 오류로 인하여 알람 설정을 할 수 없어요")
                     present(alert, animated: true, completion: nil)
-                    
+
                     return
                 }
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
