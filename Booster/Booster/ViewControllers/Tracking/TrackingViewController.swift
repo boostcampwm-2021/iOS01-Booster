@@ -58,6 +58,7 @@ class TrackingViewController: UIViewController, BaseViewControllerTemplate {
     }
 
     func configure() {
+        trackingMapView.userTrackingMode = .follow
         nextButton.layer.cornerRadius = nextButton.bounds.width/2
         trackingMapView.delegate = self
 
@@ -70,6 +71,9 @@ class TrackingViewController: UIViewController, BaseViewControllerTemplate {
         if CLLocationManager.locationServicesEnabled() {
             DispatchQueue.main.async { [weak self] in
                 self?.locationManager.startUpdatingLocation()
+                if let location = self?.locationManager.location {
+                    self?.trackingMapView.setRegion(to: location)
+                }
             }
         }
     }
@@ -89,17 +93,12 @@ extension TrackingViewController: CLLocationManagerDelegate {
         else {
             return
         }
+        let overlayRadius: CLLocationDistance = 20
 
         self.current = current
-        let regionRadius: CLLocationDistance = 100
-        let overlayRadius: CLLocationDistance = 20
-        let coordRegion = MKCoordinateRegion(center: current.coordinate,
-                                             latitudinalMeters: regionRadius*2,
-                                             longitudinalMeters: regionRadius*2)
         trackingMapView.removeOverlay(overlay)
 
         overlay = MKCircle(center: current.coordinate, radius: overlayRadius)
-        trackingMapView.setRegion(coordRegion, animated: true)
 
         trackingMapView.addOverlay(overlay)
     }
