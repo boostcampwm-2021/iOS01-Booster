@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="NotoSansKR-Light.otf">
+            <string>NotoSansKR-Light</string>
+        </array>
+        <array key="NotoSansKR-Regular.otf">
+            <string>NotoSansKR-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="UserInfoHeaderView" customModule="Booster" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="400" height="415"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xd1-AQ-w3D">
+                    <rect key="frame" x="0.0" y="0.0" width="400" height="415"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wXj-4q-xJ3">
+                            <rect key="frame" x="25" y="164" width="115.5" height="87.5"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ach-hN-ooL">
+                                    <rect key="frame" x="0.0" y="0.0" width="115.5" height="65.5"/>
+                                    <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="45"/>
+                                    <color key="textColor" name="boosterLabel"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a1E-rd-SX1">
+                                    <rect key="frame" x="0.0" y="65.5" width="115.5" height="22"/>
+                                    <fontDescription key="fontDescription" name="NotoSansKR-Light" family="Noto Sans KR" pointSize="15"/>
+                                    <color key="textColor" name="boosterLabel"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="wXj-4q-xJ3" firstAttribute="leading" secondItem="xd1-AQ-w3D" secondAttribute="leading" constant="25" id="Noo-YM-AgJ"/>
+                        <constraint firstItem="wXj-4q-xJ3" firstAttribute="centerY" secondItem="xd1-AQ-w3D" secondAttribute="centerY" id="VwZ-MR-beX"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" name="boosterBackground"/>
+            <constraints>
+                <constraint firstItem="xd1-AQ-w3D" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="7kI-Wg-9h8"/>
+                <constraint firstAttribute="bottom" secondItem="xd1-AQ-w3D" secondAttribute="bottom" id="NLr-aH-APk"/>
+                <constraint firstItem="xd1-AQ-w3D" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Ral-2j-7CX"/>
+                <constraint firstAttribute="trailing" secondItem="xd1-AQ-w3D" secondAttribute="trailing" id="UiW-Ie-9Ja"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="nicknameLabel" destination="ach-hN-ooL" id="OK2-Ac-j7V"/>
+                <outlet property="userInfoLabel" destination="a1E-rd-SX1" id="Rzj-J6-fh1"/>
+            </connections>
+            <point key="canvasLocation" x="121.73913043478262" y="286.27232142857139"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="boosterBackground">
+            <color red="0.050999999046325684" green="0.050999999046325684" blue="0.050999999046325684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="boosterLabel">
+            <color red="0.92900002002716064" green="0.92900002002716064" blue="0.92900002002716064" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
