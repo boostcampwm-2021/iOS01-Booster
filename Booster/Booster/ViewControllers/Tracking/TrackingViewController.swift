@@ -12,7 +12,11 @@ class TrackingViewController: UIViewController, BaseViewControllerTemplate {
     }
 
     // MARK: - @IBOutlet
+<<<<<<< HEAD
     @IBOutlet private weak var trackingMapView: TrackingMapView!
+=======
+    @IBOutlet private weak var trackingMapView: MKMapView!
+>>>>>>> 20107cf (fix: 권한 부분 수정 및 IBOutlet private)
     @IBOutlet private weak var nextButton: UIButton!
 
     // MARK: - Properties
