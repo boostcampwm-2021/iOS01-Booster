@@ -8,5 +8,23 @@ target 'Booster' do
   # Pods for Booster
 
   pod 'SwiftLint'
+  pod 'RxSwift'
+  pod 'RxCocoa'
+  pod 'RxDataSource'
+  pod 'RxGesture'
 
+end
+
+target 'StatisticsTests' do
+  use_frameworks!
+  
+  pod 'RxBlocking'
+  pod 'RxTest'
+end 
+
+target 'TrackingProgressTests' do 
+  use_frameworks!
+  
+  pod 'RxBlocking'
+  pod 'RxTest'
 end
