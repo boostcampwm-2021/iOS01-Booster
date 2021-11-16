@@ -12,8 +12,8 @@ class TrackingViewController: UIViewController, BaseViewControllerTemplate {
     }
 
     // MARK: - @IBOutlet
-    @IBOutlet weak var trackingMapView: TrackingMapView!
-    @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet private weak var trackingMapView: MKMapView!
+    @IBOutlet private weak var nextButton: UIButton!
 
     // MARK: - Properties
     var viewModel: TrackingViewModel = TrackingViewModel()
@@ -67,16 +67,10 @@ class TrackingViewController: UIViewController, BaseViewControllerTemplate {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
 
-        switch CLLocationManager.locationServicesEnabled() {
-        case true:
+        if CLLocationManager.locationServicesEnabled() {
             DispatchQueue.main.async { [weak self] in
                 self?.locationManager.startUpdatingLocation()
-                if let location = self?.locationManager.location {
-                    self?.trackingMapView.setRegion(to: location)
-                }
             }
-        case false:
-            break
         }
     }
 }

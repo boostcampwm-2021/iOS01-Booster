@@ -8,5 +8,9 @@ target 'Booster' do
   # Pods for Booster
 
   pod 'SwiftLint'
+  pod 'RxSwift'
+  pod 'RxCocoa'
+  pod 'RxDataSources'
+  pod 'RxGesture'
 
 end
