@@ -9,7 +9,7 @@ import HealthKit
 
 final class HomeViewModel {
     // MARK: - Properties
-    var homeModel: Observable<HomeModel> = Observable(HomeModel())
+    var homeModel: BoosterObservable<HomeModel> = BoosterObservable(HomeModel())
 
     private let homeUsecase: HomeUsecase
 

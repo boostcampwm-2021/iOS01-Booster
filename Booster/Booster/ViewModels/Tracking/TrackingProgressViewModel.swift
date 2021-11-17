@@ -9,15 +9,15 @@ final class TrackingProgressViewModel {
     }
 
     private let trackingUsecase: TrackingProgressUsecase
-    private(set) var trackingModel: Observable<TrackingModel>
-    private(set) var milestones: Observable<[MileStone]>
+    private(set) var trackingModel: BoosterObservable<TrackingModel>
+    private(set) var milestones: BoosterObservable<[MileStone]>
     private(set) var user: UserInfo
     private(set) var state: TrackingState
 
     init(trackingModel: TrackingModel = TrackingModel(), user: UserInfo = UserInfo()) {
         trackingUsecase = TrackingProgressUsecase()
-        self.trackingModel = Observable(trackingModel)
-        self.milestones = Observable([MileStone]())
+        self.trackingModel = BoosterObservable(trackingModel)
+        self.milestones = BoosterObservable([MileStone]())
         self.user = user
         state = .start
     }

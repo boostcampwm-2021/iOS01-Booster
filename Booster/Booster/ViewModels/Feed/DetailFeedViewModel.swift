@@ -9,10 +9,10 @@ import Foundation
 
 final class DetailFeedViewModel {
     private let usecase: DetailFeedUsecase
-    var trackingModel: Observable<TrackingModel>
+    var trackingModel: BoosterObservable<TrackingModel>
 
     init() {
-        trackingModel = Observable(TrackingModel())
+        trackingModel = BoosterObservable(TrackingModel())
         usecase = DetailFeedUsecase()
     }
 
