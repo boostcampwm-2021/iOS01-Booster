@@ -113,6 +113,7 @@ final class HealthStoreManager {
             return
         }
 
+        
         let unit = unit.unit
         let countQuantity = HKQuantity(unit: unit, doubleValue: count)
         let sample = HKQuantitySample(type: type, quantity: countQuantity, start: start, end: end)
@@ -125,5 +126,19 @@ final class HealthStoreManager {
             }
             completion(error)
         }
+        
+        HKQuantitySample(type: type, quantity: countQuantity, start: start, end: end, metadata: [HKMetadataKeySyncIdentifier: "key"])
+    }
+    
+    func removeAll(completion: @escaping (Error) -> Void) {
+        guard let healthStore = healthStore,
+        else {
+            completion(HealthKitError.optionalCasting)
+            return
+        }
+        
+        let prediacate = HKQuery.predicateForObjects(withMetadataKey: HKMetadataKeySyncIdentifier, allowedValues: ["key"])
+        
+        
     }
 }

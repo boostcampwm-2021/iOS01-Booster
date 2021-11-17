@@ -19,6 +19,19 @@ class UserViewController: UIViewController, BaseViewControllerTemplate {
         case changeGoal
         case editUserInfo
         case notificationSetting
+        
+        func title() -> String {
+            switch self {
+            case .eraseAllData:
+                return "모든 데이터 지우기"
+            case .changeGoal:
+                return "목표 바꾸기"
+            case .editUserInfo:
+                return "개인 정보 수정"
+            case .notificationSetting:
+                return "알람 설정"
+            }
+        }
     }
 
     // MARK: - @IBOutlet
@@ -71,18 +84,24 @@ extension UserViewController: UITableViewDataSource {
         guard let sectionType = sectionType(rawValue: section)
         else { return UIView() }
 
+        var header: UITableViewHeaderFooterView?
+        
         switch sectionType {
         case .userHeader:
-            guard let headerView = userTableView.dequeueReusableHeaderFooterView(withIdentifier: "UserInfoHeaderView") as? UserInfoHeaderView else { return nil }
+            guard let headerView = userTableView.dequeueReusableHeaderFooterView(withIdentifier: "UserInfoHeaderView") as? UserInfoHeaderView
+            else { return nil }
+            
             headerView.configure(viewModel: viewModel)
 
-            return headerView
+            header = headerView
         case .myInfo:
             guard let headerView = userTableView.dequeueReusableHeaderFooterView(withIdentifier: "MyInfoHeaderView") as? MyInfoHeaderView
             else { return nil }
 
-            return headerView
+            header = headerView
         }
+        
+        return header
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -90,29 +109,22 @@ extension UserViewController: UITableViewDataSource {
         else { return UITableViewCell() }
 
         var cell: UITableViewCell?
+        
         switch sectionTitle {
-        case .userHeader: return UITableViewCell()
+        case .userHeader:
+            return UITableViewCell()
         case .myInfo:
             guard let customCell = userTableView.dequeueReusableCell(withIdentifier: "UserInfoBaseCell") as? UserInfoBaseCell,
                   let cellType = MyInfoCellType(rawValue: indexPath.row)
             else { return UITableViewCell() }
-
-            switch cellType {
-            case .eraseAllData:
-                customCell.configure(title: "모든 데이터 지우기")
-            case .changeGoal:
-                customCell.configure(title: "목표 바꾸기")
-            case .editUserInfo:
-                customCell.configure(title: "개인 정보 수정")
-            case .notificationSetting:
-                customCell.configure(title: "알림 설정")
-            default:
-                break
-            }
+            
+            customCell.configure(title: cellType.title())
+            
             cell = customCell
         }
 
-        guard let cell = cell else { return UITableViewCell() }
+        guard let cell = cell
+        else { return UITableViewCell() }
 
         return cell
     }
