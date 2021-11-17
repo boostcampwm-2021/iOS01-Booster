@@ -12,7 +12,7 @@ class TrackingViewController: UIViewController, BaseViewControllerTemplate {
     }
 
     // MARK: - @IBOutlet
-    @IBOutlet private weak var trackingMapView: MKMapView!
+    @IBOutlet private weak var trackingMapView: TrackingMapView!
     @IBOutlet private weak var nextButton: UIButton!
 
     // MARK: - Properties

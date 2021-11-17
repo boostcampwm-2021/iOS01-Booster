@@ -14,6 +14,7 @@ extension UIImage {
     static let systemStop = UIImage(systemName: "stop")
     static let systemPlay = UIImage(systemName: "play")
     static let systemPencil = UIImage(systemName: "pencil")
+    static let systemChevronRight = UIImage(systemName: "chevron.right")
 
     static let assetFoot = UIImage(named: "foot") ?? UIImage()
 }
