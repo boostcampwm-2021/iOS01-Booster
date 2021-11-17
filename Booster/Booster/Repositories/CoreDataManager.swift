@@ -3,20 +3,19 @@ import CoreData
 import RxSwift
 
 final class CoreDataManager {
-    init() {
+    static let shared: CoreDataManager = CoreDataManager()
+
+    private init() {
         container = NSPersistentContainer(name: "Booster")
         container.loadPersistentStores { _, _ in }
-        entityName = ""
     }
 
-    private var entityName: String
     private var container: NSPersistentContainer
 
     func save(value: [String: Any],
               type name: String,
               completion handler: @escaping (Result<Void, Error>) -> Void) {
-        self.entityName = name
-        guard let entity = NSEntityDescription.entity(forEntityName: entityName, in: container.viewContext)
+        guard let entity = NSEntityDescription.entity(forEntityName: name, in: container.viewContext)
         else { return }
 
         let backgroundContext = container.newBackgroundContext()
@@ -42,8 +41,8 @@ final class CoreDataManager {
     func save(value: [String: Any],
               type name: String) -> Observable<Void> {
         return Observable.create { observer in
-            self.entityName = name
-            guard let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: self.container.viewContext)
+
+            guard let entity = NSEntityDescription.entity(forEntityName: name, in: self.container.viewContext)
             else { return Disposables.create() }
 
             let backgroundContext = self.container.newBackgroundContext()
