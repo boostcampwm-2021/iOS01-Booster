@@ -18,7 +18,7 @@ final class DetailFeedUsecase {
     }
 
     func fetch(predicate: NSPredicate, completion handler: @escaping ([TrackingModel]) -> Void) {
-        repository.fetch(entityName: entityName, predicate: predicate) { (response: Result<[Tracking], Error>) in
+        CoreDataManager.shared.fetch(entityName: entityName, predicate: predicate) { (response: Result<[Tracking], Error>) in
             switch response {
             case .success(let result):
                 var trackingModels: [TrackingModel] = []
