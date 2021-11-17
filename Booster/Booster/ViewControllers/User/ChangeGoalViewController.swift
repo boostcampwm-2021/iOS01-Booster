@@ -38,14 +38,14 @@ class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
     }
 
     @IBAction func saveButtonDidTap(_ sender: Any) {
-        
+
     }
-    
+
     // MARK: - @objc
 
     // MARK: - Functions
     private func naivgationBarConfigure() {
-        navigationController?.title = "목표 바꾸기"
+
     }
 
     private func UIConfigure() {

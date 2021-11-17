@@ -109,6 +109,7 @@
 		FA614F942733D51C00B090D9 /* EnrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F932733D51C00B090D9 /* EnrollViewController.swift */; };
 		FA614F962738F7A200B090D9 /* MileStonePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F952738F7A200B090D9 /* MileStonePhotoViewController.swift */; };
 		FA614F982738FDA900B090D9 /* MileStonePhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F972738FDA900B090D9 /* MileStonePhotoViewModel.swift */; };
+		FAA291BA2744FE8B0042D2D5 /* EraseAllDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA291B92744FE8B0042D2D5 /* EraseAllDataViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -222,6 +223,7 @@
 		FA614F932733D51C00B090D9 /* EnrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollViewController.swift; sourceTree = "<group>"; };
 		FA614F952738F7A200B090D9 /* MileStonePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MileStonePhotoViewController.swift; sourceTree = "<group>"; };
 		FA614F972738FDA900B090D9 /* MileStonePhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MileStonePhotoViewModel.swift; sourceTree = "<group>"; };
+		FAA291B92744FE8B0042D2D5 /* EraseAllDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraseAllDataViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -355,6 +357,7 @@
 			children = (
 				FA614F462733CDAA00B090D9 /* UserViewController.swift */,
 				FA473A4C2744EC1C0000C5DC /* ChangeGoalViewController.swift */,
+				FAA291B92744FE8B0042D2D5 /* EraseAllDataViewController.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -943,6 +946,7 @@
 				379E3C57273BC182002B0B15 /* ChartView.swift in Sources */,
 				FA614F822733CDAA00B090D9 /* UserViewController.swift in Sources */,
 				FA614F7E2733CDAA00B090D9 /* StatisticsViewController.swift in Sources */,
+				FAA291BA2744FE8B0042D2D5 /* EraseAllDataViewController.swift in Sources */,
 				FA473A4F2744EE730000C5DC /* GoalViewModel.swift in Sources */,
 				FA614F862733CDAA00B090D9 /* PhotoAnnotationView.swift in Sources */,
 				FA614F942733D51C00B090D9 /* EnrollViewController.swift in Sources */,
