@@ -1,7 +1,8 @@
 import Foundation
 import CoreData
+import RxSwift
 
-final class RepositoryManager {
+final class CoreDataManager {
     init() {
         container = NSPersistentContainer(name: "Booster")
         container.loadPersistentStores { _, _ in }
@@ -13,7 +14,7 @@ final class RepositoryManager {
 
     func save(value: [String: Any],
               type name: String,
-              completion handler: @escaping (Result<Void, Error>) -> Void ) {
+              completion handler: @escaping (Result<Void, Error>) -> Void) {
         self.entityName = name
         guard let entity = NSEntityDescription.entity(forEntityName: entityName, in: container.viewContext)
         else { return }
@@ -35,6 +36,35 @@ final class RepositoryManager {
             } catch let error {
                 handler(.failure(error))
             }
+        }
+    }
+
+    func save(value: [String: Any],
+              type name: String) -> Observable<Void> {
+        return Observable.create { observer in
+            self.entityName = name
+            guard let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: self.container.viewContext)
+            else { return Disposables.create() }
+
+            let backgroundContext = self.container.newBackgroundContext()
+
+            backgroundContext.perform { [weak self] in
+                guard let self = self
+                else { return }
+
+                let entityObject = NSManagedObject(entity: entity, insertInto: self.container.viewContext)
+                value.forEach { entityObject.setValue($0.value, forKey: $0.key) }
+
+                let context = self.container.viewContext
+
+                do {
+                    try context.save()
+                    observer.onNext(())
+                } catch let error {
+                    observer.onError(error)
+                }
+            }
+            return Disposables.create()
         }
     }
 

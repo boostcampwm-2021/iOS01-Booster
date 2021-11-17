@@ -8,16 +8,14 @@
 import Foundation
 
 class FeedUseCase {
-    private let repository: RepositoryManager
     private let entity: String
 
     init() {
         entity = "Tracking"
-        repository = RepositoryManager()
     }
 
     func fetch(completion handler: @escaping ([FeedList]) -> Void) {
-        repository.fetch { (response: Result<[Tracking], Error>) in
+        CoreDataManager.shared.fetch { (response: Result<[Tracking], Error>) in
             switch response {
             case .success(let result):
                 var feedLists: [FeedList] = []
@@ -34,7 +32,7 @@ class FeedUseCase {
     }
 
     func fetch(predicate: NSPredicate, completion handler: @escaping ([FeedList]) -> Void) {
-        repository.fetch(entityName: entity, predicate: predicate) { (response: Result<[Tracking], Error>) in
+        CoreDataManager.shared.fetch(entityName: entity, predicate: predicate) { (response: Result<[Tracking], Error>) in
             switch response {
             case .success(let result):
                 var feedLists: [FeedList] = []

@@ -27,15 +27,13 @@ final class TrackingProgressUsecase {
         static let imageData: String = "imageData"
     }
 
-    private var errors: Observable<[TrackingError?]>
+    private var errors: BoosterObservable<[TrackingError?]>
     private var handler: ((TrackingError?) -> Void)?
     private let entity: String
-    private let repository: RepositoryManager
 
     init() {
-        errors = Observable([])
+        errors = BoosterObservable([])
         entity = "Tracking"
-        repository = RepositoryManager()
         errors.bind { values in
             guard let handler = self.handler
             else { return }
@@ -80,7 +78,7 @@ final class TrackingProgressUsecase {
             CoreDataKeys.imageData: model.imageData
         ]
 
-        repository.save(value: value, type: entity) { [weak self] response in
+        CoreDataManager.shared.save(value: value, type: entity) { [weak self] response in
             guard let self = self
             else { return }
 
