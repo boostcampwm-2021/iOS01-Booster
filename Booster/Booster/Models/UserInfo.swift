@@ -2,14 +2,14 @@ import Foundation
 
 struct UserInfo {
     var age: Int
-    var nickname: String
+    var nickName: String
     var gender: String
     var height: Int
     var weight: Int
 
-    init(age: Int = 25, nickname: String = "", gender: String = "M", height: Int = 170, weight: Int = 60) {
+    init(age: Int = 24, nickName: String = "", gender: String = "여", height: Int = 149, weight: Int = 59) {
         self.age = age
-        self.nickname = nickname
+        self.nickName = nickName
         self.gender = gender
         self.height = height
         self.weight = weight
