@@ -1,6 +1,6 @@
 import Foundation
 
-final class Observable<T> {
+final class BoosterObservable<T> {
     private var listener: ((T) -> Void)?
 
     var value: T {

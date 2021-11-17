@@ -12,8 +12,8 @@ final class StatisticsViewModel {
     private var monthStatistics = StatisticsCollection()
     private var yearStatistics  = StatisticsCollection()
 
-    var selectedDuration: Observable<Duration> = Observable(.week)
-    var selectedStatistics: Observable<(index: Int?, coordinate: Float?)> = Observable((nil, nil))
+    var selectedDuration: BoosterObservable<Duration> = BoosterObservable(.week)
+    var selectedStatistics: BoosterObservable<(index: Int?, coordinate: Float?)> = BoosterObservable((nil, nil))
 
     // MARK: - functions
     func statistics() -> StatisticsCollection {

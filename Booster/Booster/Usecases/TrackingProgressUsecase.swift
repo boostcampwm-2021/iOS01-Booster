@@ -27,13 +27,13 @@ final class TrackingProgressUsecase {
         static let imageData: String = "imageData"
     }
 
-    private var errors: Observable<[TrackingError?]>
+    private var errors: BoosterObservable<[TrackingError?]>
     private var handler: ((TrackingError?) -> Void)?
     private let entity: String
     private let repository: RepositoryManager
 
     init() {
-        errors = Observable([])
+        errors = BoosterObservable([])
         entity = "Tracking"
         repository = RepositoryManager()
         errors.bind { values in
