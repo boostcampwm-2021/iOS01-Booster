@@ -29,6 +29,7 @@ class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
         naivgationBarConfigure()
         UIConfigure()
 
+        stepsTextField.delegate = self
         stepsTextField.becomeFirstResponder()
     }
 
@@ -56,5 +57,16 @@ class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
         border.backgroundColor = UIColor.boosterOrange.cgColor
         stepsTextField.layer.addSublayer(border)
         stepsTextField.layer.masksToBounds = true
+    }
+}
+
+extension ChangeGoalViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text
+        else { return true }
+
+        let length = text.count + string.count - range.length
+
+        return length <= 5
     }
 }
