@@ -34,15 +34,21 @@
 		3B31B616274108F3009D9190 /* BoosterObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F3C2733CDAA00B090D9 /* BoosterObservable.swift */; };
 		3B31B61827410935009D9190 /* TrackingProgressUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F502733CDAA00B090D9 /* TrackingProgressUsecase.swift */; };
 		3B31B61B2741097E009D9190 /* HealthStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F532733CDAA00B090D9 /* HealthStoreManager.swift */; };
-		3B31B61C2741098C009D9190 /* RepositoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F262733CDAA00B090D9 /* RepositoryManager.swift */; };
+		3B31B61C2741098C009D9190 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F262733CDAA00B090D9 /* CoreDataManager.swift */; };
 		3B31B61D27410997009D9190 /* StatisticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F162733CDAA00B090D9 /* StatisticsViewModel.swift */; };
 		3B31B61E274109A5009D9190 /* BoosterObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F3C2733CDAA00B090D9 /* BoosterObservable.swift */; };
 		3B31B61F274109AF009D9190 /* HealthStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F532733CDAA00B090D9 /* HealthStoreManager.swift */; };
 		3B31B62127413664009D9190 /* FeedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B31B62027413664009D9190 /* FeedList.swift */; };
+		3B37B999274366A8001EB120 /* EnrollViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B37B998274366A8001EB120 /* EnrollViewModel.swift */; };
+		3B37B99C274371B9001EB120 /* GenderEnrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B37B99B274371B9001EB120 /* GenderEnrollView.swift */; };
+		3B37B99E274385B6001EB120 /* EnrollUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B37B99D274385B6001EB120 /* EnrollUsecase.swift */; };
 		3B38FB14273A5F3B00F8620D /* TrackingCountDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B38FB13273A5F3B00F8620D /* TrackingCountDownView.swift */; };
 		3B38FB1A273BABBE00F8620D /* TrackingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B38FB19273BABBE00F8620D /* TrackingViewModel.swift */; };
 		3B38FB1C273BF7CD00F8620D /* FeedUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B38FB1B273BF7CD00F8620D /* FeedUseCase.swift */; };
 		3B4E4006272A6B5200577625 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3B4E4005272A6B5200577625 /* .swiftlint.yml */; };
+		3B6FE5002743A5F400A815D1 /* EnrollWriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6FE4FF2743A5F300A815D1 /* EnrollWriteView.swift */; };
+		3B6FE5032743A85B00A815D1 /* InfoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6FE5022743A85B00A815D1 /* InfoPickerView.swift */; };
+		3B6FE5052744DDBE00A815D1 /* NickNameEnrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6FE5042744DDBE00A815D1 /* NickNameEnrollView.swift */; };
 		4500449EAD12786CF0C84845 /* Pods_Booster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1982A2EE6933ED1A7065E1 /* Pods_Booster.framework */; };
 		FA2578F72745E99800597382 /* EditUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2578F62745E99800597382 /* EditUserInfoViewController.swift */; };
 		FA473A05273A1F8A0000C5DC /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA473A04273A1F8A0000C5DC /* UIImage+Extension.swift */; };
@@ -77,7 +83,7 @@
 		FA614F652733CDAA00B090D9 /* NotoSansKR-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = FA614F212733CDAA00B090D9 /* NotoSansKR-Black.otf */; };
 		FA614F662733CDAA00B090D9 /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = FA614F222733CDAA00B090D9 /* NotoSansKR-Medium.otf */; };
 		FA614F672733CDAA00B090D9 /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = FA614F232733CDAA00B090D9 /* NotoSansKR-Regular.otf */; };
-		FA614F692733CDAA00B090D9 /* RepositoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F262733CDAA00B090D9 /* RepositoryManager.swift */; };
+		FA614F692733CDAA00B090D9 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F262733CDAA00B090D9 /* CoreDataManager.swift */; };
 		FA614F6B2733CDAA00B090D9 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F292733CDAA00B090D9 /* User+CoreDataProperties.swift */; };
 		FA614F6C2733CDAA00B090D9 /* Booster.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FA614F2A2733CDAA00B090D9 /* Booster.xcdatamodeld */; };
 		FA614F6D2733CDAA00B090D9 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F2C2733CDAA00B090D9 /* User+CoreDataClass.swift */; };
@@ -152,11 +158,17 @@
 		3B31B60527410470009D9190 /* TrackingProgressTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrackingProgressTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B31B60727410470009D9190 /* TrackingProgressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingProgressTests.swift; sourceTree = "<group>"; };
 		3B31B62027413664009D9190 /* FeedList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedList.swift; sourceTree = "<group>"; };
+		3B37B998274366A8001EB120 /* EnrollViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollViewModel.swift; sourceTree = "<group>"; };
+		3B37B99B274371B9001EB120 /* GenderEnrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderEnrollView.swift; sourceTree = "<group>"; };
+		3B37B99D274385B6001EB120 /* EnrollUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollUsecase.swift; sourceTree = "<group>"; };
 		3B38FB13273A5F3B00F8620D /* TrackingCountDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingCountDownView.swift; sourceTree = "<group>"; };
 		3B38FB19273BABBE00F8620D /* TrackingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingViewModel.swift; sourceTree = "<group>"; };
 		3B38FB1B273BF7CD00F8620D /* FeedUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedUseCase.swift; sourceTree = "<group>"; };
 		3B4E3FE4272A696E00577625 /* Booster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Booster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4E4005272A6B5200577625 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		3B6FE4FF2743A5F300A815D1 /* EnrollWriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollWriteView.swift; sourceTree = "<group>"; };
+		3B6FE5022743A85B00A815D1 /* InfoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPickerView.swift; sourceTree = "<group>"; };
+		3B6FE5042744DDBE00A815D1 /* NickNameEnrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameEnrollView.swift; sourceTree = "<group>"; };
 		724D72817F933E7C4E0AA2A8 /* Pods-Booster.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booster.debug.xcconfig"; path = "Target Support Files/Pods-Booster/Pods-Booster.debug.xcconfig"; sourceTree = "<group>"; };
 		8D78C31C95AB74973F44C701 /* Pods-Booster.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booster.release.xcconfig"; path = "Target Support Files/Pods-Booster/Pods-Booster.release.xcconfig"; sourceTree = "<group>"; };
 		EE1982A2EE6933ED1A7065E1 /* Pods_Booster.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booster.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -194,7 +206,7 @@
 		FA614F222733CDAA00B090D9 /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.otf"; sourceTree = "<group>"; };
 		FA614F232733CDAA00B090D9 /* NotoSansKR-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Regular.otf"; sourceTree = "<group>"; };
 		FA614F242733CDAA00B090D9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FA614F262733CDAA00B090D9 /* RepositoryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryManager.swift; sourceTree = "<group>"; };
+		FA614F262733CDAA00B090D9 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		FA614F292733CDAA00B090D9 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		FA614F2B2733CDAA00B090D9 /* Booster.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Booster.xcdatamodel; sourceTree = "<group>"; };
 		FA614F2C2733CDAA00B090D9 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -286,6 +298,24 @@
 			path = TrackingProgressTests;
 			sourceTree = "<group>";
 		};
+		3B37B9972743669C001EB120 /* Enroll */ = {
+			isa = PBXGroup;
+			children = (
+				3B37B998274366A8001EB120 /* EnrollViewModel.swift */,
+			);
+			path = Enroll;
+			sourceTree = "<group>";
+		};
+		3B37B99A274371AA001EB120 /* Enroll */ = {
+			isa = PBXGroup;
+			children = (
+				3B37B99B274371B9001EB120 /* GenderEnrollView.swift */,
+				3B6FE4FF2743A5F300A815D1 /* EnrollWriteView.swift */,
+				3B6FE5042744DDBE00A815D1 /* NickNameEnrollView.swift */,
+			);
+			path = Enroll;
+			sourceTree = "<group>";
+		};
 		3B4E3FDB272A696E00577625 = {
 			isa = PBXGroup;
 			children = (
@@ -307,6 +337,14 @@
 				3B31B60527410470009D9190 /* TrackingProgressTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		3B6FE5012743A83000A815D1 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				3B6FE5022743A85B00A815D1 /* InfoPickerView.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		AC0BA7BBD58ED6224A335A59 /* Frameworks */ = {
@@ -533,6 +571,7 @@
 			isa = PBXGroup;
 			children = (
 				FA473A472743915F0000C5DC /* User */,
+				3B37B9972743669C001EB120 /* Enroll */,
 				FA473A13273B94890000C5DC /* MileStone */,
 				FA473A12273B947C0000C5DC /* Feed */,
 				FA473A10273B94710000C5DC /* Statistic */,
@@ -570,7 +609,7 @@
 		FA614F252733CDAA00B090D9 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				FA614F262733CDAA00B090D9 /* RepositoryManager.swift */,
+				FA614F262733CDAA00B090D9 /* CoreDataManager.swift */,
 				FA614F272733CDAA00B090D9 /* CoreData */,
 			);
 			path = Repositories;
@@ -653,6 +692,8 @@
 		FA614F482733CDAA00B090D9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3B6FE5012743A83000A815D1 /* Utils */,
+				3B37B99A274371AA001EB120 /* Enroll */,
 				3B31B5FA273C0A52009D9190 /* Configurator */,
 				FA614F132733CDAA00B090D9 /* Renderers */,
 				FA473A1B273BA2130000C5DC /* Home */,
@@ -673,6 +714,7 @@
 				3B38FB1B273BF7CD00F8620D /* FeedUseCase.swift */,
 				28C9702E2740D731005BD7BC /* HomeUsecase.swift */,
 				FA473A4A2743A2FB0000C5DC /* UserUsecase.swift */,
+				3B37B99D274385B6001EB120 /* EnrollUsecase.swift */,
 			);
 			path = Usecases;
 			sourceTree = "<group>";
@@ -915,7 +957,7 @@
 				3B31B610274107B4009D9190 /* MileStone.swift in Sources */,
 				3B31B61827410935009D9190 /* TrackingProgressUsecase.swift in Sources */,
 				3B31B60827410470009D9190 /* TrackingProgressTests.swift in Sources */,
-				3B31B61C2741098C009D9190 /* RepositoryManager.swift in Sources */,
+				3B31B61C2741098C009D9190 /* CoreDataManager.swift in Sources */,
 				3B31B612274107BD009D9190 /* TrackingModel.swift in Sources */,
 				3B31B61B2741097E009D9190 /* HealthStoreManager.swift in Sources */,
 				3B31B616274108F3009D9190 /* BoosterObservable.swift in Sources */,
@@ -937,6 +979,7 @@
 				3B38FB1C273BF7CD00F8620D /* FeedUseCase.swift in Sources */,
 				FA614F802733CDAA00B090D9 /* TrackingProgressViewController.swift in Sources */,
 				FA473A4527438A3E0000C5DC /* MyInfoHeaderView.swift in Sources */,
+				3B37B99C274371B9001EB120 /* GenderEnrollView.swift in Sources */,
 				FA614F792733CDAA00B090D9 /* UIAlertController+Extention.swift in Sources */,
 				FA614F832733CDAA00B090D9 /* FeedViewController.swift in Sources */,
 				FA614F712733CDAA00B090D9 /* MileStone.swift in Sources */,
@@ -956,12 +999,14 @@
 				3B31B5FF273CD2F7009D9190 /* Tracking+CoreDataClass.swift in Sources */,
 				28C96FED27396F6B005BD7BC /* DetailFeedViewModel.swift in Sources */,
 				FA614F6D2733CDAA00B090D9 /* User+CoreDataClass.swift in Sources */,
+				3B6FE5002743A5F400A815D1 /* EnrollWriteView.swift in Sources */,
 				379E3C57273BC182002B0B15 /* ChartView.swift in Sources */,
 				FACBAB6A2746034900CD6B76 /* UIButton+Extension.swift in Sources */,
 				FA614F822733CDAA00B090D9 /* UserViewController.swift in Sources */,
 				FA614F7E2733CDAA00B090D9 /* StatisticsViewController.swift in Sources */,
 				FAA291BA2744FE8B0042D2D5 /* EraseAllDataViewController.swift in Sources */,
 				FA473A4F2744EE730000C5DC /* GoalViewModel.swift in Sources */,
+				3B6FE5032743A85B00A815D1 /* InfoPickerView.swift in Sources */,
 				FA614F862733CDAA00B090D9 /* PhotoAnnotationView.swift in Sources */,
 				FA614F942733D51C00B090D9 /* EnrollViewController.swift in Sources */,
 				FA614F7B2733CDAA00B090D9 /* BoosterObservable.swift in Sources */,
@@ -970,8 +1015,9 @@
 				FA614F8A2733CDAA00B090D9 /* TrackingProgressUsecase.swift in Sources */,
 				FA614F982738FDA900B090D9 /* MileStonePhotoViewModel.swift in Sources */,
 				28C96FF3273A4634005BD7BC /* UIResponder+Extension.swift in Sources */,
-				FA614F692733CDAA00B090D9 /* RepositoryManager.swift in Sources */,
+				FA614F692733CDAA00B090D9 /* CoreDataManager.swift in Sources */,
 				3B31B5FC273C0A66009D9190 /* CellConfigurator.swift in Sources */,
+				3B6FE5052744DDBE00A815D1 /* NickNameEnrollView.swift in Sources */,
 				FA473A16273B95750000C5DC /* BaseViewControllerTemplate.swift in Sources */,
 				FA614F852733CDAA00B090D9 /* TrackingMapView.swift in Sources */,
 				FA473A4B2743A2FB0000C5DC /* UserUsecase.swift in Sources */,
@@ -983,6 +1029,7 @@
 				FA614F5C2733CDAA00B090D9 /* StatisticsViewModel.swift in Sources */,
 				FA614F8B2733CDAA00B090D9 /* HealthStoreManager.swift in Sources */,
 				28C970312744EB64005BD7BC /* ModifyFeedViewController.swift in Sources */,
+				3B37B999274366A8001EB120 /* EnrollViewModel.swift in Sources */,
 				FA614F8E2733CF9000B090D9 /* EmptyView.swift in Sources */,
 				FA473A412743788B0000C5DC /* UserInfoHeaderView.swift in Sources */,
 				FA614F772733CDAA00B090D9 /* NSAttributedString+Extension.swift in Sources */,
@@ -990,6 +1037,7 @@
 				FA473A3C274375BB0000C5DC /* UserInfoBaseCell.swift in Sources */,
 				3B38FB14273A5F3B00F8620D /* TrackingCountDownView.swift in Sources */,
 				3B31B62127413664009D9190 /* FeedList.swift in Sources */,
+				3B37B99E274385B6001EB120 /* EnrollUsecase.swift in Sources */,
 				FA614F722733CDAA00B090D9 /* HomeModel.swift in Sources */,
 				FA614F962738F7A200B090D9 /* MileStonePhotoViewController.swift in Sources */,
 				28C9702F2740D731005BD7BC /* HomeUsecase.swift in Sources */,
