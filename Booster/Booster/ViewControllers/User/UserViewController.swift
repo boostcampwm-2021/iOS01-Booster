@@ -80,7 +80,8 @@ class UserViewController: UIViewController, BaseViewControllerTemplate {
                 }
             }
         case .changeGoal:
-            break
+            performSegue(withIdentifier: "changeGoalSegue", sender: self)
+            return
         case .editUserInfo:
             let prevViewModel = viewModel
             viewModel.editUserInfo(gender: "남", age: 99, height: 180, weight: 80, nickname: "신선도사")

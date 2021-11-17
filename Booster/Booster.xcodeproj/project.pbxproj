@@ -53,6 +53,8 @@
 		FA473A4527438A3E0000C5DC /* MyInfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA473A4427438A3E0000C5DC /* MyInfoHeaderView.swift */; };
 		FA473A49274391740000C5DC /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA473A48274391740000C5DC /* UserViewModel.swift */; };
 		FA473A4B2743A2FB0000C5DC /* UserUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA473A4A2743A2FB0000C5DC /* UserUsecase.swift */; };
+		FA473A4D2744EC1C0000C5DC /* ChangeGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA473A4C2744EC1C0000C5DC /* ChangeGoalViewController.swift */; };
+		FA473A4F2744EE730000C5DC /* GoalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA473A4E2744EE730000C5DC /* GoalViewModel.swift */; };
 		FA614F542733CDAA00B090D9 /* Statistics.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA614F092733CDAA00B090D9 /* Statistics.storyboard */; };
 		FA614F552733CDAA00B090D9 /* Feed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA614F0A2733CDAA00B090D9 /* Feed.storyboard */; };
 		FA614F562733CDAA00B090D9 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA614F0B2733CDAA00B090D9 /* Home.storyboard */; };
@@ -162,6 +164,8 @@
 		FA473A4427438A3E0000C5DC /* MyInfoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoHeaderView.swift; sourceTree = "<group>"; };
 		FA473A48274391740000C5DC /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		FA473A4A2743A2FB0000C5DC /* UserUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUsecase.swift; sourceTree = "<group>"; };
+		FA473A4C2744EC1C0000C5DC /* ChangeGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeGoalViewController.swift; sourceTree = "<group>"; };
+		FA473A4E2744EE730000C5DC /* GoalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalViewModel.swift; sourceTree = "<group>"; };
 		FA614F092733CDAA00B090D9 /* Statistics.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Statistics.storyboard; sourceTree = "<group>"; };
 		FA614F0A2733CDAA00B090D9 /* Feed.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Feed.storyboard; sourceTree = "<group>"; };
 		FA614F0B2733CDAA00B090D9 /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
@@ -350,6 +354,7 @@
 			isa = PBXGroup;
 			children = (
 				FA614F462733CDAA00B090D9 /* UserViewController.swift */,
+				FA473A4C2744EC1C0000C5DC /* ChangeGoalViewController.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -463,6 +468,7 @@
 			isa = PBXGroup;
 			children = (
 				FA473A48274391740000C5DC /* UserViewModel.swift */,
+				FA473A4E2744EE730000C5DC /* GoalViewModel.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -928,6 +934,7 @@
 				FA614F5D2733CDAA00B090D9 /* HomeViewModel.swift in Sources */,
 				FA614F6F2733CDAA00B090D9 /* UserInfo.swift in Sources */,
 				FA614F702733CDAA00B090D9 /* Statistics.swift in Sources */,
+				FA473A4D2744EC1C0000C5DC /* ChangeGoalViewController.swift in Sources */,
 				FA614F7C2733CDAA00B090D9 /* AppDelegate.swift in Sources */,
 				FA614F812733CDAA00B090D9 /* TrackingViewController.swift in Sources */,
 				3B31B5FF273CD2F7009D9190 /* Tracking+CoreDataClass.swift in Sources */,
@@ -936,6 +943,7 @@
 				379E3C57273BC182002B0B15 /* ChartView.swift in Sources */,
 				FA614F822733CDAA00B090D9 /* UserViewController.swift in Sources */,
 				FA614F7E2733CDAA00B090D9 /* StatisticsViewController.swift in Sources */,
+				FA473A4F2744EE730000C5DC /* GoalViewModel.swift in Sources */,
 				FA614F862733CDAA00B090D9 /* PhotoAnnotationView.swift in Sources */,
 				FA614F942733D51C00B090D9 /* EnrollViewController.swift in Sources */,
 				FA614F7B2733CDAA00B090D9 /* Observable.swift in Sources */,
