@@ -66,12 +66,17 @@ class UserViewController: UIViewController, BaseViewControllerTemplate {
     private func myInfoCellDidSelectActions(cellType: MyInfoCellType) {
         switch cellType {
         case .eraseAllData:
-            HealthStoreManager.shared.removeAll { (result) in
-                switch result {
-                case .success(let statistics):
-                    dump(statistics)
-                case .failure(let error):
-                    print(error.localizedDescription)
+            viewModel.eraseAllData { [weak self] (result) in
+                DispatchQueue.main.async {
+                    var alert = UIAlertController()
+                    switch result {
+                    case .success(let count):
+                        alert = UIAlertController.simpleAlert(title: "삭제 완료", message: "총 \(count)개의 정보가 삭제됐어요!")
+                    case .failure(let error):
+                        dump(error)
+                        alert = UIAlertController.simpleAlert(title: "삭제 실패", message: "알 수 없는 오류로 인하여 정보를 삭제할 수 없어요")
+                    }
+                    self?.present(alert, animated: true)
                 }
             }
         case .changeGoal:

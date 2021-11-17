@@ -149,15 +149,15 @@ final class HealthStoreManager {
             else { continue }
 
             healthStore.deleteObjects(of: quantity, predicate: predicate) { (isDeleted, count, error) in
-                if !isDeleted {
-                    completion(.failure(error!))
+                if !isDeleted,
+                   let error = error {
+                    completion(.failure(error))
                     return
                 }
 
                 removedCount += count
             }
         }
-
         completion(.success(removedCount / HealthQuantityType.allCases.count))
     }
 }

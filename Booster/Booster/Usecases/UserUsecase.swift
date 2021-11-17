@@ -18,8 +18,16 @@ final class UserUsecase {
 
     private let repository = RepositoryManager()
 
-    func removeAllUserData() {
+    func eraseAllDataOfHealthKit(completion: @escaping (Result<Int, Error>) -> Void) {
+        HealthStoreManager.shared.removeAll { (result) in
+            completion(result)
+        }
+    }
 
+    func eraseAllDataOfCoreData(completion: @escaping (Result<Void, Error>) -> Void) {
+        repository.delete(entityName: "Tracking") { (result) in
+            completion(result)
+        }
     }
 
     func editUserInfo(model: UserInfo, completion: @escaping (Bool) -> Void) {
@@ -37,6 +45,7 @@ final class UserUsecase {
             case .success:
                 completion(true)
             case .failure(let error):
+                dump(error)
                 completion(false)
             }
         }
