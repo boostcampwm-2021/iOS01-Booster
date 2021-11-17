@@ -37,10 +37,13 @@ final class HealthStoreManager {
 
     enum HealthKitError: Error {
         case optionalCasting
+        case removeAllDataFail
     }
 
     static let shared = HealthStoreManager()
 
+    private let metadataKey = "Booster"
+    private let metadataVersion = 1
     private var healthStore: HKHealthStore?
 
     private init() {
@@ -113,10 +116,12 @@ final class HealthStoreManager {
             return
         }
 
-        
         let unit = unit.unit
         let countQuantity = HKQuantity(unit: unit, doubleValue: count)
-        let sample = HKQuantitySample(type: type, quantity: countQuantity, start: start, end: end)
+        let sample = HKQuantitySample(type: type,
+                                      quantity: countQuantity,
+                                      start: start,
+                                      end: end)
 
         healthStore.save(sample) { _, error in
             guard let error = error
@@ -126,19 +131,33 @@ final class HealthStoreManager {
             }
             completion(error)
         }
-        
-        HKQuantitySample(type: type, quantity: countQuantity, start: start, end: end, metadata: [HKMetadataKeySyncIdentifier: "key"])
     }
-    
-    func removeAll(completion: @escaping (Error) -> Void) {
-        guard let healthStore = healthStore,
+
+    func removeAll(completion: @escaping (Result<Int, Error>) -> Void) {
+        var removedCount = 0
+
+        guard let healthStore = healthStore
         else {
-            completion(HealthKitError.optionalCasting)
+            completion(.failure(HealthKitError.optionalCasting))
             return
         }
-        
-        let prediacate = HKQuery.predicateForObjects(withMetadataKey: HKMetadataKeySyncIdentifier, allowedValues: ["key"])
-        
-        
+
+        let predicate = HKQuery.predicateForObjects(from: HKSource.default())
+
+        for type in HealthQuantityType.allCases {
+            guard let quantity = type.quantity
+            else { continue }
+
+            healthStore.deleteObjects(of: quantity, predicate: predicate) { (isDeleted, count, error) in
+                if !isDeleted {
+                    completion(.failure(error!))
+                    return
+                }
+
+                removedCount += count
+            }
+        }
+
+        completion(.success(removedCount / HealthQuantityType.allCases.count))
     }
 }

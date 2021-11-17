@@ -19,7 +19,7 @@ class UserViewController: UIViewController, BaseViewControllerTemplate {
         case changeGoal
         case editUserInfo
         case notificationSetting
-        
+
         func title() -> String {
             switch self {
             case .eraseAllData:
@@ -62,11 +62,18 @@ class UserViewController: UIViewController, BaseViewControllerTemplate {
         userTableView.register(UINib(nibName: "MyInfoHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "MyInfoHeaderView")
         userTableView.register(UINib(nibName: "UserInfoBaseCell", bundle: nil), forCellReuseIdentifier: "UserInfoBaseCell")
     }
-    
+
     private func myInfoCellDidSelectActions(cellType: MyInfoCellType) {
         switch cellType {
         case .eraseAllData:
-            break
+            HealthStoreManager.shared.removeAll { (result) in
+                switch result {
+                case .success(let statistics):
+                    dump(statistics)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
         case .changeGoal:
             break
         case .editUserInfo:
@@ -120,12 +127,12 @@ extension UserViewController: UITableViewDataSource {
         else { return UIView() }
 
         var header: UITableViewHeaderFooterView?
-        
+
         switch sectionType {
         case .userHeader:
             guard let headerView = userTableView.dequeueReusableHeaderFooterView(withIdentifier: "UserInfoHeaderView") as? UserInfoHeaderView
             else { return nil }
-            
+
             headerView.configure(viewModel: viewModel)
 
             header = headerView
@@ -135,7 +142,7 @@ extension UserViewController: UITableViewDataSource {
 
             header = headerView
         }
-        
+
         return header
     }
 
@@ -144,7 +151,7 @@ extension UserViewController: UITableViewDataSource {
         else { return UITableViewCell() }
 
         var cell: UITableViewCell?
-        
+
         switch sectionTitle {
         case .userHeader:
             return UITableViewCell()
@@ -152,9 +159,9 @@ extension UserViewController: UITableViewDataSource {
             guard let customCell = userTableView.dequeueReusableCell(withIdentifier: "UserInfoBaseCell") as? UserInfoBaseCell,
                   let cellType = MyInfoCellType(rawValue: indexPath.row)
             else { return UITableViewCell() }
-            
+
             customCell.configure(title: cellType.title())
-            
+
             cell = customCell
         }
 
@@ -168,7 +175,8 @@ extension UserViewController: UITableViewDataSource {
 // MARK: - TableViewDelegate
 extension UserViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard let sectionType = sectionType(rawValue: section) else { return 0 }
+        guard let sectionType = sectionType(rawValue: section)
+        else { return 0 }
 
         switch sectionType {
         case .userHeader:
@@ -194,6 +202,7 @@ extension UserViewController: UITableViewDelegate {
         case .myInfo:
             guard let cellType = MyInfoCellType(rawValue: indexPath.row)
             else { return }
+
             myInfoCellDidSelectActions(cellType: cellType)
         }
     }
