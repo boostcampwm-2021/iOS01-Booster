@@ -1,134 +1,97 @@
+//
+//  viewModel.swift
+//  Booster
+//
+//  Created by Hani on 2021/11/16.
+//
+
 import Foundation
 import HealthKit
 
+import RxCocoa
+import RxSwift
+
 final class StatisticsViewModel {
     // MARK: - Enums
-    enum Duration {
+    enum Duration: Int {
         case week, month, year
     }
 
     // MARK: - Properties
-    private var weekStatistics  = StatisticsCollection()
-    private var monthStatistics = StatisticsCollection()
-    private var yearStatistics  = StatisticsCollection()
+    private let usecase = StatisticsUsecase()
+    private let disposeBag = DisposeBag()
 
-    var selectedDuration: Observable<Duration> = Observable(.week)
-    var selectedStatistics: Observable<(index: Int?, coordinate: Float?)> = Observable((nil, nil))
+    var weekStepStatisticsCollection: StepStatisticsCollection?
+    var monthStepStatisticsCollection: StepStatisticsCollection?
+    var yearStepStatisticsCollection: StepStatisticsCollection?
+
+    var selectedDuration: BehaviorRelay<Duration> = BehaviorRelay(value: .month)
+    var selectedStatisticsIndex: BehaviorRelay<Int?> = BehaviorRelay(value: nil)
+
+    // MARK: - init
+    init() {
+        bind()
+    }
 
     // MARK: - functions
-    func statistics() -> StatisticsCollection {
+    func selectedStatisticsCollection() -> StepStatisticsCollection? {
         switch selectedDuration.value {
-        case .week:
-            return weekStatistics
-        case .month:
-            return monthStatistics
-        case .year:
-            return yearStatistics
+        case .week : return weekStepStatisticsCollection
+        case .month: return monthStepStatisticsCollection
+        case .year : return yearStepStatisticsCollection
         }
     }
 
-    func queryStepCount() {
-        queryStepCountForWeek()
-        queryStepCountForMonth()
-        queryStepCountForYear()
-    }
-
-    func tapStatistics(at xCoordinate: Float) {
-        let statisticsCollection: StatisticsCollection = statistics()
-        let offset = 1 / Float(statisticsCollection.count)
-        var selectedIndex: Int = -1
-
-        for index in 0..<statisticsCollection.count {
-            if (Float(index) * offset...Float(index + 1) * offset).contains(xCoordinate) {
-                selectedIndex = index
-                break
+    func bind() {
+        selectedDuration
+            .subscribe(on: MainScheduler.asyncInstance)
+            .distinctUntilChanged()
+            .bind { [weak self] _ in
+              self?.selectedStatisticsIndex.accept(nil)
             }
-        }
+            .disposed(by: disposeBag)
+    }
 
-        if selectedStatistics.value.index == selectedIndex {
-            selectedStatistics.value = (index: nil, coordinate: nil)
+    func selectStatistics(tappedCoordinate: Float) {
+        guard let statisticsCollection = selectedStatisticsCollection(),
+              statisticsCollection.count > 0 else { return }
+
+        let offset = 1 / Float(statisticsCollection.count)
+        let selectedIndex = Int(tappedCoordinate / offset)
+
+        if selectedStatisticsIndex.value != selectedIndex {
+            selectedStatisticsIndex.accept(selectedIndex)
         } else {
-            selectedStatistics.value = (index: selectedIndex, coordinate: Float(selectedIndex) * offset + offset / 2)
+            selectedStatisticsIndex.accept(nil)
         }
     }
 
-    func panStatistics(at xCoordinate: Float) {
-        let statisticsCollection: StatisticsCollection = statistics()
+    func selectStatistics(pannedCoordinate: Float) {
+        guard let statisticsCollection = selectedStatisticsCollection(),
+              statisticsCollection.count > 0 else { return }
+
         let offset = 1 / Float(statisticsCollection.count)
-        var selectedIndex: Int = -1
+        let selectedIndex = Int(pannedCoordinate / offset)
 
-        for index in 0..<statisticsCollection.count {
-            if (Float(index) * offset...Float(index + 1) * offset).contains(xCoordinate) {
-                selectedIndex = index
-                break
-            }
-        }
-
-        if selectedStatistics.value.index != selectedIndex {
-            selectedStatistics.value = (index: selectedIndex, coordinate: Float(selectedIndex) * offset + offset / 2)
+        if selectedStatisticsIndex.value != selectedIndex {
+            selectedStatisticsIndex.accept(selectedIndex)
         }
     }
 
-    private func queryStepCountForWeek() {
-        queryStepCount(for: .week) { [weak self] result in
-            self?.weekStatistics = result
-        }
-    }
-    private func queryStepCountForMonth() {
-        queryStepCount(for: .month) { [weak self] result in
-            self?.monthStatistics = result
-        }
-    }
-    private func queryStepCountForYear() {
-        queryStepCount(for: .year) { [weak self] result in
-            self?.yearStatistics = result
-        }
-    }
+    func requestQueryForStatisticsCollection() {
+        usecase.execute(duration: .weekOfMonth, interval: .init(day: 1))
+            .subscribe { [weak self] stepStatisticsCollection in
+                self?.weekStepStatisticsCollection = stepStatisticsCollection
+            }.disposed(by: disposeBag)
 
-    private func queryStepCount(for button: Duration, completion: @escaping (StatisticsCollection) -> Void) {
-        var interval: DateComponents
-        var duration: Calendar.Component
+        usecase.execute(duration: .month, interval: .init(weekOfMonth: 1))
+            .subscribe { [weak self] stepStatisticsCollection in
+                self?.monthStepStatisticsCollection = stepStatisticsCollection
+            }.disposed(by: disposeBag)
 
-        switch button {
-        case .week:
-            interval = DateComponents(day: 1)
-            duration = .weekOfMonth
-        case .month:
-            interval = DateComponents(weekOfMonth: 1)
-            duration = .month
-        case .year:
-            interval = DateComponents(month: 1)
-            duration = .year
-        }
-
-        guard let stepCountType = HKQuantityType.quantityType(forIdentifier: .stepCount),
-              let past = Calendar.current.date(byAdding: duration,
-                                                     value: -1,
-                                                     to: Date())
-        else { return }
-
-        let startDate = Calendar.current.startOfDay(for: past)
-        let anchorDate = Calendar.current.startOfDay(for: Date())
-        let predicate = HKQuery.predicateForSamples(withStart: startDate,
-                                                    end: Date(),
-                                                    options: [])
-
-        HealthStoreManager.shared.requestStatisticsCollectionQuery(type: stepCountType,
-                                                                   predicate: predicate,
-                                                                   interval: interval,
-                                                                   anchorDate: anchorDate) { hkStatisticsCollection in
-            var statisticsCollection = StatisticsCollection()
-
-            hkStatisticsCollection.enumerateStatistics(from: startDate, to: anchorDate) { (statistics, _) in
-                if let quantity = statistics.sumQuantity() {
-                    let step = Int(quantity.doubleValue(for: .count()))
-                    let date = statistics.startDate
-                    let statistics = Statistics(date: date, step: step)
-                    statisticsCollection.append(statistics: statistics)
-                }
-            }
-
-            completion(statisticsCollection)
-        }
+        usecase.execute(duration: .year, interval: .init(month: 1))
+            .subscribe { [weak self] stepStatisticsCollection in
+                self?.yearStepStatisticsCollection = stepStatisticsCollection
+            }.disposed(by: disposeBag)
     }
 }
