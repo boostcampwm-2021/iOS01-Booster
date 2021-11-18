@@ -30,10 +30,17 @@ class TrackingViewController: UIViewController, BaseViewControllerTemplate {
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
+        locationManager.startUpdatingLocation()
+        locationManager.startMonitoringSignificantLocationChanges()
+        if let location = self.locationManager.location {
+            self.trackingMapView.setRegion(to: location)
+        }
     }
 
     // MARK: - @IBActions
     @IBAction func startTouchUp(_ sender: UIButton) {
+        locationManager.stopMonitoringSignificantLocationChanges()
+        locationManager.stopUpdatingLocation()
         let countView = TrackingCountDownView(frame: self.view.frame)
         countView.bind {
             self.performSegue(withIdentifier: Segue.progressSegue, sender: nil)
@@ -49,14 +56,6 @@ class TrackingViewController: UIViewController, BaseViewControllerTemplate {
     }
 
     // MARK: - Functions
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let viewController = segue.destination as? TrackingProgressViewController
-        else {
-            return
-        }
-        viewController.delegate = self
-    }
-
     func configure() {
         trackingMapView.userTrackingMode = .follow
         nextButton.layer.cornerRadius = nextButton.bounds.width/2
@@ -71,6 +70,7 @@ class TrackingViewController: UIViewController, BaseViewControllerTemplate {
         if CLLocationManager.locationServicesEnabled() {
             DispatchQueue.main.async { [weak self] in
                 self?.locationManager.startUpdatingLocation()
+                self?.locationManager.allowsBackgroundLocationUpdates = true
                 if let location = self?.locationManager.location {
                     self?.trackingMapView.setRegion(to: location)
                 }
@@ -79,17 +79,10 @@ class TrackingViewController: UIViewController, BaseViewControllerTemplate {
     }
 }
 
-// MARK: Tracking Progress Delegate
-extension TrackingViewController: TrackingProgressDelegate {
-    func location(mapView: TrackingMapView) {
-        mapView.setRegion(to: current)
-    }
-}
-
 // MARK: CLLocation Manager Delegate
 extension TrackingViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let current = locations.first
+        guard let current = locations.last
         else {
             return
         }

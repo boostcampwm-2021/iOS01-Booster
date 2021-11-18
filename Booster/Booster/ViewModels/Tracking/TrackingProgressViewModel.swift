@@ -58,22 +58,19 @@ final class TrackingProgressViewModel {
     }
 
     func update(seconds: Int) {
-        let velocity: Double = trackingModel.value.distance/Double(seconds)
-        let minute = Double(seconds) / 60
-        let height: Double = Double(user.height)/100 == 0 ? 1 : Double(user.height)/100
-        let calroiesPerMinute = (0.035*Double(user.weight))+((pow(velocity, 2)/height)*0.029*Double(user.weight))
-        let calroies: Int = Int(minute*calroiesPerMinute)
-
         trackingModel.value.seconds = seconds
-        trackingModel.value.calories = calroies
     }
 
     func update(steps: Int) {
-        trackingModel.value.steps += steps
+        trackingModel.value.steps = steps
     }
 
     func update(distance: Double) {
+        let met: Double = 4.8
+        let perHourDistance = 5.6 * 1000
+
         trackingModel.value.distance += distance
+        trackingModel.value.calories = Int(met * Double(user.weight) * (trackingModel.value.distance / perHourDistance))
     }
 
     func toggle() {
@@ -100,23 +97,9 @@ final class TrackingProgressViewModel {
     }
 
     func save(completion handler: @escaping (TrackingError?) -> Void) {
-        trackingUsecase.bind(handler: handler)
-        trackingUsecase.save(model: trackingModel.value)
-        trackingUsecase.save(count: Double(trackingModel.value.steps),
-                             start: trackingModel.value.startDate,
-                             end: trackingModel.value.endDate ?? Date(),
-                             quantity: .steps,
-                             unit: .count)
-        trackingUsecase.save(count: trackingModel.value.distance,
-                             start: trackingModel.value.startDate,
-                             end: trackingModel.value.endDate ?? Date(),
-                             quantity: .runing,
-                             unit: .kilometer)
-        trackingUsecase.save(count: Double(trackingModel.value.calories),
-                             start: trackingModel.value.startDate,
-                             end: trackingModel.value.endDate ?? Date(),
-                             quantity: .energy,
-                             unit: .calorie)
+        trackingUsecase.save(model: trackingModel.value) { error in
+            handler(error)
+        }
     }
 
     func mileStone(at coordinate: Coordinate) -> MileStone? {

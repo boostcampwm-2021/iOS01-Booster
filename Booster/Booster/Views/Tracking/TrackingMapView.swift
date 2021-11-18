@@ -70,16 +70,11 @@ class TrackingMapView: MKMapView {
         guard let current = location
         else { return }
 
-        let regionRadius: CLLocationDistance = 100
         let overlayRadius: CLLocationDistance = 20
-        let coordRegion = MKCoordinateRegion(center: current.coordinate,
-                                             latitudinalMeters: regionRadius * 2,
-                                             longitudinalMeters: regionRadius * 2)
 
         removeOverlay(overlay)
 
         overlay = MKCircle(center: current.coordinate, radius: overlayRadius)
-        setRegion(coordRegion, animated: true)
 
         addOverlay(overlay)
     }

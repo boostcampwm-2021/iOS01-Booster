@@ -51,6 +51,7 @@ final class FeedViewModel {
 
     func reset() {
         difference = 0
+        trackingRecords.value.removeAll()
         fetch()
     }
 
@@ -62,7 +63,6 @@ final class FeedViewModel {
             let predicate = NSPredicate(format: "startDate <= %@", date as CVarArg)
             usecase.fetch(predicate: predicate) { [weak self] result in
                 if result.count == 0 { return }
-
                 self?.asyncFetch(calendar: calendar, currentDate: currentDate)
             }
         }
