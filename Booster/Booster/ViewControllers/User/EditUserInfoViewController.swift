@@ -97,19 +97,15 @@ class EditUserInfoViewController: UIViewController, BaseViewControllerTemplate {
     }
 
     @IBAction func editDoneButtonDidTap(_ sender: Any) {
-        if let nickName = nickNameTextField.text,
-           let heightText = heightTextField.text,
-           let height = Int(heightText),
-           let weightText = weightTextField.text,
-           let weight = Int(weightText),
-           let ageText = ageTextField.text,
-           let age = Int(ageText) {
-            saveEditedUserInfo(gender: genderButtonState.rawValue,
-                               age: age,
-                               height: height,
-                               weight: weight,
-                               nickName: nickName)
-        }
+        let nickNameText = nickNameTextField.text ?? ""
+        let heightText = heightTextField.text ?? ""
+        let weightText = weightTextField.text ?? ""
+        let ageText = ageTextField.text ?? ""
+        saveEditedUserInfo(gender: genderButtonState.rawValue,
+                           age: ageText,
+                           height: heightText,
+                           weight: weightText,
+                           nickName: nickNameText)
     }
 
     @IBAction func genderButtonDidTap(_ sender: Any) {
@@ -125,10 +121,15 @@ class EditUserInfoViewController: UIViewController, BaseViewControllerTemplate {
 
     // MARK: - Functions
     private func saveEditedUserInfo(gender: String,
-                                    age: Int,
-                                    height: Int,
-                                    weight: Int,
+                                    age: String,
+                                    height: String,
+                                    weight: String,
                                     nickName: String) {
+        let gender = gender
+        let age = Int(age) ?? nil
+        let height = Int(height) ?? nil
+        let weight = Int(weight) ?? nil
+        let nickName = nickName == "" ? nil : nickName
         viewModel.editUserInfo(gender: gender,
                                age: age,
                                height: height,
