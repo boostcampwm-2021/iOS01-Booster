@@ -128,6 +128,9 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
     @IBAction func rightTouchUp(_ sender: Any) {
         switch viewModel.state {
         case .end:
+            pedometer.stopUpdates()
+            pedometer.stopEventUpdates()
+
             manager.stopUpdatingLocation()
             manager.stopMonitoringSignificantLocationChanges()
             pedometer.stopUpdates()
@@ -307,6 +310,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
             manager.stopUpdatingLocation()
             manager.stopMonitoringSignificantLocationChanges()
             pedometer.stopUpdates()
+            pedometer.stopEventUpdates()
         }
     }
 
