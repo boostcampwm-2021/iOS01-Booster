@@ -2,7 +2,7 @@ import UIKit
 import MapKit
 import CoreMotion
 
-class TrackingProgressViewController: UIViewController, BaseViewControllerTemplate {
+final class TrackingProgressViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - Enum
     enum NibName: String {
         case photoAnnotationView = "PhotoAnnotationView"
@@ -133,6 +133,7 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
             pedometer.stopUpdates()
             makeImageData()
         default:
+            rightButton.isUserInteractionEnabled = false
             viewModel.toggle()
             update()
         }
@@ -444,7 +445,10 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
     private func save() {
         viewModel.save { error in
             guard error == nil
-            else { return }
+            else {
+                self.rightButton.isUserInteractionEnabled = true
+                return
+            }
 
             DispatchQueue.main.async {
                 self.navigationController?.popViewController(animated: true)

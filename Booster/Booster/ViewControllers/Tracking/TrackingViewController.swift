@@ -5,7 +5,7 @@ protocol TrackingProgressDelegate: AnyObject {
     func location(mapView: TrackingMapView)
 }
 
-class TrackingViewController: UIViewController, BaseViewControllerTemplate {
+final class TrackingViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - Enum
     enum Segue {
         static let progressSegue = "trackingProgressSegue"
@@ -60,7 +60,7 @@ class TrackingViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - Functions
     func configure() {
         trackingMapView.userTrackingMode = .follow
-        nextButton.layer.cornerRadius = nextButton.bounds.width/2
+        nextButton.layer.cornerRadius = nextButton.bounds.width / 2
         trackingMapView.delegate = self
 
         let distanceFilter: CLLocationDistance = 5

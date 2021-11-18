@@ -145,7 +145,6 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
 
                 let strings = statisticsCollection.abbreviatedStrings()
                 self.chartView.drawChart(stepRatios: stepRatios, strings: strings)
-                print(stepRatios, strings)
                 self.averageStepCountLabel.text = String(stepCount)
                 self.dateLabel.text = statisticsCollection.durationString
             })

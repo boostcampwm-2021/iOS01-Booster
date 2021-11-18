@@ -63,6 +63,7 @@ final class FeedViewModel {
             let predicate = NSPredicate(format: "startDate <= %@", date as CVarArg)
             usecase.fetch(predicate: predicate) { [weak self] result in
                 if result.count == 0 { return }
+                print(result.count)
                 self?.asyncFetch(calendar: calendar, currentDate: currentDate)
             }
         }
