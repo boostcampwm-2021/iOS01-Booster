@@ -65,7 +65,7 @@ final class UserViewModel {
     }
 
     func save(completion: @escaping (Bool) -> Void) {
-        usecase.editUserInfo(model: model) { (isSaved) in
+        usecase.editUserInfo(model: model) { isSaved in
             completion(isSaved)
         }
     }
