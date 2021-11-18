@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import HealthKit
 
 import RxCocoa
 import RxSwift
