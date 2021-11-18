@@ -37,6 +37,7 @@ final class HealthStoreManager {
 
     enum HealthKitError: Error {
         case optionalCasting
+        case removeAllDataFail
     }
 
     static let shared = HealthStoreManager()
@@ -115,7 +116,10 @@ final class HealthStoreManager {
 
         let unit = unit.unit
         let countQuantity = HKQuantity(unit: unit, doubleValue: count)
-        let sample = HKQuantitySample(type: type, quantity: countQuantity, start: start, end: end)
+        let sample = HKQuantitySample(type: type,
+                                      quantity: countQuantity,
+                                      start: start,
+                                      end: end)
 
         healthStore.save(sample) { _, error in
             guard let error = error
@@ -125,5 +129,33 @@ final class HealthStoreManager {
             }
             completion(error)
         }
+    }
+
+    func removeAll(completion: @escaping (Result<Int, Error>) -> Void) {
+        var removedCount = 0
+
+        guard let healthStore = healthStore
+        else {
+            completion(.failure(HealthKitError.optionalCasting))
+            return
+        }
+
+        let predicate = HKQuery.predicateForObjects(from: HKSource.default())
+
+        for type in HealthQuantityType.allCases {
+            guard let quantity = type.quantity
+            else { continue }
+
+            healthStore.deleteObjects(of: quantity, predicate: predicate) { (isDeleted, count, error) in
+                if !isDeleted,
+                   let error = error {
+                    completion(.failure(error))
+                    return
+                }
+
+                removedCount += count
+            }
+        }
+        completion(.success(removedCount / HealthQuantityType.allCases.count))
     }
 }

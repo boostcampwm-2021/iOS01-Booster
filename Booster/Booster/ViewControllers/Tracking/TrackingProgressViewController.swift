@@ -555,15 +555,11 @@ extension TrackingProgressViewController: MKMapViewDelegate {
                   let mileStone = viewModel.milestones.value.last
             else { return nil }
 
-            customView.frame.origin.x = customView.frame.origin.x - customView.frame.width / 2.0
-            customView.frame.origin.y = customView.frame.origin.y - customView.frame.height
-            annotationView!.frame.origin.x = annotationView!.frame.origin.x - customView.frame.width / 2.0
-            annotationView!.frame.origin.y = annotationView!.frame.origin.y - customView.frame.height
-
             customView.photoImageView.image = UIImage(data: mileStone.imageData)
             customView.photoImageView.backgroundColor = .white
 
-            annotationView!.addSubview(customView)
+            annotationView = customView
+            annotationView?.centerOffset = CGPoint(x: 0, y: -customView.frame.height / 2.0)
         } else {
             annotationView?.annotation = annotation
         }
