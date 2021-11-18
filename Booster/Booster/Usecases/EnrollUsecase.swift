@@ -8,9 +8,7 @@
 import Foundation
 import RxSwift
 
-class EnrollUsecase {
-    var observable: Observable<Void>
-    var disposeBag: DisposeBag
+final class EnrollUsecase {
     private enum CoreDataKeys {
         static let age = "age"
         static let gender = "gender"
@@ -18,6 +16,9 @@ class EnrollUsecase {
         static let nickName = "nickName"
         static let weight = "weight"
     }
+
+    private let disposeBag: DisposeBag
+    var observable: Observable<Void>
 
     init() {
         observable = Observable.just(())
