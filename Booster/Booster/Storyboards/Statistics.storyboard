@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -30,61 +30,52 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZAm-ew-NSH">
-                                <rect key="frame" x="30" y="52" width="104" height="120.5"/>
+                                <rect key="frame" x="30" y="52" width="104" height="109.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="27F-et-NsW">
-                                        <rect key="frame" x="0.0" y="0.0" width="104" height="41"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="104" height="36"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="50H-vW-Ism">
-                                                <rect key="frame" x="0.0" y="0.0" width="30" height="41"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="30" height="36"/>
                                                 <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="20"/>
                                                 <color key="tintColor" name="boosterLabel"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="주"/>
-                                                <connections>
-                                                    <action selector="weekButtonDidTap:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Tus-RV-p9D"/>
-                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="who-he-Jct">
-                                                <rect key="frame" x="37" y="0.0" width="30" height="41"/>
+                                                <rect key="frame" x="37" y="0.0" width="30" height="36"/>
                                                 <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="20"/>
                                                 <color key="tintColor" name="boosterGray"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="월"/>
-                                                <connections>
-                                                    <action selector="monthButtonDidTap:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="YiP-FT-igi"/>
-                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HAj-Sc-TRH">
-                                                <rect key="frame" x="74" y="0.0" width="30" height="41"/>
+                                                <rect key="frame" x="74" y="0.0" width="30" height="36"/>
                                                 <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="20"/>
                                                 <color key="tintColor" name="boosterGray"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="년"/>
-                                                <connections>
-                                                    <action selector="yearButtonDidTap:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="av6-57-dGl"/>
-                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="일일 평균" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FfD-j0-uiq">
-                                        <rect key="frame" x="0.0" y="49" width="67.5" height="25"/>
+                                        <rect key="frame" x="0.0" y="44" width="64" height="20"/>
                                         <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="17"/>
                                         <color key="textColor" name="boosterLabel"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="9Wi-hC-aXw">
-                                        <rect key="frame" x="0.0" y="82" width="57" height="38.5"/>
+                                        <rect key="frame" x="0.0" y="72" width="51.5" height="37.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Uo-QT-eJ9">
-                                                <rect key="frame" x="0.0" y="0.0" width="21.5" height="38.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="18" height="37.5"/>
                                                 <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="8" bottom="8" trailing="8"/>
                                                 <fontDescription key="fontDescription" name="Bazaronite" family="Bazaronite" pointSize="32"/>
                                                 <color key="textColor" red="0.99945467710000002" green="0.35899436470000001" blue="0.0083832461389999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="걸음" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EuO-6g-Jhj">
-                                                <rect key="frame" x="25.5" y="0.0" width="31.5" height="38.5"/>
+                                                <rect key="frame" x="22" y="0.0" width="29.5" height="37.5"/>
                                                 <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="17"/>
                                                 <color key="textColor" name="boosterLabel"/>
                                                 <nil key="highlightedColor"/>
@@ -94,24 +85,24 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zT5-Yx-3KO">
-                                <rect key="frame" x="30" y="167.5" width="37.5" height="22"/>
+                                <rect key="frame" x="30" y="156.5" width="37" height="17.5"/>
                                 <color key="tintColor" systemColor="tintColor"/>
                                 <fontDescription key="fontDescription" name="NotoSansKR-Light" family="Noto Sans KR" pointSize="15"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vFG-gS-Dc3" customClass="ChartView" customModule="Booster" customModuleProvider="target">
-                                <rect key="frame" x="20" y="239.5" width="374" height="573.5"/>
+                                <rect key="frame" x="20" y="224" width="374" height="589"/>
                                 <color key="backgroundColor" name="boosterBackground"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yd7-Vs-Ta6" userLabel="DescriptionIntervalLabel">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yd7-Vs-Ta6" userLabel="DescriptionIntervalLabel">
                                 <rect key="frame" x="187" y="200" width="41.5" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="15"/>
                                 <color key="textColor" name="boosterLabel"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1MO-Fa-Fmo" userLabel="DescriptionStepLabel">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1MO-Fa-Fmo" userLabel="DescriptionStepLabel">
                                 <rect key="frame" x="187" y="219" width="41.5" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="15"/>
@@ -135,14 +126,15 @@
                     <tabBarItem key="tabBarItem" title="" image="chart.bar" catalog="system" selectedImage="chart.bar.fill" id="Mx3-ra-BUC"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="averageStepCountLabel" destination="7Uo-QT-eJ9" id="Aci-Cv-8WJ"/>
-                        <outlet property="chartView" destination="vFG-gS-Dc3" id="xOB-Ye-1ds"/>
-                        <outlet property="dateLabel" destination="zT5-Yx-3KO" id="khw-Gt-DcH"/>
-                        <outlet property="intervalLabel" destination="Yd7-Vs-Ta6" id="g5Y-5V-tzi"/>
-                        <outlet property="monthButton" destination="who-he-Jct" id="vJ0-ws-yg1"/>
-                        <outlet property="stepCountLabel" destination="1MO-Fa-Fmo" id="skM-Q1-MXR"/>
-                        <outlet property="weekButton" destination="50H-vW-Ism" id="vLi-5h-XDC"/>
-                        <outlet property="yearButton" destination="HAj-Sc-TRH" id="HkS-pV-8UC"/>
+                        <outlet property="averageStepCountLabel" destination="7Uo-QT-eJ9" id="WHy-kj-pP6"/>
+                        <outlet property="chartView" destination="vFG-gS-Dc3" id="83x-cr-5mQ"/>
+                        <outlet property="dateLabel" destination="zT5-Yx-3KO" id="cni-zl-DAE"/>
+                        <outlet property="durationLabel" destination="FfD-j0-uiq" id="I6j-M6-IP2"/>
+                        <outlet property="intervalLabel" destination="Yd7-Vs-Ta6" id="4iI-Gy-uiw"/>
+                        <outlet property="monthButton" destination="who-he-Jct" id="PvU-15-LJ6"/>
+                        <outlet property="stepCountLabel" destination="1MO-Fa-Fmo" id="Fwn-6d-H3x"/>
+                        <outlet property="weekButton" destination="50H-vW-Ism" id="MTt-d9-ehj"/>
+                        <outlet property="yearButton" destination="HAj-Sc-TRH" id="sPa-8y-chn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -1,14 +1,26 @@
+//
+//  aaVC.swift
+//  Booster
+//
+//  Created by Hani on 2021/11/17.
+//
+
 import HealthKit
 import UIKit
 
+import RxCocoa
+import RxGesture
+import RxSwift
+
 final class StatisticsViewController: UIViewController, BaseViewControllerTemplate {
     typealias Duration = StatisticsViewModel.Duration
-    typealias ViewModelType = StatisticsViewModel
 
     // MARK: - @IBOutlet
     @IBOutlet private weak var weekButton: UIButton!
     @IBOutlet private weak var monthButton: UIButton!
     @IBOutlet private weak var yearButton: UIButton!
+
+    @IBOutlet private weak var durationLabel: UILabel!
     @IBOutlet private weak var averageStepCountLabel: UILabel!
     @IBOutlet private weak var dateLabel: UILabel!
 
@@ -18,13 +30,9 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
     @IBOutlet private weak var chartView: ChartView!
 
     // MARK: - Properties
+    private let disposeBag = DisposeBag()
     private let sideInset: CGFloat = 20
-    private let barView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .boosterLabel
-        view.frame = .zero
-        return view
-    }()
+    private let barView = UIView()
 
     var viewModel = StatisticsViewModel()
 
@@ -33,88 +41,133 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
         super.viewDidLoad()
 
         view.addSubview(barView)
+        barView.backgroundColor = UIColor.boosterLabel
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
         requestAuthorizationForStepCount()
-        bindViewModel()
-        viewModel.selectedDuration.value = .week
         addGestures()
-    }
-
-    // MARK: - @IBActions
-    @IBAction private func weekButtonDidTap(_ sender: UIButton) {
-        weekButton.tintColor  = .boosterLabel
-        monthButton.tintColor = .boosterGray
-        yearButton.tintColor  = .boosterGray
-        viewModel.selectedDuration.value = .week
-        viewModel.selectedStatistics.value = (index: nil, coordinate: nil)
-    }
-
-    @IBAction private func monthButtonDidTap(_ sender: UIButton) {
-        weekButton.tintColor  = .boosterGray
-        monthButton.tintColor = .boosterLabel
-        yearButton.tintColor  = .boosterGray
-        viewModel.selectedDuration.value = .month
-        viewModel.selectedStatistics.value = (index: nil, coordinate: nil)
-    }
-
-    @IBAction private func yearButtonDidTap(_ sender: UIButton) {
-        weekButton.tintColor  = .boosterGray
-        monthButton.tintColor = .boosterGray
-        yearButton.tintColor  = .boosterLabel
-        viewModel.selectedDuration.value = .year
-        viewModel.selectedStatistics.value = (index: nil, coordinate: nil)
+        addAction()
+        bind()
+        viewModel.selectedDuration.accept(.week)
     }
 
     // MARK: - functions
-    private func addGestures() {
-        chartView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(chartViewDidTap(_:))))
-        chartView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(chartViewDidPan(_:))))
-    }
-
     private func requestAuthorizationForStepCount() {
         guard let stepCount = HKQuantityType.quantityType(forIdentifier: .stepCount) else { return }
 
         HealthStoreManager.shared.requestAuthorization(shareTypes: [stepCount], readTypes: [stepCount]) { [weak self] success in
             if success {
-                self?.viewModel.queryStepCount()
+                self?.viewModel.requestQueryForStatisticsCollection()
             }
         }
     }
 
-    private func bindViewModel() {
-        viewModel.selectedDuration.bind { [weak self] duration in
-            self?.updateUI(using: duration)
-        }
+    private func addGestures() {
+        chartView.rx
+            .tapGesture()
+            .when(.recognized)
+            .asLocation(in: .view)
+            .subscribe(onNext: { [weak self] location in
+                guard let self = self,
+                      (0..<self.chartView.frame.width).contains(location.x)
+                else { return }
 
-        viewModel.selectedStatistics.bind { [weak self] data in
-            self?.updateUI(index: data.index, coordinate: data.coordinate)
-        }
+                self.viewModel.selectStatistics(tappedCoordinate: Float(location.x / self.chartView.frame.width))
+            })
+            .disposed(by: disposeBag)
+
+        chartView.rx
+            .panGesture()
+            .when(.changed)
+            .asLocation(in: .view)
+            .subscribe(onNext: { [weak self] location in
+                guard let self = self,
+                      (0..<self.chartView.frame.width).contains(location.x)
+                else { return }
+
+                self.viewModel.selectStatistics(pannedCoordinate: Float(location.x / self.chartView.frame.width))
+            })
+            .disposed(by: disposeBag)
     }
 
-    private func updateUI(using duration: Duration) {
-        let statisticsCollection: StatisticsCollection = viewModel.statistics()
-        let stepRatios: [CGFloat] = configureStepRatios(using: statisticsCollection, for: duration)
-        let strings: [String] = configureBottomStrings(using: statisticsCollection, for: duration)
+    private func addAction() {
+        weekButton.rx.tap.asDriver()
+            .drive(onNext: { [weak self] _ in
+                guard let self = self
+                else { return }
+                self.weekButton.tintColor  = .boosterLabel
+                self.monthButton.tintColor = .boosterGray
+                self.yearButton.tintColor  = .boosterGray
+                self.durationLabel.text = "하루 평균"
+                self.viewModel.selectedDuration.accept(.week)
+            })
+            .disposed(by: disposeBag)
 
-        chartView.drawChart(stepRatios: stepRatios, strings: strings)
-        averageStepCountLabel.text = String(statisticsCollection.averageStatistics())
-        switch duration {
-        case .week:
-            dateLabel.text = statisticsCollection.termOfStatistics(component: .day)
-        case .month:
-            dateLabel.text = statisticsCollection.termOfStatistics(component: .weekOfYear)
-        case .year:
-            dateLabel.text = statisticsCollection.termOfStatistics(component: .month)
-        }
+        monthButton.rx.tap.asDriver()
+            .drive(onNext: { [weak self] _ in
+                guard let self = self
+                else { return }
+                self.weekButton.tintColor  = .boosterGray
+                self.monthButton.tintColor = .boosterLabel
+                self.yearButton.tintColor  = .boosterGray
+                self.durationLabel.text = "한주 평균"
+                self.viewModel.selectedDuration.accept(.month)
+            })
+            .disposed(by: disposeBag)
+
+        yearButton.rx.tap.asDriver()
+            .drive(onNext: { [weak self] _ in
+                guard let self = self
+                else { return }
+                self.weekButton.tintColor  = .boosterGray
+                self.monthButton.tintColor = .boosterGray
+                self.yearButton.tintColor  = .boosterLabel
+                self.durationLabel.text = "한달 평균"
+                self.viewModel.selectedDuration.accept(.year)
+            })
+            .disposed(by: disposeBag)
     }
 
-    private func updateUI(index: Int?, coordinate: Float?) {
+    private func bind() {
+        viewModel.selectedDuration
+            .subscribe(on: MainScheduler.asyncInstance)
+            .distinctUntilChanged()
+            .observe(on: MainScheduler.instance)
+            .bind(onNext: { [weak self] _ in
+                guard let self = self,
+                      let statisticsCollection = self.viewModel.selectedStatisticsCollection(),
+                      let stepRatios = statisticsCollection.stepRatios()?.map({ CGFloat($0) }),
+                      let stepCount = statisticsCollection.stepCountPerDuration()
+                else { return }
+
+                let strings = statisticsCollection.abbreviatedStrings()
+                self.chartView.drawChart(stepRatios: stepRatios, strings: strings)
+                print(stepRatios, strings)
+                self.averageStepCountLabel.text = String(stepCount)
+                self.dateLabel.text = statisticsCollection.durationString
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.selectedStatisticsIndex
+            .subscribe(on: MainScheduler.asyncInstance)
+            .distinctUntilChanged()
+            .observe(on: MainScheduler.instance)
+            .bind(onNext: { [weak self] index in
+                guard let self = self,
+                      let statisticsCollection = self.viewModel.selectedStatisticsCollection()
+                else { return }
+
+                self.updateSelectedLabel(using: statisticsCollection, index: index)
+            })
+            .disposed(by: disposeBag)
+    }
+
+    private func updateSelectedLabel(using statisticsCollection: StepStatisticsCollection, index: Int?) {
         guard let index = index,
-              let coordinate = coordinate,
-              let maxStep = viewModel.statistics().maxStatistics()?.step
+              let stepRatios = statisticsCollection.stepRatios()
         else {
             stepCountLabel.text = String()
             intervalLabel.text = String()
@@ -122,111 +175,33 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
             return
         }
 
-        let statistics: Statistics = viewModel.statistics()[index]
+        let selectedStatistics: StepStatistics = statisticsCollection[index]
 
-        let xCoordinate = CGFloat(coordinate) * chartView.frame.width + sideInset
-        let stepRatio = 1 - CGFloat(statistics.step) / CGFloat(maxStep)
+        let step = selectedStatistics.step
+        let intervalString = selectedStatistics.intervalString
 
-        stepCountLabel.text = "\(statistics.step)걸음"
+        let xOffset = 1 / CGFloat(statisticsCollection.count)
+        let centerLabel = 0.5
+        let xCoordinate = (centerLabel + CGFloat(index)) * xOffset * chartView.frame.width + sideInset
+        let stepRatio = 1 - CGFloat(stepRatios[index])
+
+        stepCountLabel.text = "\(step)걸음"
         stepCountLabel.sizeToFit()
         stepCountLabel.center.x = xCoordinate
 
-        intervalLabel.text = stepInterval(from: statistics.date)
+        intervalLabel.text = intervalString
         intervalLabel.sizeToFit()
         intervalLabel.center.x = xCoordinate
-
-        barView.frame = CGRect(x: xCoordinate,
-                               y: view.frame.height - chartView.frame.height - view.safeAreaInsets.bottom,
-                               width: 1,
-                               height: chartView.topSpace + chartView.centerSpace * stepRatio)
 
         stepCountLabel.frame.origin.x = max(stepCountLabel.frame.origin.x, sideInset)
         stepCountLabel.frame.origin.x = min(stepCountLabel.frame.origin.x, view.frame.width - stepCountLabel.frame.width - sideInset)
 
         intervalLabel.frame.origin.x = max(intervalLabel.frame.origin.x, sideInset)
         intervalLabel.frame.origin.x = min(intervalLabel.frame.origin.x, view.frame.width - intervalLabel.frame.width - sideInset)
-    }
 
-    private func configureStepRatios(using statisticsCollection: StatisticsCollection, for duration: Duration) -> [CGFloat] {
-        guard let maxStep = statisticsCollection.maxStatistics()?.step
-        else { return [CGFloat]() }
-
-        var stepRatios = [CGFloat]()
-
-        for statistics in statisticsCollection.statistics() {
-            let step: Int = statistics.step
-            let stepRatio = CGFloat(step) / CGFloat(maxStep)
-            stepRatios.append(stepRatio)
-        }
-
-        return stepRatios
-    }
-
-    private func configureBottomStrings(using statisticsCollection: StatisticsCollection, for duration: Duration) -> [String] {
-        let dateFormatter: DateFormatter = dateFormatter(for: duration)
-        var strings = [String]()
-
-        for statistics in statisticsCollection.statistics() {
-            let date: Date = statistics.date
-            let string: String = dateFormatter.string(from: date)
-            strings.append(string)
-        }
-
-        return strings
-    }
-
-    private func dateFormatter(for duration: Duration) -> DateFormatter {
-        let dateformatter = DateFormatter()
-        dateformatter.locale = Locale(identifier: "ko_KR")
-
-        switch duration {
-        case .week:
-            dateformatter.dateFormat = "E"
-        case .month:
-            dateformatter.dateFormat = "d"
-        case .year:
-            dateformatter.dateFormat = "MMM"
-        }
-
-        return dateformatter
-    }
-
-    private func stepInterval(from date: Date) -> String {
-        let dateformatter = DateFormatter()
-        dateformatter.locale = Locale(identifier: "ko_KR")
-        dateformatter.dateFormat = "yy.MM.dd"
-
-        var endDate: Date? = Date()
-        switch viewModel.selectedDuration.value {
-
-        case .week:
-            return dateformatter.string(from: date)
-        case .month:
-            endDate = Calendar.current.date(byAdding: .weekOfMonth, value: 1, to: date)
-        case .year:
-            endDate = Calendar.current.date(byAdding: .month, value: 1, to: date)
-        }
-
-        guard let endDate = endDate
-        else { return String() }
-
-        return "\(dateformatter.string(from: date)) - \(dateformatter.string(from: endDate))"
-    }
-
-    // MARK: - @objc
-    @objc private func chartViewDidTap(_ sender: UITapGestureRecognizer) {
-        let xCoordinate = sender.location(in: chartView).x
-        guard (0..<chartView.frame.width).contains(xCoordinate)
-        else { return }
-
-        viewModel.tapStatistics(at: Float(xCoordinate / chartView.frame.width))
-    }
-
-    @objc private func chartViewDidPan(_ sender: UIPanGestureRecognizer) {
-        let xCoordinate = sender.location(in: chartView).x
-        guard (0..<chartView.frame.width).contains(xCoordinate)
-        else { return }
-
-        viewModel.panStatistics(at: Float(xCoordinate / chartView.frame.width))
+        barView.frame = CGRect(x: xCoordinate,
+                               y: chartView.frame.origin.y,
+                               width: 1,
+                               height: chartView.topSpace + chartView.centerSpace * stepRatio)
     }
 }
