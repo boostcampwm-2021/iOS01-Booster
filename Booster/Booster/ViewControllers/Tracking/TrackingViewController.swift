@@ -32,8 +32,10 @@ class TrackingViewController: UIViewController, BaseViewControllerTemplate {
         self.navigationController?.isNavigationBarHidden = true
         locationManager.startUpdatingLocation()
         locationManager.startMonitoringSignificantLocationChanges()
-        if let location = self.locationManager.location {
-//            self.trackingMapView.setRegion(to: location)
+        if CLLocationManager.locationServicesEnabled() {
+            if let location = self.locationManager.location {
+                self.trackingMapView.setRegion(to: location)
+            }
         }
     }
 
@@ -70,9 +72,10 @@ class TrackingViewController: UIViewController, BaseViewControllerTemplate {
         if CLLocationManager.locationServicesEnabled() {
             DispatchQueue.main.async { [weak self] in
                 self?.locationManager.startUpdatingLocation()
-                self?.locationManager.allowsBackgroundLocationUpdates = true
-                if let location = self?.locationManager.location {
-//                    self?.trackingMapView.setRegion(to: location)
+                if CLLocationManager.locationServicesEnabled() {
+                    if let location = self?.locationManager.location {
+                        self?.trackingMapView.setRegion(to: location)
+                    }
                 }
             }
         }
