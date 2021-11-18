@@ -80,7 +80,7 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
     // MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         configure()
     }
 
