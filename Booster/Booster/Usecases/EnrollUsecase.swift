@@ -13,7 +13,7 @@ final class EnrollUsecase {
         static let age = "age"
         static let gender = "gender"
         static let height = "height"
-        static let nickName = "nickName"
+        static let nickname = "nickname"
         static let weight = "weight"
     }
 
@@ -31,7 +31,7 @@ final class EnrollUsecase {
             CoreDataKeys.age: info.age,
             CoreDataKeys.gender: info.gender,
             CoreDataKeys.height: info.height,
-            CoreDataKeys.nickName: info.nickname,
+            CoreDataKeys.nickname: info.nickname,
             CoreDataKeys.weight: info.weight
         ]
 
