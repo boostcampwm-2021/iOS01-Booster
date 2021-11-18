@@ -261,7 +261,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
     private func configure(model: TrackingModel) {
         let timeContent = makeTimerText(time: model.seconds)
         let kcalContent = "\(model.calories)\n"
-        let distanceContent = "\(String.init(format: "%.1f", model.distance/1000))\n"
+        let distanceContent = "\(viewModel.state == .end ? "\(model.distance)" : String.init(format: "%.1f", model.distance/1000))\n"
         let stepsTitle = "\(viewModel.state == .end ? " steps" : "")"
         let kcalTitle = "kcal"
         let timeTitle = "time"
