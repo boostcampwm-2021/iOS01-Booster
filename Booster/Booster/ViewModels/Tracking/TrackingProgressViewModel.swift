@@ -62,13 +62,13 @@ final class TrackingProgressViewModel {
     }
 
     func update(steps: Int) {
-        trackingModel.value.steps += steps
+        trackingModel.value.steps = steps
     }
 
     func update(distance: Double) {
         let met: Double = 4.8
-        let perHourDistance = 4.8
-        
+        let perHourDistance = 5.6 * 1000
+
         trackingModel.value.distance += distance
         trackingModel.value.calories = Int(met * Double(user.weight) * (trackingModel.value.distance / perHourDistance))
     }

@@ -37,10 +37,9 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
 
     // MARK: - Properties
     private let pedometer = CMPedometer()
-    weak var delegate: TrackingProgressDelegate?
     var viewModel: TrackingProgressViewModel = TrackingProgressViewModel()
     private var lastestTime: Int = 0
-    private var pedometerDate = Date()
+    private let startDate = Date()
     private var timerDate = Date()
     private var timer = Timer()
     private var manager: CLLocationManager = CLLocationManager()
@@ -84,7 +83,6 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
         super.viewDidLoad()
 
         configure()
-        delegate?.location(mapView: mapView)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -320,7 +318,6 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
                                          selector: #selector(trackingTimer),
                                          userInfo: nil,
                                          repeats: true)
-            pedometerDate = Date()
             locationAuth()
         case false:
             lastestTime = viewModel.trackingModel.value.seconds
@@ -346,12 +343,18 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
 
     private func locationAuth() {
         if CLLocationManager.locationServicesEnabled() {
-            manager.delegate = self
             manager.desiredAccuracy = kCLLocationAccuracyBest
             manager.requestWhenInUseAuthorization()
             DispatchQueue.main.async { [weak self] in
-                self?.manager.startUpdatingLocation()
-                self?.manager.startMonitoringSignificantLocationChanges()
+                guard let self = self
+                else { return }
+
+                self.manager.startUpdatingLocation()
+                self.manager.startMonitoringSignificantLocationChanges()
+
+                if let location = self.manager.location {
+                    self.mapView.setRegion(to: location)
+                }
             }
             updatePedometer()
             manager.distanceFilter = 1
@@ -359,16 +362,12 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
     }
 
     private func updatePedometer() {
-        pedometer.startUpdates(from: pedometerDate) { [weak self] data, _ in
+        pedometer.queryPedometerData(from: startDate, to: Date()) { [weak self] data, _ in
             guard let self = self,
                   let data = data
             else { return }
 
-            DispatchQueue.main.async {
-                self.pedometer.stopUpdates()
-                self.pedometerDate = Date()
-                self.viewModel.update(steps: data.numberOfSteps.intValue)
-            }
+            self.viewModel.update(steps: data.numberOfSteps.intValue)
         }
     }
 
@@ -512,9 +511,16 @@ extension TrackingProgressViewController: CLLocationManagerDelegate {
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        if (error as? CLError)?.code == .denied {
+        let error = error as? CLError
+        if error?.code == .denied && error?.code == .deferredFailed {
+            let title = "GPS 오류"
+            let message = "GPS 권한 확인 또는 GPS기능을 다시 연결 해주시기 바랍니다."
+            let alertController: UIAlertController = .simpleAlert(title: title, message: message)
+
+            viewModel.toggle()
             manager.stopUpdatingLocation()
             manager.stopMonitoringSignificantLocationChanges()
+            present(alertController, animated: true)
         }
     }
 }
