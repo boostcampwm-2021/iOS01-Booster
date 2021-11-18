@@ -348,7 +348,7 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
             DispatchQueue.main.async { [weak self] in
                 guard let self = self
                 else { return }
-
+                self.manager.allowsBackgroundLocationUpdates = true
                 self.manager.startUpdatingLocation()
                 self.manager.startMonitoringSignificantLocationChanges()
 
