@@ -58,14 +58,7 @@ final class TrackingProgressViewModel {
     }
 
     func update(seconds: Int) {
-        let velocity: Double = trackingModel.value.distance/Double(seconds)
-        let minute = Double(seconds) / 60
-        let height: Double = Double(user.height)/100 == 0 ? 1 : Double(user.height)/100
-        let calroiesPerMinute = (0.035*Double(user.weight))+((pow(velocity, 2)/height)*0.029*Double(user.weight))
-        let calroies: Int = Int(minute*calroiesPerMinute)
-
         trackingModel.value.seconds = seconds
-        trackingModel.value.calories = calroies
     }
 
     func update(steps: Int) {
@@ -73,7 +66,11 @@ final class TrackingProgressViewModel {
     }
 
     func update(distance: Double) {
+        let met: Double = 4.8
+        let perHourDistance = 4.8
+        
         trackingModel.value.distance += distance
+        trackingModel.value.calories = Int(met * Double(user.weight) * (trackingModel.value.distance / perHourDistance))
     }
 
     func toggle() {
