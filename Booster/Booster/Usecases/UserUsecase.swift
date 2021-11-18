@@ -9,11 +9,11 @@ import Foundation
 
 final class UserUsecase {
     private enum CoreDataKeys {
-        static let age: String = "age"
-        static let nickname: String = "nickname"
-        static let gender: String = "gender"
-        static let height: String = "height"
-        static let weight: String = "weight"
+        static let age = "age"
+        static let nickname = "nickname"
+        static let gender = "gender"
+        static let height = "height"
+        static let weight = "weight"
     }
 
     private let repository = RepositoryManager()

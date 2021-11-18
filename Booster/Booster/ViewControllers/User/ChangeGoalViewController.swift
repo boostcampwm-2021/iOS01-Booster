@@ -59,7 +59,7 @@ extension ChangeGoalViewController: UITextFieldDelegate {
         guard let text = textField.text
         else { return true }
         
-        let maxLength
+        let maxLength = 5
         let length = text.count + string.count - range.length
 
         return length <= maxLength

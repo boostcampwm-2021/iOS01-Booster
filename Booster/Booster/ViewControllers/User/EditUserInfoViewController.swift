@@ -16,7 +16,7 @@ class EditUserInfoViewController: UIViewController, BaseViewControllerTemplate {
         case female = "여"
 
         mutating func toggle() {
-            if self == .male { self = .female } else { self = .male }
+            (self == .male) ? (self = .female) : (self = .male)
         }
     }
 
@@ -87,8 +87,8 @@ class EditUserInfoViewController: UIViewController, BaseViewControllerTemplate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        UIButtonConfigure()
-        UITextFieldConfigure()
+        configureUIButton()
+        configureUITextField()
     }
 
     // MARK: - @IBActions
@@ -112,11 +112,11 @@ class EditUserInfoViewController: UIViewController, BaseViewControllerTemplate {
         genderButtonState.toggle()
         maleGenderButton.isEnabled.toggle()
         femaleGenderButton.isEnabled.toggle()
-        AllTextFieldResignFirstResponder()
+        allTextFieldResignFirstResponder()
     }
 
     @IBAction func viewDidTap(_ sender: Any) {
-        AllTextFieldResignFirstResponder()
+        allTextFieldResignFirstResponder()
     }
 
     // MARK: - Functions
@@ -151,7 +151,7 @@ class EditUserInfoViewController: UIViewController, BaseViewControllerTemplate {
         }
     }
 
-    private func UIButtonConfigure() {
+    private func configureUIButton() {
         femaleGenderButton.isEnabled = false
         maleGenderButton.isEnabled = true
 
@@ -161,13 +161,13 @@ class EditUserInfoViewController: UIViewController, BaseViewControllerTemplate {
         femaleGenderButton.setBackgroundColor(color: .boosterEnableButtonGray, for: .normal)
     }
 
-    private func UITextFieldConfigure() {
+    private func configureUITextField() {
         heightTextField.inputView = heightPickerView
         weightTextField.inputView = weightPickerView
         ageTextField.inputView = agePickerView
     }
 
-    private func AllTextFieldResignFirstResponder() {
+    private func allTextFieldResignFirstResponder() {
         nickNameTextField.resignFirstResponder()
         heightTextField.resignFirstResponder()
         weightTextField.resignFirstResponder()
