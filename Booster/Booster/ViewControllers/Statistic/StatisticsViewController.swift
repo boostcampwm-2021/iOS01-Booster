@@ -49,7 +49,7 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
 
         requestAuthorizationForStepCount()
         addGestures()
-        addAction()
+        addActions()
         bind()
         viewModel.selectedDuration.accept(.week)
     }
@@ -74,7 +74,7 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
                 guard let self = self,
                       (0..<self.chartView.frame.width).contains(location.x)
                 else { return }
-
+                
                 self.viewModel.selectStatistics(tappedCoordinate: Float(location.x / self.chartView.frame.width))
             })
             .disposed(by: disposeBag)
@@ -87,13 +87,13 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
                 guard let self = self,
                       (0..<self.chartView.frame.width).contains(location.x)
                 else { return }
-
+                
                 self.viewModel.selectStatistics(pannedCoordinate: Float(location.x / self.chartView.frame.width))
             })
             .disposed(by: disposeBag)
     }
 
-    private func addAction() {
+    private func addActions() {
         weekButton.rx.tap.asDriver()
             .drive(onNext: { [weak self] _ in
                 guard let self = self
