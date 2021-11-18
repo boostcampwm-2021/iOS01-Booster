@@ -36,7 +36,7 @@ final class InfoPickerView: UIPickerView {
         }
     }
 
-    private var type: Info = .age
+    private(set) var type: Info = .age
     private lazy var pickerData: [String] = {
         return Array(type.range.lowerBound...type.range.upperBound).map { "\($0)" }
     }()

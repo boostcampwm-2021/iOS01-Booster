@@ -16,8 +16,6 @@ final class UserUsecase {
         static let weight = "weight"
     }
 
-    private let repository = RepositoryManager()
-
     func eraseAllDataOfHealthKit(completion: @escaping (Result<Int, Error>) -> Void) {
         HealthStoreManager.shared.removeAll { (result) in
             completion(result)
@@ -25,7 +23,7 @@ final class UserUsecase {
     }
 
     func eraseAllDataOfCoreData(completion: @escaping (Result<Void, Error>) -> Void) {
-        repository.delete(entityName: "Tracking") { (result) in
+        CoreDataManager.shared.delete(entityName: "Tracking") { (result) in
             completion(result)
         }
     }
@@ -34,13 +32,13 @@ final class UserUsecase {
         let entity = "User"
         let value: [String: Any] = [
             CoreDataKeys.age: model.age,
-            CoreDataKeys.nickname: model.nickname,
+            CoreDataKeys.nickname: model.nickName,
             CoreDataKeys.gender: model.gender,
             CoreDataKeys.height: model.height,
             CoreDataKeys.weight: model.weight
         ]
 
-        repository.save(value: value, type: entity) { (response) in
+        CoreDataManager.shared.save(value: value, type: entity) { (response) in
             switch response {
             case .success:
                 completion(true)

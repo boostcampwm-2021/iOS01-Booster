@@ -49,6 +49,10 @@
 		3B6FE5002743A5F400A815D1 /* EnrollWriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6FE4FF2743A5F300A815D1 /* EnrollWriteView.swift */; };
 		3B6FE5032743A85B00A815D1 /* InfoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6FE5022743A85B00A815D1 /* InfoPickerView.swift */; };
 		3B6FE5052744DDBE00A815D1 /* NickNameEnrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6FE5042744DDBE00A815D1 /* NickNameEnrollView.swift */; };
+		3BE60F6127464DE800B4EFB8 /* StatisticsUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE60F6027464DE700B4EFB8 /* StatisticsUsecase.swift */; };
+		3BE60F6227464DE800B4EFB8 /* StatisticsUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE60F6027464DE700B4EFB8 /* StatisticsUsecase.swift */; };
+		3BE60F6427464E0300B4EFB8 /* StepStatitstics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE60F6327464E0300B4EFB8 /* StepStatitstics.swift */; };
+		3BE60F6527464E0300B4EFB8 /* StepStatitstics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE60F6327464E0300B4EFB8 /* StepStatitstics.swift */; };
 		4500449EAD12786CF0C84845 /* Pods_Booster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1982A2EE6933ED1A7065E1 /* Pods_Booster.framework */; };
 		FA2578F72745E99800597382 /* EditUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2578F62745E99800597382 /* EditUserInfoViewController.swift */; };
 		FA473A05273A1F8A0000C5DC /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA473A04273A1F8A0000C5DC /* UIImage+Extension.swift */; };
@@ -169,6 +173,8 @@
 		3B6FE4FF2743A5F300A815D1 /* EnrollWriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollWriteView.swift; sourceTree = "<group>"; };
 		3B6FE5022743A85B00A815D1 /* InfoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPickerView.swift; sourceTree = "<group>"; };
 		3B6FE5042744DDBE00A815D1 /* NickNameEnrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameEnrollView.swift; sourceTree = "<group>"; };
+		3BE60F6027464DE700B4EFB8 /* StatisticsUsecase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticsUsecase.swift; sourceTree = "<group>"; };
+		3BE60F6327464E0300B4EFB8 /* StepStatitstics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepStatitstics.swift; sourceTree = "<group>"; };
 		724D72817F933E7C4E0AA2A8 /* Pods-Booster.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booster.debug.xcconfig"; path = "Target Support Files/Pods-Booster/Pods-Booster.debug.xcconfig"; sourceTree = "<group>"; };
 		8D78C31C95AB74973F44C701 /* Pods-Booster.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booster.release.xcconfig"; path = "Target Support Files/Pods-Booster/Pods-Booster.release.xcconfig"; sourceTree = "<group>"; };
 		EE1982A2EE6933ED1A7065E1 /* Pods_Booster.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booster.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -629,6 +635,7 @@
 		FA614F2E2733CDAA00B090D9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3BE60F6327464E0300B4EFB8 /* StepStatitstics.swift */,
 				FA614F2F2733CDAA00B090D9 /* UserInfo.swift */,
 				FA614F302733CDAA00B090D9 /* Statistics.swift */,
 				FA614F312733CDAA00B090D9 /* MileStone.swift */,
@@ -709,6 +716,7 @@
 		FA614F4F2733CDAA00B090D9 /* Usecases */ = {
 			isa = PBXGroup;
 			children = (
+				3BE60F6027464DE700B4EFB8 /* StatisticsUsecase.swift */,
 				FA614F502733CDAA00B090D9 /* TrackingProgressUsecase.swift */,
 				28C9702C273C3041005BD7BC /* DetailFeedUsecase.swift */,
 				3B38FB1B273BF7CD00F8620D /* FeedUseCase.swift */,
@@ -941,9 +949,11 @@
 				37852ACF273C27F100BA3D67 /* StatisticsModelTests.swift in Sources */,
 				3B31B61F274109AF009D9190 /* HealthStoreManager.swift in Sources */,
 				3B31B61E274109A5009D9190 /* BoosterObservable.swift in Sources */,
+				3BE60F6527464E0300B4EFB8 /* StepStatitstics.swift in Sources */,
 				37852AD8273C2D0B00BA3D67 /* StatisticsViewModelTests.swift in Sources */,
 				37852AD6273C286D00BA3D67 /* Statistics.swift in Sources */,
 				3B31B61D27410997009D9190 /* StatisticsViewModel.swift in Sources */,
+				3BE60F6227464DE800B4EFB8 /* StatisticsUsecase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -977,6 +987,7 @@
 				FA614F7A2733CDAA00B090D9 /* TimeInterval+extension.swift in Sources */,
 				FA614F5B2733CDAA00B090D9 /* CircleRenderer.swift in Sources */,
 				3B38FB1C273BF7CD00F8620D /* FeedUseCase.swift in Sources */,
+				3BE60F6127464DE800B4EFB8 /* StatisticsUsecase.swift in Sources */,
 				FA614F802733CDAA00B090D9 /* TrackingProgressViewController.swift in Sources */,
 				FA473A4527438A3E0000C5DC /* MyInfoHeaderView.swift in Sources */,
 				3B37B99C274371B9001EB120 /* GenderEnrollView.swift in Sources */,
@@ -1000,6 +1011,7 @@
 				28C96FED27396F6B005BD7BC /* DetailFeedViewModel.swift in Sources */,
 				FA614F6D2733CDAA00B090D9 /* User+CoreDataClass.swift in Sources */,
 				3B6FE5002743A5F400A815D1 /* EnrollWriteView.swift in Sources */,
+				3BE60F6427464E0300B4EFB8 /* StepStatitstics.swift in Sources */,
 				379E3C57273BC182002B0B15 /* ChartView.swift in Sources */,
 				FACBAB6A2746034900CD6B76 /* UIButton+Extension.swift in Sources */,
 				FA614F822733CDAA00B090D9 /* UserViewController.swift in Sources */,
