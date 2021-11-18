@@ -9,26 +9,19 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class EnrollViewController: UIViewController, BaseViewControllerTemplate {
+final class EnrollViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: Enum
     private enum InfoStep: Int {
         case gender = 1, age, height, weight, nickName
 
-        static func changeStep(number: Int) -> InfoStep {
-            switch number {
-            case 1: return .gender
-            case 2: return .age
-            case 3: return .height
-            case 4: return .weight
-            default: return .nickName
+        static func changeStep(number: Int) -> InfoStep? {
+                return self.init(rawValue: number)
             }
-        }
     }
 
     // MARK: Properties
+    private let disposeBag: DisposeBag = DisposeBag()
     private var infoStep: InfoStep = .gender
-    var viewModel: EnrollViewModel = EnrollViewModel()
-    var disposeBag: DisposeBag = DisposeBag()
     private lazy var backButtonItem: UIBarButtonItem = {
         let buttonItem = UIBarButtonItem()
         buttonItem.image = .systemArrowLeft
@@ -41,7 +34,7 @@ class EnrollViewController: UIViewController, BaseViewControllerTemplate {
 
                 self.view.subviews.last?.removeFromSuperview()
                 self.navigationItem.leftBarButtonItem = self.view.subviews.count > minimum ? self.backButtonItem : nil
-                self.infoStep = InfoStep.changeStep(number: self.view.subviews.count)
+                self.infoStep = InfoStep.changeStep(number: self.view.subviews.count) ?? .gender
                 self.navigationItem.rightBarButtonItem = self.skipButtonItem
             }.disposed(by: disposeBag)
         return buttonItem
@@ -91,8 +84,9 @@ class EnrollViewController: UIViewController, BaseViewControllerTemplate {
                 guard let self = self,
                       let empty = view.nickNameTextField.text?.isEmpty
                 else { return }
+                
                 let nextStep: Int = 6
-
+                
                 if empty {
                     let title = "별명"
                     let message = "별명을 입력해주시기 바랍니다."
@@ -105,19 +99,21 @@ class EnrollViewController: UIViewController, BaseViewControllerTemplate {
             }.disposed(by: disposeBag)
         return view
     }()
+    var viewModel: EnrollViewModel = EnrollViewModel()
 
     // MARK: LifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModelStepBind()
         viewModelSavebind()
-        UIConfigure()
+        configureUI()
     }
 
     // MARK: Methods
     private func display(enrollView: UIView) {
         let navigationBar = navigationController?.navigationBar
         let transition = CATransition()
+        let minimum = 1
         transition.type = .push
         transition.subtype = .fromRight
         transition.timingFunction = CAMediaTimingFunction(name: .easeOut)
@@ -125,9 +121,10 @@ class EnrollViewController: UIViewController, BaseViewControllerTemplate {
 
         view.layer.add(transition, forKey: nil)
         view.addSubview(enrollView)
-        navigationItem.leftBarButtonItem = view.subviews.count > 1 ? backButtonItem : nil
+        
+        navigationItem.leftBarButtonItem = view.subviews.count > minimum ? backButtonItem : nil
 
-        enrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20+(navigationBar?.frame.height ?? 0.0)).isActive = true
+        enrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20 + (navigationBar?.frame.height ?? 0.0)).isActive = true
         enrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         enrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         enrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
@@ -145,7 +142,7 @@ class EnrollViewController: UIViewController, BaseViewControllerTemplate {
         return writeView
     }
 
-    private func UIConfigure() {
+    private func configureUI() {
 
         self.navigationItem.rightBarButtonItem = skipButtonItem
         display(enrollView: genderEnrollView)
@@ -156,9 +153,10 @@ class EnrollViewController: UIViewController, BaseViewControllerTemplate {
             .bind { [weak self] value in
                 guard let self = self
                 else { return }
-                self.infoStep = InfoStep.changeStep(number: value)
-                self.navigationItem.rightBarButtonItem = value > 4 ? nil : self.skipButtonItem
                 let finalStep = 5
+                
+                self.infoStep = InfoStep.changeStep(number: value) ?? .age
+                self.navigationItem.rightBarButtonItem = value >= finalStep ? nil : self.skipButtonItem
 
                 if value < finalStep {
                     let view: EnrollWriteView
@@ -166,23 +164,23 @@ class EnrollViewController: UIViewController, BaseViewControllerTemplate {
                     case 2:
                         view = self.writeInfoView(type: .age)
                         view.pickerView.rx.itemSelected.bind { row, _ in
-                            self.viewModel.age.onNext(row+view.lowerBound)
+                            self.viewModel.age.onNext(row + view.lowerBound)
                         }.disposed(by: self.disposeBag)
                     case 3:
                         view = self.writeInfoView(type: .height)
                         view.pickerView.rx.itemSelected.bind { row, _ in
-                            self.viewModel.height.onNext(row+view.lowerBound)
+                            self.viewModel.height.onNext(row + view.lowerBound)
                         }.disposed(by: self.disposeBag)
                     default:
                         view = self.writeInfoView(type: .weight)
                         view.pickerView.rx.itemSelected.bind { row, _ in
-                            self.viewModel.weight.onNext(row+view.lowerBound)
+                            self.viewModel.weight.onNext(row + view.lowerBound)
                         }.disposed(by: self.disposeBag)
                     }
 
                     view.nextButton.rx.tap.bind {
                         self.view.endEditing(true)
-                        self.viewModel.step.onNext(value+1)
+                        self.viewModel.step.onNext(value + 1)
                     }.disposed(by: self.disposeBag)
                     self.display(enrollView: view)
                 } else {
