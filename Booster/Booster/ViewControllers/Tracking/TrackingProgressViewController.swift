@@ -1,6 +1,5 @@
 import UIKit
 import MapKit
-import HealthKit
 import CoreMotion
 
 class TrackingProgressViewController: UIViewController, BaseViewControllerTemplate {
@@ -129,31 +128,10 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
     @IBAction func rightTouchUp(_ sender: Any) {
         switch viewModel.state {
         case .end:
-            let title = "저장 오류"
-            let message = "저장하기 위해서는 건강앱의 권한이 필요해요"
-            let store = HKHealthStore()
-            let alert = UIAlertController.simpleAlert(title: title, message: message)
-            var types: Set<HKQuantityType> = []
-
-            HealthQuantityType.allCases.forEach {
-                if let type = $0.quantity {
-                    types.insert(type)
-                }
-            }
-
-            if HKHealthStore.isHealthDataAvailable() {
-                makeImageData()
-            } else {
-                store.requestAuthorization(toShare: types, read: types) { success, error in
-                    if let _ = error {
-                        self.present(alert, animated: true)
-                    } else if success {
-                        self.makeImageData()
-                    } else {
-                        self.present(alert, animated: true)
-                    }
-                }
-            }
+            manager.stopUpdatingLocation()
+            manager.stopMonitoringSignificantLocationChanges()
+            pedometer.stopUpdates()
+            makeImageData()
         default:
             viewModel.toggle()
             update()
@@ -462,17 +440,6 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
     }
 
     private func save() {
-        if let centerCoordinate = viewModel.centerCoordinateOfPath() {
-            let coordinates = viewModel.coordinates()
-            mapView.snapShotImageOfPath(coordinates: coordinates,
-                                        center: centerCoordinate,
-                                        range: viewModel.distance()) { [weak self] (image) in
-                if let imageData = image?.pngData() {
-                    self?.viewModel.update(imageData: imageData)
-                }
-            }
-        }
-
         viewModel.save { error in
             guard error == nil
             else { return }

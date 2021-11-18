@@ -4,7 +4,6 @@ typealias TrackingError = TrackingProgressUsecase.TrackingError
 
 final class TrackingProgressUsecase {
     enum TrackingError: Error, Equatable {
-        case countError
         case modelError
         case error(Error)
 
@@ -27,41 +26,14 @@ final class TrackingProgressUsecase {
         static let imageData: String = "imageData"
     }
 
-    private var errors: BoosterObservable<[TrackingError?]>
-    private var handler: ((TrackingError?) -> Void)?
-    private let entity: String
+    func save(model: TrackingModel, completion handler: @escaping (TrackingError?) -> Void) {
+        let entity = "Tracking"
 
-    init() {
-        errors = BoosterObservable([])
-        entity = "Tracking"
-        errors.bind { values in
-            guard let handler = self.handler
-            else { return }
-
-            if values.count != 4 {
-                handler(.countError)
-                return
-            }
-
-            if let value = values.filter({ $0 != nil }).first, let error = value {
-                handler(error)
-                return
-            }
-
-            handler(nil)
-        }
-    }
-
-    func bind(handler: @escaping (TrackingError?) -> Void) {
-        self.handler = handler
-    }
-
-    func save(model: TrackingModel) {
         guard let coordinates = try? NSKeyedArchiver.archivedData(withRootObject: model.coordinates, requiringSecureCoding: false),
               let milestones = try? NSKeyedArchiver.archivedData(withRootObject: model.milestones, requiringSecureCoding: false),
               let endDate = model.endDate
         else {
-            errors.value.append(.modelError)
+            handler(.modelError)
             return
         }
         let value: [String: Any] = [
@@ -78,35 +50,13 @@ final class TrackingProgressUsecase {
             CoreDataKeys.imageData: model.imageData
         ]
 
-        CoreDataManager.shared.save(value: value, type: entity) { [weak self] response in
-            guard let self = self
-            else { return }
-
+        CoreDataManager.shared.save(value: value, type: entity) { response in
             switch response {
             case .success:
-                self.errors.value.append(nil)
+                handler(nil)
             case .failure(let error):
-                self.errors.value.append(.error(error))
+                handler(.error(error))
             }
-        }
-    }
-
-    func save(count: Double,
-              start: Date,
-              end: Date,
-              quantity: HealthQuantityType,
-              unit: HealthUnit) {
-        HealthStoreManager.shared.save(count: count,
-                                       start: start,
-                                       end: end,
-                                       quantity: quantity,
-                                       unit: unit) { [weak self] error in
-            guard let error = error
-            else {
-                self?.errors.value.append(nil)
-                return
-            }
-            self?.errors.value.append(.error(error))
         }
     }
 }
