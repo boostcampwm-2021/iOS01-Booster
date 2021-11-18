@@ -52,9 +52,9 @@ class UserViewController: UIViewController, BaseViewControllerTemplate {
         registerNib()
     }
 
-    // MARK: - @IBActions
-
-    // MARK: - @objc
+    override func viewWillAppear(_ animated: Bool) {
+        userTableView.reloadData()
+    }
 
     // MARK: - Functions
     private func registerNib() {
@@ -75,22 +75,15 @@ class UserViewController: UIViewController, BaseViewControllerTemplate {
             performSegue(withIdentifier: "changeGoalSegue", sender: self)
             return
         case .editUserInfo:
-            let prevViewModel = viewModel
-            viewModel.editUserInfo(gender: "남", age: 99, height: 180, weight: 80, nickname: "신선도사")
-            viewModel.save { [weak self] (isSaved) in
-                DispatchQueue.main.async {
-                    var alert = UIAlertController()
-                    if isSaved {
-                        alert = UIAlertController.simpleAlert(title: "", message: "수정 완료")
-                    } else {
-                        alert = UIAlertController.simpleAlert(title: "", message: "수정 실패")
-                        self?.viewModel = prevViewModel
-                    }
-                    self?.present(alert, animated: true) {
-                        self?.userTableView.reloadData()
-                    }
-                }
-            }
+            guard let editUserInfoViewController = storyboard?.instantiateViewController(identifier: "EditUserInfoViewController", creator: { [weak self] coder -> EditUserInfoViewController in
+                guard let viewModel = self?.viewModel
+                else { return EditUserInfoViewController(viewModel: UserViewModel()) }
+
+                return .init(coder: coder, viewModel: viewModel) ?? EditUserInfoViewController(viewModel: UserViewModel())
+            })
+            else { return }
+
+            navigationController?.pushViewController(editUserInfoViewController, animated: true)
         case .notificationSetting:
             guard let url = URL(string: UIApplication.openSettingsURLString)
             else {
@@ -163,6 +156,7 @@ extension UserViewController: UITableViewDataSource {
             cell = customCell
         }
 
+        cell?.selectionStyle = .none
         guard let cell = cell
         else { return UITableViewCell() }
 

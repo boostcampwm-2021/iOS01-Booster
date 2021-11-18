@@ -14,8 +14,6 @@ class EraseAllDataViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - Properties
     var viewModel: UserViewModel = UserViewModel()
 
-    // MARK: - Init
-
     // MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,8 +46,6 @@ class EraseAllDataViewController: UIViewController, BaseViewControllerTemplate {
     @IBAction func backButtonDidTap(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
-
-    // MARK: - @objc
 
     // MARK: - Functions
     private func naivgationBarConfigure() {

@@ -8,8 +8,6 @@
 import UIKit
 
 class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
-    // MARK: - Enum
-
     // MARK: - @IBOutlet
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var stepsTextField: UITextField!
@@ -17,8 +15,6 @@ class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - Properties
     var viewModel: GoalViewModel?
     var steps: Int = 10000
-
-    // MARK: - Init
 
     // MARK: - Life Cycles
     override func viewDidLoad() {
@@ -41,8 +37,6 @@ class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
     @IBAction func saveButtonDidTap(_ sender: Any) {
 
     }
-
-    // MARK: - @objc
 
     // MARK: - Functions
     private func naivgationBarConfigure() {
