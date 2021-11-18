@@ -42,8 +42,6 @@ final class HealthStoreManager {
 
     static let shared = HealthStoreManager()
 
-    private let metadataKey = "Booster"
-    private let metadataVersion = 1
     private var healthStore: HKHealthStore?
 
     private init() {
