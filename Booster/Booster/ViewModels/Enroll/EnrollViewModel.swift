@@ -9,7 +9,10 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class EnrollViewModel {
+final class EnrollViewModel {
+    private let usecase = EnrollUsecase()
+    private let disposeBag = DisposeBag()
+    private var userinfo = BehaviorRelay<UserInfo>(value: UserInfo())
     let age = PublishSubject<Int>()
     let nickName = PublishSubject<String>()
     let height = PublishSubject<Int>()
@@ -17,9 +20,6 @@ class EnrollViewModel {
     let step = PublishSubject<Int>()
     let gender = PublishSubject<Bool>()
     var save = PublishSubject<Bool>()
-    private let usecase = EnrollUsecase()
-    private var userinfo = BehaviorRelay<UserInfo>(value: UserInfo())
-    private var disposeBag = DisposeBag()
 
     init() {
         stepBind()
