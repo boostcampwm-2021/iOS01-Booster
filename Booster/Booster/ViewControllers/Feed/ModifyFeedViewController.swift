@@ -13,6 +13,7 @@ class ModifyFeedViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - @IBOutlet
 
     // MARK: - Properties
+    var viewModel = 0
 
     // MARK: - Subscript
 
@@ -21,11 +22,21 @@ class ModifyFeedViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        configure()
     }
-    
+
     // MARK: - @IBActions
 
     // MARK: - @objc
+    @objc private func completedButtonDidTapped(_ sender: UIBarButtonItem) {
+    }
 
     // MARK: - Functions
+    func configure() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "완료",
+                                                            style: .done,
+                                                            target: self,
+                                                            action: #selector(completedButtonDidTapped(_:)))
+    }
 }
