@@ -45,15 +45,15 @@ final class GenderEnrollView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        UIConfigure()
+        configureUI()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        UIConfigure()
+        configureUI()
     }
 
-    private func UIConfigure() {
+    private func configureUI() {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .boosterBackground
         [titleLabel, maleButton, femaleButton].forEach { self.addSubview($0) }
@@ -68,7 +68,7 @@ final class GenderEnrollView: UIView {
             $0.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         }
 
-        maleButton.centerXAnchor.constraint(equalTo: centerXAnchor, constant: (frame.width-100)/4).isActive = true
-        femaleButton.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -(frame.width-100)/4).isActive = true
+        maleButton.centerXAnchor.constraint(equalTo: centerXAnchor, constant: (frame.width - 100) / 4).isActive = true
+        femaleButton.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -(frame.width - 100) / 4).isActive = true
     }
 }
