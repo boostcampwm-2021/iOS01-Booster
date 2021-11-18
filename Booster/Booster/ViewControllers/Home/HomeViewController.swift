@@ -20,7 +20,7 @@ final class HomeViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - Properties
     var viewModel = HomeViewModel()
     private let disposeBag = DisposeBag()
-    private let todayHoursContant = 25
+    private let todayHoursContant = 24
 
     // MARK: - Life Cycles
     override func viewDidLoad() {
@@ -88,14 +88,7 @@ final class HomeViewController: UIViewController, BaseViewControllerTemplate {
 
     private func configureHourlyChartView() {
         let stepRatios: [CGFloat] = configureStepRatios(using: viewModel.homeModel.value.hourlyStatistics)
-        var strings = [String](repeating: "", count: todayHoursContant)
-        for (index, _) in strings.enumerated() {
-            if index % 6 == 0 {
-                strings[index] = "\(index)"
-            }
-        }
-
-        hourlyBarChartView.drawChart(stepRatios: stepRatios, strings: strings)
+        hourlyBarChartView.drawChart(stepRatios: stepRatios, strings: ["0", "6", "12", "18"])
     }
 
     private func configureStepRatios(using statisticsCollection: StatisticsCollection) -> [CGFloat] {
