@@ -41,7 +41,6 @@ final class TrackingProgressViewModel {
 
     func recordEnd() {
         trackingModel.value.endDate = Date()
-        convert()
         trackingModel.value.milestones = milestones.value
         state = .end
 
@@ -50,7 +49,7 @@ final class TrackingProgressViewModel {
                              end: trackingModel.value.endDate ?? Date(),
                              quantity: .steps,
                              unit: .count)
-        trackingUsecase.save(count: trackingModel.value.distance,
+        trackingUsecase.save(count: trackingModel.value.distance / 1000,
                              start: trackingModel.value.startDate,
                              end: trackingModel.value.endDate ?? Date(),
                              quantity: .runing,
@@ -114,6 +113,7 @@ final class TrackingProgressViewModel {
     }
 
     func save(completion handler: @escaping (TrackingError?) -> Void) {
+        convert()
         trackingUsecase.save(model: trackingModel.value) { error in
             handler(error)
         }
