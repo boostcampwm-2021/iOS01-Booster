@@ -70,7 +70,7 @@ final class NickNameEnrollView: UIView {
             if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
                 let keyboardRectangle = keyboardFrame.cgRectValue
                 let keyboardHeight = keyboardRectangle.height
-                self.bottomConstraint.constant = -keyboardHeight-30
+                self.bottomConstraint.constant = -keyboardHeight - 30
             }
         }
         NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification,
@@ -106,6 +106,9 @@ extension NickNameEnrollView: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text
         else { return true }
-        return text.count + string.count < 9
+        
+        let maximum = 9
+        
+        return text.count + string.count < maximum
     }
 }
