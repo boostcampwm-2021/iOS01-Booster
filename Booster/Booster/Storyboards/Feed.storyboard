@@ -284,7 +284,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Item" image="gearshape.fill" catalog="system" id="GPP-8c-MDj">
                             <color key="tintColor" name="boosterLabel"/>
                             <connections>
-                                <action selector="settingButtonDidTapped:" destination="SNN-pe-2iF" id="KDF-Ax-xLJ"/>
+                                <action selector="settingButtonDidTap:" destination="SNN-pe-2iF" id="gk5-FN-h0Z"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

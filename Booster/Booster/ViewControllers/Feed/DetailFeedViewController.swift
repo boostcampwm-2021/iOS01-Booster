@@ -45,7 +45,7 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
     }
 
     // MARK: - @IBActions
-    @IBAction private func settingButtonDidTapped(_ sender: UIBarButtonItem) {
+    @IBAction private func settingButtonDidTap(_ sender: UIBarButtonItem) {
         let settingAlertController = UIAlertController(title: nil,
                                                        message: nil,
                                                        preferredStyle: .actionSheet)
