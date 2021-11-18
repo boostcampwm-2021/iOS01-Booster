@@ -31,10 +31,14 @@ class EraseAllDataViewController: UIViewController, BaseViewControllerTemplate {
                 var alert = UIAlertController()
                 switch result {
                 case .success(let count):
-                    alert = UIAlertController.simpleAlert(title: "삭제 완료", message: "총 \(count)개의 정보가 삭제됐어요!")
+                    let title = "삭제 완료"
+                    let message = "총 \(count)개의 정보가 삭제됐어요!"
+                    alert = UIAlertController.simpleAlert(title: title, message: message)
                 case .failure(let error):
                     dump(error)
-                    alert = UIAlertController.simpleAlert(title: "삭제 실패", message: "알 수 없는 오류로 인하여 정보를 삭제할 수 없어요")
+                    let title = "삭제 실패"
+                    let message = "알 수 없는 오류로 인하여 정보를 삭제할 수 없어요"
+                    alert = UIAlertController.simpleAlert(title: title, message: message)
                 }
                 self?.present(alert, animated: true) {
                     self?.navigationController?.popViewController(animated: true)

@@ -58,9 +58,10 @@ extension ChangeGoalViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text
         else { return true }
-
+        
+        let maxLength
         let length = text.count + string.count - range.length
 
-        return length <= 5
+        return length <= maxLength
     }
 }
