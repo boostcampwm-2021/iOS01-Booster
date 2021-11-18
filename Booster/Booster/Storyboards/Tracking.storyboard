@@ -20,15 +20,15 @@
             <objects>
                 <viewController id="Y6W-OH-hqX" customClass="TrackingViewController" customModule="Booster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZzC-UF-L6k" customClass="TrackingMapView" customModule="Booster" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                                 <color key="tintColor" red="1" green="0.33152735230000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xud-Sp-XDJ">
-                                <rect key="frame" x="157" y="673" width="100" height="100"/>
+                                <rect key="frame" x="157" y="585" width="100" height="100"/>
                                 <color key="backgroundColor" name="boosterOrange"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="Gkj-Y2-n3V"/>
@@ -79,15 +79,15 @@
             <objects>
                 <viewController id="1G8-i0-KhG" customClass="TrackingProgressViewController" customModule="Booster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MAc-M0-Psa">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="RB0-kQ-AuZ" customClass="TrackingMapView" customModule="Booster" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="544"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="456"/>
                                 <color key="tintColor" red="1" green="0.33152735230000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BsO-pa-eCU">
-                                <rect key="frame" x="0.0" y="544" width="414" height="269"/>
+                                <rect key="frame" x="0.0" y="456" width="414" height="269"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aoN-Wg-v3J">
                                         <rect key="frame" x="301.5" y="45" width="80" height="0.0"/>
@@ -214,9 +214,10 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wXd-j9-ZVj" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="KoR-UW-7LE">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="KoR-UW-7LE">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" name="boosterBackground"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
