@@ -27,8 +27,8 @@ final class FeedViewController: UIViewController, BaseViewControllerTemplate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        configure()
         viewModel.fetch()
+        configure()
     }
 
     // MARK: - @objc
@@ -44,16 +44,12 @@ final class FeedViewController: UIViewController, BaseViewControllerTemplate {
     }
 
     func configure() {
-        viewModel.trackingRecords.bind {  _ in
-
+        self.viewModel.trackingRecords.bind { _ in
             DispatchQueue.main.async { [weak self] in
                 guard let self = self
                 else { return }
-
                 self.refershControl.endRefreshing()
-                self.collectionView.performBatchUpdates {
-                    self.collectionView.reloadData()
-                }
+                self.collectionView.reloadData()
             }
         }
 

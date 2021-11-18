@@ -22,10 +22,10 @@ final class FeedViewModel {
                                         step: isEmpty ? 0 : trackingRecords.value[indexPath.row].steps,
                                         title: isEmpty ? "" : trackingRecords.value[indexPath.row].title,
                                         imageData: isEmpty ? Data() : trackingRecords.value[indexPath.row].imageData,
-                                        isEmpty: recordCount() == 0))
+                                        isEmpty: isEmpty))
     }
 
-    private(set) var trackingRecords: BoosterObservable<[FeedList]>
+    private(set) var trackingRecords = BoosterObservable<[FeedList]>([])
     private var selectedIndex: IndexPath
     private var difference: Int
     private let usecase: FeedUseCase
@@ -34,7 +34,6 @@ final class FeedViewModel {
         difference = 0
         selectedIndex = IndexPath()
         usecase = FeedUseCase()
-        trackingRecords = BoosterObservable([])
     }
 
     func recordCount() -> Int {
@@ -51,7 +50,7 @@ final class FeedViewModel {
 
     func reset() {
         difference = 0
-        trackingRecords.value.removeAll()
+        trackingRecords.value = []
         fetch()
     }
 
@@ -63,7 +62,7 @@ final class FeedViewModel {
             let predicate = NSPredicate(format: "startDate <= %@", date as CVarArg)
             usecase.fetch(predicate: predicate) { [weak self] result in
                 if result.count == 0 { return }
-                print(result.count)
+
                 self?.asyncFetch(calendar: calendar, currentDate: currentDate)
             }
         }

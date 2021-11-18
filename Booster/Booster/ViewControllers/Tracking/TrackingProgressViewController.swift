@@ -131,9 +131,9 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
             manager.stopUpdatingLocation()
             manager.stopMonitoringSignificantLocationChanges()
             pedometer.stopUpdates()
+            rightButton.isUserInteractionEnabled = false
             makeImageData()
         default:
-            rightButton.isUserInteractionEnabled = false
             viewModel.toggle()
             update()
         }
