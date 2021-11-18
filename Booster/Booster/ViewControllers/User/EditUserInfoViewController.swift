@@ -51,6 +51,7 @@ class EditUserInfoViewController: UIViewController, BaseViewControllerTemplate {
         super.viewDidLoad()
 
         UIButtonConfigure()
+        UITextFieldConfigure()
     }
 
     // MARK: - @IBActions
@@ -115,5 +116,12 @@ class EditUserInfoViewController: UIViewController, BaseViewControllerTemplate {
         maleGenderButton.setBackgroundColor(color: .boosterEnableButtonGray, for: .normal)
         femaleGenderButton.setBackgroundColor(color: .boosterOrange, for: .disabled)
         femaleGenderButton.setBackgroundColor(color: .boosterEnableButtonGray, for: .normal)
+    }
+
+    private func UITextFieldConfigure() {
+        let frame = CGRect(x: 0, y: view.frame.height - 200, width: view.frame.width, height: 200)
+        heightTextField.inputView = InfoPickerView(frame: frame, type: .height)
+        weightTextField.inputView = InfoPickerView(frame: frame, type: .weight)
+        ageTextField.inputView = InfoPickerView(frame: frame, type: .age)
     }
 }
