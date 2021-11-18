@@ -84,9 +84,9 @@ final class EnrollViewController: UIViewController, BaseViewControllerTemplate {
                 guard let self = self,
                       let empty = view.nickNameTextField.text?.isEmpty
                 else { return }
-                
+
                 let nextStep: Int = 6
-                
+
                 if empty {
                     let title = "별명"
                     let message = "별명을 입력해주시기 바랍니다."
@@ -121,7 +121,7 @@ final class EnrollViewController: UIViewController, BaseViewControllerTemplate {
 
         view.layer.add(transition, forKey: nil)
         view.addSubview(enrollView)
-        
+
         navigationItem.leftBarButtonItem = view.subviews.count > minimum ? backButtonItem : nil
 
         enrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20 + (navigationBar?.frame.height ?? 0.0)).isActive = true
@@ -154,7 +154,7 @@ final class EnrollViewController: UIViewController, BaseViewControllerTemplate {
                 guard let self = self
                 else { return }
                 let finalStep = 5
-                
+
                 self.infoStep = InfoStep.changeStep(number: value) ?? .age
                 self.navigationItem.rightBarButtonItem = value >= finalStep ? nil : self.skipButtonItem
 

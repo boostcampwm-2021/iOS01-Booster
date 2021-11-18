@@ -106,9 +106,9 @@ extension NickNameEnrollView: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text
         else { return true }
-        
+
         let maximum = 9
-        
+
         return text.count + string.count < maximum
     }
 }
