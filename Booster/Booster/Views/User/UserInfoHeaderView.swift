@@ -7,9 +7,9 @@
 
 import UIKit
 
-class UserInfoHeaderView: UITableViewHeaderFooterView {
-    @IBOutlet var nicknameLabel: UILabel!
-    @IBOutlet var userInfoLabel: UILabel!
+final class UserInfoHeaderView: UITableViewHeaderFooterView {
+    @IBOutlet private weak var nicknameLabel: UILabel!
+    @IBOutlet private weak var userInfoLabel: UILabel!
 
     func configure(viewModel: UserViewModel) {
         nicknameLabel.text = viewModel.nickname()

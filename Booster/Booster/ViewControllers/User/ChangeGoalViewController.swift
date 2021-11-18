@@ -9,12 +9,12 @@ import UIKit
 
 class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - @IBOutlet
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var stepsTextField: UITextField!
+    @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private var stepsTextField: UITextField!
 
     // MARK: - Properties
     var viewModel: GoalViewModel?
-    var steps: Int = 10000
+    private var steps: Int = 10000
 
     // MARK: - Life Cycles
     override func viewDidLoad() {
@@ -23,18 +23,18 @@ class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
 
     override func viewWillAppear(_ animated: Bool) {
         naivgationBarConfigure()
-        UIConfigure()
+        configureUI()
 
         stepsTextField.delegate = self
         stepsTextField.becomeFirstResponder()
     }
 
     // MARK: - @IBActions
-    @IBAction func backButtonDidTap(_ sender: Any) {
+    @IBAction private func backButtonDidTap(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
     }
 
-    @IBAction func saveButtonDidTap(_ sender: Any) {
+    @IBAction private func saveButtonDidTap(_ sender: UIButton) {
 
     }
 
@@ -43,7 +43,7 @@ class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
 
     }
 
-    private func UIConfigure() {
+    private func configureUI() {
         titleLabel.text = "현재 목표는\n\(steps) 걸음이에요\n얼마나 바꿔볼까요?"
 
         let border = CALayer()
@@ -54,6 +54,7 @@ class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
     }
 }
 
+// MARK: - UITextFieldDelegate
 extension ChangeGoalViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text

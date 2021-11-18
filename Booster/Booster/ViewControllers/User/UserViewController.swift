@@ -1,17 +1,10 @@
 import UIKit
 
-class UserViewController: UIViewController, BaseViewControllerTemplate {
+final class UserViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - Enum
     private enum sectionType: Int, CaseIterable {
         case userHeader = 0
         case myInfo
-    }
-
-    private enum cellIdentifier: String, CaseIterable {
-        case eraseAllData = "eraseAllDataCell"
-        case changeGoal = "changeGoalCell"
-        case editUserInfo = "editUserInfoCell"
-        case notificationSetting = "notificationSettingCell"
     }
 
     private enum MyInfoCellType: Int {
@@ -20,7 +13,7 @@ class UserViewController: UIViewController, BaseViewControllerTemplate {
         case editUserInfo
         case notificationSetting
 
-        func title() -> String {
+        var title: String {
             switch self {
             case .eraseAllData:
                 return "모든 데이터 지우기"
@@ -35,13 +28,13 @@ class UserViewController: UIViewController, BaseViewControllerTemplate {
     }
 
     // MARK: - @IBOutlet
-    @IBOutlet var userTableView: UITableView!
+    @IBOutlet private weak var userTableView: UITableView!
 
     // MARK: - Properties
     var viewModel: UserViewModel = UserViewModel()
-    let userHeaderHeight: CGFloat = 200
-    let myInfoHeaderHeight: CGFloat = 60
-    let cellHeight: CGFloat = 60
+    private let userHeaderHeight: CGFloat = 200
+    private let myInfoHeaderHeight: CGFloat = 60
+    private let cellHeight: CGFloat = 60
 
     // MARK: - Life Cycles
     override func viewDidLoad() {
@@ -58,15 +51,15 @@ class UserViewController: UIViewController, BaseViewControllerTemplate {
 
     // MARK: - Functions
     private func registerNib() {
-        userTableView.register(UINib(nibName: "UserInfoHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "UserInfoHeaderView")
-        userTableView.register(UINib(nibName: "MyInfoHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "MyInfoHeaderView")
-        userTableView.register(UINib(nibName: "UserInfoBaseCell", bundle: nil), forCellReuseIdentifier: "UserInfoBaseCell")
+        userTableView.register(UINib(nibName: UserInfoHeaderView.identifier, bundle: nil), forHeaderFooterViewReuseIdentifier: UserInfoHeaderView.identifier)
+        userTableView.register(UINib(nibName: MyInfoHeaderView.identifier, bundle: nil), forHeaderFooterViewReuseIdentifier: MyInfoHeaderView.identifier)
+        userTableView.register(UINib(nibName: UserInfoBaseCell.identifier, bundle: nil), forCellReuseIdentifier: UserInfoBaseCell.identifier)
     }
 
     private func myInfoCellDidSelectActions(cellType: MyInfoCellType) {
         switch cellType {
         case .eraseAllData:
-            guard let eraseAllDataViewController = storyboard?.instantiateViewController(withIdentifier: "EraseAllDataViewController") as? EraseAllDataViewController
+            guard let eraseAllDataViewController = storyboard?.instantiateViewController(withIdentifier: EraseAllDataViewController.identifier) as? EraseAllDataViewController
             else { return }
             eraseAllDataViewController.viewModel = viewModel
 
@@ -75,7 +68,7 @@ class UserViewController: UIViewController, BaseViewControllerTemplate {
             performSegue(withIdentifier: "changeGoalSegue", sender: self)
             return
         case .editUserInfo:
-            guard let editUserInfoViewController = storyboard?.instantiateViewController(identifier: "EditUserInfoViewController", creator: { [weak self] coder -> EditUserInfoViewController in
+            guard let editUserInfoViewController = storyboard?.instantiateViewController(identifier: EditUserInfoViewController.identifier, creator: { [weak self] coder -> EditUserInfoViewController in
                 guard let viewModel = self?.viewModel
                 else { return EditUserInfoViewController(viewModel: UserViewModel()) }
 
@@ -109,7 +102,7 @@ extension UserViewController: UITableViewDataSource {
 
         switch sectionType {
         case .userHeader: return 0
-        case .myInfo: return cellIdentifier.allCases.count
+        case .myInfo: return 4
         }
     }
 
@@ -121,14 +114,14 @@ extension UserViewController: UITableViewDataSource {
 
         switch sectionType {
         case .userHeader:
-            guard let headerView = userTableView.dequeueReusableHeaderFooterView(withIdentifier: "UserInfoHeaderView") as? UserInfoHeaderView
+            guard let headerView = userTableView.dequeueReusableHeaderFooterView(withIdentifier: UserInfoHeaderView.identifier) as? UserInfoHeaderView
             else { return nil }
 
             headerView.configure(viewModel: viewModel)
 
             header = headerView
         case .myInfo:
-            guard let headerView = userTableView.dequeueReusableHeaderFooterView(withIdentifier: "MyInfoHeaderView") as? MyInfoHeaderView
+            guard let headerView = userTableView.dequeueReusableHeaderFooterView(withIdentifier: MyInfoHeaderView.identifier) as? MyInfoHeaderView
             else { return nil }
 
             header = headerView
@@ -147,11 +140,11 @@ extension UserViewController: UITableViewDataSource {
         case .userHeader:
             return UITableViewCell()
         case .myInfo:
-            guard let customCell = userTableView.dequeueReusableCell(withIdentifier: "UserInfoBaseCell") as? UserInfoBaseCell,
+            guard let customCell = userTableView.dequeueReusableCell(withIdentifier: UserInfoBaseCell.identifier) as? UserInfoBaseCell,
                   let cellType = MyInfoCellType(rawValue: indexPath.row)
             else { return UITableViewCell() }
 
-            customCell.configure(title: cellType.title())
+            customCell.configure(title: cellType.title)
 
             cell = customCell
         }

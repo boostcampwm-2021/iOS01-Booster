@@ -7,9 +7,9 @@
 
 import UIKit
 
-class EraseAllDataViewController: UIViewController, BaseViewControllerTemplate {
+final class EraseAllDataViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - @IBOutlet
-    @IBOutlet var subTitleLabel: UILabel!
+    @IBOutlet private weak var subTitleLabel: UILabel!
 
     // MARK: - Properties
     var viewModel: UserViewModel = UserViewModel()
@@ -21,11 +21,11 @@ class EraseAllDataViewController: UIViewController, BaseViewControllerTemplate {
 
     override func viewWillAppear(_ animated: Bool) {
         naivgationBarConfigure()
-        UIConfigure()
+        configureUI()
     }
 
     // MAKR: - @IBAction
-    @IBAction func eraseAllButtonDidTap(_ sender: Any) {
+    @IBAction private func eraseAllButtonDidTap(_ sender: Any) {
         viewModel.eraseAllData { [weak self] (result) in
             DispatchQueue.main.async {
                 var alert = UIAlertController()
@@ -47,7 +47,7 @@ class EraseAllDataViewController: UIViewController, BaseViewControllerTemplate {
         }
     }
 
-    @IBAction func backButtonDidTap(_ sender: Any) {
+    @IBAction private func backButtonDidTap(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
     }
 
@@ -56,7 +56,7 @@ class EraseAllDataViewController: UIViewController, BaseViewControllerTemplate {
 
     }
 
-    private func UIConfigure() {
+    private func configureUI() {
         subTitleLabel.text = "산책에 대한 기록들은 \(viewModel.nickname())님의\n휴대폰에서만 소중하게 보관하고 있어요"
     }
 }

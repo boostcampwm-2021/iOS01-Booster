@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MyInfoHeaderView: UITableViewHeaderFooterView {
-    @IBOutlet var headerTitleLabel: UILabel!
+final class MyInfoHeaderView: UITableViewHeaderFooterView {
+    @IBOutlet weak var headerTitleLabel: UILabel!
 
 }

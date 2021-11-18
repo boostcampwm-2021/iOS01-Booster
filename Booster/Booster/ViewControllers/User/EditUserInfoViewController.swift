@@ -9,7 +9,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class EditUserInfoViewController: UIViewController, BaseViewControllerTemplate {
+final class EditUserInfoViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - Enum
     private enum genderButtonType: String {
         case male = "남"
@@ -21,18 +21,22 @@ class EditUserInfoViewController: UIViewController, BaseViewControllerTemplate {
     }
 
     // MARK: - @IBOutlet
-    @IBOutlet var nickNameTextField: EditUserInfoTextField!
-    @IBOutlet var heightTextField: EditUserInfoTextField!
-    @IBOutlet var weightTextField: EditUserInfoTextField!
-    @IBOutlet var ageTextField: EditUserInfoTextField!
-    @IBOutlet var maleGenderButton: UIButton!
-    @IBOutlet var femaleGenderButton: UIButton!
+    @IBOutlet private weak var nickNameTextField: EditUserInfoTextField!
+    @IBOutlet private weak var heightTextField: EditUserInfoTextField!
+    @IBOutlet private weak var weightTextField: EditUserInfoTextField!
+    @IBOutlet private weak var ageTextField: EditUserInfoTextField!
+    @IBOutlet private weak var maleGenderButton: UIButton!
+    @IBOutlet private weak var femaleGenderButton: UIButton!
 
     // MARK: - Properties
     var viewModel: UserViewModel
 
-    private lazy var pickerViewFrame = CGRect(x: 0, y: view.frame.height - 170, width: view.frame.width, height: 170)
-    private var disposalBag: DisposeBag = DisposeBag()
+    private let disposalBag: DisposeBag = DisposeBag()
+    private var genderButtonState: genderButtonType = .female
+    private lazy var pickerViewFrame = CGRect(x: 0,
+                                              y: view.frame.height - 170,
+                                              width: view.frame.width,
+                                              height: 170)
     private lazy var heightPickerView: InfoPickerView = {
         let pickerView = InfoPickerView(frame: pickerViewFrame, type: .height)
         pickerView.rx.itemSelected.map { (row, _) -> Int in
@@ -66,8 +70,6 @@ class EditUserInfoViewController: UIViewController, BaseViewControllerTemplate {
         return pickerView
     }()
 
-    private var genderButtonState: genderButtonType = .female
-
     // MARK: - Init
     init(viewModel: UserViewModel) {
         self.viewModel = viewModel
@@ -92,11 +94,11 @@ class EditUserInfoViewController: UIViewController, BaseViewControllerTemplate {
     }
 
     // MARK: - @IBActions
-    @IBAction func backButtonDidTap(_ sender: Any) {
+    @IBAction private func backButtonDidTap(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
 
-    @IBAction func editDoneButtonDidTap(_ sender: Any) {
+    @IBAction private func editDoneButtonDidTap(_ sender: Any) {
         let nickNameText = nickNameTextField.text ?? ""
         let heightText = heightTextField.text ?? ""
         let weightText = weightTextField.text ?? ""
@@ -108,14 +110,14 @@ class EditUserInfoViewController: UIViewController, BaseViewControllerTemplate {
                            nickName: nickNameText)
     }
 
-    @IBAction func genderButtonDidTap(_ sender: Any) {
+    @IBAction private func genderButtonDidTap(_ sender: Any) {
         genderButtonState.toggle()
         maleGenderButton.isEnabled.toggle()
         femaleGenderButton.isEnabled.toggle()
         allTextFieldResignFirstResponder()
     }
 
-    @IBAction func viewDidTap(_ sender: Any) {
+    @IBAction private func viewDidTap(_ sender: Any) {
         allTextFieldResignFirstResponder()
     }
 
