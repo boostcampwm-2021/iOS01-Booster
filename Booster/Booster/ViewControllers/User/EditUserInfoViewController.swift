@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 class EditUserInfoViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - Enum
@@ -28,6 +30,41 @@ class EditUserInfoViewController: UIViewController, BaseViewControllerTemplate {
 
     // MARK: - Properties
     var viewModel: UserViewModel
+
+    private lazy var pickerViewFrame = CGRect(x: 0, y: view.frame.height - 170, width: view.frame.width, height: 170)
+    private var disposalBag: DisposeBag = DisposeBag()
+    private lazy var heightPickerView: InfoPickerView = {
+        let pickerView = InfoPickerView(frame: pickerViewFrame, type: .height)
+        pickerView.rx.itemSelected.map { (row, _) -> Int in
+            return Int(row + pickerView.type.range.lowerBound)
+        }.bind { [weak self] (value) in
+            self?.heightTextField.text = "\(value)"
+        }.disposed(by: disposalBag)
+
+        return pickerView
+    }()
+
+    private lazy var weightPickerView: InfoPickerView = {
+        let pickerView = InfoPickerView(frame: pickerViewFrame, type: .weight)
+        pickerView.rx.itemSelected.map { (row, _) -> Int in
+            return Int(row + pickerView.type.range.lowerBound)
+        }.bind { [weak self] (value) in
+            self?.weightTextField.text = "\(value)"
+        }.disposed(by: disposalBag)
+
+        return pickerView
+    }()
+
+    private lazy var agePickerView: InfoPickerView = {
+        let pickerView = InfoPickerView(frame: pickerViewFrame, type: .age)
+        pickerView.rx.itemSelected.map { (row, _) -> Int in
+            return Int(row + pickerView.type.range.lowerBound)
+        }.bind { [weak self] (value) in
+            self?.ageTextField.text = "\(value)"
+        }.disposed(by: disposalBag)
+
+        return pickerView
+    }()
 
     private var genderButtonState: genderButtonType = .female
 
@@ -119,9 +156,8 @@ class EditUserInfoViewController: UIViewController, BaseViewControllerTemplate {
     }
 
     private func UITextFieldConfigure() {
-        let frame = CGRect(x: 0, y: view.frame.height - 200, width: view.frame.width, height: 200)
-        heightTextField.inputView = InfoPickerView(frame: frame, type: .height)
-        weightTextField.inputView = InfoPickerView(frame: frame, type: .weight)
-        ageTextField.inputView = InfoPickerView(frame: frame, type: .age)
+        heightTextField.inputView = heightPickerView
+        weightTextField.inputView = weightPickerView
+        ageTextField.inputView = agePickerView
     }
 }
