@@ -73,7 +73,7 @@ final class ChartView: UIView {
                                      height: textLayer.frame.height)
             dateLayer.fontSize = 14
             dateLayer.foregroundColor = UIColor.boosterLabel.cgColor
-
+            dateLayer.contentsScale = UIScreen.main.scale
             textLayer.addSublayer(dateLayer)
         }
     }
