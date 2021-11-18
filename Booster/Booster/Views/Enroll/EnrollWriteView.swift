@@ -9,8 +9,7 @@ import UIKit
 import RxCocoa
 
 final class EnrollWriteView: UIView {
-    var lowerBound: Int = 0
-    private var type: PickerInfoType = .age
+    private var type: PickerInfoType
     private lazy var titleLabel: UILabel = {
         let label = UILabel(frame: frame)
         label.textColor = .boosterLabel
@@ -57,15 +56,18 @@ final class EnrollWriteView: UIView {
     private lazy var bottomConstraint: NSLayoutConstraint = {
         return nextButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30)
     }()
+    var lowerBound: Int = 0
 
     override init(frame: CGRect) {
+        type = .age
         super.init(frame: frame)
-        UIConfigure()
+        configureUI()
     }
 
     required init?(coder: NSCoder) {
+        type = .age
         super.init(coder: coder)
-        UIConfigure()
+        configureUI()
     }
 
     convenience init(frame: CGRect, title: String, type: PickerInfoType) {
@@ -83,13 +85,13 @@ final class EnrollWriteView: UIView {
     private func bind() {
         _ = pickerView.rx.itemSelected
             .map { row, _ in
-                return "\(self.type.range.lowerBound+row)"
+                return "\(self.type.range.lowerBound + row)"
             }.bind { [weak self] value in
                 self?.displayTextField.text = value
             }
     }
 
-    private func UIConfigure() {
+    private func configureUI() {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .boosterBackground
         [titleLabel, nextButton, displayTextField, unitLabel].forEach { self.addSubview($0) }
