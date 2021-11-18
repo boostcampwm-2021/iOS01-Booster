@@ -185,7 +185,7 @@ final class TrackingProgressViewModel {
 
     private func convert() {
         let meter = trackingModel.value.distance
-        
+
         if let kilometer = Double(String(format: "%.2f", meter/1000)) {
             trackingModel.value.distance = kilometer
         }
