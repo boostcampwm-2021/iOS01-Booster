@@ -148,8 +148,6 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
                 print(stepRatios, strings)
                 self.averageStepCountLabel.text = String(stepCount)
                 self.dateLabel.text = statisticsCollection.durationString
-
-                print(7)
             })
             .disposed(by: disposeBag)
 
