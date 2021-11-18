@@ -82,6 +82,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="RB0-kQ-AuZ" customClass="TrackingMapView" customModule="Booster" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="544"/>
+                                <color key="tintColor" red="1" green="0.33152735230000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BsO-pa-eCU">
                                 <rect key="frame" x="0.0" y="544" width="414" height="269"/>
                                 <subviews>
@@ -165,10 +169,6 @@
                                     <constraint firstItem="YWQ-h5-4pz" firstAttribute="top" secondItem="BsO-pa-eCU" secondAttribute="top" constant="-80" id="uI6-zq-evI"/>
                                 </constraints>
                             </view>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="RB0-kQ-AuZ" customClass="TrackingMapView" customModule="Booster" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="544"/>
-                                <color key="tintColor" red="1" green="0.33152735230000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                            </mapView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xiY-zH-yaJ"/>
                         <color key="backgroundColor" name="boosterBackground"/>
