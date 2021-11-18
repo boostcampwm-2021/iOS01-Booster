@@ -116,6 +116,11 @@ class EditUserInfoViewController: UIViewController, BaseViewControllerTemplate {
         genderButtonState.toggle()
         maleGenderButton.isEnabled.toggle()
         femaleGenderButton.isEnabled.toggle()
+        AllTextFieldResignFirstResponder()
+    }
+
+    @IBAction func viewDidTap(_ sender: Any) {
+        AllTextFieldResignFirstResponder()
     }
 
     // MARK: - Functions
@@ -159,5 +164,12 @@ class EditUserInfoViewController: UIViewController, BaseViewControllerTemplate {
         heightTextField.inputView = heightPickerView
         weightTextField.inputView = weightPickerView
         ageTextField.inputView = agePickerView
+    }
+
+    private func AllTextFieldResignFirstResponder() {
+        nickNameTextField.resignFirstResponder()
+        heightTextField.resignFirstResponder()
+        weightTextField.resignFirstResponder()
+        ageTextField.resignFirstResponder()
     }
 }
