@@ -239,8 +239,10 @@ class TrackingProgressViewController: UIViewController, BaseViewControllerTempla
             guard let self = self else {
                 return
             }
-            self.updatePedometer()
-            self.configure(model: model)
+            DispatchQueue.main.async {
+                self.updatePedometer()
+                self.configure(model: model)
+            }
         }
 
         viewModel.milestones.bind({ [weak self] milestones in
