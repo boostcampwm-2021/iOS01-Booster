@@ -17,7 +17,7 @@
         <attribute name="age" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="gender" optional="YES" attributeType="String"/>
         <attribute name="height" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="nickname" optional="YES" attributeType="String"/>
+        <attribute name="nickName" optional="YES" attributeType="String"/>
         <attribute name="weight" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <elements>

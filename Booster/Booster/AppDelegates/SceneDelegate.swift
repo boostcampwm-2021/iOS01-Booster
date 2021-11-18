@@ -4,7 +4,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private enum KeyValue: String {
         case isUserInfoSaved = "isUserInfoSaved"
         case main = "Main"
-        case enroll = "enroll"
+        case enroll = "Enroll"
         case mainNavigation = "MainNavigationViewController"
         case enrollNavigation = "EnrollNavigationViewController"
     }
