@@ -20,6 +20,7 @@ final class TrackingProgressViewModel {
         self.milestones = BoosterObservable([MileStone]())
         self.user = user
         state = .start
+        fetchUserInfo()
     }
 
     func append(coordinate: Coordinate) {
@@ -43,6 +44,22 @@ final class TrackingProgressViewModel {
         convert()
         trackingModel.value.milestones = milestones.value
         state = .end
+
+        trackingUsecase.save(count: Double(trackingModel.value.steps),
+                             start: trackingModel.value.startDate,
+                             end: trackingModel.value.endDate ?? Date(),
+                             quantity: .steps,
+                             unit: .count)
+        trackingUsecase.save(count: trackingModel.value.distance,
+                             start: trackingModel.value.startDate,
+                             end: trackingModel.value.endDate ?? Date(),
+                             quantity: .runing,
+                             unit: .kilometer)
+        trackingUsecase.save(count: Double(trackingModel.value.calories),
+                             start: trackingModel.value.startDate,
+                             end: trackingModel.value.endDate ?? Date(),
+                             quantity: .energy,
+                             unit: .calorie)
     }
 
     func write(title: String) {
@@ -155,6 +172,15 @@ final class TrackingProgressViewModel {
 
     func distance() -> Double {
         return trackingModel.value.distance
+    }
+
+    private func fetchUserInfo() {
+        trackingUsecase.fetch { value in
+            guard let value = value
+            else { return }
+
+            self.user = value
+        }
     }
 
     private func convert() {

@@ -59,9 +59,28 @@ final class TrackingProgressUsecase {
         }
     }
 
-    func fetch() {
+    func save(count: Double, start: Date, end: Date, quantity: HealthQuantityType, unit: HealthUnit) {
+        HealthStoreManager.shared.save(count: count, start: start, end: end, quantity: quantity, unit: unit) { _ in
+        }
+    }
+
+    func fetch(handler: @escaping (UserInfo?) -> Void) {
         CoreDataManager.shared.fetch { (response: Result<[User], Error>) in
-            print(response)
+            switch response {
+            case .success(let success):
+                if let user = success.first,
+                    let nickname = user.nickname,
+                    let gender = user.gender {
+                    let userInfo = UserInfo(age: Int(user.age),
+                                            nickname: nickname,
+                                            gender: gender,
+                                            height: Int(user.height),
+                                            weight: Int(user.weight))
+                    handler(userInfo)
+                }
+            case .failure:
+                handler(nil)
+            }
         }
     }
 }
