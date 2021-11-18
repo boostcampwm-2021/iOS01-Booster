@@ -17,9 +17,9 @@ final class MileStone: NSObject, NSCoding {
     public init?(coder: NSCoder) {
         coordinate = Coordinate(latitude: 0, longitude: 0)
         imageData = Data()
-        if let coord = coder.decodeObject(forKey: "coordinate") as? Coordinate,
-              let data = coder.decodeObject(forKey: "imageData") as? Data {
-            coordinate = coord
+        if let coordinate = coder.decodeObject(forKey: "coordinate") as? Coordinate,
+           let data = coder.decodeObject(forKey: "imageData") as? Data {
+            self.coordinate = coordinate
             imageData = data
         }
     }

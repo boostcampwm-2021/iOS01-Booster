@@ -1,7 +1,14 @@
 import HealthKit
 import UIKit
+import RxSwift
 
 final class HomeViewController: UIViewController, BaseViewControllerTemplate {
+    // MARK: - Enum
+    private enum Opacity {
+        static let zero: Float = 0
+        static let one: Float = 1
+    }
+
     // MARK: - @IBOutlet
     @IBOutlet private weak var kcalLabel: UILabel!
     @IBOutlet private weak var timeActiveLabel: UILabel!
@@ -12,6 +19,8 @@ final class HomeViewController: UIViewController, BaseViewControllerTemplate {
 
     // MARK: - Properties
     var viewModel = HomeViewModel()
+    private let disposeBag = DisposeBag()
+    private let todayHoursContant = 24
 
     // MARK: - Life Cycles
     override func viewDidLoad() {
@@ -52,11 +61,15 @@ final class HomeViewController: UIViewController, BaseViewControllerTemplate {
     }
 
     private func bindHomeViewModel() {
-        viewModel.homeModel.bind { [weak self] value in
-            DispatchQueue.main.async {
-                self?.configureLabels(value)
-            }
-        }
+        viewModel.homeModel
+            .debounce(RxTimeInterval.milliseconds(100), scheduler: MainScheduler.instance)
+            .subscribe({ [weak self] value in
+                if let model = value.element {
+                    self?.configureLabels(model)
+                }
+                return
+            })
+            .disposed(by: disposeBag)
     }
 
     private func configureLabels(_ value: HomeModel) {
@@ -64,32 +77,25 @@ final class HomeViewController: UIViewController, BaseViewControllerTemplate {
         kmLabel.text = String(format: "%.2f", value.km)
         kcalLabel.text = "\(value.kcal)"
         timeActiveLabel.text = value.activeTime.stringToMinutesAndSeconds()
-        todayTotalStepCountLabel.layer.opacity = 0
+        todayTotalStepCountLabel.layer.opacity = Opacity.zero
         configureTotalStepCountLabelGradient(current: Double(value.totalStepCount), goal: 10000)
         configureHourlyChartView()
 
         UIView.animate(withDuration: 2) {
-            self.todayTotalStepCountLabel.layer.opacity = 1
+            self.todayTotalStepCountLabel.layer.opacity = Opacity.one
         }
     }
 
     private func configureHourlyChartView() {
         let stepRatios: [CGFloat] = configureStepRatios(using: viewModel.homeModel.value.hourlyStatistics)
-        var strings = [String](repeating: "", count: 25)
-        for (index, _) in strings.enumerated() {
-            if index % 6 == 0 {
-                strings[index] = "\(index)"
-            }
-        }
-
-        hourlyBarChartView.drawChart(stepRatios: stepRatios, strings: strings)
+        hourlyBarChartView.drawChart(stepRatios: stepRatios, strings: ["0", "6", "12", "18"])
     }
 
     private func configureStepRatios(using statisticsCollection: StatisticsCollection) -> [CGFloat] {
         guard let maxStep = statisticsCollection.maxStatistics()?.step
-        else { return [CGFloat](repeating: 0, count: 25) }
+        else { return [CGFloat](repeating: 0, count: todayHoursContant) }
 
-        if maxStep == 0 { return [CGFloat](repeating: 0, count: 25) }
+        if maxStep == 0 { return [CGFloat](repeating: 0, count: todayHoursContant) }
 
         var stepRatios = [CGFloat]()
         for statistics in statisticsCollection.statistics() {
@@ -98,8 +104,8 @@ final class HomeViewController: UIViewController, BaseViewControllerTemplate {
             stepRatios.append(stepRatio)
         }
 
-        if stepRatios.count < 25 {
-            stepRatios += [CGFloat](repeating: 0, count: 25 - stepRatios.count)
+        if stepRatios.count < todayHoursContant {
+            stepRatios += [CGFloat](repeating: 0, count: todayHoursContant - stepRatios.count)
         }
         return stepRatios
     }

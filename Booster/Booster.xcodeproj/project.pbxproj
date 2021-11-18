@@ -13,6 +13,7 @@
 		28C96FF3273A4634005BD7BC /* UIResponder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C96FF2273A4634005BD7BC /* UIResponder+Extension.swift */; };
 		28C9702D273C3041005BD7BC /* DetailFeedUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C9702C273C3041005BD7BC /* DetailFeedUsecase.swift */; };
 		28C9702F2740D731005BD7BC /* HomeUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C9702E2740D731005BD7BC /* HomeUsecase.swift */; };
+		28C970312744EB64005BD7BC /* ModifyFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C970302744EB64005BD7BC /* ModifyFeedViewController.swift */; };
 		37852ACF273C27F100BA3D67 /* StatisticsModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37852ACE273C27F100BA3D67 /* StatisticsModelTests.swift */; };
 		37852AD6273C286D00BA3D67 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F302733CDAA00B090D9 /* Statistics.swift */; };
 		37852AD8273C2D0B00BA3D67 /* StatisticsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37852AD7273C2D0B00BA3D67 /* StatisticsViewModelTests.swift */; };
@@ -30,12 +31,12 @@
 		3B31B613274107CF009D9190 /* Tracking+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B31B5FD273CD2F7009D9190 /* Tracking+CoreDataClass.swift */; };
 		3B31B614274107D3009D9190 /* Tracking+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B31B5FE273CD2F7009D9190 /* Tracking+CoreDataProperties.swift */; };
 		3B31B61527410819009D9190 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F2F2733CDAA00B090D9 /* UserInfo.swift */; };
-		3B31B616274108F3009D9190 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F3C2733CDAA00B090D9 /* Observable.swift */; };
+		3B31B616274108F3009D9190 /* BoosterObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F3C2733CDAA00B090D9 /* BoosterObservable.swift */; };
 		3B31B61827410935009D9190 /* TrackingProgressUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F502733CDAA00B090D9 /* TrackingProgressUsecase.swift */; };
 		3B31B61B2741097E009D9190 /* HealthStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F532733CDAA00B090D9 /* HealthStoreManager.swift */; };
 		3B31B61C2741098C009D9190 /* RepositoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F262733CDAA00B090D9 /* RepositoryManager.swift */; };
 		3B31B61D27410997009D9190 /* StatisticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F162733CDAA00B090D9 /* StatisticsViewModel.swift */; };
-		3B31B61E274109A5009D9190 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F3C2733CDAA00B090D9 /* Observable.swift */; };
+		3B31B61E274109A5009D9190 /* BoosterObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F3C2733CDAA00B090D9 /* BoosterObservable.swift */; };
 		3B31B61F274109AF009D9190 /* HealthStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F532733CDAA00B090D9 /* HealthStoreManager.swift */; };
 		3B31B62127413664009D9190 /* FeedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B31B62027413664009D9190 /* FeedList.swift */; };
 		3B38FB14273A5F3B00F8620D /* TrackingCountDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B38FB13273A5F3B00F8620D /* TrackingCountDownView.swift */; };
@@ -79,7 +80,7 @@
 		FA614F782733CDAA00B090D9 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F392733CDAA00B090D9 /* UIFont+Extension.swift */; };
 		FA614F792733CDAA00B090D9 /* UIAlertController+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F3A2733CDAA00B090D9 /* UIAlertController+Extention.swift */; };
 		FA614F7A2733CDAA00B090D9 /* TimeInterval+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F3B2733CDAA00B090D9 /* TimeInterval+extension.swift */; };
-		FA614F7B2733CDAA00B090D9 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F3C2733CDAA00B090D9 /* Observable.swift */; };
+		FA614F7B2733CDAA00B090D9 /* BoosterObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F3C2733CDAA00B090D9 /* BoosterObservable.swift */; };
 		FA614F7C2733CDAA00B090D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F3E2733CDAA00B090D9 /* AppDelegate.swift */; };
 		FA614F7D2733CDAA00B090D9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F3F2733CDAA00B090D9 /* SceneDelegate.swift */; };
 		FA614F7E2733CDAA00B090D9 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F412733CDAA00B090D9 /* StatisticsViewController.swift */; };
@@ -125,6 +126,7 @@
 		28C96FF2273A4634005BD7BC /* UIResponder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extension.swift"; sourceTree = "<group>"; };
 		28C9702C273C3041005BD7BC /* DetailFeedUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFeedUsecase.swift; sourceTree = "<group>"; };
 		28C9702E2740D731005BD7BC /* HomeUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUsecase.swift; sourceTree = "<group>"; };
+		28C970302744EB64005BD7BC /* ModifyFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyFeedViewController.swift; sourceTree = "<group>"; };
 		37852ACC273C27F100BA3D67 /* StatisticsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StatisticsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		37852ACE273C27F100BA3D67 /* StatisticsModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsModelTests.swift; sourceTree = "<group>"; };
 		37852AD7273C2D0B00BA3D67 /* StatisticsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewModelTests.swift; sourceTree = "<group>"; };
@@ -181,7 +183,7 @@
 		FA614F392733CDAA00B090D9 /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		FA614F3A2733CDAA00B090D9 /* UIAlertController+Extention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extention.swift"; sourceTree = "<group>"; };
 		FA614F3B2733CDAA00B090D9 /* TimeInterval+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TimeInterval+extension.swift"; sourceTree = "<group>"; };
-		FA614F3C2733CDAA00B090D9 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		FA614F3C2733CDAA00B090D9 /* BoosterObservable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoosterObservable.swift; sourceTree = "<group>"; };
 		FA614F3E2733CDAA00B090D9 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA614F3F2733CDAA00B090D9 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		FA614F412733CDAA00B090D9 /* StatisticsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 			children = (
 				FA614F472733CDAA00B090D9 /* FeedViewController.swift */,
 				28C96FEA27396892005BD7BC /* DetailFeedViewController.swift */,
+				28C970302744EB64005BD7BC /* ModifyFeedViewController.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -557,7 +560,7 @@
 				FA614F392733CDAA00B090D9 /* UIFont+Extension.swift */,
 				FA614F3A2733CDAA00B090D9 /* UIAlertController+Extention.swift */,
 				FA614F3B2733CDAA00B090D9 /* TimeInterval+extension.swift */,
-				FA614F3C2733CDAA00B090D9 /* Observable.swift */,
+				FA614F3C2733CDAA00B090D9 /* BoosterObservable.swift */,
 				FA614F8F2733D2CA00B090D9 /* UIColor+Extension.swift */,
 				FA473A04273A1F8A0000C5DC /* UIImage+Extension.swift */,
 				28C96FF2273A4634005BD7BC /* UIResponder+Extension.swift */,
@@ -842,7 +845,7 @@
 			files = (
 				37852ACF273C27F100BA3D67 /* StatisticsModelTests.swift in Sources */,
 				3B31B61F274109AF009D9190 /* HealthStoreManager.swift in Sources */,
-				3B31B61E274109A5009D9190 /* Observable.swift in Sources */,
+				3B31B61E274109A5009D9190 /* BoosterObservable.swift in Sources */,
 				37852AD8273C2D0B00BA3D67 /* StatisticsViewModelTests.swift in Sources */,
 				37852AD6273C286D00BA3D67 /* Statistics.swift in Sources */,
 				3B31B61D27410997009D9190 /* StatisticsViewModel.swift in Sources */,
@@ -862,7 +865,7 @@
 				3B31B61C2741098C009D9190 /* RepositoryManager.swift in Sources */,
 				3B31B612274107BD009D9190 /* TrackingModel.swift in Sources */,
 				3B31B61B2741097E009D9190 /* HealthStoreManager.swift in Sources */,
-				3B31B616274108F3009D9190 /* Observable.swift in Sources */,
+				3B31B616274108F3009D9190 /* BoosterObservable.swift in Sources */,
 				3B31B614274107D3009D9190 /* Tracking+CoreDataProperties.swift in Sources */,
 				3B31B61527410819009D9190 /* UserInfo.swift in Sources */,
 				3B31B611274107BA009D9190 /* Coordinate.swift in Sources */,
@@ -901,7 +904,7 @@
 				FA614F7E2733CDAA00B090D9 /* StatisticsViewController.swift in Sources */,
 				FA614F862733CDAA00B090D9 /* PhotoAnnotationView.swift in Sources */,
 				FA614F942733D51C00B090D9 /* EnrollViewController.swift in Sources */,
-				FA614F7B2733CDAA00B090D9 /* Observable.swift in Sources */,
+				FA614F7B2733CDAA00B090D9 /* BoosterObservable.swift in Sources */,
 				FA614F7F2733CDAA00B090D9 /* HomeViewController.swift in Sources */,
 				28C9702D273C3041005BD7BC /* DetailFeedUsecase.swift in Sources */,
 				FA614F8A2733CDAA00B090D9 /* TrackingProgressUsecase.swift in Sources */,
@@ -917,6 +920,7 @@
 				3B31B600273CD2F7009D9190 /* Tracking+CoreDataProperties.swift in Sources */,
 				FA614F5C2733CDAA00B090D9 /* StatisticsViewModel.swift in Sources */,
 				FA614F8B2733CDAA00B090D9 /* HealthStoreManager.swift in Sources */,
+				28C970312744EB64005BD7BC /* ModifyFeedViewController.swift in Sources */,
 				FA614F8E2733CF9000B090D9 /* EmptyView.swift in Sources */,
 				FA614F772733CDAA00B090D9 /* NSAttributedString+Extension.swift in Sources */,
 				FA614F6C2733CDAA00B090D9 /* Booster.xcdatamodeld in Sources */,

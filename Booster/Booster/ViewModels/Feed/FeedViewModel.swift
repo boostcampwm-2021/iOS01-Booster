@@ -25,7 +25,7 @@ final class FeedViewModel {
                                         isEmpty: recordCount() == 0))
     }
 
-    private(set) var trackingRecords: Observable<[FeedList]>
+    private(set) var trackingRecords: BoosterObservable<[FeedList]>
     private var selectedIndex: IndexPath
     private var difference: Int
     private let usecase: FeedUseCase
@@ -34,7 +34,7 @@ final class FeedViewModel {
         difference = 0
         selectedIndex = IndexPath()
         usecase = FeedUseCase()
-        trackingRecords = Observable([])
+        trackingRecords = BoosterObservable([])
     }
 
     func recordCount() -> Int {
