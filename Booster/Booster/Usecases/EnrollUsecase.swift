@@ -31,7 +31,7 @@ final class EnrollUsecase {
             CoreDataKeys.age: info.age,
             CoreDataKeys.gender: info.gender,
             CoreDataKeys.height: info.height,
-            CoreDataKeys.nickName: info.nickName,
+            CoreDataKeys.nickName: info.nickname,
             CoreDataKeys.weight: info.weight
         ]
 

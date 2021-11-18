@@ -73,7 +73,7 @@ final class EnrollViewModel {
             else { return }
 
             var info = self.userinfo.value
-            info.nickName = value
+            info.nickname = value
             self.userinfo.accept(info)
         }.disposed(by: disposeBag)
 

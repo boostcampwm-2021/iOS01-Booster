@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class NickNameEnrollView: UIView {
+final class NicknameEnrollView: UIView {
     private var bottomConstraint: NSLayoutConstraint = NSLayoutConstraint()
-    lazy var nickNameTextField: UITextField = {
+    lazy var nicknameTextField: UITextField = {
         let textField = UITextField(frame: frame)
         textField.autocorrectionType = .no
         textField.keyboardType = .default
@@ -82,15 +82,15 @@ final class NickNameEnrollView: UIView {
 
     private func UIConfigure() {
         backgroundColor = .boosterBackground
-        [nickNameTextField, startButton, titleLabel].forEach { self.addSubview($0) }
+        [nicknameTextField, startButton, titleLabel].forEach { self.addSubview($0) }
 
         titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25).isActive = true
         titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 25).isActive = true
 
-        nickNameTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25).isActive = true
-        nickNameTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25).isActive = true
-        nickNameTextField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 50).isActive = true
+        nicknameTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25).isActive = true
+        nicknameTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25).isActive = true
+        nicknameTextField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 50).isActive = true
 
         startButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
         startButton.heightAnchor.constraint(equalToConstant: 100).isActive = true
@@ -98,11 +98,11 @@ final class NickNameEnrollView: UIView {
         bottomConstraint = startButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30)
         bottomConstraint.isActive = true
 
-        nickNameTextField.becomeFirstResponder()
+        nicknameTextField.becomeFirstResponder()
     }
 }
 
-extension NickNameEnrollView: UITextFieldDelegate {
+extension NicknameEnrollView: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text
         else { return true }

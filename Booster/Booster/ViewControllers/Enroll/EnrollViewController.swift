@@ -68,10 +68,10 @@ final class EnrollViewController: UIViewController, BaseViewControllerTemplate {
             .disposed(by: disposeBag)
         return view
     }()
-    private lazy var nickNameView: NickNameEnrollView = {
-        let view = NickNameEnrollView(frame: view.frame)
+    private lazy var nickNameView: NicknameEnrollView = {
+        let view = NicknameEnrollView(frame: view.frame)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.nickNameTextField.rx.text
+        view.nicknameTextField.rx.text
             .bind { [weak self] value in
                 guard let self = self,
                       let value = value
@@ -82,7 +82,7 @@ final class EnrollViewController: UIViewController, BaseViewControllerTemplate {
         view.startButton.rx.tap
             .bind { [weak self] in
                 guard let self = self,
-                      let empty = view.nickNameTextField.text?.isEmpty
+                      let empty = view.nicknameTextField.text?.isEmpty
                 else { return }
                 let nextStep: Int = 6
 

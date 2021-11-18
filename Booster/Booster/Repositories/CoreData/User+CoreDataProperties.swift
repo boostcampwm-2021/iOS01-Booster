@@ -10,7 +10,7 @@ extension User {
     @NSManaged public var age: Int64
     @NSManaged public var gender: String?
     @NSManaged public var height: Int64
-    @NSManaged public var nickName: String?
+    @NSManaged public var nickname: String?
     @NSManaged public var weight: Int64
 
 }

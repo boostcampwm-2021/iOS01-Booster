@@ -32,7 +32,7 @@ final class UserUsecase {
         let entity = "User"
         let value: [String: Any] = [
             CoreDataKeys.age: model.age,
-            CoreDataKeys.nickname: model.nickName,
+            CoreDataKeys.nickname: model.nickname,
             CoreDataKeys.gender: model.gender,
             CoreDataKeys.height: model.height,
             CoreDataKeys.weight: model.weight

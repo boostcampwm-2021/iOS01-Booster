@@ -58,4 +58,10 @@ final class TrackingProgressUsecase {
             }
         }
     }
+
+    func fetch() {
+        CoreDataManager.shared.fetch { (response: Result<[User], Error>) in
+            print(response)
+        }
+    }
 }

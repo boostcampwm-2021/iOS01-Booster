@@ -17,11 +17,11 @@ final class UserViewModel {
 
     init() {
         usecase = UserUsecase()
-        model = UserInfo(age: 25, nickName: "히로롱", gender: "여", height: 164, weight: 80)
+        model = UserInfo(age: 25, nickname: "히로롱", gender: "여", height: 164, weight: 80)
     }
 
     func nickname() -> String {
-        return model.nickName
+        return model.nickname
     }
 
     func userPhysicalInfo() -> String {
@@ -61,7 +61,7 @@ final class UserViewModel {
         if let age = age { model.age = age }
         if let height = height { model.height = height }
         if let weight = weight { model.weight = weight }
-        if let nickname = nickname { model.nickName = nickname }
+        if let nickname = nickname { model.nickname = nickname }
     }
 
     func save(completion: @escaping (Bool) -> Void) {
