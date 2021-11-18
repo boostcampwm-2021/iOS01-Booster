@@ -1,11 +1,12 @@
 import UIKit
 
 final class FeedViewController: UIViewController, BaseViewControllerTemplate {
+    // MARK: - Enum
     private enum Segue {
         static let feedDetailSegue = "feedDetailSegue"
     }
 
-    // MARK: Properties
+    // MARK: - Properties
     @IBOutlet private weak var collectionView: UICollectionView!
 
     var viewModel: FeedViewModel = FeedViewModel()
@@ -22,7 +23,7 @@ final class FeedViewController: UIViewController, BaseViewControllerTemplate {
         return refreshControl
     }()
 
-    // MARK: Life Cycles
+    // MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,12 +31,12 @@ final class FeedViewController: UIViewController, BaseViewControllerTemplate {
         viewModel.fetch()
     }
 
-    // MARK: @objc Methods
+    // MARK: - @objc
     @objc func refreshPull() {
         viewModel.reset()
     }
 
-    // MARK: Functions
+    // MARK: - Functions
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let detailFeedViewController = segue.destination as? DetailFeedViewController
         else { return }
@@ -115,6 +116,6 @@ extension FeedViewController: UIScrollViewDelegate {
 // MARK: - detail feed model delegate
 extension FeedViewController: DetailFeedModelDelegate {
     func detailFeed(viewModel: DetailFeedViewModel) {
-        viewModel.update(start: self.viewModel.selected())
+        viewModel.fetchDetailFeedList(start: self.viewModel.selected())
     }
 }

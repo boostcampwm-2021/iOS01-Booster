@@ -50,7 +50,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6ko-pE-sq5">
-                                                    <rect key="frame" x="20" y="20" width="135" height="150"/>
+                                                    <rect key="frame" x="40" y="20" width="135" height="150"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="135" id="Iaf-vO-2ie"/>
@@ -92,7 +92,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="6ko-pE-sq5" secondAttribute="bottom" constant="20" id="fG9-hb-RKG"/>
                                                 <constraint firstItem="9Lz-29-Ne5" firstAttribute="leading" secondItem="Wj7-91-8AJ" secondAttribute="leading" constant="20" id="gtf-o6-hh8"/>
                                                 <constraint firstItem="9Lz-29-Ne5" firstAttribute="centerY" secondItem="6VG-7y-nXI" secondAttribute="centerY" id="uzN-3f-dfr"/>
-                                                <constraint firstItem="6ko-pE-sq5" firstAttribute="leading" secondItem="Wj7-91-8AJ" secondAttribute="leading" constant="20" id="xCk-Xn-oea"/>
+                                                <constraint firstItem="6ko-pE-sq5" firstAttribute="leading" secondItem="Wj7-91-8AJ" secondAttribute="leading" constant="40" id="xCk-Xn-oea"/>
                                                 <constraint firstItem="8Hf-V6-ZrQ" firstAttribute="top" secondItem="9Lz-29-Ne5" secondAttribute="bottom" constant="10" id="yDr-jO-0LX"/>
                                             </constraints>
                                         </collectionViewCellContentView>
@@ -157,7 +157,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="gangnam-gu" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fmg-7e-yqO">
-                                                <rect key="frame" x="30" y="78.5" width="69" height="17.5"/>
+                                                <rect key="frame" x="30" y="73.5" width="69" height="17.5"/>
                                                 <fontDescription key="fontDescription" name="NotoSansKR-Light" family="Noto Sans KR" pointSize="12"/>
                                                 <color key="textColor" name="boosterLabel"/>
                                                 <nil key="highlightedColor"/>
@@ -187,13 +187,13 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="kcal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uRb-Us-F76">
-                                                <rect key="frame" x="56.5" y="625.5" width="28" height="22"/>
+                                                <rect key="frame" x="56.5" y="620.5" width="28" height="22"/>
                                                 <fontDescription key="fontDescription" name="NotoSansKR-Light" family="Noto Sans KR" pointSize="15"/>
                                                 <color key="textColor" name="boosterLabel"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TeL-Ss-n73">
-                                                <rect key="frame" x="191.5" y="625.5" width="31" height="22"/>
+                                                <rect key="frame" x="191.5" y="620.5" width="31" height="22"/>
                                                 <fontDescription key="fontDescription" name="NotoSansKR-Light" family="Noto Sans KR" pointSize="15"/>
                                                 <color key="textColor" name="boosterLabel"/>
                                                 <nil key="highlightedColor"/>
@@ -211,7 +211,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="BvC-uD-hJr">
-                                                <rect key="frame" x="30" y="677.5" width="354" height="466"/>
+                                                <rect key="frame" x="30" y="672.5" width="354" height="466"/>
                                                 <color key="backgroundColor" name="boosterBackground"/>
                                                 <color key="tintColor" name="boosterOrange"/>
                                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -220,7 +220,7 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="km" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ekR-0F-WEU">
-                                                <rect key="frame" x="329.5" y="625.5" width="21" height="22"/>
+                                                <rect key="frame" x="329.5" y="620.5" width="21" height="22"/>
                                                 <fontDescription key="fontDescription" name="NotoSansKR-Light" family="Noto Sans KR" pointSize="15"/>
                                                 <color key="textColor" name="boosterLabel"/>
                                                 <nil key="highlightedColor"/>
@@ -232,9 +232,9 @@
                                             <constraint firstItem="BvC-uD-hJr" firstAttribute="leading" secondItem="ecH-rG-cv5" secondAttribute="leading" constant="30" id="6n0-Yh-AgM"/>
                                             <constraint firstItem="ph3-zt-nOG" firstAttribute="leading" secondItem="B7Q-Cx-YM2" secondAttribute="trailing" constant="5" id="6pf-H5-nsu"/>
                                             <constraint firstItem="gCe-Qv-haU" firstAttribute="leading" secondItem="ecH-rG-cv5" secondAttribute="leading" constant="30" id="8ze-tr-Ag4"/>
-                                            <constraint firstItem="uRb-Us-F76" firstAttribute="top" secondItem="EpB-cC-q10" secondAttribute="bottom" constant="10" id="A8K-Kg-WAC"/>
+                                            <constraint firstItem="uRb-Us-F76" firstAttribute="top" secondItem="EpB-cC-q10" secondAttribute="bottom" constant="5" id="A8K-Kg-WAC"/>
                                             <constraint firstItem="BvC-uD-hJr" firstAttribute="height" secondItem="ecH-rG-cv5" secondAttribute="height" multiplier="0.4" id="Bbl-PW-DT2"/>
-                                            <constraint firstItem="ekR-0F-WEU" firstAttribute="top" secondItem="NJw-v9-DGj" secondAttribute="bottom" constant="10" id="EgE-ia-94I"/>
+                                            <constraint firstItem="ekR-0F-WEU" firstAttribute="top" secondItem="NJw-v9-DGj" secondAttribute="bottom" constant="5" id="EgE-ia-94I"/>
                                             <constraint firstItem="ekR-0F-WEU" firstAttribute="centerX" secondItem="NJw-v9-DGj" secondAttribute="centerX" multiplier="0.996" id="Ern-VA-dkd"/>
                                             <constraint firstItem="HR9-G6-PmX" firstAttribute="centerY" secondItem="EpB-cC-q10" secondAttribute="centerY" id="GDb-Pj-kOs"/>
                                             <constraint firstItem="IQ7-gI-wGX" firstAttribute="top" secondItem="ecH-rG-cv5" secondAttribute="top" constant="30" id="IOk-ee-oOH"/>
@@ -245,13 +245,13 @@
                                             <constraint firstAttribute="trailing" secondItem="BvC-uD-hJr" secondAttribute="trailing" constant="30" id="aBf-Np-4Tm"/>
                                             <constraint firstItem="TeL-Ss-n73" firstAttribute="centerX" secondItem="ecH-rG-cv5" secondAttribute="centerX" id="aJS-hd-K3F"/>
                                             <constraint firstItem="IQ7-gI-wGX" firstAttribute="leading" secondItem="ecH-rG-cv5" secondAttribute="leading" constant="30" id="bmG-LK-fiH"/>
-                                            <constraint firstItem="TeL-Ss-n73" firstAttribute="top" secondItem="HR9-G6-PmX" secondAttribute="bottom" constant="10" id="g3n-CJ-Ne4"/>
-                                            <constraint firstItem="fmg-7e-yqO" firstAttribute="top" secondItem="IQ7-gI-wGX" secondAttribute="bottom" constant="5" id="hwP-KN-Bxs"/>
+                                            <constraint firstItem="TeL-Ss-n73" firstAttribute="top" secondItem="HR9-G6-PmX" secondAttribute="bottom" constant="5" id="g3n-CJ-Ne4"/>
+                                            <constraint firstItem="fmg-7e-yqO" firstAttribute="top" secondItem="IQ7-gI-wGX" secondAttribute="bottom" id="hwP-KN-Bxs"/>
                                             <constraint firstItem="fmg-7e-yqO" firstAttribute="leading" secondItem="IQ7-gI-wGX" secondAttribute="leading" id="mAQ-99-0ua"/>
                                             <constraint firstItem="B7Q-Cx-YM2" firstAttribute="leading" secondItem="gCe-Qv-haU" secondAttribute="leading" id="oMt-2A-YyO"/>
                                             <constraint firstItem="BvC-uD-hJr" firstAttribute="top" secondItem="uRb-Us-F76" secondAttribute="bottom" constant="30" id="pG2-7w-zr2"/>
                                             <constraint firstItem="NJw-v9-DGj" firstAttribute="centerX" secondItem="ecH-rG-cv5" secondAttribute="centerX" multiplier="1.65" id="pw5-Oo-kn8"/>
-                                            <constraint firstItem="gCe-Qv-haU" firstAttribute="top" secondItem="fmg-7e-yqO" secondAttribute="bottom" constant="10" id="uBy-U9-QZy"/>
+                                            <constraint firstItem="gCe-Qv-haU" firstAttribute="top" secondItem="fmg-7e-yqO" secondAttribute="bottom" constant="15" id="uBy-U9-QZy"/>
                                             <constraint firstItem="uRb-Us-F76" firstAttribute="centerX" secondItem="EpB-cC-q10" secondAttribute="centerX" multiplier="0.97" id="uGV-eB-HQo"/>
                                             <constraint firstItem="EpB-cC-q10" firstAttribute="centerX" secondItem="ecH-rG-cv5" secondAttribute="centerX" multiplier="0.35" id="vRq-V5-J4m"/>
                                             <constraint firstItem="HR9-G6-PmX" firstAttribute="centerX" secondItem="ecH-rG-cv5" secondAttribute="centerX" multiplier="1.008" id="vcf-e9-WXa"/>
@@ -280,18 +280,70 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="cYC-aO-Ox6">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="GPP-8c-MDj"/>
+                        <barButtonItem key="backBarButtonItem" title="    " id="FPd-K5-IyH"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="gearshape.fill" catalog="system" id="GPP-8c-MDj">
+                            <color key="tintColor" name="boosterLabel"/>
+                            <connections>
+                                <action selector="settingButtonDidTapped:" destination="SNN-pe-2iF" id="KDF-Ax-xLJ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="contentTextView" destination="BvC-uD-hJr" id="hOH-Qn-ZtH"/>
+                        <outlet property="kcalLabel" destination="EpB-cC-q10" id="Xit-5s-Jm9"/>
+                        <outlet property="kmLabel" destination="NJw-v9-DGj" id="piY-uh-M8H"/>
                         <outlet property="locationInfoLabel" destination="fmg-7e-yqO" id="abW-0v-V0D"/>
                         <outlet property="mapView" destination="gCe-Qv-haU" id="hvC-1M-ox1"/>
                         <outlet property="stepCountsLabel" destination="B7Q-Cx-YM2" id="ILD-Ty-DIC"/>
+                        <outlet property="timeLabel" destination="HR9-G6-PmX" id="YSh-Yn-HAk"/>
                         <outlet property="titleLabel" destination="IQ7-gI-wGX" id="PhN-PO-4Os"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="psD-uM-Jpp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2132" y="98"/>
+        </scene>
+        <!--Modify Feed View Controller-->
+        <scene sceneID="4pK-ub-82t">
+            <objects>
+                <viewController storyboardIdentifier="ModifyFeedViewController" hidesBottomBarWhenPushed="YES" id="f3O-Yw-uaq" customClass="ModifyFeedViewController" customModule="Booster" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2Vp-SG-z2Q">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="아직 안했지롱" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="0sF-uL-ly2">
+                                <rect key="frame" x="30" y="136" width="354" height="696"/>
+                                <color key="backgroundColor" name="boosterBackground"/>
+                                <color key="textColor" name="boosterLabel"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="라랄라" placeholder="제목" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eKE-zl-J4v">
+                                <rect key="frame" x="30" y="74" width="354" height="45"/>
+                                <color key="textColor" name="boosterLabel"/>
+                                <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans KR" pointSize="30"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="i2n-DW-KoS"/>
+                        <color key="backgroundColor" name="boosterBackground"/>
+                        <constraints>
+                            <constraint firstItem="0sF-uL-ly2" firstAttribute="leading" secondItem="i2n-DW-KoS" secondAttribute="leading" constant="30" id="3kK-lO-OBJ"/>
+                            <constraint firstItem="i2n-DW-KoS" firstAttribute="trailing" secondItem="eKE-zl-J4v" secondAttribute="trailing" constant="30" id="LqB-84-OGk"/>
+                            <constraint firstItem="i2n-DW-KoS" firstAttribute="bottom" secondItem="0sF-uL-ly2" secondAttribute="bottom" constant="30" id="QF9-h0-KgK"/>
+                            <constraint firstItem="eKE-zl-J4v" firstAttribute="leading" secondItem="i2n-DW-KoS" secondAttribute="leading" constant="30" id="Vgn-fO-7On"/>
+                            <constraint firstItem="eKE-zl-J4v" firstAttribute="top" secondItem="i2n-DW-KoS" secondAttribute="top" constant="30" id="ViH-MJ-THV"/>
+                            <constraint firstItem="0sF-uL-ly2" firstAttribute="top" secondItem="eKE-zl-J4v" secondAttribute="bottom" constant="17" id="rpQ-wj-u4f"/>
+                            <constraint firstItem="i2n-DW-KoS" firstAttribute="trailing" secondItem="0sF-uL-ly2" secondAttribute="trailing" constant="30" id="y6e-qk-VRg"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JpP-0M-g5F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3022" y="98"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="j4Y-rs-hEH">
@@ -301,9 +353,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" backIndicatorImage="arrow.backward" catalog="system" largeTitles="YES" backIndicatorTransitionMaskImage="arrow.backward" id="VuG-05-Ips">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="boosterBackground"/>
+                        <color key="tintColor" name="boosterLabel"/>
+                        <color key="barTintColor" name="boosterBackground"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" name="boosterLabel"/>
                         </textAttributes>
@@ -324,6 +376,7 @@
     </scenes>
     <resources>
         <image name="arrow.backward" catalog="system" width="128" height="98"/>
+        <image name="gearshape.fill" catalog="system" width="128" height="121"/>
         <image name="newspaper" catalog="system" width="128" height="111"/>
         <image name="newspaper.fill" catalog="system" width="128" height="111"/>
         <namedColor name="boosterBackground">

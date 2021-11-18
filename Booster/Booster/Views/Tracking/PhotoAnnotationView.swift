@@ -1,7 +1,7 @@
 import UIKit
 import MapKit
 
-class PhotoAnnotationView: UIView {
+class PhotoAnnotationView: MKAnnotationView {
     @IBOutlet var backgroundView: UIView!
     @IBOutlet var photoImageView: UIImageView!
 
