@@ -28,7 +28,6 @@ final class TrackingProgressUsecase {
 
     func save(model: TrackingModel, completion handler: @escaping (TrackingError?) -> Void) {
         let entity = "Tracking"
-
         guard let coordinates = try? NSKeyedArchiver.archivedData(withRootObject: model.coordinates, requiringSecureCoding: false),
               let milestones = try? NSKeyedArchiver.archivedData(withRootObject: model.milestones, requiringSecureCoding: false),
               let endDate = model.endDate

@@ -84,7 +84,6 @@ final class EnrollViewController: UIViewController, BaseViewControllerTemplate {
                 guard let self = self,
                       let empty = view.nickNameTextField.text?.isEmpty
                 else { return }
-
                 let nextStep: Int = 6
 
                 if empty {

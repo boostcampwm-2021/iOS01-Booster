@@ -50,9 +50,7 @@
 		3B6FE5032743A85B00A815D1 /* InfoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6FE5022743A85B00A815D1 /* InfoPickerView.swift */; };
 		3B6FE5052744DDBE00A815D1 /* NickNameEnrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6FE5042744DDBE00A815D1 /* NickNameEnrollView.swift */; };
 		3BE60F6127464DE800B4EFB8 /* StatisticsUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE60F6027464DE700B4EFB8 /* StatisticsUsecase.swift */; };
-		3BE60F6227464DE800B4EFB8 /* StatisticsUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE60F6027464DE700B4EFB8 /* StatisticsUsecase.swift */; };
 		3BE60F6427464E0300B4EFB8 /* StepStatitstics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE60F6327464E0300B4EFB8 /* StepStatitstics.swift */; };
-		3BE60F6527464E0300B4EFB8 /* StepStatitstics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE60F6327464E0300B4EFB8 /* StepStatitstics.swift */; };
 		4500449EAD12786CF0C84845 /* Pods_Booster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1982A2EE6933ED1A7065E1 /* Pods_Booster.framework */; };
 		FA2578F72745E99800597382 /* EditUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2578F62745E99800597382 /* EditUserInfoViewController.swift */; };
 		FA473A05273A1F8A0000C5DC /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA473A04273A1F8A0000C5DC /* UIImage+Extension.swift */; };
