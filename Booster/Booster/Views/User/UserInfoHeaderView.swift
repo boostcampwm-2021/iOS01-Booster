@@ -12,7 +12,7 @@ final class UserInfoHeaderView: UITableViewHeaderFooterView {
     @IBOutlet private weak var userInfoLabel: UILabel!
 
     func configure(viewModel: UserViewModel) {
-        nicknameLabel.text = viewModel.nickname()
+        nicknameLabel.text = viewModel.model.nickname
         userInfoLabel.text = viewModel.userPhysicalInfo()
     }
 }

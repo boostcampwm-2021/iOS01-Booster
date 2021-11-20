@@ -57,6 +57,6 @@ final class EraseAllDataViewController: UIViewController, BaseViewControllerTemp
     }
 
     private func configureUI() {
-        subTitleLabel.text = "산책에 대한 기록들은 \(viewModel.nickname())님의\n휴대폰에서만 소중하게 보관하고 있어요"
+        subTitleLabel.text = "산책에 대한 기록들은 \(viewModel.model.nickname)님의\n휴대폰에서만 소중하게 보관하고 있어요"
     }
 }
