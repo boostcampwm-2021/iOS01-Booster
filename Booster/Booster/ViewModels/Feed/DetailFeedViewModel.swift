@@ -24,7 +24,6 @@ final class DetailFeedViewModel {
     func fetchDetailFeedList() {
         let predicate = NSPredicate(format: "startDate = %@", (startDate as NSDate) as CVarArg)
         usecase.fetch(predicate: predicate) { [weak self] result in
-            print("result", result)
             if let model = result.first {
                 self?.trackingModel.value = model
             }
