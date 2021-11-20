@@ -89,6 +89,7 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationBarTitleConfigure()
         configureUIButton()
         configureUITextField()
         loadUserInfoToView()
@@ -123,6 +124,10 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
     }
 
     // MARK: - Functions
+    private func navigationBarTitleConfigure() {
+        title = "개인 정보 수정"
+    }
+
     private func saveEditedUserInfo(gender: String,
                                     age: String,
                                     height: String,

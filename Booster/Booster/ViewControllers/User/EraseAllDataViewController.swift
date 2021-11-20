@@ -20,7 +20,7 @@ final class EraseAllDataViewController: UIViewController, BaseViewControllerTemp
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        naivgationBarConfigure()
+        navigationBarTitleConfigure()
         configureUI()
     }
 
@@ -52,8 +52,8 @@ final class EraseAllDataViewController: UIViewController, BaseViewControllerTemp
     }
 
     // MARK: - Functions
-    private func naivgationBarConfigure() {
-
+    private func navigationBarTitleConfigure() {
+        title = "모든 데이터 지우기"
     }
 
     private func configureUI() {
