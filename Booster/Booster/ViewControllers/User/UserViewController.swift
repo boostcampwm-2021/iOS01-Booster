@@ -43,6 +43,7 @@ final class UserViewController: UIViewController, BaseViewControllerTemplate {
         userTableView.dataSource = self
         userTableView.delegate = self
         registerNib()
+        configureNavigationBarTitle()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -62,7 +63,7 @@ final class UserViewController: UIViewController, BaseViewControllerTemplate {
         userTableView.register(UINib(nibName: UserInfoBaseCell.identifier, bundle: nil), forCellReuseIdentifier: UserInfoBaseCell.identifier)
     }
 
-    private func navigationBarTitleConfigure() {
+    private func configureNavigationBarTitle() {
         let attribute = [NSAttributedString.Key.font: UIFont.notoSansKR(.light, 18)]
 
         navigationController?.navigationBar.titleTextAttributes = attribute

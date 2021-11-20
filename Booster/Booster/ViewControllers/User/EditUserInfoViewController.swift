@@ -89,7 +89,7 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationBarTitleConfigure()
+        configureNavigationBarTitle()
         configureUIButton()
         configureUITextField()
         loadUserInfoToView()
@@ -124,7 +124,7 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
     }
 
     // MARK: - Functions
-    private func navigationBarTitleConfigure() {
+    private func configureNavigationBarTitle() {
         navigationItem.title = "개인 정보 수정"
     }
 

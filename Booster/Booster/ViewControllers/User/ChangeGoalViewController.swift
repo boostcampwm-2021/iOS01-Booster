@@ -22,7 +22,7 @@ class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
 
         stepsTextField.delegate = self
 
-        navigationBarTitleConfigure()
+        configureNavigationBarTitle()
         configureUI()
         placeholderOfGoalTextField(steps: steps)
     }
@@ -44,7 +44,7 @@ class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
     }
 
     // MARK: - Functions
-    private func navigationBarTitleConfigure() {
+    private func configureNavigationBarTitle() {
         navigationItem.title = "목표 바꾸기"
     }
 
