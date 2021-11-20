@@ -118,7 +118,7 @@
                             <constraint firstItem="o9V-Yn-X36" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="gbX-UX-QOO"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="newspaper" catalog="system" selectedImage="newspaper.fill" id="0Kj-SX-TW1">
+                    <tabBarItem key="tabBarItem" title="" image="feed" selectedImage="feed" id="0Kj-SX-TW1">
                         <color key="badgeColor" name="boosterLabel"/>
                     </tabBarItem>
                     <navigationItem key="navigationItem" title="나의 발자취" id="44R-ct-b10">
@@ -376,9 +376,8 @@
     </scenes>
     <resources>
         <image name="arrow.backward" catalog="system" width="128" height="98"/>
+        <image name="feed" width="25" height="25"/>
         <image name="gearshape.fill" catalog="system" width="128" height="121"/>
-        <image name="newspaper" catalog="system" width="128" height="111"/>
-        <image name="newspaper.fill" catalog="system" width="128" height="111"/>
         <namedColor name="boosterBackground">
             <color red="0.050999999046325684" green="0.050999999046325684" blue="0.050999999046325684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

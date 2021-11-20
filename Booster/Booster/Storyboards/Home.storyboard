@@ -114,7 +114,7 @@
                             <constraint firstItem="F17-N7-fTR" firstAttribute="centerX" secondItem="IOt-Vq-NdU" secondAttribute="centerX" multiplier="0.97" id="uKr-hb-i34"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="house" catalog="system" selectedImage="house.fill" id="ZN1-p6-8Xg"/>
+                    <tabBarItem key="tabBarItem" title="" image="home" selectedImage="home" id="ZN1-p6-8Xg"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="goalLabel" destination="TZn-KZ-HUf" id="TU4-Ra-AQ7"/>
@@ -131,8 +131,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="house" catalog="system" width="128" height="106"/>
-        <image name="house.fill" catalog="system" width="128" height="106"/>
+        <image name="home" width="25" height="25"/>
         <namedColor name="boosterBackground">
             <color red="0.050999999046325684" green="0.050999999046325684" blue="0.050999999046325684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

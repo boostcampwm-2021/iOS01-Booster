@@ -450,7 +450,7 @@
         <scene sceneID="SbD-fX-fI1">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LU8-Tb-h13" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="person" catalog="system" selectedImage="person.fill" id="q3O-ss-gfK"/>
+                    <tabBarItem key="tabBarItem" title="" image="mypage" selectedImage="mypage" id="q3O-ss-gfK"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" opaque="NO" contentMode="scaleToFill" barStyle="black" id="AI4-z6-7l6">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -473,8 +473,7 @@
     </scenes>
     <resources>
         <image name="arrow.left" catalog="system" width="128" height="98"/>
-        <image name="person" catalog="system" width="128" height="117"/>
-        <image name="person.fill" catalog="system" width="128" height="120"/>
+        <image name="mypage" width="21.5" height="25"/>
         <namedColor name="boosterBackground">
             <color red="0.050999999046325684" green="0.050999999046325684" blue="0.050999999046325684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
