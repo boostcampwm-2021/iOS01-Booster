@@ -27,7 +27,7 @@ final class EnrollViewController: UIViewController, BaseViewControllerTemplate {
         buttonItem.image = .systemArrowLeft
         buttonItem.tintColor = .boosterLabel
         buttonItem.rx.tap
-            .throttle(.milliseconds(800), scheduler: MainScheduler.asyncInstance)
+            .throttle(.seconds(1), scheduler: MainScheduler.asyncInstance)
             .bind { [weak self] in
                 guard let self = self
                 else { return }
