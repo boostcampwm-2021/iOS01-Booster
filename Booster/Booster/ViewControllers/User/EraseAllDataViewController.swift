@@ -32,8 +32,13 @@ final class EraseAllDataViewController: UIViewController, BaseViewControllerTemp
                 switch result {
                 case .success(let count):
                     let title = "삭제 완료"
-                    let message = "총 \(count)개의 정보가 삭제됐어요!"
-                    alert = UIAlertController.simpleAlert(title: title, message: message)
+                    let message = "모든 정보가 삭제됐어요!"
+                    alert = UIAlertController.simpleAlert(title: title,
+                                                          message: message,
+                                                          action: { (_) -> Void in
+                        self?.navigationController?.popViewController(animated: true)
+                        return
+                    })
                 case .failure(let error):
                     dump(error)
                     let title = "삭제 실패"
