@@ -61,7 +61,7 @@
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="ZzC-UF-L6k" secondAttribute="trailing" id="xqe-cL-LmS"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="heart" catalog="system" id="r2e-KS-f1C"/>
+                    <tabBarItem key="tabBarItem" title="" image="tracking" selectedImage="tracking" id="r2e-KS-f1C"/>
                     <navigationItem key="navigationItem" id="aOz-4v-6u3"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -231,8 +231,8 @@
     </scenes>
     <resources>
         <image name="camera" catalog="system" width="128" height="94"/>
-        <image name="heart" catalog="system" width="128" height="109"/>
         <image name="pause" catalog="system" width="88" height="128"/>
+        <image name="tracking" width="25" height="25"/>
         <namedColor name="boosterBackground">
             <color red="0.050999999046325684" green="0.050999999046325684" blue="0.050999999046325684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
