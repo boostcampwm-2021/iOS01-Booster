@@ -8,10 +8,6 @@ import CoreData
 import MapKit
 import UIKit
 
-protocol DetailFeedModelDelegate: AnyObject {
-    func detailFeed(viewModel: DetailFeedViewModel)
-}
-
 final class DetailFeedViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - Enum
     enum NibName {
@@ -34,8 +30,16 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
     @IBOutlet private weak var contentTextView: UITextView!
     @IBOutlet private weak var mapView: MKMapView!
 
-    weak var delegate: DetailFeedModelDelegate?
-    var viewModel = DetailFeedViewModel()
+    var viewModel: DetailFeedViewModel
+
+    init?(coder: NSCoder, start date: Date) {
+        viewModel = DetailFeedViewModel(start: date)
+        super.init(coder: coder)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     // MARK: - Life Cycles
     override func viewDidLoad() {
@@ -76,7 +80,6 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
 
     // MARK: - Functions
     func configure() {
-        delegate?.detailFeed(viewModel: viewModel)
         mapView.layer.cornerRadius = mapView.frame.height / 17
         mapView.delegate = self
 
@@ -85,6 +88,8 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
                 self?.configureUI(value: value)
             }
         }
+
+        viewModel.fetchDetailFeedList()
     }
 
     private func configureUI(value: TrackingModel) {
