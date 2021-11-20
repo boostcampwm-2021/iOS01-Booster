@@ -6,46 +6,21 @@
 //
 
 import Foundation
+import RxSwift
 
 class FeedUseCase {
-    private let entity: String
-
-    init() {
-        entity = "Tracking"
-    }
-
-    func fetch(completion handler: @escaping ([FeedList]) -> Void) {
-        CoreDataManager.shared.fetch { (response: Result<[Tracking], Error>) in
-            switch response {
-            case .success(let result):
-                var feedLists: [FeedList] = []
-                result.forEach { [weak self] value in
-                    if let feedList = self?.convert(tracking: value) {
-                        feedLists.append(feedList)
+    func fetch() -> Observable<[FeedList]> {
+        return CoreDataManager.shared.fetch()
+            .map { (value: [Tracking]) in
+                var feedList: [FeedList] = []
+                value.forEach {
+                    if let feed = self.convert(tracking: $0) {
+                        feedList.append(feed)
                     }
                 }
-                handler(feedLists)
-            case .failure:
-                handler([])
-            }
-        }
-    }
 
-    func fetch(predicate: NSPredicate, completion handler: @escaping ([FeedList]) -> Void) {
-        CoreDataManager.shared.fetch(entityName: entity, predicate: predicate) { (response: Result<[Tracking], Error>) in
-            switch response {
-            case .success(let result):
-                var feedLists: [FeedList] = []
-                result.forEach { [weak self] value in
-                    if let feedList = self?.convert(tracking: value) {
-                        feedLists.append(feedList)
-                    }
-                }
-                handler(feedLists)
-            case .failure:
-                handler([])
+                return feedList
             }
-        }
     }
 
     private func convert(tracking: Tracking) -> FeedList? {
