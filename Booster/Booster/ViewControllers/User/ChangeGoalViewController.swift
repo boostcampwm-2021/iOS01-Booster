@@ -36,14 +36,16 @@ class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
         if changeGoalValidator() {
 
         } else {
-            let alert = UIAlertController.simpleAlert(title: "변경 실패", message: "걸음 수가 빈칸 이거나 0인지 확인해주세요")
+            let title = "변경 실패"
+            let message = "걸음 수가 빈칸 이거나 0인지 확인해주세요"
+            let alert = UIAlertController.simpleAlert(title: title, message: message)
             present(alert, animated: true, completion: nil)
         }
     }
 
     // MARK: - Functions
     private func navigationBarTitleConfigure() {
-        title = "목표 바꾸기"
+        navigationItem.title = "목표 바꾸기"
     }
 
     private func configureUI() {

@@ -48,7 +48,7 @@ final class UserViewController: UIViewController, BaseViewControllerTemplate {
     override func viewWillAppear(_ animated: Bool) {
         userTableView.reloadData()
         navigationController?.navigationBar.isHidden = true
-        title = ""
+        navigationItem.title = ""
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -92,7 +92,9 @@ final class UserViewController: UIViewController, BaseViewControllerTemplate {
         case .notificationSetting:
             guard let url = URL(string: UIApplication.openSettingsURLString)
             else {
-                let alert = UIAlertController.simpleAlert(title: "오류", message: "알 수 없는 오류로 인하여 알람 설정을 할 수 없어요")
+                let title = "오류"
+                let message = "알 수 없는 오류로 인하여 알람 설정을 할 수 없어요"
+                let alert = UIAlertController.simpleAlert(title: title, message: message)
                 present(alert, animated: true, completion: nil)
 
                 return

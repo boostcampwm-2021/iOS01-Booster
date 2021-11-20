@@ -125,7 +125,7 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
 
     // MARK: - Functions
     private func navigationBarTitleConfigure() {
-        title = "개인 정보 수정"
+        navigationItem.title = "개인 정보 수정"
     }
 
     private func saveEditedUserInfo(gender: String,
