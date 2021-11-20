@@ -168,7 +168,7 @@
         <!--Edit User Info View Controller-->
         <scene sceneID="kTX-en-9Ht">
             <objects>
-                <viewController storyboardIdentifier="EditUserInfoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Xp7-YD-aTC" customClass="EditUserInfoViewController" customModule="Booster" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditUserInfoViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Xp7-YD-aTC" customClass="EditUserInfoViewController" customModule="Booster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5gT-L0-AG4">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
