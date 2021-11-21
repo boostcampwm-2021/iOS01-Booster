@@ -31,6 +31,10 @@ final class NotificationSettingViewController: UIViewController {
                                                name: UIApplication.willEnterForegroundNotification, object: nil)
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
+    }
+
     // MARK: - @IBActions
     @IBAction func onOffButtonDidTap(_ sender: UIButton) {
         guard let url = URL(string: UIApplication.openSettingsURLString)
@@ -103,13 +107,17 @@ final class NotificationSettingViewController: UIViewController {
     }
 
     private func animateShaking(of view: UIImageView) {
+        let rotateRatio = Double.pi / 12.0
+        let duration = 0.10
+        let repeatCount: Float = 3.0
+
         DispatchQueue.main.async {
             let animation = CABasicAnimation(keyPath: "transform.rotation.z")
-            animation.fromValue = -Double.pi / 10.0
-            animation.toValue = Double.pi / 10.0
-            animation.duration = 0.15
+            animation.fromValue = -rotateRatio
+            animation.toValue = rotateRatio
+            animation.duration = duration
             animation.autoreverses = true
-            animation.repeatCount = 6
+            animation.repeatCount = repeatCount
             view.layer.add(animation, forKey: "ringingAnimation")
         }
     }
