@@ -440,7 +440,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
                   let center = self.viewModel.centerCoordinateOfPath()
             else { return }
 
-            let coordinates = self.viewModel.coordinates()
+            let coordinates = self.viewModel.tracking.value.coordinates
 
             self.mapView.snapShotImageOfPath(backgroundColor: .clear,
                                              coordinates: coordinates,
@@ -471,7 +471,7 @@ extension TrackingProgressViewController: CLLocationManagerDelegate {
               let prevLongitude = latestCoordinate.longitude
         else {
             let coordinate = Coordinate(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude)
-            viewModel.append(coordinate: coordinate)
+            viewModel.coordinates.onNext([coordinate])
             return
         }
         let prevCoordinate = CLLocationCoordinate2D(latitude: prevLatitude, longitude: prevLongitude)
@@ -481,7 +481,8 @@ extension TrackingProgressViewController: CLLocationManagerDelegate {
         if viewModel.state == .start { mapView.drawPath(from: prevCoordinate, to: currentCoordinate) }
 
         viewModel.update(distance: latestLocation.distance(from: currentLocation))
-        viewModel.append(coordinate: Coordinate(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude))
+        let coordinate = Coordinate(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude)
+        viewModel.coordinates.onNext([coordinate])
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

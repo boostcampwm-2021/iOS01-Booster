@@ -11,31 +11,24 @@ final class TrackingProgressViewModel {
     }
 
     let saveResult = PublishSubject<Error?>()
+    let coordinates = PublishSubject<[Coordinate]>()
     private let disposeBag = DisposeBag()
     private let trackingUsecase: TrackingProgressUsecase
-    private(set) var trackingModel: BoosterObservable<TrackingModel>
+    private(set) var tracking = BehaviorRelay<TrackingModel>(value: TrackingModel())
+    private(set) var trackingModel = BoosterObservable<TrackingModel>.init(TrackingModel())
     private(set) var milestones: BoosterObservable<[MileStone]>
     private(set) var user =  BehaviorRelay<UserInfo>(value: UserInfo())
     private(set) var state: TrackingState
 
-    init(trackingModel: TrackingModel = TrackingModel()) {
+    init() {
         trackingUsecase = TrackingProgressUsecase()
-        self.trackingModel = BoosterObservable(trackingModel)
         self.milestones = BoosterObservable([MileStone]())
         state = .start
         fetchUserInfo()
     }
 
-    func append(coordinate: Coordinate) {
-        trackingModel.value.coordinates.append(coordinate)
-    }
-
     func append(milestone: MileStone) {
         milestones.value.append(milestone)
-    }
-
-    func appends(coordinates: [Coordinate]) {
-        trackingModel.value.coordinates.append(contentsOf: coordinates)
     }
 
     func appends(milestones: [MileStone]) {
@@ -95,10 +88,6 @@ final class TrackingProgressViewModel {
     func toggle() {
         state = state == .start ? .pause : .start
         if state == .pause { trackingModel.value.coordinates.append(Coordinate(latitude: nil, longitude: nil))}
-    }
-
-    func coordinates() -> [Coordinate] {
-        return trackingModel.value.coordinates
     }
 
     func latestCoordinate() -> Coordinate? {
@@ -177,6 +166,18 @@ final class TrackingProgressViewModel {
 
     func distance() -> Double {
         return trackingModel.value.distance
+    }
+
+    private func bind() {
+        coordinates.map { (values) -> [Coordinate] in
+            var coordinates = self.tracking.value.coordinates
+            coordinates += values
+            return coordinates
+        }.bind { values in
+            var tracking = self.tracking.value
+            tracking.coordinates = values
+            self.tracking.accept(tracking)
+        }.disposed(by: disposeBag)
     }
 
     private func fetchUserInfo() {
