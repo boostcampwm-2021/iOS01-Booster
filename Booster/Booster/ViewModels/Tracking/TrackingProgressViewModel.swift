@@ -1,5 +1,7 @@
 import Foundation
 import CoreLocation
+import RxSwift
+import RxRelay
 
 final class TrackingProgressViewModel {
     enum TrackingState {
@@ -8,17 +10,17 @@ final class TrackingProgressViewModel {
         case end
     }
 
+    private let disposeBag = DisposeBag()
     private let trackingUsecase: TrackingProgressUsecase
     private(set) var trackingModel: BoosterObservable<TrackingModel>
     private(set) var milestones: BoosterObservable<[MileStone]>
-    private(set) var user: UserInfo
+    private(set) var user =  BehaviorRelay<UserInfo>(value: UserInfo())
     private(set) var state: TrackingState
 
-    init(trackingModel: TrackingModel = TrackingModel(), user: UserInfo = UserInfo()) {
+    init(trackingModel: TrackingModel = TrackingModel()) {
         trackingUsecase = TrackingProgressUsecase()
         self.trackingModel = BoosterObservable(trackingModel)
         self.milestones = BoosterObservable([MileStone]())
-        self.user = user
         state = .start
         fetchUserInfo()
     }
@@ -86,7 +88,7 @@ final class TrackingProgressViewModel {
         let perHourDistance = 5.6 * 1000
 
         trackingModel.value.distance += distance
-        trackingModel.value.calories = Int(met * Double(user.weight) * (trackingModel.value.distance / perHourDistance))
+        trackingModel.value.calories = Int(met * Double(user.value.weight) * (trackingModel.value.distance / perHourDistance))
     }
 
     func toggle() {
@@ -175,12 +177,10 @@ final class TrackingProgressViewModel {
     }
 
     private func fetchUserInfo() {
-        trackingUsecase.fetch { value in
-            guard let value = value
-            else { return }
-
-            self.user = value
-        }
+        trackingUsecase.fetch()
+            .subscribe { [weak self] value in
+                self?.user.accept(value)
+            }.disposed(by: disposeBag)
     }
 
     private func convert() {
