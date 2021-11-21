@@ -1,5 +1,6 @@
 import Foundation
 import RxSwift
+import RxRelay
 
 typealias TrackingError = TrackingProgressUsecase.TrackingError
 
@@ -29,22 +30,26 @@ final class TrackingProgressUsecase {
 
     let disposeBag = DisposeBag()
 
-    func save(model: TrackingModel, completion handler: @escaping (TrackingError?) -> Void) {
+    func save(model: TrackingModel) -> Observable<Void> {
         let entity = "Tracking"
         guard let coordinates = try? NSKeyedArchiver.archivedData(withRootObject: model.coordinates, requiringSecureCoding: false),
               let milestones = try? NSKeyedArchiver.archivedData(withRootObject: model.milestones, requiringSecureCoding: false),
-              let endDate = model.endDate
+              let endDate = model.endDate,
+              let distance = Double(String(format: "%.2f", model.distance/1000))
         else {
-            handler(.modelError)
-            return
+            return Observable.create { observable in
+                observable.on(.error(TrackingError.modelError))
+                return Disposables.create()
+            }
         }
+
         let value: [String: Any] = [
             CoreDataKeys.startDate: model.startDate,
             CoreDataKeys.endDate: endDate,
             CoreDataKeys.steps: model.steps,
             CoreDataKeys.calories: model.calories,
             CoreDataKeys.seconds: model.seconds,
-            CoreDataKeys.distance: model.distance,
+            CoreDataKeys.distance: distance,
             CoreDataKeys.coordinates: coordinates,
             CoreDataKeys.milestones: milestones,
             CoreDataKeys.title: model.title,
@@ -52,14 +57,7 @@ final class TrackingProgressUsecase {
             CoreDataKeys.imageData: model.imageData
         ]
 
-        CoreDataManager.shared.save(value: value, type: entity) { response in
-            switch response {
-            case .success:
-                handler(nil)
-            case .failure(let error):
-                handler(.error(error))
-            }
-        }
+        return CoreDataManager.shared.save(value: value, type: entity)
     }
 
     func save(count: Double, start: Date, end: Date, quantity: HealthQuantityType, unit: HealthUnit) {
