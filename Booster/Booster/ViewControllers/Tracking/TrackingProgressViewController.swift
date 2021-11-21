@@ -1,6 +1,7 @@
 import UIKit
 import MapKit
 import CoreMotion
+import RxSwift
 
 final class TrackingProgressViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - Enum
@@ -36,9 +37,8 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
 
     // MARK: - Properties
     private let pedometer = CMPedometer()
-    var viewModel: TrackingProgressViewModel = TrackingProgressViewModel()
-    private var lastestTime: Int = 0
     private let startDate = Date()
+    private var lastestTime: Int = 0
     private var timerDate = Date()
     private var timer = Timer()
     private var manager: CLLocationManager = CLLocationManager()
@@ -76,6 +76,8 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         textView.delegate = self
         return textView
     }()
+    let disposeBag = DisposeBag()
+    var viewModel: TrackingProgressViewModel = TrackingProgressViewModel()
 
     // MARK: - Life Cycles
     override func viewDidLoad() {
@@ -239,6 +241,15 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
     }
 
     private func bind() {
+        viewModel.saveResult
+            .observe(on: MainScheduler.asyncInstance)
+            .bind { error in
+                guard error == nil
+                else { return }
+
+                self.navigationController?.popViewController(animated: true)
+            }.disposed(by: disposeBag)
+
         viewModel.trackingModel.bind { [weak self] model in
             guard let self = self else {
                 return
@@ -437,25 +448,11 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
                                              range: self.viewModel.distance()) { image in
                 guard let data = image?.pngData()
                 else {
-                    self.save()
+                    self.viewModel.save()
                     return
                 }
                 self.viewModel.update(imageData: data)
-                self.save()
-            }
-        }
-    }
-
-    private func save() {
-        viewModel.save { error in
-            guard error == nil
-            else {
-                self.rightButton.isUserInteractionEnabled = true
-                return
-            }
-
-            DispatchQueue.main.async {
-                self.navigationController?.popViewController(animated: true)
+                self.viewModel.save()
             }
         }
     }
