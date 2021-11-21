@@ -46,7 +46,6 @@ final class TrackingProgressViewModel {
     }
 
     func save() {
-        print(tracking.value)
         return trackingUsecase.save(model: self.tracking.value)
             .subscribe(onNext: {
                 self.saveResult.onNext(nil)
@@ -130,7 +129,6 @@ final class TrackingProgressViewModel {
             var tracking = self.tracking.value
             tracking.milestones = values
             self.tracking.accept(tracking)
-            print(self.tracking.value.milestones)
         }.disposed(by: disposeBag)
 
         state.filter {
