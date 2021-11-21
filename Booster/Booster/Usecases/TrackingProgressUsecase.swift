@@ -1,4 +1,5 @@
 import Foundation
+import RxSwift
 
 typealias TrackingError = TrackingProgressUsecase.TrackingError
 
@@ -25,6 +26,8 @@ final class TrackingProgressUsecase {
         static let content: String = "content"
         static let imageData: String = "imageData"
     }
+
+    let disposeBag = DisposeBag()
 
     func save(model: TrackingModel, completion handler: @escaping (TrackingError?) -> Void) {
         let entity = "Tracking"
@@ -63,23 +66,30 @@ final class TrackingProgressUsecase {
         HealthStoreManager.shared.save(count: count, start: start, end: end, quantity: quantity, unit: unit)
     }
 
-    func fetch(handler: @escaping (UserInfo?) -> Void) {
-        CoreDataManager.shared.fetch { (response: Result<[User], Error>) in
-            switch response {
-            case .success(let success):
-                if let user = success.first,
-                    let nickname = user.nickname,
-                    let gender = user.gender {
-                    let userInfo = UserInfo(age: Int(user.age),
-                                            nickname: nickname,
-                                            gender: gender,
-                                            height: Int(user.height),
-                                            weight: Int(user.weight))
-                    handler(userInfo)
+    func fetch() -> Observable<UserInfo> {
+        return CoreDataManager.shared.fetch()
+            .map { (value: [User]) in
+                var userInfo = UserInfo()
+
+                if let user = value.first,
+                    let info = self.convert(user: user) {
+                    userInfo = info
                 }
-            case .failure:
-                handler(nil)
+
+                return userInfo
             }
+    }
+
+    private func convert(user: User) -> UserInfo? {
+        if let nickname = user.nickname,
+           let gender = user.gender {
+            let userInfo = UserInfo(age: Int(user.age),
+                                    nickname: nickname,
+                                    gender: gender,
+                                    height: Int(user.height),
+                                    weight: Int(user.weight))
+            return userInfo
         }
+        return nil
     }
 }
