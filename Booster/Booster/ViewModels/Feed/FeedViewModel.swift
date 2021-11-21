@@ -53,7 +53,9 @@ final class FeedViewModel {
 
     func fetch() {
         usecase.fetch()
-            .subscribe(onNext: { [weak self] values in
+            .map { (values) -> [FeedList] in
+                return values.reversed()
+            }.subscribe(onNext: { [weak self] values in
                 self?.list.accept(values)
             }, onError: { [weak self] _ in
                 self?.list.accept([])
