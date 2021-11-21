@@ -119,6 +119,7 @@
 		FA614F942733D51C00B090D9 /* EnrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F932733D51C00B090D9 /* EnrollViewController.swift */; };
 		FA614F962738F7A200B090D9 /* MileStonePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F952738F7A200B090D9 /* MileStonePhotoViewController.swift */; };
 		FA614F982738FDA900B090D9 /* MileStonePhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F972738FDA900B090D9 /* MileStonePhotoViewModel.swift */; };
+		FA84966C274A13890021F903 /* NotificationSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA84966B274A13890021F903 /* NotificationSettingViewController.swift */; };
 		FAA291BA2744FE8B0042D2D5 /* EraseAllDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA291B92744FE8B0042D2D5 /* EraseAllDataViewController.swift */; };
 		FACBAB6A2746034900CD6B76 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBAB692746034900CD6B76 /* UIButton+Extension.swift */; };
 		FADAC0D02745F55100A026E2 /* EditUserInfoTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADAC0CF2745F55100A026E2 /* EditUserInfoTextField.swift */; };
@@ -245,6 +246,7 @@
 		FA614F932733D51C00B090D9 /* EnrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollViewController.swift; sourceTree = "<group>"; };
 		FA614F952738F7A200B090D9 /* MileStonePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MileStonePhotoViewController.swift; sourceTree = "<group>"; };
 		FA614F972738FDA900B090D9 /* MileStonePhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MileStonePhotoViewModel.swift; sourceTree = "<group>"; };
+		FA84966B274A13890021F903 /* NotificationSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingViewController.swift; sourceTree = "<group>"; };
 		FAA291B92744FE8B0042D2D5 /* EraseAllDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraseAllDataViewController.swift; sourceTree = "<group>"; };
 		FACBAB692746034900CD6B76 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		FADAC0CF2745F55100A026E2 /* EditUserInfoTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserInfoTextField.swift; sourceTree = "<group>"; };
@@ -410,6 +412,7 @@
 				FA473A4C2744EC1C0000C5DC /* ChangeGoalViewController.swift */,
 				FAA291B92744FE8B0042D2D5 /* EraseAllDataViewController.swift */,
 				FA2578F62745E99800597382 /* EditUserInfoViewController.swift */,
+				FA84966B274A13890021F903 /* NotificationSettingViewController.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1045,6 +1048,7 @@
 				FA473A3C274375BB0000C5DC /* UserInfoBaseCell.swift in Sources */,
 				3B38FB14273A5F3B00F8620D /* TrackingCountDownView.swift in Sources */,
 				3B31B62127413664009D9190 /* FeedList.swift in Sources */,
+				FA84966C274A13890021F903 /* NotificationSettingViewController.swift in Sources */,
 				3B37B99E274385B6001EB120 /* EnrollUsecase.swift in Sources */,
 				FA614F722733CDAA00B090D9 /* HomeModel.swift in Sources */,
 				FA614F962738F7A200B090D9 /* MileStonePhotoViewController.swift in Sources */,
