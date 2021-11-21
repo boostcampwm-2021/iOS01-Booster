@@ -10,6 +10,7 @@ final class TrackingProgressViewModel {
         case end
     }
 
+    let saveResult = PublishSubject<Error?>()
     private let disposeBag = DisposeBag()
     private let trackingUsecase: TrackingProgressUsecase
     private(set) var trackingModel: BoosterObservable<TrackingModel>
@@ -114,11 +115,13 @@ final class TrackingProgressViewModel {
         return startCoordinate
     }
 
-    func save(completion handler: @escaping (TrackingError?) -> Void) {
-        convert()
-        trackingUsecase.save(model: trackingModel.value) { error in
-            handler(error)
-        }
+    func save() {
+        trackingUsecase.save(model: trackingModel.value)
+            .subscribe(onNext: {
+                self.saveResult.onNext(nil)
+            }, onError: { error in
+                self.saveResult.onNext(error)
+            }).disposed(by: disposeBag)
     }
 
     func mileStone(at coordinate: Coordinate) -> MileStone? {
@@ -181,13 +184,5 @@ final class TrackingProgressViewModel {
             .subscribe { [weak self] value in
                 self?.user.accept(value)
             }.disposed(by: disposeBag)
-    }
-
-    private func convert() {
-        let meter = trackingModel.value.distance
-
-        if let kilometer = Double(String(format: "%.2f", meter/1000)) {
-            trackingModel.value.distance = kilometer
-        }
     }
 }
