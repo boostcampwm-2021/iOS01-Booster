@@ -9,8 +9,9 @@ import Foundation
 
 final class DetailFeedViewModel {
     // MARK: - Properties
-    private let usecase: DetailFeedUsecase
     var trackingModel: BoosterObservable<TrackingModel>
+    private let usecase: DetailFeedUsecase
+    private var gradientColorOffset = -1
 
     // MARK: - Init
     init() {
@@ -35,11 +36,32 @@ final class DetailFeedViewModel {
 
         return target
     }
+    
+    func reset() {
+        gradientColorOffset = -1
+    }
 
     func remove(of mileStone: MileStone) -> MileStone? {
         guard let index = trackingModel.value.milestones.firstIndex(of: mileStone)
         else { return nil }
 
         return trackingModel.value.milestones.remove(at: index)
+    }
+
+    func indexOfCoordinate(at coordinate: Coordinate) -> Int {
+        for (index, model) in trackingModel.value.coordinates.enumerated() {
+            guard let latitude = model.latitude,
+                  let longitude = model.longitude
+            else { continue }
+            if abs((coordinate.latitude ?? 0) - latitude) < 0.00000000001 && abs((coordinate.longitude ?? 0) - longitude) < 0.00000000001 {
+                return index
+            }
+        }
+        return 0
+    }
+
+    func offsetOfGradientColor() -> Int {
+        gradientColorOffset += 1
+        return gradientColorOffset
     }
 }
