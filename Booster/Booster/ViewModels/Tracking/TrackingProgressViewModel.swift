@@ -32,14 +32,14 @@ final class TrackingProgressViewModel {
     }
 
     func latestCoordinate() -> Coordinate? {
-        guard let latestCoordinate = tracking.value.coordinates.last
+        guard let latestCoordinate: Coordinate = tracking.value.coordinates.last
         else { return nil }
 
         return latestCoordinate
     }
 
     func startCoordinate() -> Coordinate? {
-        guard let startCoordinate = tracking.value.coordinates.first
+        guard let startCoordinate: Coordinate = tracking.value.coordinates.first
         else { return nil }
 
         return startCoordinate
