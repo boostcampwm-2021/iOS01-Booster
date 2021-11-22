@@ -165,6 +165,17 @@ final class TrackingProgressViewModel {
                                  unit: .calorie)
         }.disposed(by: disposeBag)
 
+        state.filter {
+            $0 == .pause
+        }.bind { [weak self] _ in
+            guard let self = self
+            else { return }
+
+            var tracking = self.tracking.value
+            tracking.coordinates.append(Coordinate(latitude: nil, longitude: nil))
+            self.tracking.accept(tracking)
+        }.disposed(by: disposeBag)
+
         title.bind { [weak self] value in
             guard let self = self
             else { return }
