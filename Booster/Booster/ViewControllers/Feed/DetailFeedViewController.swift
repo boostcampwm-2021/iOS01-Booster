@@ -4,10 +4,11 @@
 //
 //  Created by hiju on 2021/11/08.
 //
-import CoreData
+import UIKit
+
 import CoreLocation
 import MapKit
-import UIKit
+import RxSwift
 
 final class DetailFeedViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - Enum
@@ -29,6 +30,7 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
     @IBOutlet private weak var mapView: MKMapView!
 
     var viewModel: DetailFeedViewModel
+    private let disposeBag = DisposeBag()
 
     init?(coder: NSCoder, start date: Date) {
         viewModel = DetailFeedViewModel(start: date)
@@ -53,28 +55,19 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
         let settingAlertController = UIAlertController(title: nil,
                                                        message: nil,
                                                        preferredStyle: .actionSheet)
-        let modifyAction = UIAlertAction(title: "글 수정", style: .default) { _ in
-            guard let modifyViewController = self.storyboard?.instantiateViewController(withIdentifier: ModifyFeedViewController.identifier) as? ModifyFeedViewController
-            else { return }
-            modifyViewController.title = "글 수정"
-            self.navigationController?.pushViewController(modifyViewController, animated: true)
+        let modifyAction = UIAlertAction(title: "글 수정", style: .default) { [weak self] _ in
+            self?.presentModifyViewController()
         }
         let shareAction = UIAlertAction(title: "공유하기", style: .default) { _ in
 
         }
         let deleteAction = UIAlertAction(title: "글 삭제", style: .destructive) { [weak self] _ in
-            let alertController = UIAlertController(title: "글 삭제하기", message: "정말로 산책 기록을 지우시겠어요?", preferredStyle: .alert)
-            let cancelAction = UIAlertAction(title: "취소", style: .cancel)
-            let sureAction = UIAlertAction(title: "기록 지우기", style: .destructive) { _ in
-            }
-            alertController.addAction(sureAction)
-            alertController.addAction(cancelAction)
-
-            self?.present(alertController, animated: true, completion: nil)
+            self?.removeDetailFeed()
         }
         let closeAction = UIAlertAction(title: "닫기", style: .cancel) { _ in
 
         }
+
         settingAlertController.addAction(modifyAction)
         settingAlertController.addAction(shareAction)
         settingAlertController.addAction(deleteAction)
@@ -90,14 +83,31 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
         mapView.layer.cornerRadius = mapView.frame.height / 17
         mapView.delegate = self
 
-        viewModel.trackingModel.bind { [weak self] value in
-            DispatchQueue.main.async {
-                self?.mapView.removeAnnotations(self?.mapView.annotations ?? [])
-                self?.configureUI(value: value)
-            }
-        }
+        bind()
+    }
 
-        viewModel.fetchDetailFeedList()
+    private func bind() {
+        viewModel.trackingModel
+            .observe(on: MainScheduler.instance)
+            .subscribe { [weak self] value in
+                guard let model = value.element
+                else { return }
+
+                self?.mapView.removeAnnotations(self?.mapView.annotations ?? [])
+                self?.configureUI(value: model)
+
+            }
+            .disposed(by: disposeBag)
+
+        viewModel.isDeletedAll
+            .observe(on: MainScheduler.instance)
+            .subscribe { [weak self] value in
+                guard let isDeleted = value.element
+                else { return }
+
+                if isDeleted { self?.presentDeleteAlertController() } else { self?.presentAlertController(title: "삭제 실패", message: "산책 기록을 삭제할 수 없어요\n잠시 후 다시 시도해주세요") }
+            }
+            .disposed(by: disposeBag)
     }
 
     private func configureUI(value: TrackingModel) {
@@ -108,6 +118,10 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
         kmLabel.text = String(format: "%.2f", value.distance)
         contentTextView.text = value.content
 
+        configureMapView(value: value)
+    }
+
+    private func configureMapView(value: TrackingModel) {
         if value.coordinates.count == 0 { return }
 
         let points = value.coordinates.map { CLLocationCoordinate2DMake($0.latitude ?? 100.0, $0.longitude ?? 200.0) }
@@ -131,6 +145,25 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
                           latitude,
                           longitude)
         }
+    }
+
+    private func presentModifyViewController() {
+        guard let modifyViewController = storyboard?.instantiateViewController(withIdentifier: ModifyFeedViewController.identifier) as? ModifyFeedViewController
+        else { return }
+        modifyViewController.title = "글 수정"
+        navigationController?.pushViewController(modifyViewController, animated: true)
+    }
+
+    private func removeDetailFeed() {
+        let alertController = UIAlertController(title: "글 삭제하기", message: "정말로 산책 기록을 지우시겠어요?", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        let sureAction = UIAlertAction(title: "기록 지우기", style: .destructive) { [weak self] _ in
+            self?.viewModel.removeAll()
+        }
+        alertController.addAction(sureAction)
+        alertController.addAction(cancelAction)
+
+        present(alertController, animated: true, completion: nil)
     }
 
     private func findLocationTitle(coordinate: CLLocationCoordinate2D) {
@@ -267,7 +300,7 @@ extension DetailFeedViewController: MKMapViewDelegate {
                 newAnnotationView.canShowCallout = false
                 newAnnotationView.photoImageView.image = UIImage(data: mileStone.imageData)
                 newAnnotationView.photoImageView.backgroundColor = .white
-                newAnnotationView.changeColor(gradientColors[viewModel.indexOfCoordinate(at: coordinate)])
+                newAnnotationView.changeColor(gradientColors[viewModel.indexOfCoordinate(coordinate)])
 
                 newAnnotationView.centerOffset = CGPoint(x: 0, y: -newAnnotationView.frame.height / 2.0)
                 return newAnnotationView
@@ -304,14 +337,35 @@ extension DetailFeedViewController: MKMapViewDelegate {
     }
 }
 
-// MARK: - MileStone Delete Completed
+// MARK: - MileStone Delete Method
 extension DetailFeedViewController: MilestonePhotoViewControllerDelegate {
     func delete(milestone: Milestone) {
-        if let _ = viewModel.remove(of: milestone), removeMileStoneAnnotation(of: milestone) {
-            let title = "삭제 완료"
-            let message = "마일스톤을 삭제했어요"
-            let alertViewController = UIAlertController.simpleAlert(title: title, message: message)
-            present(alertViewController, animated: true)
+        viewModel.remove(of: milestone)
+            .observe(on: MainScheduler.instance)
+            .subscribe { [weak self] result in
+                guard let isSaved = result.element
+                else { return }
+
+                if isSaved {
+                    self?.presentAlertController(title: "삭제 완료", message: "마일스톤을 삭제했어요")
+                } else {
+                    self?.presentAlertController(title: "삭제 오류", message: "마일스톤을 삭제하는 데 문제가 생겼어요\n잠시 후 다시 시도해주세요")
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+
+    func presentAlertController(title: String, message: String) {
+        let alertController: UIAlertController = .simpleAlert(title: title, message: message)
+        present(alertController, animated: true, completion: nil)
+    }
+
+    func presentDeleteAlertController() {
+        let alertController = UIAlertController(title: "기록 삭제", message: "산책 기록이 삭제되었어요", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인", style: .default) { [weak self] _ in
+            self?.navigationController?.popViewController(animated: true)
         }
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
     }
 }

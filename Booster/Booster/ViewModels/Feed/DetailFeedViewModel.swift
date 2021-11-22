@@ -6,31 +6,28 @@
 //
 
 import Foundation
+import RxSwift
+import RxRelay
 
 final class DetailFeedViewModel {
     // MARK: - Properties
     let startDate: Date
-    var trackingModel: BoosterObservable<TrackingModel>
+    var trackingModel = BehaviorRelay<TrackingModel>(value: TrackingModel())
+    var isDeletedAll = PublishSubject<Bool>()
+    private let predicate: NSPredicate
     private let usecase: DetailFeedUsecase
+    private let disposeBag = DisposeBag()
     private var gradientColorOffset = -1
 
     // MARK: - Init
     init(start date: Date) {
         startDate = date
-        trackingModel = BoosterObservable(TrackingModel())
+        predicate = NSPredicate(format: "startDate = %@", startDate as NSDate)
         usecase = DetailFeedUsecase()
+        fetchDetailFeedList()
     }
 
     // MARK: - Functions
-    func fetchDetailFeedList() {
-        let predicate = NSPredicate(format: "startDate = %@", (startDate as NSDate) as CVarArg)
-        usecase.fetch(predicate: predicate) { [weak self] result in
-            if let model = result.first {
-                self?.trackingModel.value = model
-            }
-        }
-    }
-
     func milestone(at coordinate: Coordinate) -> Milestone? {
         let target = trackingModel.value.milestones.first(where: { value in
             return value.coordinate == coordinate
@@ -41,14 +38,39 @@ final class DetailFeedViewModel {
 
     func reset() { gradientColorOffset = -1 }
 
-    func remove(of milestone: Milestone) -> Milestone? {
-        guard let index = trackingModel.value.milestones.firstIndex(of: milestone)
-        else { return nil }
+    func remove(of milestone: Milestone) -> Observable<Bool> {
+        return Observable.create { [weak self] observer in
+            guard let self = self,
+                  let index = self.trackingModel.value.milestones.firstIndex(of: milestone)
+            else { return Disposables.create() }
 
-        return trackingModel.value.milestones.remove(at: index)
+            var newTrackingModel = self.trackingModel.value
+            _ = newTrackingModel.milestones.remove(at: index)
+
+            self.usecase.update(model: newTrackingModel, predicate: self.predicate)
+                .subscribe(onError: { _ in
+                    observer.onNext(false)
+                }, onCompleted: {
+                    self.trackingModel.accept(newTrackingModel)
+                    observer.onNext(true)
+                })
+                .disposed(by: self.disposeBag)
+
+            return Disposables.create()
+        }
     }
 
-    func indexOfCoordinate(at coordinate: Coordinate) -> Int {
+    func removeAll() {
+        usecase.remove(predicate: predicate)
+            .subscribe(onError: { _ in
+                self.isDeletedAll.onNext(false)
+            }, onCompleted: {
+                self.isDeletedAll.onNext(true)
+            })
+            .disposed(by: disposeBag)
+    }
+
+    func indexOfCoordinate(_ coordinate: Coordinate) -> Int {
         for (index, model) in trackingModel.value.coordinates.enumerated() {
             guard let latitude = model.latitude,
                   let longitude = model.longitude
@@ -63,5 +85,16 @@ final class DetailFeedViewModel {
     func offsetOfGradientColor() -> Int {
         gradientColorOffset += 1
         return gradientColorOffset
+    }
+
+    private func fetchDetailFeedList() {
+        usecase.fetch(predicate: predicate)
+            .subscribe { [weak self] value in
+                guard let model = value.element
+                else { return }
+
+                self?.trackingModel.accept(model)
+            }
+            .disposed(by: disposeBag)
     }
 }
