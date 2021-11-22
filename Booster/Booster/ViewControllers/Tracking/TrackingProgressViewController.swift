@@ -121,6 +121,15 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
             }.disposed(by: disposeBag)
         return buttonItem
     }()
+    private lazy var userLocationButton: MKUserTrackingButton = {
+        let button = MKUserTrackingButton(mapView: mapView)
+        button.backgroundColor = .boosterLabel
+        button.layer.masksToBounds = true
+        button.tintColor = UIColor.boosterOrange
+        button.layer.cornerRadius = button.bounds.width/2
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     let disposeBag = DisposeBag()
     var viewModel: TrackingProgressViewModel = TrackingProgressViewModel()
 
@@ -132,12 +141,16 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.isNavigationBarHidden = false
-        self.tabBarController?.tabBar.isHidden = true
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = false
+        tabBarController?.tabBar.isHidden = true
+        manager.delegate = self
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        self.tabBarController?.tabBar.isHidden = false
+        super.viewWillDisappear(animated)
+        manager.stopUpdatingLocation()
+        tabBarController?.tabBar.isHidden = false
     }
 
     // MARK: - @objc
@@ -193,12 +206,15 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
 
     func configure() {
         let radius: CGFloat = 50
+        view.addSubview(userLocationButton)
         leftButton.layer.borderWidth = 1
         leftButton.layer.borderColor = UIColor.boosterBackground.cgColor
         leftButton.layer.cornerRadius = radius
         rightButton.layer.cornerRadius = radius
         pedometerLabel.font = .bazaronite(size: 60)
         pedometerLabel.textColor = .boosterBlackLabel
+        userLocationButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        userLocationButton.bottomAnchor.constraint(equalTo: infoView.topAnchor, constant: -20).isActive = true
 
         [mapView, kcalLabel, timeLabel, distanceLabel, pedometerLabel, rightButton].forEach {
             $0?.translatesAutoresizingMaskIntoConstraints = false
@@ -208,11 +224,10 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         navigationItem.leftBarButtonItem = backButtonItem
 
         mapView.delegate = self
-        manager.delegate = self
         configureNotifications()
-        locationAuth()
         bindViewModel()
         bindView()
+        locationAuth()
     }
 
     private func bindView() {
@@ -353,7 +368,6 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
             viewModel.seconds.onNext(lastestTime)
             timer.invalidate()
             manager.stopUpdatingLocation()
-            manager.stopMonitoringSignificantLocationChanges()
             pedometer.stopUpdates()
             pedometer.stopEventUpdates()
         }
@@ -372,22 +386,24 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
     }
 
     private func locationAuth() {
+        manager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
             manager.desiredAccuracy = kCLLocationAccuracyBest
-            manager.requestWhenInUseAuthorization()
             DispatchQueue.main.async { [weak self] in
                 guard let self = self
                 else { return }
                 self.manager.allowsBackgroundLocationUpdates = true
                 self.manager.startUpdatingLocation()
-                self.manager.startMonitoringSignificantLocationChanges()
 
                 if let location = self.manager.location {
+                    self.viewModel.coordinates.onNext([Coordinate(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)])
                     self.mapView.setRegion(to: location)
                 }
             }
             updatePedometer()
             manager.distanceFilter = 1
+        } else {
+            navigationController?.popViewController(animated: true)
         }
     }
 
@@ -404,11 +420,11 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
     private func stopAnimation() {
         pedometer.stopUpdates()
         pedometer.stopEventUpdates()
-
         manager.stopUpdatingLocation()
         manager.stopMonitoringSignificantLocationChanges()
         pedometer.stopUpdates()
         leftButton.isHidden = true
+        userLocationButton.isHidden = true
         UIView.animate(withDuration: 1, animations: { [weak self] in
             guard let self = self
             else { return }
@@ -495,7 +511,8 @@ extension TrackingProgressViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let currentLocation = locations.last
         else { return }
-
+        print(locations, "locations")
+        print(viewModel.tracking.value.distance, "distance")
         let currentCoordinate = currentLocation.coordinate
 
         guard let latestCoordinate = viewModel.latestCoordinate(),
@@ -509,7 +526,6 @@ extension TrackingProgressViewController: CLLocationManagerDelegate {
         let prevCoordinate = CLLocationCoordinate2D(latitude: prevLatitude, longitude: prevLongitude)
         let latestLocation = CLLocation(latitude: prevLatitude, longitude: prevLongitude)
 
-        mapView.updateUserLocationOverlay(location: currentLocation)
         if viewModel.state.value == .start { mapView.drawPath(from: prevCoordinate, to: currentCoordinate) }
 
         viewModel.distance.onNext(latestLocation.distance(from: currentLocation))
@@ -559,7 +575,7 @@ extension TrackingProgressViewController: MKMapViewDelegate {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: Identifier.Annotation.milestone.rawValue)
 
             guard let customView = UINib(nibName: NibName.photoAnnotationView.rawValue, bundle: nil).instantiate(withOwner: self, options: nil).first as? PhotoAnnotationView,
-                  let mileStone = viewModel.tracking.value.milestones.last
+                  let mileStone: Milestone = viewModel.tracking.value.milestones.last
             else { return nil }
 
             customView.photoImageView.image = UIImage(data: mileStone.imageData)
