@@ -92,13 +92,13 @@ final class CoreDataManager {
     }
 
     func fetch<DataType: NSManagedObject>() -> Observable<[DataType]> {
-        return Observable.create { observer in
+        return Observable.create { [weak self] observer in
+            guard let self = self
+            else { return }
+            
             let backgroundContext = self.container.newBackgroundContext()
 
-            backgroundContext.perform { [weak self] in
-                guard let self = self
-                else { return }
-
+            backgroundContext.perform {
                 do {
                     let context = try self.container.viewContext.fetch(DataType.fetchRequest())
                     guard let context = context as? [DataType]
