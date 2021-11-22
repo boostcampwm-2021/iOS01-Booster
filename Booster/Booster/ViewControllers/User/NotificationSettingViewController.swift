@@ -14,12 +14,6 @@ final class NotificationSettingViewController: UIViewController {
     @IBOutlet private weak var notificationImageView: UIImageView!
     @IBOutlet private weak var onOffButton: UIButton!
 
-    // MARK: - Properties
-
-    // MARK: - Subscript
-
-    // MARK: - Init
-
     // MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
