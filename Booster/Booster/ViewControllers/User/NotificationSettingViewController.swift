@@ -35,12 +35,18 @@ final class NotificationSettingViewController: UIViewController {
     @IBAction func onOffButtonDidTap(_ sender: UIButton) {
         guard let url = URL(string: UIApplication.openSettingsURLString)
         else {
-            let alert = UIAlertController.simpleAlert(title: "오류", message: "알 수 없는 오류로 인하여 알람 설정을 할 수 없어요")
-            present(alert, animated: true, completion: nil)
+            let title = "오류"
+            let message = "알 수 없는 오류로 인하여 알람 설정을 할 수 없어요"
+            let alert = UIAlertController.simpleAlert(title: title, message: message)
+            present(alert,
+                    animated: true,
+                    completion: nil)
 
             return
         }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        UIApplication.shared.open(url,
+                                  options: [:],
+                                  completionHandler: nil)
     }
 
     @IBAction func backButtonDidTap(_ sender: UIButton) {
