@@ -28,7 +28,7 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
     // MARK: - Properties
     private let disposeBag = DisposeBag()
     private let sideInset: CGFloat = 20
-
+    private let fontSize: CGFloat = 15
     private lazy var barView: UIView = {
         let view = UIView()
         view.backgroundColor = .boosterLabel
@@ -38,15 +38,15 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
     private lazy var intervalLabel: UILabel = {
         let label = UILabel()
         label.frame.origin.y = chartView.frame.origin.y
-        label.font = UIFont.bazaronite(size: 15)
+        label.font = UIFont.bazaronite(size: fontSize)
         label.textColor = UIColor.boosterLabel
         return label
     }()
 
     private lazy var stepCountLabel: UILabel = {
         let label = UILabel()
-        label.frame.origin.y = chartView.frame.origin.y + 15
-        label.font = UIFont.bazaronite(size: 15)
+        label.frame.origin.y = chartView.frame.origin.y + fontSize
+        label.font = UIFont.bazaronite(size: fontSize)
         label.textColor = UIColor.boosterLabel
         return label
     }()
@@ -190,8 +190,6 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
             .disposed(by: disposeBag)
     }
 
-//    private update
-
     private func updateSelectedLabel(using statisticsCollection: StepStatisticsCollection, index: Int?) {
         guard let index = index,
               let stepRatios = statisticsCollection.stepRatios()
@@ -227,8 +225,8 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
         stepCountLabel.frame.origin.x = min(stepCountLabel.frame.origin.x, view.frame.width - stepCountLabel.frame.width - sideInset)
 
         barView.frame = CGRect(x: xCoordinate,
-                               y: chartView.frame.origin.y + 30,
+                               y: chartView.frame.origin.y + fontSize * 2,
                                width: 1,
-                               height: chartView.topSpace - 30 + chartView.centerSpace * stepRatio)
+                               height: chartView.topSpace - fontSize * 2 + chartView.centerSpace * stepRatio)
     }
 }
