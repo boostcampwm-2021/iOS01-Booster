@@ -53,7 +53,7 @@
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" name="boosterBackground"/>
                         <constraints>
-                            <constraint firstItem="ZzC-UF-L6k" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="Etg-At-HqY"/>
+                            <constraint firstItem="ZzC-UF-L6k" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="5oe-Cm-1gr"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="xud-Sp-XDJ" secondAttribute="bottom" constant="40" id="GSF-gz-svb"/>
                             <constraint firstItem="xud-Sp-XDJ" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="j7X-cs-Teg"/>
                             <constraint firstItem="ZzC-UF-L6k" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="lxs-Bx-7bn"/>
@@ -61,7 +61,7 @@
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="ZzC-UF-L6k" secondAttribute="trailing" id="xqe-cL-LmS"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="heart" catalog="system" id="r2e-KS-f1C"/>
+                    <tabBarItem key="tabBarItem" title="" image="tracking" selectedImage="tracking" id="r2e-KS-f1C"/>
                     <navigationItem key="navigationItem" id="aOz-4v-6u3"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -217,6 +217,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="KoR-UW-7LE">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -230,8 +231,8 @@
     </scenes>
     <resources>
         <image name="camera" catalog="system" width="128" height="94"/>
-        <image name="heart" catalog="system" width="128" height="109"/>
         <image name="pause" catalog="system" width="88" height="128"/>
+        <image name="tracking" width="25" height="25"/>
         <namedColor name="boosterBackground">
             <color red="0.050999999046325684" green="0.050999999046325684" blue="0.050999999046325684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

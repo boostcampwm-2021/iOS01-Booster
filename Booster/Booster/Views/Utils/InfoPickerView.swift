@@ -43,12 +43,12 @@ final class InfoPickerView: UIPickerView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        UIConfigure()
+        configureUI()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        UIConfigure()
+        configureUI()
     }
 
     convenience init(frame: CGRect, type: Info) {
@@ -59,7 +59,7 @@ final class InfoPickerView: UIPickerView {
         reloadAllComponents()
     }
 
-    private func UIConfigure() {
+    private func configureUI() {
         backgroundColor = .boosterLabel
     }
 

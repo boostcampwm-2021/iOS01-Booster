@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7kW-7S-rP7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7kW-7S-rP7">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -118,7 +118,7 @@
                             <constraint firstItem="o9V-Yn-X36" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="gbX-UX-QOO"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="newspaper" catalog="system" selectedImage="newspaper.fill" id="0Kj-SX-TW1">
+                    <tabBarItem key="tabBarItem" title="" image="feed" selectedImage="feed" id="0Kj-SX-TW1">
                         <color key="badgeColor" name="boosterLabel"/>
                     </tabBarItem>
                     <navigationItem key="navigationItem" title="나의 발자취" id="44R-ct-b10">
@@ -350,12 +350,12 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7kW-7S-rP7" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" backIndicatorImage="arrow.backward" catalog="system" largeTitles="YES" backIndicatorTransitionMaskImage="arrow.backward" id="VuG-05-Ips">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" backIndicatorImage="arrow.backward" catalog="system" largeTitles="YES" backIndicatorTransitionMaskImage="arrow.backward" id="VuG-05-Ips">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" name="boosterBackground"/>
                         <color key="tintColor" name="boosterLabel"/>
-                        <color key="barTintColor" name="boosterBackground"/>
+                        <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" name="boosterLabel"/>
                         </textAttributes>
@@ -376,9 +376,8 @@
     </scenes>
     <resources>
         <image name="arrow.backward" catalog="system" width="128" height="98"/>
+        <image name="feed" width="25" height="25"/>
         <image name="gearshape.fill" catalog="system" width="128" height="121"/>
-        <image name="newspaper" catalog="system" width="128" height="111"/>
-        <image name="newspaper.fill" catalog="system" width="128" height="111"/>
         <namedColor name="boosterBackground">
             <color red="0.050999999046325684" green="0.050999999046325684" blue="0.050999999046325684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
