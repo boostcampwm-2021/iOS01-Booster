@@ -1,6 +1,8 @@
 import UIKit
 import MapKit
 import CoreMotion
+import RxSwift
+import RxCocoa
 
 final class TrackingProgressViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - Enum
@@ -36,9 +38,8 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
 
     // MARK: - Properties
     private let pedometer = CMPedometer()
-    var viewModel: TrackingProgressViewModel = TrackingProgressViewModel()
-    private var lastestTime: Int = 0
     private let startDate = Date()
+    private var lastestTime: Int = 0
     private var timerDate = Date()
     private var timer = Timer()
     private var manager: CLLocationManager = CLLocationManager()
@@ -61,6 +62,23 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
                                                                 color: .lightGray)
         textField.autocorrectionType = .no
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.rx.controlEvent([.editingDidEnd])
+            .bind {
+                self.rightButton.isHidden = false
+            }.disposed(by: disposeBag)
+        textField.rx.controlEvent([.editingDidBegin])
+            .bind {
+                self.rightButton.isHidden = true
+            }.disposed(by: disposeBag)
+        textField.rx.text
+            .distinctUntilChanged()
+            .skip(1)
+            .bind { [weak self] value in
+                guard let text = value
+                else { return }
+
+                self?.viewModel.title.onNext(text)
+            }.disposed(by: disposeBag)
         textField.delegate = self
         return textField
     }()
@@ -73,9 +91,38 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
          textView.textColor = .lightGray
         textView.textContainer.lineFragmentPadding = 0
         textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.rx.text
+            .distinctUntilChanged()
+            .skip(1)
+            .bind { [weak self] value in
+                guard let text = value
+                else { return }
+
+                self?.viewModel.content.onNext(text)
+            }.disposed(by: disposeBag)
         textView.delegate = self
         return textView
     }()
+    private lazy var backButtonItem: UIBarButtonItem = {
+        let buttonItem = UIBarButtonItem()
+        buttonItem.image = .systemArrowLeft
+        buttonItem.tintColor = .boosterBlackLabel
+        buttonItem.rx.tap
+            .throttle(.milliseconds(800), scheduler: MainScheduler.asyncInstance)
+            .bind { [weak self] in
+                let title = "되돌아가기"
+                let message = "현재 기록 상황이 다 지워집니다\n정말로 되돌아가실 건가요?"
+                let alertViewController: UIAlertController = .alert(title: title,
+                                                      message: message,
+                                                      success: { _ in
+                    self?.navigationController?.popViewController(animated: true)
+                })
+                self?.present(alertViewController, animated: true)
+            }.disposed(by: disposeBag)
+        return buttonItem
+    }()
+    let disposeBag = DisposeBag()
+    var viewModel: TrackingProgressViewModel = TrackingProgressViewModel()
 
     // MARK: - Life Cycles
     override func viewDidLoad() {
@@ -93,55 +140,6 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         self.tabBarController?.tabBar.isHidden = false
     }
 
-    // MARK: - @IBActions
-    @IBAction func leftTouchUp(_ sender: UIButton) {
-        switch viewModel.state {
-        case .start:
-            guard let currentLatitude = manager.location?.coordinate.latitude,
-                  let currentLongitude = manager.location?.coordinate.longitude,
-                  let imageData = UIImage(systemName: "camera")?.pngData()
-            else { return }
-
-            if viewModel.isMileStoneExistAt(latitude: currentLatitude, longitude: currentLongitude) {
-                let title = "추가 실패"
-                let message = "이미 다른 마일스톤이 존재합니다\n작성한 마일스톤을 제거해주세요"
-                let alert = UIAlertController.simpleAlert(title: title, message: message)
-                present(alert, animated: true, completion: nil)
-
-                return
-            }
-
-            #if targetEnvironment(simulator)
-            let mileStone = MileStone(latitude: currentLatitude,
-                                      longitude: currentLongitude,
-                                      imageData: imageData)
-            viewModel.append(milestone: mileStone)
-            #else
-            present(imagePickerController, animated: true)
-            #endif
-        default:
-            viewModel.recordEnd()
-            stopAnimation()
-        }
-    }
-
-    @IBAction func rightTouchUp(_ sender: Any) {
-        switch viewModel.state {
-        case .end:
-            pedometer.stopUpdates()
-            pedometer.stopEventUpdates()
-
-            manager.stopUpdatingLocation()
-            manager.stopMonitoringSignificantLocationChanges()
-            pedometer.stopUpdates()
-            rightButton.isUserInteractionEnabled = false
-            makeImageData()
-        default:
-            viewModel.toggle()
-            update()
-        }
-    }
-
     // MARK: - @objc
     @objc private func trackingTimer() {
         var isMoved = true
@@ -157,22 +155,10 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
 
         switch isMoved && timerTime <= Int(limit) {
         case true:
-            viewModel.update(seconds: time)
+            viewModel.seconds.onNext(time)
         case false:
-            viewModel.toggle()
-            update()
+            viewModel.state.accept(viewModel.state.value == .start ? .pause : .start)
         }
-    }
-
-    @objc private func touchBackButton(_ sender: UIBarButtonItem) {
-        let title = "되돌아가기"
-        let message = "현재 기록 상황이 다 지워집니다\n정말로 되돌아가실 건가요?"
-        let alertViewController: UIAlertController = .alert(title: title,
-                                              message: message,
-                                              success: { _ in
-            self.navigationController?.popViewController(animated: true)
-        })
-        present(alertViewController, animated: true)
     }
 
     @objc private func keyboardWillShow(_ notification: Notification) {
@@ -207,11 +193,6 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
 
     func configure() {
         let radius: CGFloat = 50
-        let backButton = UIBarButtonItem(image: .systemArrowLeft,
-                                         style: .plain,
-                                         target: self,
-                                         action: #selector(touchBackButton(_:)))
-        backButton.tintColor = .boosterBlackLabel
         leftButton.layer.borderWidth = 1
         leftButton.layer.borderColor = UIColor.boosterBackground.cgColor
         leftButton.layer.cornerRadius = radius
@@ -219,55 +200,119 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         pedometerLabel.font = .bazaronite(size: 60)
         pedometerLabel.textColor = .boosterBlackLabel
 
-        timer = Timer.scheduledTimer(timeInterval: 1,
-                                     target: self,
-                                     selector: #selector(trackingTimer),
-                                     userInfo: nil,
-                                     repeats: true)
         [mapView, kcalLabel, timeLabel, distanceLabel, pedometerLabel, rightButton].forEach {
             $0?.translatesAutoresizingMaskIntoConstraints = false
         }
 
         navigationItem.hidesBackButton = true
-        navigationItem.leftBarButtonItem = backButton
+        navigationItem.leftBarButtonItem = backButtonItem
 
         mapView.delegate = self
         manager.delegate = self
         configureNotifications()
         locationAuth()
-        bind()
+        bindViewModel()
+        bindView()
     }
 
-    private func bind() {
-        viewModel.trackingModel.bind { [weak self] model in
-            guard let self = self else {
-                return
-            }
-            DispatchQueue.main.async {
-                self.updatePedometer()
-                self.configure(model: model)
-            }
-        }
+    private func bindView() {
+        leftButton.rx.tap
+            .throttle(.seconds(1), scheduler: MainScheduler.asyncInstance)
+            .bind { [weak self] _ in
+                guard let self = self
+                else { return }
 
-        viewModel.milestones.bind({ [weak self] milestones in
+                switch self.viewModel.state.value {
+                case .start:
+                    guard let currentLatitude = self.manager.location?.coordinate.latitude,
+                          let currentLongitude = self.manager.location?.coordinate.longitude,
+                          let imageData = UIImage(systemName: "camera")?.pngData()
+                    else { return }
+
+                    self.viewModel.mileStone(at: Coordinate(latitude: currentLatitude, longitude: currentLongitude))
+                        .observe(on: MainScheduler.asyncInstance)
+                        .subscribe { [weak self] value in
+                            guard let element = value.element, let _ = element
+                            else {
+                                #if targetEnvironment(simulator)
+                                let milestone = Milestone(latitude: currentLatitude,
+                                                          longitude: currentLongitude,
+                                                          imageData: imageData)
+                                self?.viewModel.addMilestones.onNext([milestone])
+                                #else
+                                self?.present(self?.imagePickerController ?? UIImagePickerController(), animated: true)
+                                #endif
+
+                                return
+                            }
+
+                            let title = "추가 실패"
+                            let message = "이미 다른 마일스톤이 존재합니다\n작성한 마일스톤을 제거해주세요"
+                            let alert: UIAlertController = .simpleAlert(title: title, message: message)
+                            self?.present(alert, animated: true, completion: nil)
+
+                        }.disposed(by: self.disposeBag)
+                default:
+                    self.viewModel.state.accept(.end)
+                }
+            }.disposed(by: disposeBag)
+
+        rightButton.rx.tap
+            .throttle(.seconds(1), scheduler: MainScheduler.asyncInstance)
+            .bind { [weak self] _ in
+                guard let self = self
+                else { return }
+
+                switch self.viewModel.state.value {
+                case .end:
+                    self.makeImageData()
+                default:
+                    self.viewModel.state.accept(self.viewModel.state.value == .start ? .pause : .start)
+                }
+            }.disposed(by: disposeBag)
+    }
+
+    private func bindViewModel() {
+        viewModel.state
+            .observe(on: MainScheduler.asyncInstance)
+            .bind { [weak self] value in
+                if value != .end { self?.update() } else { self?.stopAnimation() }
+            }.disposed(by: disposeBag)
+
+        viewModel.tracking
+            .observe(on: MainScheduler.asyncInstance)
+            .bind { [weak self] value in
+                self?.configure(model: value)
+            }.disposed(by: disposeBag)
+
+        viewModel.addMilestones.bind { [weak self] milestones in
             guard let milestone = milestones.last,
                   let latitude = milestone.coordinate.latitude,
                   let longitude = milestone.coordinate.longitude
             else { return }
-            self?.mapView.addMileStoneAnnotation(latitude: latitude, longitude: longitude)
-        })
+            self?.mapView.addMilestoneAnnotation(latitude: latitude, longitude: longitude)
+        }.disposed(by: disposeBag)
+
+        viewModel.saveResult
+            .observe(on: MainScheduler.asyncInstance)
+            .bind { [weak self] error in
+            guard error == nil
+            else { return }
+
+            self?.navigationController?.popViewController(animated: true)
+        }.disposed(by: disposeBag)
     }
 
     private func configure(model: TrackingModel) {
         let timeContent = makeTimerText(time: model.seconds)
         let kcalContent = "\(model.calories)\n"
         let distanceContent = "\(String.init(format: "%.1f", model.distance/1000))\n"
-        let stepsTitle = "\(viewModel.state == .end ? " steps" : "")"
+        let stepsTitle = "\(viewModel.state.value == .end ? " steps" : "")"
         let kcalTitle = "kcal"
         let timeTitle = "time"
         let distanceTitle = "km"
-        let stepsColor: UIColor = viewModel.state == .end ? .boosterOrange : .boosterBlackLabel
-        let color: UIColor = viewModel.state == .start ? .boosterBackground : .boosterLabel
+        let stepsColor: UIColor = viewModel.state.value == .end ? .boosterOrange : .boosterBlackLabel
+        let color: UIColor = viewModel.state.value == .start ? .boosterBackground : .boosterLabel
 
         pedometerLabel.attributedText = makeAttributedText(content: "\(model.steps)",
                                                            title: stepsTitle,
@@ -280,7 +325,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
     }
 
     private func update() {
-        let isStart: Bool = viewModel.state == .start
+        let isStart: Bool = viewModel.state.value == .start
         [distanceLabel, timeLabel, kcalLabel].forEach {
             $0?.textColor = isStart ? .boosterBackground : .boosterLabel
         }
@@ -304,8 +349,8 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
                                          repeats: true)
             locationAuth()
         case false:
-            lastestTime = viewModel.trackingModel.value.seconds
-            viewModel.update(seconds: lastestTime)
+            lastestTime = viewModel.tracking.value.seconds
+            viewModel.seconds.onNext(lastestTime)
             timer.invalidate()
             manager.stopUpdatingLocation()
             manager.stopMonitoringSignificantLocationChanges()
@@ -352,18 +397,24 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
                   let data = data
             else { return }
 
-            self.viewModel.update(steps: data.numberOfSteps.intValue)
+            self.viewModel.steps.onNext(data.numberOfSteps.intValue)
         }
     }
 
     private func stopAnimation() {
-        self.leftButton.isHidden = true
+        pedometer.stopUpdates()
+        pedometer.stopEventUpdates()
+
+        manager.stopUpdatingLocation()
+        manager.stopMonitoringSignificantLocationChanges()
+        pedometer.stopUpdates()
+        leftButton.isHidden = true
         UIView.animate(withDuration: 1, animations: { [weak self] in
-            guard let self = self,
-                  let content = self.pedometerLabel.text
+            guard let self = self
             else { return }
 
             let title = " steps"
+            let content = "\(self.viewModel.tracking.value.steps)"
             self.rightButtonWidthConstraint.constant = 70
             self.rightButtonHeightConstraint.constant = 70
             self.rightButton.layer.cornerRadius = 35
@@ -424,39 +475,17 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
     }
 
     private func makeImageData() {
-        DispatchQueue.global().async { [weak self] in
-            guard let self = self,
-                  let center = self.viewModel.centerCoordinateOfPath()
-            else { return }
+        guard let center = self.viewModel.centerCoordinateOfPath()
+        else { return }
 
-            let coordinates = self.viewModel.coordinates()
+        let coordinates = self.viewModel.tracking.value.coordinates
 
-            self.mapView.snapShotImageOfPath(backgroundColor: .clear,
-                                             coordinates: coordinates,
-                                             center: center,
-                                             range: self.viewModel.distance()) { image in
-                guard let data = image?.pngData()
-                else {
-                    self.save()
-                    return
-                }
-                self.viewModel.update(imageData: data)
-                self.save()
-            }
-        }
-    }
-
-    private func save() {
-        viewModel.save { error in
-            guard error == nil
-            else {
-                self.rightButton.isUserInteractionEnabled = true
-                return
-            }
-
-            DispatchQueue.main.async {
-                self.navigationController?.popViewController(animated: true)
-            }
+        self.mapView.snapShotImageOfPath(backgroundColor: .clear,
+                                         coordinates: coordinates,
+                                         center: center,
+                                         range: self.viewModel.tracking.value.distance) { image in
+            self.viewModel.imageData.onNext(image?.pngData() ?? Data())
+            self.viewModel.save()
         }
     }
 }
@@ -474,17 +503,18 @@ extension TrackingProgressViewController: CLLocationManagerDelegate {
               let prevLongitude = latestCoordinate.longitude
         else {
             let coordinate = Coordinate(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude)
-            viewModel.append(coordinate: coordinate)
+            viewModel.coordinates.onNext([coordinate])
             return
         }
         let prevCoordinate = CLLocationCoordinate2D(latitude: prevLatitude, longitude: prevLongitude)
         let latestLocation = CLLocation(latitude: prevLatitude, longitude: prevLongitude)
 
         mapView.updateUserLocationOverlay(location: currentLocation)
-        if viewModel.state == .start { mapView.drawPath(from: prevCoordinate, to: currentCoordinate) }
+        if viewModel.state.value == .start { mapView.drawPath(from: prevCoordinate, to: currentCoordinate) }
 
-        viewModel.update(distance: latestLocation.distance(from: currentLocation))
-        viewModel.append(coordinate: Coordinate(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude))
+        viewModel.distance.onNext(latestLocation.distance(from: currentLocation))
+        let coordinate = Coordinate(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude)
+        viewModel.coordinates.onNext([coordinate])
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -494,7 +524,7 @@ extension TrackingProgressViewController: CLLocationManagerDelegate {
             let message = "GPS 권한 확인 또는 GPS기능을 다시 연결 해주시기 바랍니다."
             let alertController: UIAlertController = .simpleAlert(title: title, message: message)
 
-            viewModel.toggle()
+            viewModel.state.accept(viewModel.state.value == .start ? .pause : .start)
             manager.stopUpdatingLocation()
             manager.stopMonitoringSignificantLocationChanges()
             present(alertController, animated: true)
@@ -529,7 +559,7 @@ extension TrackingProgressViewController: MKMapViewDelegate {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: Identifier.Annotation.milestone.rawValue)
 
             guard let customView = UINib(nibName: NibName.photoAnnotationView.rawValue, bundle: nil).instantiate(withOwner: self, options: nil).first as? PhotoAnnotationView,
-                  let mileStone = viewModel.milestones.value.last
+                  let mileStone = viewModel.tracking.value.milestones.last
             else { return nil }
 
             customView.photoImageView.image = UIImage(data: mileStone.imageData)
@@ -549,15 +579,22 @@ extension TrackingProgressViewController: MKMapViewDelegate {
 
         mapView.deselectAnnotation(view.annotation, animated: false)
         let coordinate = Coordinate(latitude: view.annotation?.coordinate.latitude, longitude: view.annotation?.coordinate.longitude)
-        guard let selectedMileStone = viewModel.mileStone(at: coordinate)
-        else { return }
 
-        let mileStonePhotoViewModel = MileStonePhotoViewModel(mileStone: selectedMileStone)
-        let mileStonePhotoVC = MileStonePhotoViewController(viewModel: mileStonePhotoViewModel)
-        mileStonePhotoVC.viewModel = mileStonePhotoViewModel
-        mileStonePhotoVC.delegate = self
+        viewModel.mileStone(at: coordinate)
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe { [weak self] value in
+                guard let self = self,
+                      let element = value.element,
+                      let selectedMileStone = element
+                else { return }
 
-        present(mileStonePhotoVC, animated: true, completion: nil)
+                let milestonePhotoViewModel = MilestonePhotoViewModel(milestone: selectedMileStone)
+                let milestonePhotoVC = MilestonePhotoViewController(viewModel: milestonePhotoViewModel)
+                milestonePhotoVC.viewModel = milestonePhotoViewModel
+                milestonePhotoVC.delegate = self
+
+                self.present(milestonePhotoVC, animated: true, completion: nil)
+            }.disposed(by: disposeBag)
     }
 }
 
@@ -569,10 +606,10 @@ extension TrackingProgressViewController: UIImagePickerControllerDelegate & UINa
                   let imageData = image.pngData()
             else { return }
 
-            let mileStone = MileStone(latitude: currentLatitude,
+            let milestone = Milestone(latitude: currentLatitude,
                                       longitude: currentLongitude,
                                       imageData: imageData)
-            viewModel.append(milestone: mileStone)
+            viewModel.addMilestones.onNext([milestone])
         }
         picker.dismiss(animated: true, completion: nil)
     }
@@ -605,10 +642,6 @@ extension TrackingProgressViewController: UITextViewDelegate {
         }
         rightButton.isHidden = false
     }
-
-    func textViewDidChangeSelection(_ textView: UITextView) {
-        viewModel.write(content: textView.text)
-    }
 }
 
 // MARK: text field delegate
@@ -617,30 +650,21 @@ extension TrackingProgressViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
-
-    func textFieldDidChangeSelection(_ textField: UITextField) {
-        guard let title = textField.text
-        else { return }
-        viewModel.write(title: title)
-    }
-
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        rightButton.isHidden = true
-    }
-
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        rightButton.isHidden = false
-    }
 }
 
 // MARK: mile stone photo view controller delegate
-extension TrackingProgressViewController: MileStonePhotoViewControllerDelegate {
-    func delete(mileStone: MileStone) {
-        if let _ = viewModel.remove(of: mileStone), mapView.removeMileStoneAnnotation(of: mileStone) {
-            let title = "삭제 완료"
-            let message = "마일스톤을 삭제했어요"
-            let alertViewController = UIAlertController.simpleAlert(title: title, message: message)
-            present(alertViewController, animated: true)
-        }
+extension TrackingProgressViewController: MilestonePhotoViewControllerDelegate {
+    func delete(milestone: Milestone) {
+        viewModel.remove(of: milestone)
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe { value in
+                if let value = value.element,
+                    value && self.mapView.removeMilestoneAnnotation(of: milestone) {
+                    let title = "삭제 완료"
+                    let message = "마일스톤을 삭제했어요"
+                    let alertViewController: UIAlertController = .simpleAlert(title: title, message: message)
+                    self.present(alertViewController, animated: true)
+                }
+            }.disposed(by: disposeBag)
     }
 }

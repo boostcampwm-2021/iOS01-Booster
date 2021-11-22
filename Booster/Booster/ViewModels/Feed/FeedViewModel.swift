@@ -27,11 +27,11 @@ final class FeedViewModel {
                                         isEmpty: isEmpty))
     }
 
-    private(set) var list = BehaviorRelay<[FeedList]>(value: [])
+    private let disposeBag = DisposeBag()
     private let usecase: FeedUseCase
+    private(set) var list = BehaviorRelay<[FeedList]>(value: [])
     let next = PublishSubject<Date>()
     let select = PublishSubject<IndexPath>()
-    let disposeBag = DisposeBag()
 
     init() {
         usecase = FeedUseCase()
@@ -53,7 +53,9 @@ final class FeedViewModel {
 
     func fetch() {
         usecase.fetch()
-            .subscribe(onNext: { [weak self] values in
+            .map { (values) -> [FeedList] in
+                return values.reversed()
+            }.subscribe(onNext: { [weak self] values in
                 self?.list.accept(values)
             }, onError: { [weak self] _ in
                 self?.list.accept([])

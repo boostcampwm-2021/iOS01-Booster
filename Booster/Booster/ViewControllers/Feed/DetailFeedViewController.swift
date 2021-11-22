@@ -105,9 +105,9 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
         contentTextView.text = value.content
         createPolyLine(points: points, meter: value.distance)
 
-        for mileStone in value.milestones {
-            guard let latitude = mileStone.coordinate.latitude,
-                  let longitude = mileStone.coordinate.longitude
+        for milestone in value.milestones {
+            guard let latitude = milestone.coordinate.latitude,
+                  let longitude = milestone.coordinate.longitude
             else { continue }
 
             addAnnotation(type: .milestone,
@@ -158,7 +158,7 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
         mapView.addAnnotation(annotation)
     }
 
-    private func removeMileStoneAnnotation(of mileStone: MileStone) -> Bool {
+    private func removeMileStoneAnnotation(of mileStone: Milestone) -> Bool {
         guard let annotation = mapView.annotations.first(where: {
             let coordinate = Coordinate(latitude: $0.coordinate.latitude, longitude: $0.coordinate.longitude)
             return coordinate == mileStone.coordinate
@@ -198,7 +198,7 @@ extension DetailFeedViewController: MKMapViewDelegate {
                 return annotationView
             } else {
                 guard let newAnnotationView = UINib(nibName: NibName.photoAnnotationView, bundle: nil).instantiate(withOwner: self, options: nil).first as? PhotoAnnotationView,
-                      let mileStone = viewModel.mileStone(at: coordinate)
+                      let mileStone = viewModel.milestone(at: coordinate)
                 else { return nil }
 
                 newAnnotationView.canShowCallout = false
@@ -226,22 +226,22 @@ extension DetailFeedViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
          mapView.deselectAnnotation(view.annotation, animated: false)
         let coordinate = Coordinate(latitude: view.annotation?.coordinate.latitude, longitude: view.annotation?.coordinate.longitude)
-        guard let selectedMileStone = viewModel.mileStone(at: coordinate)
+        guard let selectedMileStone = viewModel.milestone(at: coordinate)
         else { return }
 
-        let mileStonePhotoViewModel = MileStonePhotoViewModel(mileStone: selectedMileStone)
-        let mileStonePhotoViewController = MileStonePhotoViewController(viewModel: mileStonePhotoViewModel)
-        mileStonePhotoViewController.viewModel = mileStonePhotoViewModel
-        mileStonePhotoViewController.delegate = self
+        let milestonePhotoViewModel = MilestonePhotoViewModel(milestone: selectedMileStone)
+        let milestonePhotoViewController = MilestonePhotoViewController(viewModel: milestonePhotoViewModel)
+        milestonePhotoViewController.viewModel = milestonePhotoViewModel
+        milestonePhotoViewController.delegate = self
 
-        present(mileStonePhotoViewController, animated: true, completion: nil)
+        present(milestonePhotoViewController, animated: true, completion: nil)
     }
 }
 
 // MARK: - MileStone Delete Completed
-extension DetailFeedViewController: MileStonePhotoViewControllerDelegate {
-    func delete(mileStone: MileStone) {
-        if let _ = viewModel.remove(of: mileStone), removeMileStoneAnnotation(of: mileStone) {
+extension DetailFeedViewController: MilestonePhotoViewControllerDelegate {
+    func delete(milestone: Milestone) {
+        if let _ = viewModel.remove(of: milestone), removeMileStoneAnnotation(of: milestone) {
             let title = "삭제 완료"
             let message = "마일스톤을 삭제했어요"
             let alertViewController = UIAlertController.simpleAlert(title: title, message: message)

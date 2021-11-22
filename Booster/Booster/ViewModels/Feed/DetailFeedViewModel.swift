@@ -30,7 +30,7 @@ final class DetailFeedViewModel {
         }
     }
 
-    func mileStone(at coordinate: Coordinate) -> MileStone? {
+    func milestone(at coordinate: Coordinate) -> Milestone? {
         let target = trackingModel.value.milestones.first(where: { (value) in
             return value.coordinate == coordinate
         })
@@ -38,8 +38,8 @@ final class DetailFeedViewModel {
         return target
     }
 
-    func remove(of mileStone: MileStone) -> MileStone? {
-        guard let index = trackingModel.value.milestones.firstIndex(of: mileStone)
+    func remove(of milestone: Milestone) -> Milestone? {
+        guard let index = trackingModel.value.milestones.firstIndex(of: milestone)
         else { return nil }
 
         return trackingModel.value.milestones.remove(at: index)

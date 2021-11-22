@@ -12,6 +12,7 @@ extension User {
     @NSManaged public var height: Int64
     @NSManaged public var nickname: String?
     @NSManaged public var weight: Int64
+    @NSManaged public var goal: Int64
 
 }
 

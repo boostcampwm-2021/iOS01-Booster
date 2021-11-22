@@ -1,5 +1,7 @@
 import Foundation
 import CoreLocation
+import RxSwift
+import RxRelay
 
 final class TrackingProgressViewModel {
     enum TrackingState {
@@ -8,132 +10,77 @@ final class TrackingProgressViewModel {
         case end
     }
 
+    let title = PublishSubject<String>()
+    let content = PublishSubject<String>()
+    let imageData = PublishSubject<Data>()
+    let seconds = PublishSubject<Int>()
+    let steps = PublishSubject<Int>()
+    let distance = PublishSubject<Double>()
+    let saveResult = PublishSubject<Error?>()
+    let coordinates = PublishSubject<[Coordinate]>()
+    let addMilestones = PublishSubject<[Milestone]>()
+    private let disposeBag = DisposeBag()
     private let trackingUsecase: TrackingProgressUsecase
-    private(set) var trackingModel: BoosterObservable<TrackingModel>
-    private(set) var milestones: BoosterObservable<[MileStone]>
-    private(set) var user: UserInfo
-    private(set) var state: TrackingState
+    private(set) var tracking = BehaviorRelay<TrackingModel>(value: TrackingModel())
+    private(set) var user =  BehaviorRelay<UserInfo>(value: UserInfo())
+    private(set) var state = BehaviorRelay<TrackingState>(value: .start)
 
-    init(trackingModel: TrackingModel = TrackingModel(), user: UserInfo = UserInfo()) {
+    init() {
         trackingUsecase = TrackingProgressUsecase()
-        self.trackingModel = BoosterObservable(trackingModel)
-        self.milestones = BoosterObservable([MileStone]())
-        self.user = user
-        state = .start
         fetchUserInfo()
-    }
-
-    func append(coordinate: Coordinate) {
-        trackingModel.value.coordinates.append(coordinate)
-    }
-
-    func append(milestone: MileStone) {
-        milestones.value.append(milestone)
-    }
-
-    func appends(coordinates: [Coordinate]) {
-        trackingModel.value.coordinates.append(contentsOf: coordinates)
-    }
-
-    func appends(milestones: [MileStone]) {
-        self.milestones.value.append(contentsOf: milestones)
-    }
-
-    func recordEnd() {
-        trackingModel.value.endDate = Date()
-        trackingModel.value.milestones = milestones.value
-        state = .end
-
-        trackingUsecase.save(count: Double(trackingModel.value.steps),
-                             start: trackingModel.value.startDate,
-                             end: trackingModel.value.endDate ?? Date(),
-                             quantity: .steps,
-                             unit: .count)
-        trackingUsecase.save(count: trackingModel.value.distance / 1000,
-                             start: trackingModel.value.startDate,
-                             end: trackingModel.value.endDate ?? Date(),
-                             quantity: .runing,
-                             unit: .kilometer)
-        trackingUsecase.save(count: Double(trackingModel.value.calories),
-                             start: trackingModel.value.startDate,
-                             end: trackingModel.value.endDate ?? Date(),
-                             quantity: .energy,
-                             unit: .calorie)
-    }
-
-    func write(title: String) {
-        trackingModel.value.title = title
-    }
-
-    func write(content: String) {
-        trackingModel.value.content = content
-    }
-
-    func update(imageData: Data) {
-        trackingModel.value.imageData = imageData
-    }
-
-    func update(seconds: Int) {
-        trackingModel.value.seconds = seconds
-    }
-
-    func update(steps: Int) {
-        trackingModel.value.steps = steps
-    }
-
-    func update(distance: Double) {
-        let met: Double = 4.8
-        let perHourDistance = 5.6 * 1000
-
-        trackingModel.value.distance += distance
-        trackingModel.value.calories = Int(met * Double(user.weight) * (trackingModel.value.distance / perHourDistance))
-    }
-
-    func toggle() {
-        state = state == .start ? .pause : .start
-        if state == .pause { trackingModel.value.coordinates.append(Coordinate(latitude: nil, longitude: nil))}
-    }
-
-    func coordinates() -> [Coordinate] {
-        return trackingModel.value.coordinates
+        bind()
     }
 
     func latestCoordinate() -> Coordinate? {
-        guard let latestCoordinate = trackingModel.value.coordinates.last
+        guard let latestCoordinate: Coordinate = tracking.value.coordinates.last
         else { return nil }
 
         return latestCoordinate
     }
 
     func startCoordinate() -> Coordinate? {
-        guard let startCoordinate = trackingModel.value.coordinates.first
+        guard let startCoordinate: Coordinate = tracking.value.coordinates.first
         else { return nil }
 
         return startCoordinate
     }
 
-    func save(completion handler: @escaping (TrackingError?) -> Void) {
-        convert()
-        trackingUsecase.save(model: trackingModel.value) { error in
-            handler(error)
+    func save() {
+        return trackingUsecase.save(model: self.tracking.value)
+            .subscribe(onNext: {
+                self.saveResult.onNext(nil)
+            }, onError: { error in
+                self.saveResult.onNext(error)
+            }).disposed(by: disposeBag)
+    }
+
+    func mileStone(at coordinate: Coordinate) -> Observable<Milestone?> {
+        return Observable.create { observable in
+            let target = self.tracking.value.milestones.first(where: { (value) in
+                return value.coordinate == coordinate
+            })
+
+            observable.onNext(target)
+
+            return Disposables.create()
         }
     }
 
-    func mileStone(at coordinate: Coordinate) -> MileStone? {
-        let target = milestones.value.first(where: { (value) in
-            return value.coordinate == coordinate
-        })
+    func remove(of mileStone: Milestone) -> Observable<Bool> {
+        return Observable.create { observable in
+            var tracking = self.tracking.value
 
-        return target
-    }
+            if let index = self.tracking.value.milestones.firstIndex(of: mileStone) {
+                tracking.milestones.remove(at: index)
+                self.tracking.accept(tracking)
 
-    func isMileStoneExistAt(latitude: Double, longitude: Double) -> Bool {
-        let coordinate = Coordinate(latitude: latitude, longitude: longitude)
-        for value in milestones.value {
-            if value.coordinate == coordinate { return true }
+                observable.onNext(true)
+            } else {
+                observable.onNext(false)
+            }
+
+            return Disposables.create()
         }
-
-        return false
     }
 
     func centerCoordinateOfPath() -> CLLocationCoordinate2D? {
@@ -147,7 +94,7 @@ final class TrackingProgressViewModel {
         var maxLong: Double = startLong
         var minLong: Double = startLong
 
-        trackingModel.value.coordinates.forEach { (coordinate) in
+        tracking.value.coordinates.forEach { (coordinate) in
             guard let latValue = coordinate.latitude,
                   let longValue = coordinate.longitude
             else { return }
@@ -163,31 +110,123 @@ final class TrackingProgressViewModel {
         return CLLocationCoordinate2D(latitude: midLat, longitude: midLong)
     }
 
-    func remove(of mileStone: MileStone) -> MileStone? {
-        guard let index = milestones.value.firstIndex(of: mileStone)
-        else { return nil }
+    private func bind() {
+        coordinates.map { (values) -> [Coordinate] in
+            var coordinates = self.tracking.value.coordinates
+            coordinates += values
+            return coordinates
+        }.bind { [weak self] values in
+            guard let self = self
+            else { return }
 
-        return milestones.value.remove(at: index)
-    }
+            var tracking = self.tracking.value
+            tracking.coordinates = values
+            self.tracking.accept(tracking)
+        }.disposed(by: disposeBag)
 
-    func distance() -> Double {
-        return trackingModel.value.distance
+        addMilestones.map { (values) -> [Milestone] in
+            var milestones = self.tracking.value.milestones
+            milestones += values
+            return milestones
+        }.bind { [weak self] values in
+            guard let self = self
+            else { return }
+
+            var tracking = self.tracking.value
+            tracking.milestones = values
+            self.tracking.accept(tracking)
+        }.disposed(by: disposeBag)
+
+        state.filter {
+            $0 == .end
+        }.map { [weak self] (_) -> TrackingModel in
+            guard let self = self
+            else { return TrackingModel() }
+
+            var tracking = self.tracking.value
+            tracking.endDate = Date()
+            self.tracking.accept(tracking)
+            return tracking
+        }.bind { [weak self] tracking in
+            self?.trackingUsecase.save(count: Double(tracking.steps),
+                                 start: tracking.startDate,
+                                 end: tracking.endDate ?? Date(),
+                                 quantity: .steps,
+                                 unit: .count)
+            self?.trackingUsecase.save(count: tracking.distance / 1000,
+                                 start: tracking.startDate,
+                                 end: tracking.endDate ?? Date(),
+                                 quantity: .runing,
+                                 unit: .kilometer)
+            self?.trackingUsecase.save(count: Double(tracking.calories),
+                                 start: tracking.startDate,
+                                 end: tracking.endDate ?? Date(),
+                                 quantity: .energy,
+                                 unit: .calorie)
+        }.disposed(by: disposeBag)
+
+        title.bind { [weak self] value in
+            guard let self = self
+            else { return }
+
+            var tracking = self.tracking.value
+            tracking.title = value
+            self.tracking.accept(tracking)
+        }.disposed(by: disposeBag)
+
+        content.bind { [weak self] value in
+            guard let self = self
+            else { return }
+
+            var tracking = self.tracking.value
+            tracking.content = value
+            self.tracking.accept(tracking)
+        }.disposed(by: disposeBag)
+
+        imageData.bind { value in
+            var tracking = self.tracking.value
+            tracking.imageData = value
+            self.tracking.accept(tracking)
+        }.disposed(by: disposeBag)
+
+        seconds.bind { [weak self] value in
+            guard let self = self
+            else { return }
+
+            var tracking = self.tracking.value
+            tracking.seconds = value
+            self.tracking.accept(tracking)
+        }.disposed(by: disposeBag)
+
+        steps.bind { [weak self] value in
+            guard let self = self
+            else { return }
+
+            var tracking = self.tracking.value
+
+            tracking.steps = value
+            self.tracking.accept(tracking)
+        }.disposed(by: disposeBag)
+
+        distance.bind { [weak self] value in
+            guard let self = self
+            else { return }
+
+            var tracking = self.tracking.value
+            let met: Double = 4.8
+            let perHourDistance = 5.6 * 1000
+
+            tracking.distance += value
+            tracking.calories = Int(met * Double(self.user.value.weight) * (tracking.distance / perHourDistance))
+
+            self.tracking.accept(tracking)
+        }.disposed(by: disposeBag)
     }
 
     private func fetchUserInfo() {
-        trackingUsecase.fetch { value in
-            guard let value = value
-            else { return }
-
-            self.user = value
-        }
-    }
-
-    private func convert() {
-        let meter = trackingModel.value.distance
-
-        if let kilometer = Double(String(format: "%.2f", meter/1000)) {
-            trackingModel.value.distance = kilometer
-        }
+        trackingUsecase.fetch()
+            .subscribe { [weak self] value in
+                self?.user.accept(value)
+            }.disposed(by: disposeBag)
     }
 }
