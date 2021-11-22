@@ -65,7 +65,7 @@ extension FeedCell: ConfigurableCell {
         }
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko_KR")
-        dateFormatter.dateFormat = "yyyyMMDD"
+        dateFormatter.dateFormat = "yyMMdd"
 
         dateLabel.text = dateFormatter.string(from: data.date)
         distanceLabel.text = "\(data.distance)\nkm"
