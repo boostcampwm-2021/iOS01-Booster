@@ -30,27 +30,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZAm-ew-NSH">
-                                <rect key="frame" x="30" y="52" width="104" height="109.5"/>
+                                <rect key="frame" x="30" y="52" width="104" height="120.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="27F-et-NsW">
-                                        <rect key="frame" x="0.0" y="0.0" width="104" height="36"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="104" height="41"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="50H-vW-Ism">
-                                                <rect key="frame" x="0.0" y="0.0" width="30" height="36"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="30" height="41"/>
                                                 <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="20"/>
                                                 <color key="tintColor" name="boosterLabel"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="주"/>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="who-he-Jct">
-                                                <rect key="frame" x="37" y="0.0" width="30" height="36"/>
+                                                <rect key="frame" x="37" y="0.0" width="30" height="41"/>
                                                 <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="20"/>
                                                 <color key="tintColor" name="boosterGray"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="월"/>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HAj-Sc-TRH">
-                                                <rect key="frame" x="74" y="0.0" width="30" height="36"/>
+                                                <rect key="frame" x="74" y="0.0" width="30" height="41"/>
                                                 <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="20"/>
                                                 <color key="tintColor" name="boosterGray"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -59,23 +59,23 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="일일 평균" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FfD-j0-uiq">
-                                        <rect key="frame" x="0.0" y="44" width="64" height="20"/>
+                                        <rect key="frame" x="0.0" y="49" width="67.5" height="25"/>
                                         <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="17"/>
                                         <color key="textColor" name="boosterLabel"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="9Wi-hC-aXw">
-                                        <rect key="frame" x="0.0" y="72" width="51.5" height="37.5"/>
+                                        <rect key="frame" x="0.0" y="82" width="57" height="38.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Uo-QT-eJ9">
-                                                <rect key="frame" x="0.0" y="0.0" width="18" height="37.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="21.5" height="38.5"/>
                                                 <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="8" bottom="8" trailing="8"/>
                                                 <fontDescription key="fontDescription" name="Bazaronite" family="Bazaronite" pointSize="32"/>
                                                 <color key="textColor" red="0.99945467710000002" green="0.35899436470000001" blue="0.0083832461389999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="걸음" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EuO-6g-Jhj">
-                                                <rect key="frame" x="22" y="0.0" width="29.5" height="37.5"/>
+                                                <rect key="frame" x="25.5" y="0.0" width="31.5" height="38.5"/>
                                                 <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="17"/>
                                                 <color key="textColor" name="boosterLabel"/>
                                                 <nil key="highlightedColor"/>
@@ -85,37 +85,23 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zT5-Yx-3KO">
-                                <rect key="frame" x="30" y="156.5" width="37" height="17.5"/>
+                                <rect key="frame" x="30" y="167.5" width="37.5" height="22"/>
                                 <color key="tintColor" systemColor="tintColor"/>
                                 <fontDescription key="fontDescription" name="NotoSansKR-Light" family="Noto Sans KR" pointSize="15"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vFG-gS-Dc3" customClass="ChartView" customModule="Booster" customModuleProvider="target">
-                                <rect key="frame" x="20" y="224" width="374" height="589"/>
+                                <rect key="frame" x="20" y="194.5" width="374" height="618.5"/>
                                 <color key="backgroundColor" name="boosterBackground"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yd7-Vs-Ta6" userLabel="DescriptionIntervalLabel">
-                                <rect key="frame" x="187" y="200" width="41.5" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="15"/>
-                                <color key="textColor" name="boosterLabel"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1MO-Fa-Fmo" userLabel="DescriptionStepLabel">
-                                <rect key="frame" x="187" y="219" width="41.5" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="15"/>
-                                <color key="textColor" name="boosterLabel"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" name="boosterBackground"/>
                         <constraints>
                             <constraint firstItem="vFG-gS-Dc3" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" constant="20" id="04p-NS-IsF"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="vFG-gS-Dc3" secondAttribute="bottom" id="9UJ-an-SMe"/>
-                            <constraint firstItem="vFG-gS-Dc3" firstAttribute="top" secondItem="zT5-Yx-3KO" secondAttribute="bottom" constant="50" id="F0G-sp-OTz"/>
+                            <constraint firstItem="vFG-gS-Dc3" firstAttribute="top" secondItem="zT5-Yx-3KO" secondAttribute="bottom" constant="5" id="F0G-sp-OTz"/>
                             <constraint firstItem="zT5-Yx-3KO" firstAttribute="top" secondItem="ZAm-ew-NSH" secondAttribute="bottom" constant="-5" id="GA5-ur-PUW"/>
                             <constraint firstAttribute="trailing" secondItem="vFG-gS-Dc3" secondAttribute="trailing" constant="20" id="Qz2-Ek-Vjn"/>
                             <constraint firstItem="ZAm-ew-NSH" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="8" id="c6B-VR-NJn"/>
@@ -130,9 +116,7 @@
                         <outlet property="chartView" destination="vFG-gS-Dc3" id="83x-cr-5mQ"/>
                         <outlet property="dateLabel" destination="zT5-Yx-3KO" id="cni-zl-DAE"/>
                         <outlet property="durationLabel" destination="FfD-j0-uiq" id="I6j-M6-IP2"/>
-                        <outlet property="intervalLabel" destination="Yd7-Vs-Ta6" id="4iI-Gy-uiw"/>
                         <outlet property="monthButton" destination="who-he-Jct" id="PvU-15-LJ6"/>
-                        <outlet property="stepCountLabel" destination="1MO-Fa-Fmo" id="Fwn-6d-H3x"/>
                         <outlet property="weekButton" destination="50H-vW-Ism" id="MTt-d9-ehj"/>
                         <outlet property="yearButton" destination="HAj-Sc-TRH" id="sPa-8y-chn"/>
                     </connections>
