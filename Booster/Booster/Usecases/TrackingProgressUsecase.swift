@@ -15,17 +15,18 @@ final class TrackingProgressUsecase {
     }
 
     private enum CoreDataKeys {
-        static let startDate: String = "startDate"
-        static let endDate: String = "endDate"
-        static let steps: String = "steps"
-        static let calories: String = "calories"
-        static let seconds: String = "seconds"
-        static let distance: String = "distance"
-        static let coordinates: String = "coordinates"
-        static let milestones: String = "milestones"
-        static let title: String = "title"
-        static let content: String = "content"
-        static let imageData: String = "imageData"
+        static let startDate = "startDate"
+        static let endDate = "endDate"
+        static let steps = "steps"
+        static let calories = "calories"
+        static let seconds = "seconds"
+        static let distance = "distance"
+        static let coordinates = "coordinates"
+        static let milestones = "milestones"
+        static let title = "title"
+        static let content = "content"
+        static let imageData = "imageData"
+        static let address = "address"
     }
 
     let disposeBag = DisposeBag()
@@ -54,7 +55,8 @@ final class TrackingProgressUsecase {
             CoreDataKeys.milestones: milestones,
             CoreDataKeys.title: model.title,
             CoreDataKeys.content: model.content,
-            CoreDataKeys.imageData: model.imageData
+            CoreDataKeys.imageData: model.imageData,
+            CoreDataKeys.address: model.address
         ]
 
         return CoreDataManager.shared.save(value: value, type: entity)

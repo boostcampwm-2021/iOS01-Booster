@@ -15,6 +15,7 @@ final class EnrollUsecase {
         static let height = "height"
         static let nickname = "nickname"
         static let weight = "weight"
+        static let goal = "goal"
     }
 
     private let disposeBag: DisposeBag
@@ -32,7 +33,8 @@ final class EnrollUsecase {
             CoreDataKeys.gender: info.gender,
             CoreDataKeys.height: info.height,
             CoreDataKeys.nickname: info.nickname,
-            CoreDataKeys.weight: info.weight
+            CoreDataKeys.weight: info.weight,
+            CoreDataKeys.goal: info.goal
         ]
 
         return CoreDataManager.shared.save(value: value, type: type)
