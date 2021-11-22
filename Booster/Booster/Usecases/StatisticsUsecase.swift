@@ -33,6 +33,9 @@ final class StatisticsUsecase {
                                                                        predicate: predicate,
                                                                        interval: interval,
                                                                        anchorDate: anchorDate) { hkStatisticsCollection in
+                guard let startDate = hkStatisticsCollection.statistics().first?.startDate,
+                      let anchorDate = hkStatisticsCollection.statistics().last?.endDate
+                else { return }
 
                 let durationString = self.configureDurationString(startDate: startDate, endDate: anchorDate)
 
@@ -40,10 +43,10 @@ final class StatisticsUsecase {
 
                 hkStatisticsCollection.enumerateStatistics(from: startDate, to: anchorDate) { (statistics, _) in
                     guard let quantity = statistics.sumQuantity(),
-                          let startDate = calendar.date(byAdding: .day, value: 1, to: statistics.startDate)
+                          let endDate = calendar.date(byAdding: .day, value: -1, to: statistics.endDate)
                     else { return }
 
-                    let endDate = statistics.endDate
+                    let startDate = statistics.startDate
 
                     let step = Int(quantity.doubleValue(for: .count()))
                     let intervalString = self.configureIntervalString(startDate: startDate, endDate: endDate)
@@ -64,6 +67,12 @@ final class StatisticsUsecase {
     }
 
     private func configureDurationString(startDate: Date, endDate: Date) -> String {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.locale = Locale(identifier: "ko_KR")
+
+        guard let endDate = calendar.date(byAdding: .day, value: -1, to: endDate)
+        else { return String() }
+
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko_KR")
         dateFormatter.dateFormat = "yyyy년 MM월 dd일"
