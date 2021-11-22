@@ -11,7 +11,7 @@ final class NotificationSettingViewController: UIViewController {
     // MARK: - @IBOutlet
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var subTitleLabel: UILabel!
-    @IBOutlet var notificationImageView: UIImageView!
+    @IBOutlet private weak var notificationImageView: UIImageView!
     @IBOutlet private weak var onOffButton: UIButton!
 
     // MARK: - Properties
