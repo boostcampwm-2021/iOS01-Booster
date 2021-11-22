@@ -108,6 +108,7 @@ class TrackingMapView: MKMapView {
 
             context.setLineWidth(pathLineWidth)
             context.setStrokeColor(UIColor.boosterOrange.cgColor)
+            context.setLineCap(.round)
 
             var prevCoordinate: Coordinate? = self?.startCoordinate(coordinates: coordinates)
             guard let startLatitude = prevCoordinate?.latitude,
