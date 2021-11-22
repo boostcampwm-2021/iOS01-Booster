@@ -7,10 +7,10 @@
 
 import Foundation
 
-final class MileStonePhotoViewModel {
-    let mileStone: MileStone
+final class MilestonePhotoViewModel {
+    let milestone: Milestone
 
-    init(mileStone: MileStone) {
-        self.mileStone = mileStone
+    init(milestone: Milestone) {
+        self.milestone = milestone
     }
 }

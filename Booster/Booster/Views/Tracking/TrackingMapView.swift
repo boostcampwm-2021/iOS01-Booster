@@ -16,7 +16,7 @@ class TrackingMapView: MKMapView {
         configure()
     }
 
-    func addMileStoneAnnotation(on coordinate: CLLocationCoordinate2D) -> Bool {
+    func addMilestoneAnnotation(on coordinate: CLLocationCoordinate2D) -> Bool {
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
         annotation.title = "milestone"
@@ -25,7 +25,7 @@ class TrackingMapView: MKMapView {
         return true
     }
 
-    func addMileStoneAnnotation(latitude lat: CLLocationDegrees, longitude long: CLLocationDegrees) {
+    func addMilestoneAnnotation(latitude lat: CLLocationDegrees, longitude long: CLLocationDegrees) {
         let annotation = MKPointAnnotation()
         annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
         annotation.title = "milestone"
@@ -33,7 +33,7 @@ class TrackingMapView: MKMapView {
         addAnnotation(annotation)
     }
 
-    func removeMileStoneAnnotation(of mileStone: MileStone) -> Bool {
+    func removeMilestoneAnnotation(of mileStone: Milestone) -> Bool {
         guard let annotation = annotations.first(where: {
             let coordinate = Coordinate(latitude: $0.coordinate.latitude, longitude: $0.coordinate.longitude)
 

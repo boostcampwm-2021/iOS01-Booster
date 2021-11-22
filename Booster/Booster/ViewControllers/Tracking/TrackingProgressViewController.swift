@@ -235,10 +235,10 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
                             guard let element = value.element, let _ = element
                             else {
                                 #if targetEnvironment(simulator)
-                                let mileStone = MileStone(latitude: currentLatitude,
+                                let milestone = Milestone(latitude: currentLatitude,
                                                           longitude: currentLongitude,
                                                           imageData: imageData)
-                                self?.viewModel.addMilestones.onNext([mileStone])
+                                self?.viewModel.addMilestones.onNext([milestone])
                                 #else
                                 self?.present(self?.imagePickerController ?? UIImagePickerController(), animated: true)
                                 #endif
@@ -290,7 +290,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
                   let latitude = milestone.coordinate.latitude,
                   let longitude = milestone.coordinate.longitude
             else { return }
-            self?.mapView.addMileStoneAnnotation(latitude: latitude, longitude: longitude)
+            self?.mapView.addMilestoneAnnotation(latitude: latitude, longitude: longitude)
         }.disposed(by: disposeBag)
 
         viewModel.saveResult
@@ -588,12 +588,12 @@ extension TrackingProgressViewController: MKMapViewDelegate {
                       let selectedMileStone = element
                 else { return }
 
-                let mileStonePhotoViewModel = MileStonePhotoViewModel(mileStone: selectedMileStone)
-                let mileStonePhotoVC = MileStonePhotoViewController(viewModel: mileStonePhotoViewModel)
-                mileStonePhotoVC.viewModel = mileStonePhotoViewModel
-                mileStonePhotoVC.delegate = self
+                let milestonePhotoViewModel = MilestonePhotoViewModel(milestone: selectedMileStone)
+                let milestonePhotoVC = MilestonePhotoViewController(viewModel: milestonePhotoViewModel)
+                milestonePhotoVC.viewModel = milestonePhotoViewModel
+                milestonePhotoVC.delegate = self
 
-                self.present(mileStonePhotoVC, animated: true, completion: nil)
+                self.present(milestonePhotoVC, animated: true, completion: nil)
             }.disposed(by: disposeBag)
     }
 }
@@ -606,10 +606,10 @@ extension TrackingProgressViewController: UIImagePickerControllerDelegate & UINa
                   let imageData = image.pngData()
             else { return }
 
-            let mileStone = MileStone(latitude: currentLatitude,
+            let milestone = Milestone(latitude: currentLatitude,
                                       longitude: currentLongitude,
                                       imageData: imageData)
-            viewModel.addMilestones.onNext([mileStone])
+            viewModel.addMilestones.onNext([milestone])
         }
         picker.dismiss(animated: true, completion: nil)
     }
@@ -653,13 +653,13 @@ extension TrackingProgressViewController: UITextFieldDelegate {
 }
 
 // MARK: mile stone photo view controller delegate
-extension TrackingProgressViewController: MileStonePhotoViewControllerDelegate {
-    func delete(mileStone: MileStone) {
-        viewModel.remove(of: mileStone)
+extension TrackingProgressViewController: MilestonePhotoViewControllerDelegate {
+    func delete(milestone: Milestone) {
+        viewModel.remove(of: milestone)
             .observe(on: MainScheduler.asyncInstance)
             .subscribe { value in
                 if let value = value.element,
-                    value && self.mapView.removeMileStoneAnnotation(of: mileStone) {
+                    value && self.mapView.removeMilestoneAnnotation(of: milestone) {
                     let title = "삭제 완료"
                     let message = "마일스톤을 삭제했어요"
                     let alertViewController: UIAlertController = .simpleAlert(title: title, message: message)

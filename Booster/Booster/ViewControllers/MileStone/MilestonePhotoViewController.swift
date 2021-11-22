@@ -7,22 +7,22 @@
 
 import UIKit
 
-protocol MileStonePhotoViewControllerDelegate: AnyObject {
-    func delete(mileStone: MileStone)
+protocol MilestonePhotoViewControllerDelegate: AnyObject {
+    func delete(milestone: Milestone)
 }
 
-class MileStonePhotoViewController: UIViewController, BaseViewControllerTemplate {
-    typealias ViewModelType = MileStonePhotoViewModel
+class MilestonePhotoViewController: UIViewController, BaseViewControllerTemplate {
+    typealias ViewModelType = MilestonePhotoViewModel
 
     // MARK: - Properties
-    weak var delegate: MileStonePhotoViewControllerDelegate?
-    var viewModel: MileStonePhotoViewModel = MileStonePhotoViewModel(mileStone: MileStone())
+    weak var delegate: MilestonePhotoViewControllerDelegate?
+    var viewModel: MilestonePhotoViewModel = MilestonePhotoViewModel(milestone: Milestone())
     private lazy var mileStonePhotoImageView: UIImageView = {
         let imageView = UIImageView(frame: CGRect(x: 0,
                                                   y: 0,
                                                   width: view.frame.width,
                                                   height: view.frame.height))
-        imageView.image = UIImage(data: viewModel.mileStone.imageData)
+        imageView.image = UIImage(data: viewModel.milestone.imageData)
         imageView.contentMode = .scaleAspectFit
 
         return imageView
@@ -44,7 +44,7 @@ class MileStonePhotoViewController: UIViewController, BaseViewControllerTemplate
     }()
 
     // MARK: - Init
-    init(viewModel: MileStonePhotoViewModel) {
+    init(viewModel: MilestonePhotoViewModel) {
         super.init(nibName: nil, bundle: nil)
 
         self.viewModel = viewModel
@@ -66,7 +66,7 @@ class MileStonePhotoViewController: UIViewController, BaseViewControllerTemplate
     // MARK: - @objc
     @objc private func deleteButtonDidTap(_ sender: Any?) {
         dismiss(animated: true, completion: nil)
-        delegate?.delete(mileStone: viewModel.mileStone)
+        delegate?.delete(milestone: viewModel.milestone)
     }
 
     // MARK: - functions

@@ -18,7 +18,7 @@ final class TrackingProgressViewModel {
     let distance = PublishSubject<Double>()
     let saveResult = PublishSubject<Error?>()
     let coordinates = PublishSubject<[Coordinate]>()
-    let addMilestones = PublishSubject<[MileStone]>()
+    let addMilestones = PublishSubject<[Milestone]>()
     private let disposeBag = DisposeBag()
     private let trackingUsecase: TrackingProgressUsecase
     private(set) var tracking = BehaviorRelay<TrackingModel>(value: TrackingModel())
@@ -54,7 +54,7 @@ final class TrackingProgressViewModel {
             }).disposed(by: disposeBag)
     }
 
-    func mileStone(at coordinate: Coordinate) -> Observable<MileStone?> {
+    func mileStone(at coordinate: Coordinate) -> Observable<Milestone?> {
         return Observable.create { observable in
             let target = self.tracking.value.milestones.first(where: { (value) in
                 return value.coordinate == coordinate
@@ -66,7 +66,7 @@ final class TrackingProgressViewModel {
         }
     }
 
-    func remove(of mileStone: MileStone) -> Observable<Bool> {
+    func remove(of mileStone: Milestone) -> Observable<Bool> {
         return Observable.create { observable in
             var tracking = self.tracking.value
 
@@ -121,7 +121,7 @@ final class TrackingProgressViewModel {
             self.tracking.accept(tracking)
         }.disposed(by: disposeBag)
 
-        addMilestones.map { (values) -> [MileStone] in
+        addMilestones.map { (values) -> [Milestone] in
             var milestones = self.tracking.value.milestones
             milestones += values
             return milestones
