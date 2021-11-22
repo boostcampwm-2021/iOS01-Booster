@@ -117,9 +117,6 @@
                                         <color key="tintColor" red="1" green="0.33152735230000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="pause" catalog="system"/>
-                                        <connections>
-                                            <action selector="rightTouchUp:" destination="1G8-i0-KhG" eventType="touchUpInside" id="kBR-ja-C9v"/>
-                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Qx-5I-QtW">
                                         <rect key="frame" x="50" y="129" width="100" height="100"/>
@@ -132,9 +129,6 @@
                                         <state key="normal">
                                             <imageReference key="image" image="camera" catalog="system" symbolScale="large"/>
                                         </state>
-                                        <connections>
-                                            <action selector="leftTouchUp:" destination="1G8-i0-KhG" eventType="touchUpInside" id="9WO-NE-naW"/>
-                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rf2-h1-ajx">
                                         <rect key="frame" x="141" y="45" width="135" height="0.0"/>

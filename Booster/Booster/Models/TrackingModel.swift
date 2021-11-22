@@ -8,10 +8,11 @@ struct TrackingModel {
     var seconds: Int
     var distance: Double
     var coordinates: [Coordinate]
-    var milestones: [MileStone]
+    var milestones: [Milestone]
     var title: String
     var content: String
     var imageData: Data
+    var address: String
 
     init(startDate: Date = Date(),
          endDate: Date? = nil,
@@ -20,10 +21,11 @@ struct TrackingModel {
          seconds: Int = 0,
          distance: Double = 0,
          coordinates: [Coordinate] = [],
-         milestones: [MileStone] = [],
+         milestones: [Milestone] = [],
          title: String = "",
          content: String = "",
-         imageData: Data = Data()) {
+         imageData: Data = Data(),
+         address: String = "") {
         self.startDate = startDate
         self.steps = steps
         self.calories = calories
@@ -35,5 +37,6 @@ struct TrackingModel {
         self.content = content
         self.imageData = imageData
         self.endDate = nil
+        self.address = address
     }
 }

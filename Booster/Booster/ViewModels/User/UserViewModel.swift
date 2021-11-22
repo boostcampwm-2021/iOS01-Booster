@@ -13,15 +13,11 @@ final class UserViewModel {
     }
 
     private let usecase: UserUsecase
-    private var model: UserInfo
+    private(set) var model: UserInfo
 
     init() {
         usecase = UserUsecase()
         model = UserInfo(age: 25, nickname: "히로롱", gender: "여", height: 164, weight: 80)
-    }
-
-    func nickname() -> String {
-        return model.nickname
     }
 
     func userPhysicalInfo() -> String {

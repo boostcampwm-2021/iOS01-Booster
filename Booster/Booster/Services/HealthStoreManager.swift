@@ -105,14 +105,10 @@ final class HealthStoreManager {
               start: Date,
               end: Date,
               quantity: HealthQuantityType,
-              unit: HealthUnit,
-              completion: @escaping (Error?) -> Void) {
+              unit: HealthUnit) {
         guard let healthStore = healthStore,
                 let type = quantity.quantity
-        else {
-            completion(HealthKitError.optionalCasting)
-            return
-        }
+        else { return }
 
         let unit = unit.unit
         let countQuantity = HKQuantity(unit: unit, doubleValue: count)
@@ -121,14 +117,7 @@ final class HealthStoreManager {
                                       start: start,
                                       end: end)
 
-        healthStore.save(sample) { _, error in
-            guard let error = error
-            else {
-                completion(nil)
-                return
-            }
-            completion(error)
-        }
+        healthStore.save(sample) { _, _ in }
     }
 
     func removeAll(completion: @escaping (Result<Int, Error>) -> Void) {

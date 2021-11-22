@@ -9,10 +9,6 @@ import CoreLocation
 import MapKit
 import UIKit
 
-protocol DetailFeedModelDelegate: AnyObject {
-    func detailFeed(viewModel: DetailFeedViewModel)
-}
-
 final class DetailFeedViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - Enum
     enum AnnotationIdentifier: String {
@@ -32,8 +28,16 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
     @IBOutlet private weak var contentTextView: UITextView!
     @IBOutlet private weak var mapView: MKMapView!
 
-    weak var delegate: DetailFeedModelDelegate?
-    var viewModel = DetailFeedViewModel()
+    var viewModel: DetailFeedViewModel
+
+    init?(coder: NSCoder, start date: Date) {
+        viewModel = DetailFeedViewModel(start: date)
+        super.init(coder: coder)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     private var gradientColors: [UIColor] = []
 
@@ -83,7 +87,6 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
 
     // MARK: - Functions
     func configure() {
-        delegate?.detailFeed(viewModel: viewModel)
         mapView.layer.cornerRadius = mapView.frame.height / 17
         mapView.delegate = self
 
@@ -93,6 +96,8 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
                 self?.configureUI(value: value)
             }
         }
+
+        viewModel.fetchDetailFeedList()
     }
 
     private func configureUI(value: TrackingModel) {
@@ -105,20 +110,21 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
 
         if value.coordinates.count == 0 { return }
 
-        let points = value.coordinates.map { CLLocationCoordinate2DMake($0.latitude ?? 100.0, $0.longitude ?? 200.0) }.filter { $0.latitude != 100.0 && $0.longitude != 200.0 }
+        let points = value.coordinates.map { CLLocationCoordinate2DMake($0.latitude ?? 100.0, $0.longitude ?? 200.0) }
 
         guard let startPoint = points.first
         else { return }
 
         findLocationTitle(coordinate: startPoint)
+
         gradientColors = value.coordinates.map { gradientColorOfCoordinate(at: $0, coordinates: value.coordinates, from: .boosterBackground, to: .boosterOrange) ?? .clear  }
 
         viewModel.reset()
-        createPolyLine(points: points, meter: value.distance)
+        createPolyLine(points: points, meter: value.distance * 1000)
 
-        for mileStone in value.milestones {
-            guard let latitude = mileStone.coordinate.latitude,
-                  let longitude = mileStone.coordinate.longitude
+        for milestone in value.milestones {
+            guard let latitude = milestone.coordinate.latitude,
+                  let longitude = milestone.coordinate.longitude
             else { continue }
 
             addAnnotation(type: .milestone,
@@ -143,34 +149,41 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
     }
 
     private func createPolyLine(points: [CLLocationCoordinate2D], meter: Double) {
+        let centerLocation = configureCenterLocationOfPath(points: points)
+        let meters = meter + 50
+
+        mapView.setRegion(MKCoordinateRegion(center: centerLocation,
+                                             latitudinalMeters: meters,
+                                             longitudinalMeters: meters), animated: false)
+        configureDots(points: points)
+
+        for (index, point) in points.enumerated() {
+            if index == points.count - 1 { break }
+            drawPath(from: point, to: points[index + 1])
+            if points.count == 2 { break }
+        }
+    }
+
+    private func configureCenterLocationOfPath(points: [CLLocationCoordinate2D]) -> CLLocationCoordinate2D {
         let ((minLatitude, maxLatitude), (minLongitude, maxLongitude)) = points.reduce(((90.0, -90.0), (180.0, -180.0))) { next, current in
             ((min(current.latitude, next.0.0), max(current.latitude, next.0.1)), (min(current.longitude, next.1.0), max(current.longitude, next.1.1)))
         }
         let centerLatitude = (minLatitude + maxLatitude) / 2
         let centerLongitude = (minLongitude + maxLongitude) / 2
-        let meters = meter + 50
+        return CLLocationCoordinate2D(latitude: centerLatitude, longitude: centerLongitude)
+    }
 
-        mapView.setRegion(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: centerLatitude, longitude: centerLongitude),
-                                             latitudinalMeters: meters,
-                                             longitudinalMeters: meters), animated: false)
+    private func configureDots(points: [CLLocationCoordinate2D]) {
+        guard let startPoint = points.first,
+              let endPoint = points.last
+        else { return }
 
-        for (index, point) in points.enumerated() {
-            switch index {
-            case 0:
-                addAnnotation(type: .startDot,
-                              point.latitude,
-                              point.longitude)
-            case 1..<points.count - 2:
-                break
-            case points.count - 2:
-                addAnnotation(type: .endDot,
-                              point.latitude,
-                              point.longitude)
-            default:
-                continue
-            }
-            drawPath(from: point, to: points[index + 1])
-        }
+        addAnnotation(type: .startDot,
+                      startPoint.latitude,
+                      startPoint.longitude)
+        addAnnotation(type: .endDot,
+                      endPoint.latitude,
+                      endPoint.longitude)
     }
 
     private func drawPath(from prevCoordinate: CLLocationCoordinate2D?, to currentCoordinate: CLLocationCoordinate2D?) {
@@ -192,7 +205,7 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
         mapView.addAnnotation(annotation)
     }
 
-    private func removeMileStoneAnnotation(of mileStone: MileStone) -> Bool {
+    private func removeMileStoneAnnotation(of mileStone: Milestone) -> Bool {
         guard let annotation = mapView.annotations.first(where: {
             let coordinate = Coordinate(latitude: $0.coordinate.latitude, longitude: $0.coordinate.longitude)
             return coordinate == mileStone.coordinate
@@ -248,7 +261,7 @@ extension DetailFeedViewController: MKMapViewDelegate {
                 return annotationView
             } else {
                 guard let newAnnotationView = UINib(nibName: PhotoAnnotationView.identifier, bundle: nil).instantiate(withOwner: self, options: nil).first as? PhotoAnnotationView,
-                      let mileStone = viewModel.mileStone(at: coordinate)
+                      let mileStone = viewModel.milestone(at: coordinate)
                 else { return nil }
 
                 newAnnotationView.canShowCallout = false
@@ -279,22 +292,22 @@ extension DetailFeedViewController: MKMapViewDelegate {
          mapView.deselectAnnotation(view.annotation, animated: false)
 
         let coordinate = Coordinate(latitude: view.annotation?.coordinate.latitude, longitude: view.annotation?.coordinate.longitude)
-        guard let selectedMileStone = viewModel.mileStone(at: coordinate)
+        guard let selectedMileStone = viewModel.milestone(at: coordinate)
         else { return }
 
-        let mileStonePhotoViewModel = MileStonePhotoViewModel(mileStone: selectedMileStone)
-        let mileStonePhotoViewController = MileStonePhotoViewController(viewModel: mileStonePhotoViewModel)
-        mileStonePhotoViewController.viewModel = mileStonePhotoViewModel
-        mileStonePhotoViewController.delegate = self
+        let milestonePhotoViewModel = MilestonePhotoViewModel(milestone: selectedMileStone)
+        let milestonePhotoViewController = MilestonePhotoViewController(viewModel: milestonePhotoViewModel)
+        milestonePhotoViewController.viewModel = milestonePhotoViewModel
+        milestonePhotoViewController.delegate = self
 
-        present(mileStonePhotoViewController, animated: true, completion: nil)
+        present(milestonePhotoViewController, animated: true, completion: nil)
     }
 }
 
 // MARK: - MileStone Delete Completed
-extension DetailFeedViewController: MileStonePhotoViewControllerDelegate {
-    func delete(mileStone: MileStone) {
-        if let _ = viewModel.remove(of: mileStone), removeMileStoneAnnotation(of: mileStone) {
+extension DetailFeedViewController: MilestonePhotoViewControllerDelegate {
+    func delete(milestone: Milestone) {
+        if let _ = viewModel.remove(of: milestone), removeMileStoneAnnotation(of: milestone) {
             let title = "삭제 완료"
             let message = "마일스톤을 삭제했어요"
             let alertViewController = UIAlertController.simpleAlert(title: title, message: message)

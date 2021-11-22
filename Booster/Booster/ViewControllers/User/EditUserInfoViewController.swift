@@ -89,8 +89,10 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        configureNavigationBarTitle()
         configureUIButton()
         configureUITextField()
+        loadUserInfoToView()
     }
 
     // MARK: - @IBActions
@@ -122,6 +124,10 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
     }
 
     // MARK: - Functions
+    private func configureNavigationBarTitle() {
+        navigationItem.title = "개인 정보 수정"
+    }
+
     private func saveEditedUserInfo(gender: String,
                                     age: String,
                                     height: String,
@@ -141,21 +147,24 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
             DispatchQueue.main.async {
                 var alert = UIAlertController()
                 if isSaved {
-                    alert = UIAlertController.simpleAlert(title: "", message: "수정 완료")
+                    alert = UIAlertController.simpleAlert(title: "",
+                                                          message: "수정 완료",
+                                                          action: { (_) -> Void in
+                        self?.navigationController?.popViewController(animated: true)
+                        return
+                    })
                 } else {
                     alert = UIAlertController.simpleAlert(title: "", message: "수정 실패")
                 }
-                self?.present(alert, animated: true) {
-                    self?.navigationController?.popViewController(animated: true)
-                    dump(self?.viewModel)
-                }
+                self?.present(alert, animated: true)
+                dump(self?.viewModel)
             }
         }
     }
 
     private func configureUIButton() {
-        femaleGenderButton.isEnabled = false
         maleGenderButton.isEnabled = true
+        femaleGenderButton.isEnabled = true
 
         maleGenderButton.setBackgroundColor(color: .boosterOrange, for: .disabled)
         maleGenderButton.setBackgroundColor(color: .boosterEnableButtonGray, for: .normal)
@@ -174,5 +183,16 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
         heightTextField.resignFirstResponder()
         weightTextField.resignFirstResponder()
         ageTextField.resignFirstResponder()
+    }
+
+    private func loadUserInfoToView() {
+        if let gender = genderButtonType(rawValue: viewModel.model.gender) {
+            (gender == .male) ? (maleGenderButton.isEnabled = false) : (femaleGenderButton.isEnabled = false)
+        }
+
+        nickNameTextField.text = viewModel.model.nickname
+        heightTextField.text = "\(viewModel.model.height)"
+        weightTextField.text = "\(viewModel.model.weight)"
+        ageTextField.text = "\(viewModel.model.age)"
     }
 }
