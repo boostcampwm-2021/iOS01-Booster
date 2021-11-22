@@ -27,11 +27,11 @@ final class FeedViewModel {
                                         isEmpty: isEmpty))
     }
 
-    private(set) var list = BehaviorRelay<[FeedList]>(value: [])
+    private let disposeBag = DisposeBag()
     private let usecase: FeedUseCase
+    private(set) var list = BehaviorRelay<[FeedList]>(value: [])
     let next = PublishSubject<Date>()
     let select = PublishSubject<IndexPath>()
-    let disposeBag = DisposeBag()
 
     init() {
         usecase = FeedUseCase()
