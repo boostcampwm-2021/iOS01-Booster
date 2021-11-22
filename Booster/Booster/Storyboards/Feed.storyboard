@@ -58,40 +58,40 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Lz-29-Ne5">
-                                                    <rect key="frame" x="20" y="12" width="31" height="14.5"/>
+                                                    <rect key="frame" x="20" y="10" width="31" height="14.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" name="boosterBackground"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Hf-V6-ZrQ">
-                                                    <rect key="frame" x="20" y="36.5" width="48" height="24"/>
+                                                    <rect key="frame" x="20" y="34.5" width="48" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <color key="textColor" name="boosterBackground"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6VG-7y-nXI">
-                                                    <rect key="frame" x="202" y="10" width="38" height="18"/>
+                                                    <rect key="frame" x="202" y="8.5" width="38" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" name="boosterBackground"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y82-30-O6e">
-                                                    <rect key="frame" x="107" y="116" width="138" height="54"/>
+                                                    <rect key="frame" x="107" y="126" width="138" height="54"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="45"/>
                                                     <color key="textColor" name="boosterBackground"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="y82-30-O6e" secondAttribute="bottom" constant="20" id="1KT-fw-BJ3"/>
+                                                <constraint firstAttribute="bottom" secondItem="y82-30-O6e" secondAttribute="bottom" constant="10" id="1KT-fw-BJ3"/>
                                                 <constraint firstAttribute="trailing" secondItem="y82-30-O6e" secondAttribute="trailing" constant="15" id="5ng-Bo-uxT"/>
+                                                <constraint firstItem="6VG-7y-nXI" firstAttribute="centerY" secondItem="9Lz-29-Ne5" secondAttribute="centerY" id="6ko-2l-eJd"/>
+                                                <constraint firstItem="9Lz-29-Ne5" firstAttribute="top" secondItem="Wj7-91-8AJ" secondAttribute="top" constant="10" id="97G-d6-RF4"/>
                                                 <constraint firstItem="8Hf-V6-ZrQ" firstAttribute="leading" secondItem="Wj7-91-8AJ" secondAttribute="leading" constant="20" id="98P-4P-Gi8"/>
                                                 <constraint firstItem="6ko-pE-sq5" firstAttribute="top" secondItem="Wj7-91-8AJ" secondAttribute="top" constant="20" id="9mC-9Q-uxw"/>
-                                                <constraint firstItem="6VG-7y-nXI" firstAttribute="top" secondItem="Wj7-91-8AJ" secondAttribute="top" constant="10" id="OlJ-uZ-WkS"/>
                                                 <constraint firstAttribute="trailing" secondItem="6VG-7y-nXI" secondAttribute="trailing" constant="20" id="Pof-zX-ZqY"/>
                                                 <constraint firstAttribute="bottom" secondItem="6ko-pE-sq5" secondAttribute="bottom" constant="20" id="fG9-hb-RKG"/>
                                                 <constraint firstItem="9Lz-29-Ne5" firstAttribute="leading" secondItem="Wj7-91-8AJ" secondAttribute="leading" constant="20" id="gtf-o6-hh8"/>
-                                                <constraint firstItem="9Lz-29-Ne5" firstAttribute="centerY" secondItem="6VG-7y-nXI" secondAttribute="centerY" id="uzN-3f-dfr"/>
                                                 <constraint firstItem="6ko-pE-sq5" firstAttribute="leading" secondItem="Wj7-91-8AJ" secondAttribute="leading" constant="40" id="xCk-Xn-oea"/>
                                                 <constraint firstItem="8Hf-V6-ZrQ" firstAttribute="top" secondItem="9Lz-29-Ne5" secondAttribute="bottom" constant="10" id="yDr-jO-0LX"/>
                                             </constraints>
