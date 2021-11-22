@@ -37,7 +37,7 @@ final class DetailFeedUsecase {
            let coordinatesData = tracking.coordinates,
            let milestonesData = tracking.milestones,
            let coordinates = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(coordinatesData) as? [Coordinate],
-           let milestones = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(milestonesData) as? [MileStone],
+           let milestones = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(milestonesData) as? [Milestone],
            let title = tracking.title,
            let content = tracking.content,
            let imageData = tracking.imageData,

@@ -91,6 +91,28 @@ final class CoreDataManager {
         }
     }
 
+    func fetch<DataType: NSManagedObject>() -> Observable<[DataType]> {
+        return Observable.create { [weak self] observer in
+            guard let self = self
+            else { return }
+            
+            let backgroundContext = self.container.newBackgroundContext()
+
+            backgroundContext.perform {
+                do {
+                    let context = try self.container.viewContext.fetch(DataType.fetchRequest())
+                    guard let context = context as? [DataType]
+                    else { return }
+
+                    observer.onNext(context)
+                } catch let error {
+                    observer.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
+
     func fetch<DataType: NSManagedObject>(completion handler: @escaping (Result<[DataType], Error>) -> Void) {
         let backgroundContext = container.newBackgroundContext()
 

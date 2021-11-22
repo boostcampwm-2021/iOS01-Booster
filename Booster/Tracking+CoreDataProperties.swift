@@ -26,6 +26,7 @@ extension Tracking {
     @NSManaged public var startDate: Date?
     @NSManaged public var steps: Int64
     @NSManaged public var title: String?
+    @NSManaged public var address: String?
 
 }
 

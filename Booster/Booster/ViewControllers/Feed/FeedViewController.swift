@@ -1,60 +1,51 @@
 import UIKit
+import RxSwift
 
 final class FeedViewController: UIViewController, BaseViewControllerTemplate {
-    // MARK: - Enum
-    private enum Segue {
-        static let feedDetailSegue = "feedDetailSegue"
-    }
-
-    // MARK: - Properties
+    // MARK: - IBOutlet
     @IBOutlet private weak var collectionView: UICollectionView!
 
-    var viewModel: FeedViewModel = FeedViewModel()
-    private lazy var refershControl: UIRefreshControl = {
-        let refreshControl = UIRefreshControl()
-        let text = "새로고침"
-        refreshControl.tintColor = .boosterLabel
-        refreshControl.attributedTitle = .makeAttributedString(text: text,
-                                                               font: .notoSansKR(.regular, 16),
-                                                               color: .label)
-        refreshControl.addTarget(self,
-                                 action: #selector(refreshPull),
-                                 for: .valueChanged)
-        return refreshControl
-    }()
+    // MARK: - Properties
+    let disposeBag = DisposeBag()
+    var viewModel = FeedViewModel()
 
     // MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        viewModel.fetch()
+        bind()
         configure()
     }
 
-    // MARK: - @objc
-    @objc func refreshPull() {
-        viewModel.reset()
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.fetch()
     }
 
     // MARK: - Functions
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let detailFeedViewController = segue.destination as? DetailFeedViewController
-        else { return }
-        detailFeedViewController.delegate = self
-    }
-
-    func configure() {
-        self.viewModel.trackingRecords.bind { _ in
+    private func bind() {
+        viewModel.list.bind { _ in
             DispatchQueue.main.async { [weak self] in
                 guard let self = self
                 else { return }
-                self.refershControl.endRefreshing()
+
                 self.collectionView.reloadData()
             }
-        }
+        }.disposed(by: disposeBag)
 
-        collectionView.refreshControl = refershControl
+        viewModel.next
+            .bind { [weak self] date in
+                let storyboardName = "Feed"
+                let detailFeedViewController = UIStoryboard(name: storyboardName, bundle: .main)
+                    .instantiateViewController(identifier: String(describing: DetailFeedViewController.self)) { coder in
+                        return DetailFeedViewController(coder: coder, start: date)
+                    }
 
+                self?.navigationController?.pushViewController(detailFeedViewController, animated: true)
+
+            }.disposed(by: disposeBag)
+    }
+
+    func configure() {
         collectionView.dataSource = self
         collectionView.delegate = self
     }
@@ -78,8 +69,7 @@ extension FeedViewController: UICollectionViewDataSource {
 // MARK: - collection view delegate
 extension FeedViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.selected(indexPath)
-        performSegue(withIdentifier: Segue.feedDetailSegue, sender: nil)
+        viewModel.select.on(.next(indexPath))
     }
 }
 
@@ -106,12 +96,5 @@ extension FeedViewController: UIScrollViewDelegate {
         if contentY > contentHeight - scrollView.frame.height {
             viewModel.fetch()
         }
-    }
-}
-
-// MARK: - detail feed model delegate
-extension FeedViewController: DetailFeedModelDelegate {
-    func detailFeed(viewModel: DetailFeedViewModel) {
-        viewModel.fetchDetailFeedList(start: self.viewModel.selected())
     }
 }
