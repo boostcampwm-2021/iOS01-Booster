@@ -505,12 +505,6 @@ extension TrackingProgressViewController: CLLocationManagerDelegate {
 // MARK: MKMap View Deleagate
 extension TrackingProgressViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if let overlay = overlay as? MKCircle {
-            let circleRenderer = CircleRenderer(circle: overlay)
-
-            return circleRenderer
-        }
-
         if let polyLine = overlay as? MKPolyline {
             let polyLineRenderer = MKPolylineRenderer(polyline: polyLine)
             polyLineRenderer.strokeColor = .boosterOrange
