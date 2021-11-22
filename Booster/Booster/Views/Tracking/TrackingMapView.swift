@@ -66,19 +66,6 @@ class TrackingMapView: MKMapView {
         addOverlay(line)
     }
 
-    func updateUserLocationOverlay(location: CLLocation?) {
-        guard let current = location
-        else { return }
-
-        let overlayRadius: CLLocationDistance = 20
-
-        removeOverlay(overlay)
-
-        overlay = MKCircle(center: current.coordinate, radius: overlayRadius)
-
-        addOverlay(overlay)
-    }
-
     func snapShotImageOfPath(backgroundColor color: UIColor = .white,
                              coordinates: [Coordinate],
                              center: CLLocationCoordinate2D,
@@ -108,6 +95,7 @@ class TrackingMapView: MKMapView {
 
             context.setLineWidth(pathLineWidth)
             context.setStrokeColor(UIColor.boosterOrange.cgColor)
+            context.setLineCap(.round)
 
             var prevCoordinate: Coordinate? = self?.startCoordinate(coordinates: coordinates)
             guard let startLatitude = prevCoordinate?.latitude,

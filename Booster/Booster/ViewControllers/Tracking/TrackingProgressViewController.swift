@@ -88,7 +88,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         textView.backgroundColor = .clear
         textView.font = .notoSansKR(.light, 17)
         textView.text = emptyText
-         textView.textColor = .lightGray
+        textView.textColor = .lightGray
         textView.textContainer.lineFragmentPadding = 0
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.rx.text
@@ -121,6 +121,15 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
             }.disposed(by: disposeBag)
         return buttonItem
     }()
+    private lazy var userLocationButton: MKUserTrackingButton = {
+        let button = MKUserTrackingButton(mapView: mapView)
+        button.backgroundColor = .boosterLabel
+        button.layer.masksToBounds = true
+        button.tintColor = UIColor.boosterOrange
+        button.layer.cornerRadius = button.bounds.width/2
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     let disposeBag = DisposeBag()
     var viewModel: TrackingProgressViewModel = TrackingProgressViewModel()
 
@@ -132,12 +141,16 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.isNavigationBarHidden = false
-        self.tabBarController?.tabBar.isHidden = true
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = false
+        tabBarController?.tabBar.isHidden = true
+        manager.delegate = self
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        self.tabBarController?.tabBar.isHidden = false
+        super.viewWillDisappear(animated)
+        manager.stopUpdatingLocation()
+        tabBarController?.tabBar.isHidden = false
     }
 
     // MARK: - @objc
@@ -180,25 +193,17 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         self.view.endEditing(true)
     }
 
-    private func configureNotifications() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.keyboardWillShow(_:)),
-                                               name: UIResponder.keyboardWillShowNotification,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.keyboardWillHide(_:)),
-                                               name: UIResponder.keyboardWillHideNotification,
-                                               object: nil)
-    }
-
     func configure() {
         let radius: CGFloat = 50
+        view.addSubview(userLocationButton)
         leftButton.layer.borderWidth = 1
         leftButton.layer.borderColor = UIColor.boosterBackground.cgColor
         leftButton.layer.cornerRadius = radius
         rightButton.layer.cornerRadius = radius
         pedometerLabel.font = .bazaronite(size: 60)
         pedometerLabel.textColor = .boosterBlackLabel
+        userLocationButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        userLocationButton.bottomAnchor.constraint(equalTo: infoView.topAnchor, constant: -20).isActive = true
 
         [mapView, kcalLabel, timeLabel, distanceLabel, pedometerLabel, rightButton].forEach {
             $0?.translatesAutoresizingMaskIntoConstraints = false
@@ -208,11 +213,21 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         navigationItem.leftBarButtonItem = backButtonItem
 
         mapView.delegate = self
-        manager.delegate = self
         configureNotifications()
-        locationAuth()
         bindViewModel()
         bindView()
+        locationAuth()
+    }
+
+    private func configureNotifications() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.keyboardWillShow(_:)),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.keyboardWillHide(_:)),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
     }
 
     private func bindView() {
@@ -353,7 +368,6 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
             viewModel.seconds.onNext(lastestTime)
             timer.invalidate()
             manager.stopUpdatingLocation()
-            manager.stopMonitoringSignificantLocationChanges()
             pedometer.stopUpdates()
             pedometer.stopEventUpdates()
         }
@@ -372,22 +386,24 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
     }
 
     private func locationAuth() {
+        manager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
             manager.desiredAccuracy = kCLLocationAccuracyBest
-            manager.requestWhenInUseAuthorization()
             DispatchQueue.main.async { [weak self] in
                 guard let self = self
                 else { return }
                 self.manager.allowsBackgroundLocationUpdates = true
                 self.manager.startUpdatingLocation()
-                self.manager.startMonitoringSignificantLocationChanges()
 
                 if let location = self.manager.location {
+                    self.viewModel.coordinates.onNext([Coordinate(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)])
                     self.mapView.setRegion(to: location)
                 }
             }
             updatePedometer()
             manager.distanceFilter = 1
+        } else {
+            navigationController?.popViewController(animated: true)
         }
     }
 
@@ -402,26 +418,35 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
     }
 
     private func stopAnimation() {
+        let title = " steps"
+        let content = "\(viewModel.tracking.value.steps)"
+
         pedometer.stopUpdates()
         pedometer.stopEventUpdates()
-
         manager.stopUpdatingLocation()
         manager.stopMonitoringSignificantLocationChanges()
         pedometer.stopUpdates()
+
         leftButton.isHidden = true
+        userLocationButton.isHidden = true
+        pedometerLabel.attributedText = makeAttributedText(content: content,
+                                                                     title: title,
+                                                                     contentFont: .bazaronite(size: 60),
+                                                                     titleFont: .notoSansKR(.regular, 20),
+                                                                     color: .boosterOrange)
+        pedometerLabel.sizeToFit()
+        
         UIView.animate(withDuration: 1, animations: { [weak self] in
             guard let self = self
             else { return }
 
-            let title = " steps"
-            let content = "\(self.viewModel.tracking.value.steps)"
             self.rightButtonWidthConstraint.constant = 70
             self.rightButtonHeightConstraint.constant = 70
             self.rightButton.layer.cornerRadius = 35
             self.rightButtonTrailingConstraint.constant = 25
             self.rightButtonBottomConstraint.constant = 25
             self.mapViewBottomConstraint.constant = self.view.frame.maxY - 290
-            self.pedometerTrailingConstraint.constant = self.view.frame.maxX - 230
+            self.pedometerTrailingConstraint.constant = self.view.frame.maxX - self.pedometerLabel.frame.width - 25
             self.pedometerTopConstraint.constant = 20
             [self.timeTopConstraint, self.kcalTopConstraint, self.distanceTopConstraint].forEach {
                 $0.constant = 130
@@ -495,7 +520,8 @@ extension TrackingProgressViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let currentLocation = locations.last
         else { return }
-
+        print(locations, "locations")
+        print(viewModel.tracking.value.distance, "distance")
         let currentCoordinate = currentLocation.coordinate
 
         guard let latestCoordinate = viewModel.latestCoordinate(),
@@ -509,7 +535,6 @@ extension TrackingProgressViewController: CLLocationManagerDelegate {
         let prevCoordinate = CLLocationCoordinate2D(latitude: prevLatitude, longitude: prevLongitude)
         let latestLocation = CLLocation(latitude: prevLatitude, longitude: prevLongitude)
 
-        mapView.updateUserLocationOverlay(location: currentLocation)
         if viewModel.state.value == .start { mapView.drawPath(from: prevCoordinate, to: currentCoordinate) }
 
         viewModel.distance.onNext(latestLocation.distance(from: currentLocation))
@@ -559,7 +584,7 @@ extension TrackingProgressViewController: MKMapViewDelegate {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: Identifier.Annotation.milestone.rawValue)
 
             guard let customView = UINib(nibName: NibName.photoAnnotationView.rawValue, bundle: nil).instantiate(withOwner: self, options: nil).first as? PhotoAnnotationView,
-                  let mileStone = viewModel.tracking.value.milestones.last
+                  let mileStone: Milestone = viewModel.tracking.value.milestones.last
             else { return nil }
 
             customView.photoImageView.image = UIImage(data: mileStone.imageData)
@@ -617,15 +642,6 @@ extension TrackingProgressViewController: UIImagePickerControllerDelegate & UINa
 
 // MARK: text view delegate
 extension TrackingProgressViewController: UITextViewDelegate {
-    func textView(_ textView: UITextView,
-                  shouldChangeTextIn range: NSRange,
-                  replacementText text: String) -> Bool {
-        if text == "\n" {
-            textView.resignFirstResponder()
-        }
-        return true
-    }
-
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.lightGray {
             textView.text = nil
@@ -649,6 +665,15 @@ extension TrackingProgressViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text
+        else { return true }
+
+        let maximum = 15
+
+        return text.count + string.count < maximum
     }
 }
 
