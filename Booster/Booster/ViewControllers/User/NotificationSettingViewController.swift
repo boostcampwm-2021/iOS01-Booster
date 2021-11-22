@@ -22,17 +22,18 @@ final class NotificationSettingViewController: UIViewController {
         configureNotificationUI()
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(willEnterForeground(_:)),
-                                               name: UIApplication.willEnterForegroundNotification, object: nil)
+                                               name: UIApplication.willEnterForegroundNotification,
+                                               object: UIApplication.shared)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self,
                                                   name: UIApplication.willEnterForegroundNotification,
-                                                  object: nil)
+                                                  object: UIApplication.shared)
     }
 
     // MARK: - @IBActions
-    @IBAction func onOffButtonDidTap(_ sender: UIButton) {
+    @IBAction private func onOffButtonDidTap(_ sender: UIButton) {
         guard let url = URL(string: UIApplication.openSettingsURLString)
         else {
             let title = "오류"
@@ -49,7 +50,7 @@ final class NotificationSettingViewController: UIViewController {
                                   completionHandler: nil)
     }
 
-    @IBAction func backButtonDidTap(_ sender: UIButton) {
+    @IBAction private func backButtonDidTap(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
     }
 
