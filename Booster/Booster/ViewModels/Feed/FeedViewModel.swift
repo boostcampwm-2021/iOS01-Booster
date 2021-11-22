@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import RxSwift
+import RxRelay
 
 typealias FeedCellConfigure = CollectionCellConfigurator<FeedCell, (date: Date,
                                                                     distance: Double,
@@ -17,70 +19,46 @@ typealias FeedCellConfigure = CollectionCellConfigurator<FeedCell, (date: Date,
 final class FeedViewModel {
     subscript(indexPath: IndexPath) -> CellConfigurator {
         let isEmpty = recordCount() == 0
-        return FeedCellConfigure(item: (date: isEmpty ? Date() : trackingRecords.value[indexPath.row].startDate,
-                                        distance: isEmpty ? 0 : trackingRecords.value[indexPath.row].distance,
-                                        step: isEmpty ? 0 : trackingRecords.value[indexPath.row].steps,
-                                        title: isEmpty ? "" : trackingRecords.value[indexPath.row].title,
-                                        imageData: isEmpty ? Data() : trackingRecords.value[indexPath.row].imageData,
+        return FeedCellConfigure(item: (date: isEmpty ? Date() : list.value[indexPath.row].startDate,
+                                        distance: isEmpty ? 0 : list.value[indexPath.row].distance,
+                                        step: isEmpty ? 0 : list.value[indexPath.row].steps,
+                                        title: isEmpty ? "" : list.value[indexPath.row].title,
+                                        imageData: isEmpty ? Data() : list.value[indexPath.row].imageData,
                                         isEmpty: isEmpty))
     }
 
-    private(set) var trackingRecords = BoosterObservable<[FeedList]>([])
-    private var selectedIndex: IndexPath
-    private var difference: Int
+    private let disposeBag = DisposeBag()
     private let usecase: FeedUseCase
+    private(set) var list = BehaviorRelay<[FeedList]>(value: [])
+    let next = PublishSubject<Date>()
+    let select = PublishSubject<IndexPath>()
 
     init() {
-        difference = 0
-        selectedIndex = IndexPath()
         usecase = FeedUseCase()
+        bind()
     }
 
     func recordCount() -> Int {
-        return trackingRecords.value.count
+        return list.value.count
     }
 
-    func selected(_ index: IndexPath) {
-        self.selectedIndex = index
-    }
-
-    func selected() -> Date {
-        return trackingRecords.value[selectedIndex.row].startDate
-    }
-
-    func reset() {
-        difference = 0
-        trackingRecords.value = []
-        fetch()
+    private func bind() {
+        select.observe(on: MainScheduler.asyncInstance)
+            .map { (index) -> Date in
+                return self.list.value[index.row].startDate
+            }.bind { [weak self] value in
+                self?.next.on(.next(value))
+            }.disposed(by: disposeBag)
     }
 
     func fetch() {
-        let calendar = Calendar(identifier: .gregorian)
-        let currentDate = Date()
-
-        if let date = calendar.date(byAdding: .day, value: difference, to: currentDate) {
-            let predicate = NSPredicate(format: "startDate <= %@", date as CVarArg)
-            usecase.fetch(predicate: predicate) { [weak self] result in
-                if result.count == 0 { return }
-
-                self?.asyncFetch(calendar: calendar, currentDate: currentDate)
-            }
-        }
-    }
-
-    private func asyncFetch(calendar: Calendar, currentDate: Date) {
-        if let date = calendar.date(byAdding: .day, value: difference, to: currentDate) as NSDate? {
-            let predicate = NSPredicate(format: "startDate >= %@", date as CVarArg)
-            usecase.fetch(predicate: predicate) { [weak self] response in
-                guard let self = self
-                else { return }
-                if response.count == 0 {
-                    self.difference -= 7
-                    self.asyncFetch(calendar: calendar, currentDate: currentDate)
-                } else {
-                    self.trackingRecords.value = response
-                }
-            }
-        }
+        usecase.fetch()
+            .map { (values) -> [FeedList] in
+                return values.reversed()
+            }.subscribe(onNext: { [weak self] values in
+                self?.list.accept(values)
+            }, onError: { [weak self] _ in
+                self?.list.accept([])
+            }).disposed(by: disposeBag)
     }
 }

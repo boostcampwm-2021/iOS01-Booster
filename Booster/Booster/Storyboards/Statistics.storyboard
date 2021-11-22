@@ -92,30 +92,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vFG-gS-Dc3" customClass="ChartView" customModule="Booster" customModuleProvider="target">
-                                <rect key="frame" x="20" y="239.5" width="374" height="573.5"/>
+                                <rect key="frame" x="20" y="194.5" width="374" height="618.5"/>
                                 <color key="backgroundColor" name="boosterBackground"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yd7-Vs-Ta6" userLabel="DescriptionIntervalLabel">
-                                <rect key="frame" x="187" y="200" width="41.5" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="15"/>
-                                <color key="textColor" name="boosterLabel"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1MO-Fa-Fmo" userLabel="DescriptionStepLabel">
-                                <rect key="frame" x="187" y="219" width="41.5" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="15"/>
-                                <color key="textColor" name="boosterLabel"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" name="boosterBackground"/>
                         <constraints>
                             <constraint firstItem="vFG-gS-Dc3" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" constant="20" id="04p-NS-IsF"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="vFG-gS-Dc3" secondAttribute="bottom" id="9UJ-an-SMe"/>
-                            <constraint firstItem="vFG-gS-Dc3" firstAttribute="top" secondItem="zT5-Yx-3KO" secondAttribute="bottom" constant="50" id="F0G-sp-OTz"/>
+                            <constraint firstItem="vFG-gS-Dc3" firstAttribute="top" secondItem="zT5-Yx-3KO" secondAttribute="bottom" constant="5" id="F0G-sp-OTz"/>
                             <constraint firstItem="zT5-Yx-3KO" firstAttribute="top" secondItem="ZAm-ew-NSH" secondAttribute="bottom" constant="-5" id="GA5-ur-PUW"/>
                             <constraint firstAttribute="trailing" secondItem="vFG-gS-Dc3" secondAttribute="trailing" constant="20" id="Qz2-Ek-Vjn"/>
                             <constraint firstItem="ZAm-ew-NSH" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="8" id="c6B-VR-NJn"/>
@@ -130,9 +116,7 @@
                         <outlet property="chartView" destination="vFG-gS-Dc3" id="83x-cr-5mQ"/>
                         <outlet property="dateLabel" destination="zT5-Yx-3KO" id="cni-zl-DAE"/>
                         <outlet property="durationLabel" destination="FfD-j0-uiq" id="I6j-M6-IP2"/>
-                        <outlet property="intervalLabel" destination="Yd7-Vs-Ta6" id="4iI-Gy-uiw"/>
                         <outlet property="monthButton" destination="who-he-Jct" id="PvU-15-LJ6"/>
-                        <outlet property="stepCountLabel" destination="1MO-Fa-Fmo" id="Fwn-6d-H3x"/>
                         <outlet property="weekButton" destination="50H-vW-Ism" id="MTt-d9-ehj"/>
                         <outlet property="yearButton" destination="HAj-Sc-TRH" id="sPa-8y-chn"/>
                     </connections>

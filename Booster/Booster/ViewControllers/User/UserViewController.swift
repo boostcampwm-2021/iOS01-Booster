@@ -43,10 +43,17 @@ final class UserViewController: UIViewController, BaseViewControllerTemplate {
         userTableView.dataSource = self
         userTableView.delegate = self
         registerNib()
+        configureNavigationBarTitle()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         userTableView.reloadData()
+        navigationController?.navigationBar.isHidden = true
+        navigationItem.title = ""
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = false
     }
 
     // MARK: - Functions
@@ -54,6 +61,12 @@ final class UserViewController: UIViewController, BaseViewControllerTemplate {
         userTableView.register(UINib(nibName: UserInfoHeaderView.identifier, bundle: nil), forHeaderFooterViewReuseIdentifier: UserInfoHeaderView.identifier)
         userTableView.register(UINib(nibName: MyInfoHeaderView.identifier, bundle: nil), forHeaderFooterViewReuseIdentifier: MyInfoHeaderView.identifier)
         userTableView.register(UINib(nibName: UserInfoBaseCell.identifier, bundle: nil), forCellReuseIdentifier: UserInfoBaseCell.identifier)
+    }
+
+    private func configureNavigationBarTitle() {
+        let attribute = [NSAttributedString.Key.font: UIFont.notoSansKR(.light, 18)]
+
+        navigationController?.navigationBar.titleTextAttributes = attribute
     }
 
     private func myInfoCellDidSelectActions(cellType: MyInfoCellType) {

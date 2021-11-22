@@ -10,17 +10,19 @@ import Foundation
 final class DetailFeedViewModel {
     // MARK: - Properties
     private let usecase: DetailFeedUsecase
+    let startDate: Date
     var trackingModel: BoosterObservable<TrackingModel>
 
     // MARK: - Init
-    init() {
+    init(start date: Date) {
+        startDate = date
         trackingModel = BoosterObservable(TrackingModel())
         usecase = DetailFeedUsecase()
     }
 
     // MARK: - Functions
-    func fetchDetailFeedList(start date: Date) {
-        let predicate = NSPredicate(format: "startDate = %@", (date as NSDate) as CVarArg)
+    func fetchDetailFeedList() {
+        let predicate = NSPredicate(format: "startDate = %@", (startDate as NSDate) as CVarArg)
         usecase.fetch(predicate: predicate) { [weak self] result in
             if let model = result.first {
                 self?.trackingModel.value = model
@@ -28,7 +30,7 @@ final class DetailFeedViewModel {
         }
     }
 
-    func mileStone(at coordinate: Coordinate) -> MileStone? {
+    func milestone(at coordinate: Coordinate) -> Milestone? {
         let target = trackingModel.value.milestones.first(where: { (value) in
             return value.coordinate == coordinate
         })
@@ -36,8 +38,8 @@ final class DetailFeedViewModel {
         return target
     }
 
-    func remove(of mileStone: MileStone) -> MileStone? {
-        guard let index = trackingModel.value.milestones.firstIndex(of: mileStone)
+    func remove(of milestone: Milestone) -> Milestone? {
+        guard let index = trackingModel.value.milestones.firstIndex(of: milestone)
         else { return nil }
 
         return trackingModel.value.milestones.remove(at: index)

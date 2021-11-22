@@ -25,7 +25,7 @@
 		3B31B60827410470009D9190 /* TrackingProgressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B31B60727410470009D9190 /* TrackingProgressTests.swift */; };
 		3B31B60E27410784009D9190 /* Booster.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FA614F2A2733CDAA00B090D9 /* Booster.xcdatamodeld */; };
 		3B31B60F274107A3009D9190 /* TrackingProgressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F182733CDAA00B090D9 /* TrackingProgressViewModel.swift */; };
-		3B31B610274107B4009D9190 /* MileStone.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F312733CDAA00B090D9 /* MileStone.swift */; };
+		3B31B610274107B4009D9190 /* Milestone.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F312733CDAA00B090D9 /* Milestone.swift */; };
 		3B31B611274107BA009D9190 /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F332733CDAA00B090D9 /* Coordinate.swift */; };
 		3B31B612274107BD009D9190 /* TrackingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F362733CDAA00B090D9 /* TrackingModel.swift */; };
 		3B31B613274107CF009D9190 /* Tracking+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B31B5FD273CD2F7009D9190 /* Tracking+CoreDataClass.swift */; };
@@ -91,7 +91,7 @@
 		FA614F6D2733CDAA00B090D9 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F2C2733CDAA00B090D9 /* User+CoreDataClass.swift */; };
 		FA614F6F2733CDAA00B090D9 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F2F2733CDAA00B090D9 /* UserInfo.swift */; };
 		FA614F702733CDAA00B090D9 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F302733CDAA00B090D9 /* Statistics.swift */; };
-		FA614F712733CDAA00B090D9 /* MileStone.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F312733CDAA00B090D9 /* MileStone.swift */; };
+		FA614F712733CDAA00B090D9 /* Milestone.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F312733CDAA00B090D9 /* Milestone.swift */; };
 		FA614F722733CDAA00B090D9 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F322733CDAA00B090D9 /* HomeModel.swift */; };
 		FA614F732733CDAA00B090D9 /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F332733CDAA00B090D9 /* Coordinate.swift */; };
 		FA614F762733CDAA00B090D9 /* TrackingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F362733CDAA00B090D9 /* TrackingModel.swift */; };
@@ -117,9 +117,9 @@
 		FA614F902733D2CA00B090D9 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F8F2733D2CA00B090D9 /* UIColor+Extension.swift */; };
 		FA614F922733D51100B090D9 /* Enroll.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA614F912733D51100B090D9 /* Enroll.storyboard */; };
 		FA614F942733D51C00B090D9 /* EnrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F932733D51C00B090D9 /* EnrollViewController.swift */; };
-		FA614F962738F7A200B090D9 /* MileStonePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F952738F7A200B090D9 /* MileStonePhotoViewController.swift */; };
-		FA614F982738FDA900B090D9 /* MileStonePhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F972738FDA900B090D9 /* MileStonePhotoViewModel.swift */; };
 		FA84966C274A13890021F903 /* NotificationSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA84966B274A13890021F903 /* NotificationSettingViewController.swift */; };
+		FA614F962738F7A200B090D9 /* MilestonePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F952738F7A200B090D9 /* MilestonePhotoViewController.swift */; };
+		FA614F982738FDA900B090D9 /* MilestonePhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F972738FDA900B090D9 /* MilestonePhotoViewModel.swift */; };
 		FAA291BA2744FE8B0042D2D5 /* EraseAllDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA291B92744FE8B0042D2D5 /* EraseAllDataViewController.swift */; };
 		FACBAB6A2746034900CD6B76 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBAB692746034900CD6B76 /* UIButton+Extension.swift */; };
 		FADAC0D02745F55100A026E2 /* EditUserInfoTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADAC0CF2745F55100A026E2 /* EditUserInfoTextField.swift */; };
@@ -217,7 +217,7 @@
 		FA614F2C2733CDAA00B090D9 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
 		FA614F2F2733CDAA00B090D9 /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		FA614F302733CDAA00B090D9 /* Statistics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Statistics.swift; sourceTree = "<group>"; };
-		FA614F312733CDAA00B090D9 /* MileStone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MileStone.swift; sourceTree = "<group>"; };
+		FA614F312733CDAA00B090D9 /* Milestone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Milestone.swift; sourceTree = "<group>"; };
 		FA614F322733CDAA00B090D9 /* HomeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		FA614F332733CDAA00B090D9 /* Coordinate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
 		FA614F362733CDAA00B090D9 /* TrackingModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingModel.swift; sourceTree = "<group>"; };
@@ -244,9 +244,9 @@
 		FA614F8F2733D2CA00B090D9 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		FA614F912733D51100B090D9 /* Enroll.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Enroll.storyboard; sourceTree = "<group>"; };
 		FA614F932733D51C00B090D9 /* EnrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollViewController.swift; sourceTree = "<group>"; };
-		FA614F952738F7A200B090D9 /* MileStonePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MileStonePhotoViewController.swift; sourceTree = "<group>"; };
-		FA614F972738FDA900B090D9 /* MileStonePhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MileStonePhotoViewModel.swift; sourceTree = "<group>"; };
 		FA84966B274A13890021F903 /* NotificationSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingViewController.swift; sourceTree = "<group>"; };
+		FA614F952738F7A200B090D9 /* MilestonePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestonePhotoViewController.swift; sourceTree = "<group>"; };
+		FA614F972738FDA900B090D9 /* MilestonePhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestonePhotoViewModel.swift; sourceTree = "<group>"; };
 		FAA291B92744FE8B0042D2D5 /* EraseAllDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraseAllDataViewController.swift; sourceTree = "<group>"; };
 		FACBAB692746034900CD6B76 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		FADAC0CF2745F55100A026E2 /* EditUserInfoTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserInfoTextField.swift; sourceTree = "<group>"; };
@@ -382,7 +382,7 @@
 		FA473A09273B940A0000C5DC /* MileStone */ = {
 			isa = PBXGroup;
 			children = (
-				FA614F952738F7A200B090D9 /* MileStonePhotoViewController.swift */,
+				FA614F952738F7A200B090D9 /* MilestonePhotoViewController.swift */,
 			);
 			path = MileStone;
 			sourceTree = "<group>";
@@ -462,7 +462,7 @@
 		FA473A13273B94890000C5DC /* MileStone */ = {
 			isa = PBXGroup;
 			children = (
-				FA614F972738FDA900B090D9 /* MileStonePhotoViewModel.swift */,
+				FA614F972738FDA900B090D9 /* MilestonePhotoViewModel.swift */,
 			);
 			path = MileStone;
 			sourceTree = "<group>";
@@ -639,7 +639,7 @@
 				3BE60F6327464E0300B4EFB8 /* StepStatitstics.swift */,
 				FA614F2F2733CDAA00B090D9 /* UserInfo.swift */,
 				FA614F302733CDAA00B090D9 /* Statistics.swift */,
-				FA614F312733CDAA00B090D9 /* MileStone.swift */,
+				FA614F312733CDAA00B090D9 /* Milestone.swift */,
 				FA614F322733CDAA00B090D9 /* HomeModel.swift */,
 				FA614F332733CDAA00B090D9 /* Coordinate.swift */,
 				FA614F362733CDAA00B090D9 /* TrackingModel.swift */,
@@ -963,7 +963,7 @@
 				3B31B60F274107A3009D9190 /* TrackingProgressViewModel.swift in Sources */,
 				3B31B60E27410784009D9190 /* Booster.xcdatamodeld in Sources */,
 				3B31B613274107CF009D9190 /* Tracking+CoreDataClass.swift in Sources */,
-				3B31B610274107B4009D9190 /* MileStone.swift in Sources */,
+				3B31B610274107B4009D9190 /* Milestone.swift in Sources */,
 				3B31B61827410935009D9190 /* TrackingProgressUsecase.swift in Sources */,
 				3B31B60827410470009D9190 /* TrackingProgressTests.swift in Sources */,
 				3B31B61C2741098C009D9190 /* CoreDataManager.swift in Sources */,
@@ -992,7 +992,7 @@
 				3B37B99C274371B9001EB120 /* GenderEnrollView.swift in Sources */,
 				FA614F792733CDAA00B090D9 /* UIAlertController+Extention.swift in Sources */,
 				FA614F832733CDAA00B090D9 /* FeedViewController.swift in Sources */,
-				FA614F712733CDAA00B090D9 /* MileStone.swift in Sources */,
+				FA614F712733CDAA00B090D9 /* Milestone.swift in Sources */,
 				FA2578F72745E99800597382 /* EditUserInfoViewController.swift in Sources */,
 				FA473A05273A1F8A0000C5DC /* UIImage+Extension.swift in Sources */,
 				FA614F732733CDAA00B090D9 /* Coordinate.swift in Sources */,
@@ -1024,7 +1024,7 @@
 				FA614F7F2733CDAA00B090D9 /* HomeViewController.swift in Sources */,
 				28C9702D273C3041005BD7BC /* DetailFeedUsecase.swift in Sources */,
 				FA614F8A2733CDAA00B090D9 /* TrackingProgressUsecase.swift in Sources */,
-				FA614F982738FDA900B090D9 /* MileStonePhotoViewModel.swift in Sources */,
+				FA614F982738FDA900B090D9 /* MilestonePhotoViewModel.swift in Sources */,
 				28C96FF3273A4634005BD7BC /* UIResponder+Extension.swift in Sources */,
 				FA614F692733CDAA00B090D9 /* CoreDataManager.swift in Sources */,
 				3B31B5FC273C0A66009D9190 /* CellConfigurator.swift in Sources */,
@@ -1051,7 +1051,7 @@
 				FA84966C274A13890021F903 /* NotificationSettingViewController.swift in Sources */,
 				3B37B99E274385B6001EB120 /* EnrollUsecase.swift in Sources */,
 				FA614F722733CDAA00B090D9 /* HomeModel.swift in Sources */,
-				FA614F962738F7A200B090D9 /* MileStonePhotoViewController.swift in Sources */,
+				FA614F962738F7A200B090D9 /* MilestonePhotoViewController.swift in Sources */,
 				28C9702F2740D731005BD7BC /* HomeUsecase.swift in Sources */,
 				28C96FEB27396892005BD7BC /* DetailFeedViewController.swift in Sources */,
 			);

@@ -27,6 +27,7 @@ final class EnrollViewController: UIViewController, BaseViewControllerTemplate {
         buttonItem.image = .systemArrowLeft
         buttonItem.tintColor = .boosterLabel
         buttonItem.rx.tap
+            .throttle(.seconds(1), scheduler: MainScheduler.asyncInstance)
             .bind { [weak self] in
                 guard let self = self
                 else { return }
@@ -45,6 +46,7 @@ final class EnrollViewController: UIViewController, BaseViewControllerTemplate {
         buttonItem.title = "건너뛰기"
         buttonItem.tintColor = .boosterGray
         buttonItem.rx.tap
+            .throttle(.seconds(1), scheduler: MainScheduler.asyncInstance)
             .bind { [weak self] in
                 guard let self = self
                 else { return }
@@ -57,11 +59,13 @@ final class EnrollViewController: UIViewController, BaseViewControllerTemplate {
         let view = GenderEnrollView(frame: view.frame)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.maleButton.rx.tap
+            .throttle(.seconds(1), scheduler: MainScheduler.asyncInstance)
             .bind { [weak self] _ in
                 self?.viewModel.gender.onNext(false)
             }
             .disposed(by: disposeBag)
         view.femaleButton.rx.tap
+            .throttle(.seconds(1), scheduler: MainScheduler.asyncInstance)
             .bind { [weak self] _ in
                 self?.viewModel.gender.onNext(true)
             }
@@ -80,6 +84,7 @@ final class EnrollViewController: UIViewController, BaseViewControllerTemplate {
                 self.viewModel.nickName.onNext(value)
             }.disposed(by: disposeBag)
         view.startButton.rx.tap
+            .throttle(.seconds(1), scheduler: MainScheduler.asyncInstance)
             .bind { [weak self] in
                 guard let self = self,
                       let empty = view.nicknameTextField.text?.isEmpty

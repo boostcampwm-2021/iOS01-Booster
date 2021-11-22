@@ -24,7 +24,7 @@ final class StatisticsViewModel {
     var monthStepStatisticsCollection: StepStatisticsCollection?
     var yearStepStatisticsCollection: StepStatisticsCollection?
 
-    var selectedDuration: BehaviorRelay<Duration> = BehaviorRelay(value: .month)
+    var selectedDuration: BehaviorRelay<Duration> = BehaviorRelay(value: .week)
     var selectedStatisticsIndex: BehaviorRelay<Int?> = BehaviorRelay(value: nil)
 
     // MARK: - init

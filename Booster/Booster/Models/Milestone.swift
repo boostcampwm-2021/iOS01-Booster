@@ -1,6 +1,6 @@
 import Foundation
 
-final class MileStone: NSObject, NSCoding {
+final class Milestone: NSObject, NSCoding {
     var coordinate: Coordinate
     var imageData: Data
 
@@ -25,8 +25,8 @@ final class MileStone: NSObject, NSCoding {
     }
 }
 
-extension MileStone {
-    public static func ==(lhs: MileStone, rhs: MileStone) -> Bool {
+extension Milestone {
+    public static func ==(lhs: Milestone, rhs: Milestone) -> Bool {
         return lhs.coordinate == rhs.coordinate
     }
 }
