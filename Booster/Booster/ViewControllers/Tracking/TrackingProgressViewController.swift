@@ -88,7 +88,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         textView.backgroundColor = .clear
         textView.font = .notoSansKR(.light, 17)
         textView.text = emptyText
-         textView.textColor = .lightGray
+        textView.textColor = .lightGray
         textView.textContainer.lineFragmentPadding = 0
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.rx.text
@@ -193,17 +193,6 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         self.view.endEditing(true)
     }
 
-    private func configureNotifications() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.keyboardWillShow(_:)),
-                                               name: UIResponder.keyboardWillShowNotification,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.keyboardWillHide(_:)),
-                                               name: UIResponder.keyboardWillHideNotification,
-                                               object: nil)
-    }
-
     func configure() {
         let radius: CGFloat = 50
         view.addSubview(userLocationButton)
@@ -228,6 +217,17 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         bindViewModel()
         bindView()
         locationAuth()
+    }
+
+    private func configureNotifications() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.keyboardWillShow(_:)),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.keyboardWillHide(_:)),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
     }
 
     private func bindView() {
@@ -418,26 +418,35 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
     }
 
     private func stopAnimation() {
+        let title = " steps"
+        let content = "\(viewModel.tracking.value.steps)"
+
         pedometer.stopUpdates()
         pedometer.stopEventUpdates()
         manager.stopUpdatingLocation()
         manager.stopMonitoringSignificantLocationChanges()
         pedometer.stopUpdates()
+
         leftButton.isHidden = true
         userLocationButton.isHidden = true
+        pedometerLabel.attributedText = makeAttributedText(content: content,
+                                                                     title: title,
+                                                                     contentFont: .bazaronite(size: 60),
+                                                                     titleFont: .notoSansKR(.regular, 20),
+                                                                     color: .boosterOrange)
+        pedometerLabel.sizeToFit()
+        
         UIView.animate(withDuration: 1, animations: { [weak self] in
             guard let self = self
             else { return }
 
-            let title = " steps"
-            let content = "\(self.viewModel.tracking.value.steps)"
             self.rightButtonWidthConstraint.constant = 70
             self.rightButtonHeightConstraint.constant = 70
             self.rightButton.layer.cornerRadius = 35
             self.rightButtonTrailingConstraint.constant = 25
             self.rightButtonBottomConstraint.constant = 25
             self.mapViewBottomConstraint.constant = self.view.frame.maxY - 290
-            self.pedometerTrailingConstraint.constant = self.view.frame.maxX - 230
+            self.pedometerTrailingConstraint.constant = self.view.frame.maxX - self.pedometerLabel.frame.width - 25
             self.pedometerTopConstraint.constant = 20
             [self.timeTopConstraint, self.kcalTopConstraint, self.distanceTopConstraint].forEach {
                 $0.constant = 130
@@ -633,15 +642,6 @@ extension TrackingProgressViewController: UIImagePickerControllerDelegate & UINa
 
 // MARK: text view delegate
 extension TrackingProgressViewController: UITextViewDelegate {
-    func textView(_ textView: UITextView,
-                  shouldChangeTextIn range: NSRange,
-                  replacementText text: String) -> Bool {
-        if text == "\n" {
-            textView.resignFirstResponder()
-        }
-        return true
-    }
-
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.lightGray {
             textView.text = nil
@@ -665,6 +665,15 @@ extension TrackingProgressViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text
+        else { return true }
+
+        let maximum = 15
+
+        return text.count + string.count < maximum
     }
 }
 
