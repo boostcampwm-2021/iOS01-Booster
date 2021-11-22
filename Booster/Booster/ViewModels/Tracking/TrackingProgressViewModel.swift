@@ -115,7 +115,10 @@ final class TrackingProgressViewModel {
             var coordinates = self.tracking.value.coordinates
             coordinates += values
             return coordinates
-        }.bind { values in
+        }.bind { [weak self] values in
+            guard let self = self
+            else { return }
+
             var tracking = self.tracking.value
             tracking.coordinates = values
             self.tracking.accept(tracking)
@@ -125,7 +128,10 @@ final class TrackingProgressViewModel {
             var milestones = self.tracking.value.milestones
             milestones += values
             return milestones
-        }.bind { values in
+        }.bind { [weak self] values in
+            guard let self = self
+            else { return }
+
             var tracking = self.tracking.value
             tracking.milestones = values
             self.tracking.accept(tracking)
@@ -133,36 +139,45 @@ final class TrackingProgressViewModel {
 
         state.filter {
             $0 == .end
-        }.map { (_) -> TrackingModel in
+        }.map { [weak self] (_) -> TrackingModel in
+            guard let self = self
+            else { return TrackingModel() }
+
             var tracking = self.tracking.value
             tracking.endDate = Date()
             self.tracking.accept(tracking)
             return tracking
-        }.bind { tracking in
-            self.trackingUsecase.save(count: Double(tracking.steps),
+        }.bind { [weak self] tracking in
+            self?.trackingUsecase.save(count: Double(tracking.steps),
                                  start: tracking.startDate,
                                  end: tracking.endDate ?? Date(),
                                  quantity: .steps,
                                  unit: .count)
-            self.trackingUsecase.save(count: tracking.distance / 1000,
+            self?.trackingUsecase.save(count: tracking.distance / 1000,
                                  start: tracking.startDate,
                                  end: tracking.endDate ?? Date(),
                                  quantity: .runing,
                                  unit: .kilometer)
-            self.trackingUsecase.save(count: Double(tracking.calories),
+            self?.trackingUsecase.save(count: Double(tracking.calories),
                                  start: tracking.startDate,
                                  end: tracking.endDate ?? Date(),
                                  quantity: .energy,
                                  unit: .calorie)
         }.disposed(by: disposeBag)
 
-        title.bind { value in
+        title.bind { [weak self] value in
+            guard let self = self
+            else { return }
+
             var tracking = self.tracking.value
             tracking.title = value
             self.tracking.accept(tracking)
         }.disposed(by: disposeBag)
 
-        content.bind { value in
+        content.bind { [weak self] value in
+            guard let self = self
+            else { return }
+
             var tracking = self.tracking.value
             tracking.content = value
             self.tracking.accept(tracking)
@@ -174,20 +189,29 @@ final class TrackingProgressViewModel {
             self.tracking.accept(tracking)
         }.disposed(by: disposeBag)
 
-        seconds.bind { value in
+        seconds.bind { [weak self] value in
+            guard let self = self
+            else { return }
+
             var tracking = self.tracking.value
             tracking.seconds = value
             self.tracking.accept(tracking)
         }.disposed(by: disposeBag)
 
-        steps.bind { value in
+        steps.bind { [weak self] value in
+            guard let self = self
+            else { return }
+
             var tracking = self.tracking.value
 
             tracking.steps = value
             self.tracking.accept(tracking)
         }.disposed(by: disposeBag)
 
-        distance.bind { value in
+        distance.bind { [weak self] value in
+            guard let self = self
+            else { return }
+
             var tracking = self.tracking.value
             let met: Double = 4.8
             let perHourDistance = 5.6 * 1000
