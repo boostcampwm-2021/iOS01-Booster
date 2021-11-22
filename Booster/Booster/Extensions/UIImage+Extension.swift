@@ -17,4 +17,6 @@ extension UIImage {
     static let systemChevronRight = UIImage(systemName: "chevron.right")
 
     static let assetFoot = UIImage(named: "foot") ?? UIImage()
+    static let notificationOn = UIImage(named: "notificationOn") ?? UIImage()
+    static let notificationOff = UIImage(named: "notificationOff") ?? UIImage()
 }

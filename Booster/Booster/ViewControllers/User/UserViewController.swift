@@ -91,16 +91,10 @@ final class UserViewController: UIViewController, BaseViewControllerTemplate {
 
             navigationController?.pushViewController(editUserInfoViewController, animated: true)
         case .notificationSetting:
-            guard let url = URL(string: UIApplication.openSettingsURLString)
-            else {
-                let title = "오류"
-                let message = "알 수 없는 오류로 인하여 알람 설정을 할 수 없어요"
-                let alert = UIAlertController.simpleAlert(title: title, message: message)
-                present(alert, animated: true, completion: nil)
+            guard let notificationSettingViewController = storyboard?.instantiateViewController(withIdentifier: NotificationSettingViewController.identifier) as? NotificationSettingViewController
+            else { return }
 
-                return
-            }
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            navigationController?.pushViewController(notificationSettingViewController, animated: true)
         }
     }
 }
