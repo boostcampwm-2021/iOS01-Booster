@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EditUserInfoTextField: UITextField {
+final class EditUserInfoTextField: UITextField {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -20,7 +20,7 @@ class EditUserInfoTextField: UITextField {
         commonInit()
     }
 
-    func commonInit() {
+    private func commonInit() {
         let border = CALayer()
         border.frame = CGRect(x: 0, y: frame.height - 1, width: frame.width, height: 1)
         border.backgroundColor = UIColor.boosterGray.cgColor

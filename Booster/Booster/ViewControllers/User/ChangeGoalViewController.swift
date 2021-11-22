@@ -19,14 +19,12 @@ class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        naivgationBarConfigure()
-        configureUI()
 
         stepsTextField.delegate = self
-        stepsTextField.becomeFirstResponder()
+
+        configureNavigationBarTitle()
+        configureUI()
+        placeholderOfGoalTextField(steps: steps)
     }
 
     // MARK: - @IBActions
@@ -35,12 +33,19 @@ class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
     }
 
     @IBAction private func saveButtonDidTap(_ sender: UIButton) {
+        if changeGoalValidator() {
 
+        } else {
+            let title = "변경 실패"
+            let message = "걸음 수가 빈칸 이거나 0인지 확인해주세요"
+            let alert = UIAlertController.simpleAlert(title: title, message: message)
+            present(alert, animated: true, completion: nil)
+        }
     }
 
     // MARK: - Functions
-    private func naivgationBarConfigure() {
-
+    private func configureNavigationBarTitle() {
+        navigationItem.title = "목표 바꾸기"
     }
 
     private func configureUI() {
@@ -52,10 +57,38 @@ class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
         stepsTextField.layer.addSublayer(border)
         stepsTextField.layer.masksToBounds = true
     }
+
+    private func placeholderOfGoalTextField(steps: Int) {
+        stepsTextField.clearsOnBeginEditing = true
+        stepsTextField.textColor = .boosterGray
+        stepsTextField.text = attributedTextOfcurrentGoal(steps: steps)
+    }
+
+    private func attributedTextOfcurrentGoal(steps: Int) -> String {
+        let attributedString = NSAttributedString(string: "\(steps)", attributes: [.foregroundColor: UIColor.boosterGray])
+
+        return attributedString.string
+    }
+
+    private func changeGoalValidator() -> Bool {
+        guard let stepsText = stepsTextField.text,
+              let steps = Int(stepsText)
+        else { return false }
+
+        if steps == 0 { return false }
+
+        return true
+    }
 }
 
 // MARK: - UITextFieldDelegate
 extension ChangeGoalViewController: UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        stepsTextField.textColor = .boosterOrange
+
+        return true
+    }
+
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text
         else { return true }
