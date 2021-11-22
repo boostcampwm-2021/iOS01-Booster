@@ -94,8 +94,8 @@ final class CoreDataManager {
     func fetch<DataType: NSManagedObject>() -> Observable<[DataType]> {
         return Observable.create { [weak self] observer in
             guard let self = self
-            else { return }
-            
+            else { return Disposables.create() }
+
             let backgroundContext = self.container.newBackgroundContext()
 
             backgroundContext.perform {
