@@ -33,11 +33,7 @@ final class UserViewModel {
 
             return Observable.zip(self.usecase.eraseAllDataOfHealthKit(), self.usecase.eraseAllDataOfCoreData())
                 .subscribe(onNext: { healthKitResult, coreDataResult in
-                    if healthKitResult || coreDataResult {
-                        emitter.onNext(true)
-                    } else {
-                        emitter.onNext(false)
-                    }
+                    emitter.onNext(healthKitResult || coreDataResult)
                     emitter.onCompleted()
                 })
         }
