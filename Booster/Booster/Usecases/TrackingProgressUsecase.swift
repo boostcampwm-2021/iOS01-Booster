@@ -59,7 +59,7 @@ final class TrackingProgressUsecase {
             CoreDataKeys.address: model.address
         ]
 
-        return CoreDataManager.shared.save(value: value, type: entity)
+        return CoreDataManager.shared.save(attributes: value, type: entity)
     }
 
     func save(count: Double, start: Date, end: Date, quantity: HealthQuantityType, unit: HealthUnit) {

@@ -37,6 +37,6 @@ final class EnrollUsecase {
             CoreDataKeys.goal: info.goal
         ]
 
-        return CoreDataManager.shared.save(value: value, type: type)
+        return CoreDataManager.shared.save(attributes: value, type: type)
     }
 }

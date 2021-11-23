@@ -435,7 +435,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
                                                                      titleFont: .notoSansKR(.regular, 20),
                                                                      color: .boosterOrange)
         pedometerLabel.sizeToFit()
-        
+
         UIView.animate(withDuration: 1, animations: { [weak self] in
             guard let self = self
             else { return }
