@@ -20,10 +20,19 @@ final class UserUsecase {
 
     private let disposeBag = DisposeBag()
 
-//    func fetchUserInfo() -> Observable<UserInfo> {
-//        let entityName = "User"
-//        
-//    }
+    func fetchUserInfo() -> Observable<UserInfo> {
+        return CoreDataManager.shared.fetch()
+            .map { [weak self] (value: [User]) in
+                var userInfo = UserInfo()
+
+                if let userValue = value.first,
+                   let userInfoValue = self?.convertToUserInfoFrom(user: userValue) {
+                    userInfo = userInfoValue
+                }
+
+                return userInfo
+            }
+    }
 
     func removeAllDataOfHealthKit() -> Observable<Bool> {
         return Observable.create { observer in
@@ -89,7 +98,7 @@ final class UserUsecase {
             let value: [String: Any] = [
                 CoreDataKeys.goal: goal
             ]
-
+            // TODO: Change To Update
             CoreDataManager.shared.save(value: value, type: entityName) { (response) in
                 switch response {
                 case .success:
@@ -104,15 +113,14 @@ final class UserUsecase {
         }
     }
 
-    private func convertUserInfoFromCoreData(user: User) -> UserInfo? {
+    private func convertToUserInfoFrom(user: User) -> UserInfo? {
         if let nickname = user.nickname,
            let gender = user.gender {
             let userInfo = UserInfo(age: Int(user.age),
                                     nickname: nickname,
                                     gender: gender,
                                     height: Int(user.height),
-                                    weight: Int(user.weight),
-                                    goal: Int(user.goal))
+                                    weight: Int(user.weight))
             return userInfo
         }
         return nil

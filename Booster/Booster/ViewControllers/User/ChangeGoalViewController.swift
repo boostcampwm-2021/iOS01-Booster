@@ -15,7 +15,7 @@ class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
     @IBOutlet private var stepsTextField: UITextField!
 
     // MARK: - Properties
-    var viewModel = GoalViewModel()
+    var viewModel = UserInfo()
     private var steps: Int = 10000
 
     // MARK: - Life Cycles
@@ -27,7 +27,6 @@ class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
         configureNavigationBarTitle()
         configureUI()
         placeholderOfGoalTextField(steps: steps)
-        viewModel.fetchUserInfo()
     }
 
     // MARK: - @IBActions

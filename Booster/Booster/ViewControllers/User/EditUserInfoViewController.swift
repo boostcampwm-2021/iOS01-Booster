@@ -11,7 +11,7 @@ import RxSwift
 
 final class EditUserInfoViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - Enum
-    private enum genderButtonType: String {
+    private enum GenderButtonType: String {
         case male = "남"
         case female = "여"
 
@@ -32,7 +32,7 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
     var viewModel: UserViewModel
 
     private let disposeBag = DisposeBag()
-    private var genderButtonState: genderButtonType = .female
+    private var genderButtonState: GenderButtonType = .female
     private lazy var pickerViewFrame = CGRect(x: 0,
                                               y: view.frame.height - 170,
                                               width: view.frame.width,
@@ -92,7 +92,7 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
         configureNavigationBarTitle()
         configureUIButton()
         configureUITextField()
-        loadUserInfoToView()
+        bind()
     }
 
     // MARK: - @IBActions
@@ -124,6 +124,21 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
     }
 
     // MARK: - Functions
+    private func bind() {
+        viewModel.model.asDriver()
+            .drive(onNext: { [weak self] userInfo in
+                guard let self = self,
+                      let genderType = GenderButtonType(rawValue: userInfo.gender)
+                else { return }
+
+                self.setButtonState(by: genderType)
+                self.nickNameTextField.text = userInfo.nickname
+                self.heightTextField.text = "\(userInfo.height)"
+                self.weightTextField.text = "\(userInfo.weight)"
+                self.ageTextField.text = "\(userInfo.age)"
+            }).disposed(by: disposeBag)
+    }
+
     private func configureNavigationBarTitle() {
         navigationItem.title = "개인 정보 수정"
     }
@@ -185,15 +200,8 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
         ageTextField.resignFirstResponder()
     }
 
-    private func loadUserInfoToView() {
-        if let gender = genderButtonType(rawValue: viewModel.model.gender) {
-            (gender == .male) ? (maleGenderButton.isEnabled = false) : (femaleGenderButton.isEnabled = false)
-        }
-
-        nickNameTextField.text = viewModel.model.nickname
-        heightTextField.text = "\(viewModel.model.height)"
-        weightTextField.text = "\(viewModel.model.weight)"
-        ageTextField.text = "\(viewModel.model.age)"
+    private func setButtonState(by gender: GenderButtonType) {
+        (gender == .male) ? (maleGenderButton.isEnabled = false) : (femaleGenderButton.isEnabled = false)
     }
 
     private func popViewControllerAlertController(title: String = "", message: String) -> UIAlertController {

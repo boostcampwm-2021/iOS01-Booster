@@ -23,9 +23,9 @@ final class NotificationSettingViewController: UIViewController, BaseViewControl
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        bind()
         configureNavigationBarTitle()
         configureNotificationUI()
+        bind()
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(willEnterForeground(_:)),
                                                name: UIApplication.willEnterForegroundNotification,
@@ -71,15 +71,14 @@ final class NotificationSettingViewController: UIViewController, BaseViewControl
     }
 
     private func bind() {
-        viewModel.model
-            .observe(on: MainScheduler.instance)
-            .subscribe({ [weak self] model in
-                self?.titleLabel.text = model.element?.title
-                self?.subTitleLabel.text = model.element?.subTitle
-                self?.notificationImageView.image = model.element?.image
-                self?.onOffButton.backgroundColor = model.element?.buttonBackgroundColor
-                self?.onOffButton.setAttributedTitle(model.element?.buttonAttributedTitle, for: .normal)
-                self?.onOffButton.tintColor = model.element?.buttonTintColor
+        viewModel.model.asDriver()
+            .drive(onNext: { [weak self] notificationSettingModel in
+                self?.titleLabel.text = notificationSettingModel.title
+                self?.subTitleLabel.text = notificationSettingModel.subTitle
+                self?.notificationImageView.image = notificationSettingModel.image
+                self?.onOffButton.backgroundColor = notificationSettingModel.buttonBackgroundColor
+                self?.onOffButton.setAttributedTitle(notificationSettingModel.buttonAttributedTitle, for: .normal)
+                self?.onOffButton.tintColor = notificationSettingModel.buttonTintColor
             }).disposed(by: disposeBag)
     }
 

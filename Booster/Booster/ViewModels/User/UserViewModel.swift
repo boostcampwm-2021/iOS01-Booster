@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import RxRelay
 
 final class UserViewModel {
     enum UserViewModelError: Error {
@@ -15,15 +16,15 @@ final class UserViewModel {
 
     private let usecase: UserUsecase
     private let disposeBag = DisposeBag()
-    private(set) var model: UserInfo
+    private(set) var model = BehaviorRelay<UserInfo>(value: UserInfo())
 
     init() {
         usecase = UserUsecase()
-        model = UserInfo(age: 25, nickname: "히로롱", gender: "여", height: 164, weight: 80)
+        fetchUserInfo()
     }
 
     func userPhysicalInfo() -> String {
-        return "\(model.age)살, \(model.height)cm, \(model.weight)kg, \(model.gender)"
+        return "\(model.value.age)살, \(model.value.height)cm, \(model.value.weight)kg, \(model.value.gender)"
     }
 
     func removeAllData() -> Observable<Bool> {
@@ -40,7 +41,7 @@ final class UserViewModel {
     }
 
     func editUserInfo(gender: String? = nil, age: Int? = nil, height: Int? = nil, weight: Int? = nil, nickname: String? = nil) -> Observable<Bool> {
-        var newModel = model
+        var newModel = model.value
         if let gender = gender { newModel.gender = gender }
         if let age = age { newModel.age = age }
         if let height = height { newModel.height = height }
@@ -53,10 +54,21 @@ final class UserViewModel {
                 guard let self = self
                 else { return }
 
-                if isSaved { self.model = newModel }
+                if isSaved { self.model.accept(newModel) }
             }).disposed(by: disposeBag)
 
         return observableResult
+    }
+
+    private func fetchUserInfo() {
+        usecase.fetchUserInfo()
+            .subscribe { [weak self] value in
+                guard let self = self,
+                      let fetchedModel = value.element
+                else { return }
+
+                self.model.accept(fetchedModel)
+            }.disposed(by: disposeBag)
     }
 
     private func save(model: UserInfo) -> Observable<Bool> {
@@ -64,7 +76,7 @@ final class UserViewModel {
             guard let self = self
             else { return Disposables.create() }
 
-            return self.usecase.editUserInfo(model: self.model)
+            return self.usecase.editUserInfo(model: self.model.value)
                 .subscribe(onNext: { isSaved in
                     observer.onNext(isSaved)
                     observer.onCompleted()

@@ -17,12 +17,4 @@ final class GoalViewModel {
     init() {
         usecase = UserUsecase()
     }
-
-    func fetchUserInfo() {
-//        usecase.fetchUserInfo()
-//            .subscribe(onNext: { [weak self] userInfo in
-//                self?.model.accept(userInfo)
-//                print(userInfo)
-//            }).disposed(by: disposeBag)
-    }
 }

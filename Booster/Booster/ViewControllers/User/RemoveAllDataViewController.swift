@@ -21,7 +21,7 @@ final class RemoveAllDataViewController: UIViewController, BaseViewControllerTem
         super.viewDidLoad()
 
         configureNavigationBarTitle()
-        configureUI()
+        bind()
     }
 
     // MAKR: - @IBAction
@@ -53,12 +53,19 @@ final class RemoveAllDataViewController: UIViewController, BaseViewControllerTem
     }
 
     // MARK: - Functions
-    private func configureNavigationBarTitle() {
-        navigationItem.title = "모든 데이터 지우기"
+    private func bind() {
+        viewModel.model.asDriver()
+            .drive(onNext: { [weak self] userInfo in
+                guard let self = self
+                else { return }
+
+                let subTitle = "산책에 대한 기록들은 \(userInfo.nickname)님의\n휴대폰에서만 소중하게 보관하고 있어요"
+                self.subTitleLabel.text = subTitle
+            }).disposed(by: disposeBag)
     }
 
-    private func configureUI() {
-        subTitleLabel.text = "산책에 대한 기록들은 \(viewModel.model.nickname)님의\n휴대폰에서만 소중하게 보관하고 있어요"
+    private func configureNavigationBarTitle() {
+        navigationItem.title = "모든 데이터 지우기"
     }
 
     private func popViewControllerAlertController(title: String = "", message: String) -> UIAlertController {
