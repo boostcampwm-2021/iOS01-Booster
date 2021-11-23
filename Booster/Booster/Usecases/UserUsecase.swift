@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxSwift
 
 final class UserUsecase {
     private enum CoreDataKeys {
@@ -16,36 +17,60 @@ final class UserUsecase {
         static let weight = "weight"
     }
 
-    func eraseAllDataOfHealthKit(completion: @escaping (Result<Int, Error>) -> Void) {
-        HealthStoreManager.shared.removeAll { (result) in
-            completion(result)
-        }
-    }
+    private let disposeBag = DisposeBag()
 
-    func eraseAllDataOfCoreData(completion: @escaping (Result<Void, Error>) -> Void) {
-        CoreDataManager.shared.delete(entityName: "Tracking") { (result) in
-            completion(result)
-        }
-    }
-
-    func editUserInfo(model: UserInfo, completion: @escaping (Bool) -> Void) {
-        let entity = "User"
-        let value: [String: Any] = [
-            CoreDataKeys.age: model.age,
-            CoreDataKeys.nickname: model.nickname,
-            CoreDataKeys.gender: model.gender,
-            CoreDataKeys.height: model.height,
-            CoreDataKeys.weight: model.weight
-        ]
-
-        CoreDataManager.shared.save(value: value, type: entity) { (response) in
-            switch response {
-            case .success:
-                completion(true)
-            case .failure(let error):
-                dump(error)
-                completion(false)
+    func eraseAllDataOfHealthKit() -> Observable<Int> {
+        return Observable.create { emitter in
+            HealthStoreManager.shared.removeAll { result in
+                switch result {
+                case .success(let count):
+                    emitter.onNext(count)
+                case .failure(let error):
+                    emitter.onError(error)
+                }
             }
+
+            return Disposables.create()
+        }
+    }
+
+    func eraseAllDataOfCoreData() -> Observable<Void> {
+        return Observable.create { emitter in
+            let entityName = "Tracking"
+            CoreDataManager.shared.delete(entityName: entityName) { result in
+                switch result {
+                case .success:
+                    emitter.onNext(())
+                case .failure(let error):
+                    emitter.onError(error)
+                }
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    func editUserInfo(model: UserInfo) -> Observable<Bool> {
+        return Observable.create { emitter in
+            let entityName = "User"
+            let value: [String: Any] = [
+                CoreDataKeys.age: model.age,
+                CoreDataKeys.nickname: model.nickname,
+                CoreDataKeys.gender: model.gender,
+                CoreDataKeys.height: model.height,
+                CoreDataKeys.weight: model.weight
+            ]
+
+            CoreDataManager.shared.save(value: value, type: entityName) { (response) in
+                switch response {
+                case .success:
+                    return emitter.onNext(true)
+                case .failure(let error):
+                    return emitter.onError(error)
+                }
+            }
+
+            return Disposables.create()
         }
     }
 

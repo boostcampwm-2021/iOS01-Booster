@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class EraseAllDataViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - @IBOutlet
@@ -13,6 +14,7 @@ final class EraseAllDataViewController: UIViewController, BaseViewControllerTemp
 
     // MARK: - Properties
     var viewModel: UserViewModel = UserViewModel()
+    private let disposeBag = DisposeBag()
 
     // MARK: - Life Cycles
     override func viewDidLoad() {
@@ -25,30 +27,27 @@ final class EraseAllDataViewController: UIViewController, BaseViewControllerTemp
     }
 
     // MAKR: - @IBAction
-    @IBAction private func eraseAllButtonDidTap(_ sender: Any) {
-        viewModel.eraseAllData { [weak self] (result) in
-            DispatchQueue.main.async {
-                var alert = UIAlertController()
-                switch result {
-                case .success(let count):
-                    let title = "삭제 완료"
-                    let message = "모든 정보가 삭제됐어요!"
-                    alert = UIAlertController.simpleAlert(title: title,
-                                                          message: message,
-                                                          action: { (_) -> Void in
-                        self?.navigationController?.popViewController(animated: true)
-                        return
-                    })
-                case .failure(let error):
-                    let title = "삭제 실패"
-                    let message = "알 수 없는 오류로 인하여 정보를 삭제할 수 없어요"
-                    alert = UIAlertController.simpleAlert(title: title, message: message)
-                }
-                self?.present(alert, animated: true) {
-                    self?.navigationController?.popViewController(animated: true)
-                }
-            }
-        }
+    @IBAction private func eraseAllButtonDidTap(_ sender: UIButton) {
+        var alert = UIAlertController()
+
+        viewModel.eraseAllData()
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { _ in
+                let title = "삭제 완료"
+                let message = "모든 정보가 삭제됐어요!"
+                alert = UIAlertController.simpleAlert(title: title,
+                                                      message: message,
+                                                      action: { (_) -> Void in
+                    self.navigationController?.popViewController(animated: true)
+                    return
+                })
+            }, onError: { _ in
+                let title = "삭제 실패"
+                let message = "알 수 없는 오류로 인하여 정보를 삭제할 수 없어요"
+                alert = UIAlertController.simpleAlert(title: title, message: message)
+            }, onCompleted: {
+                self.present(alert, animated: true, completion: nil)
+            }).disposed(by: disposeBag)
     }
 
     @IBAction private func backButtonDidTap(_ sender: UIButton) {
