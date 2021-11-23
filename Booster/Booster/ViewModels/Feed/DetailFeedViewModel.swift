@@ -46,7 +46,7 @@ final class DetailFeedViewModel {
         var newTrackingModel = self.trackingModel.value
         _ = newTrackingModel.milestones.remove(at: index)
 
-        usecase.update(model: newTrackingModel, predicate: predicate)
+        usecase.update(milestones: newTrackingModel.milestones, predicate: predicate)
             .subscribe(onError: { _ in
                 self.isDeletedMilestone.onNext(false)
             }, onCompleted: {

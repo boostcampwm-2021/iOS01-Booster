@@ -276,7 +276,7 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
     }
 }
 
-//MARK: - Setting ActionSheet Alert Events
+// MARK: - Setting ActionSheet Alert Events
 extension DetailFeedViewController {
     private func presentModifyViewController() {
         let storyboardName = "Feed"
@@ -291,7 +291,7 @@ extension DetailFeedViewController {
     private func shareDetailFeedImage() {
         guard let image = snapshot()
         else { return }
-        
+
         let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = view
 
@@ -333,7 +333,6 @@ extension DetailFeedViewController {
         present(alertController, animated: true, completion: nil)
     }
 }
-
 
 // MARK: - MapView Delegate
 extension DetailFeedViewController: MKMapViewDelegate {
