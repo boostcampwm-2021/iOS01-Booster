@@ -25,33 +25,33 @@ final class UserUsecase {
 //        
 //    }
 
-    func eraseAllDataOfHealthKit() -> Observable<Bool> {
-        return Observable.create { emitter in
+    func removeAllDataOfHealthKit() -> Observable<Bool> {
+        return Observable.create { observer in
             HealthStoreManager.shared.removeAll { result in
                 switch result {
                 case .success:
-                    emitter.onNext(true)
+                    observer.onNext(true)
                 case .failure:
-                    emitter.onNext(false)
+                    observer.onNext(false)
                 }
-                emitter.onCompleted()
+                observer.onCompleted()
             }
 
             return Disposables.create()
         }
     }
 
-    func eraseAllDataOfCoreData() -> Observable<Bool> {
-        return Observable.create { emitter in
+    func removeAllDataOfCoreData() -> Observable<Bool> {
+        return Observable.create { observer in
             let entityName = "Tracking"
             CoreDataManager.shared.delete(entityName: entityName) { result in
                 switch result {
                 case .success:
-                    emitter.onNext(true)
+                    observer.onNext(true)
                 case .failure:
-                    emitter.onNext(false)
+                    observer.onNext(false)
                 }
-                emitter.onCompleted()
+                observer.onCompleted()
             }
 
             return Disposables.create()
@@ -59,7 +59,7 @@ final class UserUsecase {
     }
 
     func editUserInfo(model: UserInfo) -> Observable<Bool> {
-        return Observable.create { emitter in
+        return Observable.create { observer in
             let entityName = "User"
             let value: [String: Any] = [
                 CoreDataKeys.age: model.age,
@@ -72,11 +72,11 @@ final class UserUsecase {
             CoreDataManager.shared.save(value: value, type: entityName) { (response) in
                 switch response {
                 case .success:
-                    emitter.onNext(true)
+                    observer.onNext(true)
                 case .failure:
-                    emitter.onNext(false)
+                    observer.onNext(false)
                 }
-                emitter.onCompleted()
+                observer.onCompleted()
             }
 
             return Disposables.create()
@@ -84,7 +84,7 @@ final class UserUsecase {
     }
 
     func changeGoal(to goal: Int) -> Observable<Bool> {
-        return Observable.create { emitter in
+        return Observable.create { observer in
             let entityName = "User"
             let value: [String: Any] = [
                 CoreDataKeys.goal: goal
@@ -93,11 +93,11 @@ final class UserUsecase {
             CoreDataManager.shared.save(value: value, type: entityName) { (response) in
                 switch response {
                 case .success:
-                    emitter.onNext(true)
+                    observer.onNext(true)
                 case .failure:
-                    emitter.onNext(false)
+                    observer.onNext(false)
                 }
-                emitter.onCompleted()
+                observer.onCompleted()
             }
 
             return Disposables.create()

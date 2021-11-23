@@ -1,5 +1,5 @@
 //
-//  EraseAllDataViewController.swift
+//  RemoveAllDataViewController.swift
 //  Booster
 //
 //  Created by mong on 2021/11/17.
@@ -8,35 +8,33 @@
 import UIKit
 import RxSwift
 
-final class EraseAllDataViewController: UIViewController, BaseViewControllerTemplate {
+final class RemoveAllDataViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - @IBOutlet
     @IBOutlet private weak var subTitleLabel: UILabel!
 
     // MARK: - Properties
-    var viewModel: UserViewModel = UserViewModel()
+    var viewModel = UserViewModel()
     private let disposeBag = DisposeBag()
 
     // MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
 
-    override func viewWillAppear(_ animated: Bool) {
         configureNavigationBarTitle()
         configureUI()
     }
 
     // MAKR: - @IBAction
-    @IBAction private func eraseAllButtonDidTap(_ sender: UIButton) {
+    @IBAction private func removeAllButtonDidTap(_ sender: UIButton) {
         var alert = UIAlertController()
 
-        viewModel.eraseAllData()
+        viewModel.removeAllData()
             .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] isErased in
+            .subscribe(onNext: { [weak self] isRemoved in
                 guard let self = self
                 else { return }
 
-                if isErased {
+                if isRemoved {
                     let title = "삭제 완료"
                     let message = "모든 정보가 삭제됐어요!"
                     alert = self.popViewControllerAlertController(title: title, message: message)
@@ -63,7 +61,7 @@ final class EraseAllDataViewController: UIViewController, BaseViewControllerTemp
         subTitleLabel.text = "산책에 대한 기록들은 \(viewModel.model.nickname)님의\n휴대폰에서만 소중하게 보관하고 있어요"
     }
 
-    private func popViewControllerAlertController(title: String = "", message: String = "") -> UIAlertController {
+    private func popViewControllerAlertController(title: String = "", message: String) -> UIAlertController {
         let alert = UIAlertController.simpleAlert(title: title,
                                               message: message,
                                               action: { (_) -> Void in

@@ -14,7 +14,7 @@ final class UserViewModel {
     }
 
     private let usecase: UserUsecase
-    private let disposeBag: DisposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     private(set) var model: UserInfo
 
     init() {
@@ -26,15 +26,15 @@ final class UserViewModel {
         return "\(model.age)살, \(model.height)cm, \(model.weight)kg, \(model.gender)"
     }
 
-    func eraseAllData() -> Observable<Bool> {
-        return Observable.create { [weak self] emitter in
+    func removeAllData() -> Observable<Bool> {
+        return Observable.create { [weak self] observer in
             guard let self = self
             else { return Disposables.create() }
 
-            return Observable.zip(self.usecase.eraseAllDataOfHealthKit(), self.usecase.eraseAllDataOfCoreData())
+            return Observable.zip(self.usecase.removeAllDataOfHealthKit(), self.usecase.removeAllDataOfCoreData())
                 .subscribe(onNext: { healthKitResult, coreDataResult in
-                    emitter.onNext(healthKitResult || coreDataResult)
-                    emitter.onCompleted()
+                    observer.onNext(healthKitResult || coreDataResult)
+                    observer.onCompleted()
                 })
         }
     }
@@ -60,16 +60,16 @@ final class UserViewModel {
     }
 
     private func save(model: UserInfo) -> Observable<Bool> {
-        return Observable.create { [weak self] emitter in
+        return Observable.create { [weak self] observer in
             guard let self = self
             else { return Disposables.create() }
 
             return self.usecase.editUserInfo(model: self.model)
                 .subscribe(onNext: { isSaved in
-                    emitter.onNext(isSaved)
-                    emitter.onCompleted()
+                    observer.onNext(isSaved)
+                    observer.onCompleted()
                 }, onError: { error in
-                    emitter.onError(error)
+                    observer.onError(error)
                 })
             }
     }

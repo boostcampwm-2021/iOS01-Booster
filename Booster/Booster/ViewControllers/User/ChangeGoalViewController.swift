@@ -15,7 +15,7 @@ class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
     @IBOutlet private var stepsTextField: UITextField!
 
     // MARK: - Properties
-    var viewModel: GoalViewModel = GoalViewModel()
+    var viewModel = GoalViewModel()
     private var steps: Int = 10000
 
     // MARK: - Life Cycles

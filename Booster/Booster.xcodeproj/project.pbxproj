@@ -120,7 +120,7 @@
 		FA614F962738F7A200B090D9 /* MilestonePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F952738F7A200B090D9 /* MilestonePhotoViewController.swift */; };
 		FA614F982738FDA900B090D9 /* MilestonePhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F972738FDA900B090D9 /* MilestonePhotoViewModel.swift */; };
 		FA84966C274A13890021F903 /* NotificationSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA84966B274A13890021F903 /* NotificationSettingViewController.swift */; };
-		FAA291BA2744FE8B0042D2D5 /* EraseAllDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA291B92744FE8B0042D2D5 /* EraseAllDataViewController.swift */; };
+		FAA291BA2744FE8B0042D2D5 /* RemoveAllDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA291B92744FE8B0042D2D5 /* RemoveAllDataViewController.swift */; };
 		FAAD240B274D0F23009E2F52 /* NotificationSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAD240A274D0F23009E2F52 /* NotificationSettingViewModel.swift */; };
 		FACBAB6A2746034900CD6B76 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBAB692746034900CD6B76 /* UIButton+Extension.swift */; };
 		FADAC0D02745F55100A026E2 /* EditUserInfoTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADAC0CF2745F55100A026E2 /* EditUserInfoTextField.swift */; };
@@ -248,7 +248,7 @@
 		FA614F952738F7A200B090D9 /* MilestonePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestonePhotoViewController.swift; sourceTree = "<group>"; };
 		FA614F972738FDA900B090D9 /* MilestonePhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestonePhotoViewModel.swift; sourceTree = "<group>"; };
 		FA84966B274A13890021F903 /* NotificationSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingViewController.swift; sourceTree = "<group>"; };
-		FAA291B92744FE8B0042D2D5 /* EraseAllDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraseAllDataViewController.swift; sourceTree = "<group>"; };
+		FAA291B92744FE8B0042D2D5 /* RemoveAllDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveAllDataViewController.swift; sourceTree = "<group>"; };
 		FAAD240A274D0F23009E2F52 /* NotificationSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingViewModel.swift; sourceTree = "<group>"; };
 		FACBAB692746034900CD6B76 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		FADAC0CF2745F55100A026E2 /* EditUserInfoTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserInfoTextField.swift; sourceTree = "<group>"; };
@@ -412,7 +412,7 @@
 			children = (
 				FA614F462733CDAA00B090D9 /* UserViewController.swift */,
 				FA473A4C2744EC1C0000C5DC /* ChangeGoalViewController.swift */,
-				FAA291B92744FE8B0042D2D5 /* EraseAllDataViewController.swift */,
+				FAA291B92744FE8B0042D2D5 /* RemoveAllDataViewController.swift */,
 				FA2578F62745E99800597382 /* EditUserInfoViewController.swift */,
 				FA84966B274A13890021F903 /* NotificationSettingViewController.swift */,
 			);
@@ -1018,7 +1018,7 @@
 				FACBAB6A2746034900CD6B76 /* UIButton+Extension.swift in Sources */,
 				FA614F822733CDAA00B090D9 /* UserViewController.swift in Sources */,
 				FA614F7E2733CDAA00B090D9 /* StatisticsViewController.swift in Sources */,
-				FAA291BA2744FE8B0042D2D5 /* EraseAllDataViewController.swift in Sources */,
+				FAA291BA2744FE8B0042D2D5 /* RemoveAllDataViewController.swift in Sources */,
 				FA473A4F2744EE730000C5DC /* GoalViewModel.swift in Sources */,
 				3B6FE5032743A85B00A815D1 /* InfoPickerView.swift in Sources */,
 				FA614F862733CDAA00B090D9 /* PhotoAnnotationView.swift in Sources */,

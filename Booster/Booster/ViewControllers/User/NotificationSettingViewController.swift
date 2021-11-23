@@ -16,7 +16,7 @@ final class NotificationSettingViewController: UIViewController, BaseViewControl
     @IBOutlet private weak var onOffButton: UIButton!
 
     // MARK: - Properties
-    var viewModel: NotificationSettingViewModel = NotificationSettingViewModel()
+    var viewModel = NotificationSettingViewModel()
     private let disposeBag = DisposeBag()
 
     // MARK: - Life Cycles
@@ -24,7 +24,7 @@ final class NotificationSettingViewController: UIViewController, BaseViewControl
         super.viewDidLoad()
 
         bind()
-        configureNavigationBar()
+        configureNavigationBarTitle()
         configureNotificationUI()
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(willEnterForeground(_:)),
@@ -66,7 +66,7 @@ final class NotificationSettingViewController: UIViewController, BaseViewControl
     }
 
     // MARK: - Functions
-    private func configureNavigationBar() {
+    private func configureNavigationBarTitle() {
         navigationItem.title = "알림 설정"
     }
 

@@ -31,7 +31,7 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
     // MARK: - Properties
     var viewModel: UserViewModel
 
-    private let disposeBag: DisposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     private var genderButtonState: genderButtonType = .female
     private lazy var pickerViewFrame = CGRect(x: 0,
                                               y: view.frame.height - 170,
@@ -41,7 +41,7 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
         let pickerView = InfoPickerView(frame: pickerViewFrame, type: .height)
         pickerView.rx.itemSelected.map { (row, _) -> Int in
             return Int(row + pickerView.type.range.lowerBound)
-        }.bind { [weak self] (value) in
+        }.bind { [weak self] value in
             self?.heightTextField.text = "\(value)"
         }.disposed(by: disposeBag)
 
@@ -52,7 +52,7 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
         let pickerView = InfoPickerView(frame: pickerViewFrame, type: .weight)
         pickerView.rx.itemSelected.map { (row, _) -> Int in
             return Int(row + pickerView.type.range.lowerBound)
-        }.bind { [weak self] (value) in
+        }.bind { [weak self] value in
             self?.weightTextField.text = "\(value)"
         }.disposed(by: disposeBag)
 
@@ -63,7 +63,7 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
         let pickerView = InfoPickerView(frame: pickerViewFrame, type: .age)
         pickerView.rx.itemSelected.map { (row, _) -> Int in
             return Int(row + pickerView.type.range.lowerBound)
-        }.bind { [weak self] (value) in
+        }.bind { [weak self] value in
             self?.ageTextField.text = "\(value)"
         }.disposed(by: disposeBag)
 
@@ -196,7 +196,7 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
         ageTextField.text = "\(viewModel.model.age)"
     }
 
-    private func popViewControllerAlertController(title: String = "", message: String = "") -> UIAlertController {
+    private func popViewControllerAlertController(title: String = "", message: String) -> UIAlertController {
         let alert = UIAlertController.simpleAlert(title: title,
                                               message: message,
                                               action: { (_) -> Void in
