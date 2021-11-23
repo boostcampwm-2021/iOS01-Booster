@@ -14,7 +14,6 @@ final class UserViewModel {
     }
 
     private let usecase: UserUsecase
-    private let disposeBag = DisposeBag()
     private(set) var model: UserInfo
 
     init() {
@@ -26,18 +25,19 @@ final class UserViewModel {
         return "\(model.age)살, \(model.height)cm, \(model.weight)kg, \(model.gender)"
     }
 
-    func eraseAllData() -> Observable<Int> {
+    func eraseAllData() -> Observable<Bool> {
         return Observable.create { [weak self] emitter in
             guard let self = self
             else { return Disposables.create() }
 
             return Observable.zip(self.usecase.eraseAllDataOfHealthKit(), self.usecase.eraseAllDataOfCoreData())
-                .debug()
-                .subscribe(onNext: { count, _ in
-                    emitter.onNext(count)
+                .subscribe(onNext: { healthKitResult, coreDataResult in
+                    if healthKitResult || coreDataResult {
+                        emitter.onNext(true)
+                    } else {
+                        emitter.onNext(false)
+                    }
                     emitter.onCompleted()
-                }, onError: { error in
-                    emitter.onError(error)
                 })
         }
     }
@@ -50,9 +50,18 @@ final class UserViewModel {
         if let nickname = nickname { model.nickname = nickname }
     }
 
-    func save(completion: @escaping (Bool) -> Void) {
-//        usecase.editUserInfo(model: model) { isSaved in
-//            completion(isSaved)
-//        }
+    func save() -> Observable<Bool> {
+        return Observable.create { [weak self] emitter in
+            guard let self = self
+            else { return Disposables.create() }
+
+            return self.usecase.editUserInfo(model: self.model)
+                .subscribe(onNext: { isSaved in
+                    emitter.onNext(isSaved)
+                    emitter.onCompleted()
+                }, onError: { error in
+                    emitter.onError(error)
+                })
+            }
     }
 }

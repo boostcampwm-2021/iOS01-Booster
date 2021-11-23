@@ -138,28 +138,29 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
         let height = Int(height) ?? nil
         let weight = Int(weight) ?? nil
         let nickName = nickName == "" ? nil : nickName
+        var alert = UIAlertController()
+
         viewModel.editUserInfo(gender: gender,
                                age: age,
                                height: height,
                                weight: weight,
                                nickname: nickName)
-        viewModel.save { [weak self] (isSaved) in
-            DispatchQueue.main.async {
-                var alert = UIAlertController()
+        viewModel.save()
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] isSaved in
+                guard let self = self
+                else { return }
+
                 if isSaved {
-                    alert = UIAlertController.simpleAlert(title: "",
-                                                          message: "수정 완료",
-                                                          action: { (_) -> Void in
-                        self?.navigationController?.popViewController(animated: true)
-                        return
-                    })
+                    let message = "수정 완료"
+                    alert = self.popViewControllerAlertController(message: message)
                 } else {
-                    alert = UIAlertController.simpleAlert(title: "", message: "수정 실패")
+                    let message = "수정 실패"
+                    alert = self.popViewControllerAlertController(message: message)
                 }
-                self?.present(alert, animated: true)
-                dump(self?.viewModel)
-            }
-        }
+            }, onCompleted: { [weak self] in
+                self?.present(alert, animated: true, completion: nil)
+            }).disposed(by: disposalBag)
     }
 
     private func configureUIButton() {
@@ -194,5 +195,15 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
         heightTextField.text = "\(viewModel.model.height)"
         weightTextField.text = "\(viewModel.model.weight)"
         ageTextField.text = "\(viewModel.model.age)"
+    }
+
+    private func popViewControllerAlertController(title: String = "", message: String = "") -> UIAlertController {
+        let alert = UIAlertController.simpleAlert(title: title,
+                                              message: message,
+                                              action: { (_) -> Void in
+            self.navigationController?.popViewController(animated: true)
+        })
+
+        return alert
     }
 }

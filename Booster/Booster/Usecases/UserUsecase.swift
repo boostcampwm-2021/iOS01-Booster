@@ -19,31 +19,33 @@ final class UserUsecase {
 
     private let disposeBag = DisposeBag()
 
-    func eraseAllDataOfHealthKit() -> Observable<Int> {
+    func eraseAllDataOfHealthKit() -> Observable<Bool> {
         return Observable.create { emitter in
             HealthStoreManager.shared.removeAll { result in
                 switch result {
-                case .success(let count):
-                    emitter.onNext(count)
-                case .failure(let error):
-                    emitter.onError(error)
+                case .success:
+                    emitter.onNext(true)
+                case .failure:
+                    emitter.onNext(false)
                 }
+                emitter.onCompleted()
             }
 
             return Disposables.create()
         }
     }
 
-    func eraseAllDataOfCoreData() -> Observable<Void> {
+    func eraseAllDataOfCoreData() -> Observable<Bool> {
         return Observable.create { emitter in
             let entityName = "Tracking"
             CoreDataManager.shared.delete(entityName: entityName) { result in
                 switch result {
                 case .success:
-                    emitter.onNext(())
-                case .failure(let error):
-                    emitter.onError(error)
+                    emitter.onNext(true)
+                case .failure:
+                    emitter.onNext(false)
                 }
+                emitter.onCompleted()
             }
 
             return Disposables.create()
@@ -64,10 +66,11 @@ final class UserUsecase {
             CoreDataManager.shared.save(value: value, type: entityName) { (response) in
                 switch response {
                 case .success:
-                    return emitter.onNext(true)
-                case .failure(let error):
-                    return emitter.onError(error)
+                    emitter.onNext(true)
+                case .failure:
+                    emitter.onNext(false)
                 }
+                emitter.onCompleted()
             }
 
             return Disposables.create()

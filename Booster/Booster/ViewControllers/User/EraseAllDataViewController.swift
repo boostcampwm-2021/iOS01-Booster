@@ -32,21 +32,21 @@ final class EraseAllDataViewController: UIViewController, BaseViewControllerTemp
 
         viewModel.eraseAllData()
             .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { _ in
-                let title = "삭제 완료"
-                let message = "모든 정보가 삭제됐어요!"
-                alert = UIAlertController.simpleAlert(title: title,
-                                                      message: message,
-                                                      action: { (_) -> Void in
-                    self.navigationController?.popViewController(animated: true)
-                    return
-                })
-            }, onError: { _ in
-                let title = "삭제 실패"
-                let message = "알 수 없는 오류로 인하여 정보를 삭제할 수 없어요"
-                alert = UIAlertController.simpleAlert(title: title, message: message)
-            }, onCompleted: {
-                self.present(alert, animated: true, completion: nil)
+            .subscribe(onNext: { [weak self] isErased in
+                guard let self = self
+                else { return }
+
+                if isErased {
+                    let title = "삭제 완료"
+                    let message = "모든 정보가 삭제됐어요!"
+                    alert = self.popViewControllerAlertController(title: title, message: message)
+                } else {
+                    let title = "삭제 실패"
+                    let message = "알 수 없는 오류로 인하여 삭제를 실패했어요"
+                    alert = self.popViewControllerAlertController(title: title, message: message)
+                }
+            }, onCompleted: { [weak self] in
+                self?.present(alert, animated: true, completion: nil)
             }).disposed(by: disposeBag)
     }
 
@@ -61,5 +61,15 @@ final class EraseAllDataViewController: UIViewController, BaseViewControllerTemp
 
     private func configureUI() {
         subTitleLabel.text = "산책에 대한 기록들은 \(viewModel.model.nickname)님의\n휴대폰에서만 소중하게 보관하고 있어요"
+    }
+
+    private func popViewControllerAlertController(title: String = "", message: String = "") -> UIAlertController {
+        let alert = UIAlertController.simpleAlert(title: title,
+                                              message: message,
+                                              action: { (_) -> Void in
+            self.navigationController?.popViewController(animated: true)
+        })
+
+        return alert
     }
 }
