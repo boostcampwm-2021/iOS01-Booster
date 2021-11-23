@@ -64,10 +64,10 @@ final class HomeViewController: UIViewController, BaseViewControllerTemplate {
         viewModel.homeModel
             .debounce(RxTimeInterval.milliseconds(100), scheduler: MainScheduler.instance)
             .subscribe({ [weak self] value in
-                if let model = value.element {
-                    self?.configureLabels(model)
-                }
-                return
+                guard let model = value.element
+                else { return }
+
+                self?.configureLabels(model)
             })
             .disposed(by: disposeBag)
     }
