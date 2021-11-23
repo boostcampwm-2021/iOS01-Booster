@@ -15,9 +15,15 @@ final class UserUsecase {
         static let gender = "gender"
         static let height = "height"
         static let weight = "weight"
+        static let goal = "goal"
     }
 
     private let disposeBag = DisposeBag()
+
+//    func fetchUserInfo() -> Observable<UserInfo> {
+//        let entityName = "User"
+//        
+//    }
 
     func eraseAllDataOfHealthKit() -> Observable<Bool> {
         return Observable.create { emitter in
@@ -77,7 +83,38 @@ final class UserUsecase {
         }
     }
 
-    func changeGoal(to: Int) {
+    func changeGoal(to goal: Int) -> Observable<Bool> {
+        return Observable.create { emitter in
+            let entityName = "User"
+            let value: [String: Any] = [
+                CoreDataKeys.goal: goal
+            ]
 
+            CoreDataManager.shared.save(value: value, type: entityName) { (response) in
+                switch response {
+                case .success:
+                    emitter.onNext(true)
+                case .failure:
+                    emitter.onNext(false)
+                }
+                emitter.onCompleted()
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    private func convertUserInfoFromCoreData(user: User) -> UserInfo? {
+        if let nickname = user.nickname,
+           let gender = user.gender {
+            let userInfo = UserInfo(age: Int(user.age),
+                                    nickname: nickname,
+                                    gender: gender,
+                                    height: Int(user.height),
+                                    weight: Int(user.weight),
+                                    goal: Int(user.goal))
+            return userInfo
+        }
+        return nil
     }
 }

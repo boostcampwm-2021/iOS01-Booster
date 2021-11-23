@@ -117,10 +117,11 @@
 		FA614F902733D2CA00B090D9 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F8F2733D2CA00B090D9 /* UIColor+Extension.swift */; };
 		FA614F922733D51100B090D9 /* Enroll.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA614F912733D51100B090D9 /* Enroll.storyboard */; };
 		FA614F942733D51C00B090D9 /* EnrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F932733D51C00B090D9 /* EnrollViewController.swift */; };
-		FA84966C274A13890021F903 /* NotificationSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA84966B274A13890021F903 /* NotificationSettingViewController.swift */; };
 		FA614F962738F7A200B090D9 /* MilestonePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F952738F7A200B090D9 /* MilestonePhotoViewController.swift */; };
 		FA614F982738FDA900B090D9 /* MilestonePhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F972738FDA900B090D9 /* MilestonePhotoViewModel.swift */; };
+		FA84966C274A13890021F903 /* NotificationSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA84966B274A13890021F903 /* NotificationSettingViewController.swift */; };
 		FAA291BA2744FE8B0042D2D5 /* EraseAllDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA291B92744FE8B0042D2D5 /* EraseAllDataViewController.swift */; };
+		FAAD240B274D0F23009E2F52 /* NotificationSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAD240A274D0F23009E2F52 /* NotificationSettingViewModel.swift */; };
 		FACBAB6A2746034900CD6B76 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBAB692746034900CD6B76 /* UIButton+Extension.swift */; };
 		FADAC0D02745F55100A026E2 /* EditUserInfoTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADAC0CF2745F55100A026E2 /* EditUserInfoTextField.swift */; };
 /* End PBXBuildFile section */
@@ -244,10 +245,11 @@
 		FA614F8F2733D2CA00B090D9 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		FA614F912733D51100B090D9 /* Enroll.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Enroll.storyboard; sourceTree = "<group>"; };
 		FA614F932733D51C00B090D9 /* EnrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollViewController.swift; sourceTree = "<group>"; };
-		FA84966B274A13890021F903 /* NotificationSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingViewController.swift; sourceTree = "<group>"; };
 		FA614F952738F7A200B090D9 /* MilestonePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestonePhotoViewController.swift; sourceTree = "<group>"; };
 		FA614F972738FDA900B090D9 /* MilestonePhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestonePhotoViewModel.swift; sourceTree = "<group>"; };
+		FA84966B274A13890021F903 /* NotificationSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingViewController.swift; sourceTree = "<group>"; };
 		FAA291B92744FE8B0042D2D5 /* EraseAllDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraseAllDataViewController.swift; sourceTree = "<group>"; };
+		FAAD240A274D0F23009E2F52 /* NotificationSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingViewModel.swift; sourceTree = "<group>"; };
 		FACBAB692746034900CD6B76 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		FADAC0CF2745F55100A026E2 /* EditUserInfoTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserInfoTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -528,6 +530,7 @@
 			children = (
 				FA473A48274391740000C5DC /* UserViewModel.swift */,
 				FA473A4E2744EE730000C5DC /* GoalViewModel.swift */,
+				FAAD240A274D0F23009E2F52 /* NotificationSettingViewModel.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1024,6 +1027,7 @@
 				FA614F7F2733CDAA00B090D9 /* HomeViewController.swift in Sources */,
 				28C9702D273C3041005BD7BC /* DetailFeedUsecase.swift in Sources */,
 				FA614F8A2733CDAA00B090D9 /* TrackingProgressUsecase.swift in Sources */,
+				FAAD240B274D0F23009E2F52 /* NotificationSettingViewModel.swift in Sources */,
 				FA614F982738FDA900B090D9 /* MilestonePhotoViewModel.swift in Sources */,
 				28C96FF3273A4634005BD7BC /* UIResponder+Extension.swift in Sources */,
 				FA614F692733CDAA00B090D9 /* CoreDataManager.swift in Sources */,
