@@ -12,7 +12,7 @@ import RxSwift
 
 final class DetailFeedViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - Enum
-    enum AnnotationIdentifier: String {
+    private enum AnnotationIdentifier: String {
         case milestone
         case startDot
         case endDot
@@ -28,12 +28,16 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
 
     @IBOutlet private weak var contentTextView: UITextView!
     @IBOutlet private weak var mapView: MKMapView!
+    @IBOutlet private weak var scrollView: UIScrollView!
+    @IBOutlet private weak var screenshotView: UIView!
 
     var viewModel: DetailFeedViewModel
     private let disposeBag = DisposeBag()
+    private var gradientColors: [UIColor] = []
 
-    init?(coder: NSCoder, start date: Date) {
-        viewModel = DetailFeedViewModel(start: date)
+    // MARK: - Init
+    init?(coder: NSCoder, viewModel: DetailFeedViewModel) {
+        self.viewModel = viewModel
         super.init(coder: coder)
     }
 
@@ -41,13 +45,17 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
         fatalError("init(coder:) has not been implemented")
     }
 
-    private var gradientColors: [UIColor] = []
-
     // MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configure()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        configureScrollViewHeight()
     }
 
     // MARK: - @IBActions
@@ -58,15 +66,14 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
         let modifyAction = UIAlertAction(title: "글 수정", style: .default) { [weak self] _ in
             self?.presentModifyViewController()
         }
-        let shareAction = UIAlertAction(title: "공유하기", style: .default) { _ in
+        let shareAction = UIAlertAction(title: "공유하기", style: .default) { [weak self] _ in
+            self?.shareDetailFeedImage()
 
         }
         let deleteAction = UIAlertAction(title: "글 삭제", style: .destructive) { [weak self] _ in
             self?.removeDetailFeed()
         }
-        let closeAction = UIAlertAction(title: "닫기", style: .cancel) { _ in
-
-        }
+        let closeAction = UIAlertAction(title: "닫기", style: .cancel)
 
         settingAlertController.addAction(modifyAction)
         settingAlertController.addAction(shareAction)
@@ -80,6 +87,7 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
 
     // MARK: - Functions
     func configure() {
+        contentTextView.textContainer.lineFragmentPadding = 0
         mapView.layer.cornerRadius = mapView.frame.height / 17
         mapView.delegate = self
 
@@ -99,12 +107,20 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
             }
             .disposed(by: disposeBag)
 
+        viewModel.isDeletedMilestone
+            .observe(on: MainScheduler.instance)
+            .bind { [weak self] isDeleted in
+                if isDeleted {
+                    self?.presentAlertController(title: "삭제 완료", message: "마일스톤을 삭제했어요")
+                } else {
+                    self?.presentAlertController(title: "삭제 오류", message: "마일스톤을 삭제하는 데 문제가 생겼어요\n잠시 후 다시 시도해주세요")
+                }
+            }
+            .disposed(by: disposeBag)
+
         viewModel.isDeletedAll
             .observe(on: MainScheduler.instance)
-            .subscribe { [weak self] value in
-                guard let isDeleted = value.element
-                else { return }
-
+            .bind { [weak self] isDeleted in
                 if isDeleted { self?.presentDeleteAlertController() } else { self?.presentAlertController(title: "삭제 실패", message: "산책 기록을 삭제할 수 없어요\n잠시 후 다시 시도해주세요") }
             }
             .disposed(by: disposeBag)
@@ -118,15 +134,27 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
         kmLabel.text = String(format: "%.2f", value.distance)
         contentTextView.text = value.content
 
+        configureScrollViewHeight()
         configureMapView(value: value)
+    }
+
+    private func configureScrollViewHeight() {
+        scrollView.contentSize = CGSize(width: scrollView.frame.width, height: contentTextView.frame.height + mapView.frame.height * 2.5)
     }
 
     private func configureMapView(value: TrackingModel) {
         if value.coordinates.count == 0 { return }
 
-        let points = value.coordinates.map { CLLocationCoordinate2DMake($0.latitude ?? 100.0, $0.longitude ?? 200.0) }
+        let points: [CLLocationCoordinate2D?] = value.coordinates.map {
+            if let latitude = $0.latitude,
+               let longitude = $0.longitude {
+                return CLLocationCoordinate2DMake(latitude, longitude)
+            }
+            return nil
+        }
 
-        guard let startPoint = points.first
+        guard let start = points.first,
+              let startPoint = start
         else { return }
 
         findLocationTitle(coordinate: startPoint)
@@ -137,33 +165,13 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
         createPolyLine(points: points, meter: value.distance * 1000)
 
         for milestone in value.milestones {
-            guard let latitude = milestone.coordinate.latitude,
-                  let longitude = milestone.coordinate.longitude
-            else { continue }
-
-            addAnnotation(type: .milestone,
-                          latitude,
-                          longitude)
+            if let latitude = milestone.coordinate.latitude,
+               let longitude = milestone.coordinate.longitude {
+                addAnnotation(type: .milestone,
+                              latitude,
+                              longitude)
+            }
         }
-    }
-
-    private func presentModifyViewController() {
-        guard let modifyViewController = storyboard?.instantiateViewController(withIdentifier: ModifyFeedViewController.identifier) as? ModifyFeedViewController
-        else { return }
-        modifyViewController.title = "글 수정"
-        navigationController?.pushViewController(modifyViewController, animated: true)
-    }
-
-    private func removeDetailFeed() {
-        let alertController = UIAlertController(title: "글 삭제하기", message: "정말로 산책 기록을 지우시겠어요?", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
-        let sureAction = UIAlertAction(title: "기록 지우기", style: .destructive) { [weak self] _ in
-            self?.viewModel.removeAll()
-        }
-        alertController.addAction(sureAction)
-        alertController.addAction(cancelAction)
-
-        present(alertController, animated: true, completion: nil)
     }
 
     private func findLocationTitle(coordinate: CLLocationCoordinate2D) {
@@ -181,7 +189,7 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
         }
     }
 
-    private func createPolyLine(points: [CLLocationCoordinate2D], meter: Double) {
+    private func createPolyLine(points: [CLLocationCoordinate2D?], meter: Double) {
         let centerLocation = configureCenterLocationOfPath(points: points)
         let meters = meter + 50
 
@@ -197,8 +205,8 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
         }
     }
 
-    private func configureCenterLocationOfPath(points: [CLLocationCoordinate2D]) -> CLLocationCoordinate2D {
-        let ((minLatitude, maxLatitude), (minLongitude, maxLongitude)) = points.reduce(((90.0, -90.0), (180.0, -180.0))) { next, current in
+    private func configureCenterLocationOfPath(points: [CLLocationCoordinate2D?]) -> CLLocationCoordinate2D {
+        let ((minLatitude, maxLatitude), (minLongitude, maxLongitude)) = points.compactMap { $0 }.reduce(((90.0, -90.0), (180.0, -180.0))) { next, current in
             ((min(current.latitude, next.0.0), max(current.latitude, next.0.1)), (min(current.longitude, next.1.0), max(current.longitude, next.1.1)))
         }
         let centerLatitude = (minLatitude + maxLatitude) / 2
@@ -206,9 +214,10 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
         return CLLocationCoordinate2D(latitude: centerLatitude, longitude: centerLongitude)
     }
 
-    private func configureDots(points: [CLLocationCoordinate2D]) {
-        guard let startPoint = points.first,
-              let endPoint = points.last
+    private func configureDots(points: [CLLocationCoordinate2D?]) {
+        let compactPoints = points.compactMap { $0 }
+        guard let startPoint = compactPoints.first,
+              let endPoint = compactPoints.last
         else { return }
 
         addAnnotation(type: .startDot,
@@ -266,6 +275,65 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
         return UIColor(red: red, green: green, blue: blue, alpha: 1)
     }
 }
+
+//MARK: - Setting ActionSheet Alert Events
+extension DetailFeedViewController {
+    private func presentModifyViewController() {
+        let storyboardName = "Feed"
+        let modifyViewController = UIStoryboard(name: storyboardName, bundle: .main).instantiateViewController(identifier: ModifyFeedViewController.identifier) { coder in
+            return ModifyFeedViewController(coder: coder, viewModel: self.viewModel.createModifyFeedViewModel())
+        }
+        modifyViewController.delegate = self
+        modifyViewController.title = "글 수정"
+        navigationController?.pushViewController(modifyViewController, animated: true)
+    }
+    
+    private func shareDetailFeedImage() {
+        guard let image = snapshot()
+        else { return }
+        
+        let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = view
+
+        present(activityViewController, animated: true, completion: nil)
+    }
+
+    private func snapshot() -> UIImage? {
+        let currentFrame: CGRect = screenshotView.frame
+
+        screenshotView.frame = CGRect.init(x: 0,
+                                           y: 0,
+                                           width: screenshotView.frame.size.width,
+                                           height: screenshotView.frame.size.height)
+
+        UIGraphicsBeginImageContextWithOptions(screenshotView.frame.size,
+                                               true,
+                                               0.0)
+        guard let cgContext = UIGraphicsGetCurrentContext()
+        else { return nil }
+        screenshotView.layer.render(in: cgContext)
+        guard let image = UIGraphicsGetImageFromCurrentImageContext()
+        else { return nil }
+        screenshotView.frame = currentFrame
+
+        UIGraphicsEndImageContext()
+
+        return image
+    }
+    
+    private func removeDetailFeed() {
+        let alertController = UIAlertController(title: "글 삭제하기", message: "정말로 산책 기록을 지우시겠어요?", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        let sureAction = UIAlertAction(title: "기록 지우기", style: .destructive) { [weak self] _ in
+            self?.viewModel.removeAll()
+        }
+        alertController.addAction(sureAction)
+        alertController.addAction(cancelAction)
+
+        present(alertController, animated: true, completion: nil)
+    }
+}
+
 
 // MARK: - MapView Delegate
 extension DetailFeedViewController: MKMapViewDelegate {
@@ -341,18 +409,6 @@ extension DetailFeedViewController: MKMapViewDelegate {
 extension DetailFeedViewController: MilestonePhotoViewControllerDelegate {
     func delete(milestone: Milestone) {
         viewModel.remove(of: milestone)
-            .observe(on: MainScheduler.instance)
-            .subscribe { [weak self] result in
-                guard let isSaved = result.element
-                else { return }
-
-                if isSaved {
-                    self?.presentAlertController(title: "삭제 완료", message: "마일스톤을 삭제했어요")
-                } else {
-                    self?.presentAlertController(title: "삭제 오류", message: "마일스톤을 삭제하는 데 문제가 생겼어요\n잠시 후 다시 시도해주세요")
-                }
-            }
-            .disposed(by: disposeBag)
     }
 
     func presentAlertController(title: String, message: String) {
@@ -367,5 +423,12 @@ extension DetailFeedViewController: MilestonePhotoViewControllerDelegate {
         }
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
+    }
+}
+
+// MARK: - Modify Completed
+extension DetailFeedViewController: ModifyFeedViewControllerDelegate {
+    func didModifyRecord() {
+        viewModel.fetchDetailFeedList()
     }
 }
