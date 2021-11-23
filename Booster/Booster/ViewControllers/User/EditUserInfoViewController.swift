@@ -145,7 +145,6 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
                                height: height,
                                weight: weight,
                                nickname: nickName)
-        viewModel.save()
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] isSaved in
                 guard let self = self

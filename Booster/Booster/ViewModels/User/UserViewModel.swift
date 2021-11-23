@@ -42,15 +42,17 @@ final class UserViewModel {
         }
     }
 
-    func editUserInfo(gender: String? = nil, age: Int? = nil, height: Int? = nil, weight: Int? = nil, nickname: String? = nil) {
+    func editUserInfo(gender: String? = nil, age: Int? = nil, height: Int? = nil, weight: Int? = nil, nickname: String? = nil) -> Observable<Bool> {
         if let gender = gender { model.gender = gender }
         if let age = age { model.age = age }
         if let height = height { model.height = height }
         if let weight = weight { model.weight = weight }
         if let nickname = nickname { model.nickname = nickname }
+
+        return save()
     }
 
-    func save() -> Observable<Bool> {
+    private func save() -> Observable<Bool> {
         return Observable.create { [weak self] emitter in
             guard let self = self
             else { return Disposables.create() }
