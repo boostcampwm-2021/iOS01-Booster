@@ -2,8 +2,8 @@ import UIKit
 import MapKit
 
 class PhotoAnnotationView: MKAnnotationView {
-    @IBOutlet var backgroundView: UIView!
-    @IBOutlet var photoImageView: UIImageView!
+    @IBOutlet weak var backgroundView: UIView!
+    @IBOutlet weak var photoImageView: UIImageView!
 
     private var pathColor: UIColor = .boosterOrange
 

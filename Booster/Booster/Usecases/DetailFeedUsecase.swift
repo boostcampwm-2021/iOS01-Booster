@@ -61,7 +61,7 @@ final class DetailFeedUsecase {
         ]
 
         return CoreDataManager.shared.update(entityName: entityName,
-                                             value: value,
+                                             attributes: value,
                                              predicate: predicate)
     }
 

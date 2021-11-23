@@ -300,7 +300,7 @@ extension DetailFeedViewController: MKMapViewDelegate {
                 newAnnotationView.canShowCallout = false
                 newAnnotationView.photoImageView.image = UIImage(data: mileStone.imageData)
                 newAnnotationView.photoImageView.backgroundColor = .white
-                newAnnotationView.changeColor(gradientColors[viewModel.indexOfCoordinate(coordinate)])
+                newAnnotationView.changeColor(gradientColors[viewModel.indexOfCoordinate(coordinate) ?? 0])
 
                 newAnnotationView.centerOffset = CGPoint(x: 0, y: -newAnnotationView.frame.height / 2.0)
                 return newAnnotationView

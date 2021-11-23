@@ -12,7 +12,7 @@ final class CoreDataManager {
 
     private var container: NSPersistentContainer
 
-    func save(value: [String: Any],
+    func save(attributes: [String: Any],
               type name: String,
               completion handler: @escaping (Result<Void, Error>) -> Void) {
         guard let entity = NSEntityDescription.entity(forEntityName: name, in: container.viewContext)
@@ -25,7 +25,7 @@ final class CoreDataManager {
             else { return }
 
             let entityObject = NSManagedObject(entity: entity, insertInto: self.container.viewContext)
-            value.forEach { entityObject.setValue($0.value, forKey: $0.key) }
+            attributes.forEach { entityObject.setValue($0.value, forKey: $0.key) }
 
             let context = self.container.viewContext
 
@@ -38,7 +38,7 @@ final class CoreDataManager {
         }
     }
 
-    func save(value: [String: Any],
+    func save(attributes: [String: Any],
               type name: String) -> Observable<Void> {
         return Observable.create { observer in
 
@@ -52,7 +52,7 @@ final class CoreDataManager {
                 else { return }
 
                 let entityObject = NSManagedObject(entity: entity, insertInto: self.container.viewContext)
-                value.forEach { entityObject.setValue($0.value, forKey: $0.key) }
+                attributes.forEach { entityObject.setValue($0.value, forKey: $0.key) }
 
                 let context = self.container.viewContext
 
@@ -91,7 +91,7 @@ final class CoreDataManager {
         }
     }
 
-    func update(entityName: String, value: [String: Any], predicate: NSPredicate) -> Observable<Void> {
+    func update(entityName: String, attributes: [String: Any], predicate: NSPredicate) -> Observable<Void> {
         return Observable.create { [weak self] observer in
             guard let self = self
             else { return Disposables.create() }
@@ -107,7 +107,7 @@ final class CoreDataManager {
                     guard let updateModel = result.first as? NSManagedObject
                     else { return }
 
-                    for element in value {
+                    for element in attributes {
                         updateModel.setValue(element.value, forKey: element.key)
                     }
 
@@ -263,7 +263,7 @@ final class CoreDataManager {
                 request.predicate = predicate
                 do {
                     let objects = try self.container.viewContext.fetch(request)
-                    guard let model = objects[0] as? NSManagedObject
+                    guard let model = objects.first as? NSManagedObject
                     else { return }
                     self.container.viewContext.delete(model)
                     try self.container.viewContext.save()

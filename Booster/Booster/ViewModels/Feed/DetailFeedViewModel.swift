@@ -70,21 +70,34 @@ final class DetailFeedViewModel {
             .disposed(by: disposeBag)
     }
 
-    func indexOfCoordinate(_ coordinate: Coordinate) -> Int {
-        for (index, model) in trackingModel.value.coordinates.enumerated() {
-            guard let latitude = model.latitude,
-                  let longitude = model.longitude
-            else { continue }
-            if abs((coordinate.latitude ?? 0) - latitude) < 0.00000000001 && abs((coordinate.longitude ?? 0) - longitude) < 0.00000000001 {
-                return index
+    func indexOfCoordinate(_ coordinate: Coordinate) -> Int? {
+        guard let currentLatitude = coordinate.latitude,
+              let currentLongitude = coordinate.longitude
+        else { return nil }
+
+        for (index, compareCoordinate) in trackingModel.value.coordinates.enumerated() {
+            if let latitude = compareCoordinate.latitude,
+               let longitude = compareCoordinate.longitude {
+                if isOnPathAsApproximation(currentLatitude: currentLatitude,
+                                           currentLongitude: currentLongitude,
+                                           compareLatitude: latitude,
+                                           compareLongitude: longitude) { return index }
             }
         }
-        return 0
+        return nil
     }
 
     func offsetOfGradientColor() -> Int {
         gradientColorOffset += 1
         return gradientColorOffset
+    }
+
+    private func isOnPathAsApproximation(currentLatitude: Double,
+                                         currentLongitude: Double,
+                                         compareLatitude: Double,
+                                         compareLongitude: Double) -> Bool {
+        let approximation = 0.00000000001
+        return abs(currentLatitude - compareLatitude) < approximation && abs(currentLongitude - compareLongitude) < approximation
     }
 
     private func fetchDetailFeedList() {
