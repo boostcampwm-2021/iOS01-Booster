@@ -31,7 +31,7 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
     // MARK: - Properties
     var viewModel: UserViewModel
 
-    private let disposalBag: DisposeBag = DisposeBag()
+    private let disposeBag: DisposeBag = DisposeBag()
     private var genderButtonState: genderButtonType = .female
     private lazy var pickerViewFrame = CGRect(x: 0,
                                               y: view.frame.height - 170,
@@ -43,7 +43,7 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
             return Int(row + pickerView.type.range.lowerBound)
         }.bind { [weak self] (value) in
             self?.heightTextField.text = "\(value)"
-        }.disposed(by: disposalBag)
+        }.disposed(by: disposeBag)
 
         return pickerView
     }()
@@ -54,7 +54,7 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
             return Int(row + pickerView.type.range.lowerBound)
         }.bind { [weak self] (value) in
             self?.weightTextField.text = "\(value)"
-        }.disposed(by: disposalBag)
+        }.disposed(by: disposeBag)
 
         return pickerView
     }()
@@ -65,7 +65,7 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
             return Int(row + pickerView.type.range.lowerBound)
         }.bind { [weak self] (value) in
             self?.ageTextField.text = "\(value)"
-        }.disposed(by: disposalBag)
+        }.disposed(by: disposeBag)
 
         return pickerView
     }()
@@ -159,7 +159,7 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
                 }
             }, onCompleted: { [weak self] in
                 self?.present(alert, animated: true, completion: nil)
-            }).disposed(by: disposalBag)
+            }).disposed(by: disposeBag)
     }
 
     private func configureUIButton() {

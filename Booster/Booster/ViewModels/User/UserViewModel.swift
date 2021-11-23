@@ -14,6 +14,7 @@ final class UserViewModel {
     }
 
     private let usecase: UserUsecase
+    private let disposeBag: DisposeBag = DisposeBag()
     private(set) var model: UserInfo
 
     init() {
@@ -43,16 +44,26 @@ final class UserViewModel {
     }
 
     func editUserInfo(gender: String? = nil, age: Int? = nil, height: Int? = nil, weight: Int? = nil, nickname: String? = nil) -> Observable<Bool> {
-        if let gender = gender { model.gender = gender }
-        if let age = age { model.age = age }
-        if let height = height { model.height = height }
-        if let weight = weight { model.weight = weight }
-        if let nickname = nickname { model.nickname = nickname }
+        var newModel = model
+        if let gender = gender { newModel.gender = gender }
+        if let age = age { newModel.age = age }
+        if let height = height { newModel.height = height }
+        if let weight = weight { newModel.weight = weight }
+        if let nickname = nickname { newModel.nickname = nickname }
 
-        return save()
+        let observableResult = save(model: newModel)
+        observableResult
+            .subscribe(onNext: { [weak self] isSaved in
+                guard let self = self
+                else { return }
+
+                if isSaved { self.model = newModel }
+            }).disposed(by: disposeBag)
+
+        return observableResult
     }
 
-    private func save() -> Observable<Bool> {
+    private func save(model: UserInfo) -> Observable<Bool> {
         return Observable.create { [weak self] emitter in
             guard let self = self
             else { return Disposables.create() }
