@@ -5,17 +5,6 @@ import RxSwift
 import RxCocoa
 
 final class TrackingProgressViewController: UIViewController, BaseViewControllerTemplate {
-    // MARK: - Enum
-    enum NibName: String {
-        case photoAnnotationView = "PhotoAnnotationView"
-    }
-
-    enum Identifier {
-        enum Annotation: String {
-            case milestone = "milestone"
-        }
-    }
-
     // MARK: - @IBOutlet
     @IBOutlet weak var mapView: TrackingMapView!
     @IBOutlet weak var pedometerLabel: UILabel!
@@ -583,12 +572,12 @@ extension TrackingProgressViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation { return nil }
 
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Identifier.Annotation.milestone.rawValue)
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: PhotoAnnotationView.identifier)
         annotationView?.canShowCallout = false
         if annotationView == nil {
-            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: Identifier.Annotation.milestone.rawValue)
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: PhotoAnnotationView.identifier)
 
-            guard let customView = UINib(nibName: NibName.photoAnnotationView.rawValue, bundle: nil).instantiate(withOwner: self, options: nil).first as? PhotoAnnotationView,
+            guard let customView = UINib(nibName: PhotoAnnotationView.identifier, bundle: nil).instantiate(withOwner: self, options: nil).first as? PhotoAnnotationView,
                   let mileStone: Milestone = viewModel.tracking.value.milestones.last
             else { return nil }
 
