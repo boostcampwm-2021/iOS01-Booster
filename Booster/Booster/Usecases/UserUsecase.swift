@@ -38,7 +38,7 @@ final class UserUsecase {
             CoreDataKeys.weight: model.weight
         ]
 
-        CoreDataManager.shared.save(value: value, type: entity) { (response) in
+        CoreDataManager.shared.save(attributes: value, type: entity) { (response) in
             switch response {
             case .success:
                 completion(true)
