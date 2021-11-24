@@ -53,8 +53,8 @@ final class UserViewModel {
             else { return Disposables.create() }
 
             return self.usecase.editUserInfo(model: newModel)
-                .subscribe(onNext: { value in
-                    if value {
+                .subscribe(onNext: { result in
+                    if result {
                         self.model.accept(newModel)
                         observer.onNext(true)
                     } else {
@@ -62,7 +62,28 @@ final class UserViewModel {
                     }
                     observer.onCompleted()
                 }, onError: { (_) in
-                    print("#????")
+                    observer.onNext(false)
+                })
+        }
+    }
+
+    func changeGoal(to goal: Int) -> Observable<Bool> {
+        var newModel = model.value
+        newModel.goal = goal
+        return Observable.create { [weak self] observer in
+            guard let self = self
+            else { return Disposables.create() }
+
+            return self.usecase.changeGoal(to: goal)
+                .subscribe(onNext: { result in
+                    if result {
+                        self.model.accept(newModel)
+                        observer.onNext(true)
+                    } else {
+                        observer.onNext(false)
+                    }
+                    observer.onCompleted()
+                }, onError: { (_) in
                     observer.onNext(false)
                 })
         }
@@ -70,9 +91,9 @@ final class UserViewModel {
 
     private func fetchUserInfo() {
         usecase.fetchUserInfo()
-            .subscribe { [weak self] value in
+            .subscribe { [weak self] result in
                 guard let self = self,
-                      let fetchedModel = value.element
+                      let fetchedModel = result.element
                 else { return }
 
                 self.model.accept(fetchedModel)

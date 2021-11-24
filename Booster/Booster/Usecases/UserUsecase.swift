@@ -81,7 +81,8 @@ final class UserUsecase {
             return CoreDataManager.shared.update(entityName: entityName, attributes: value)
                 .subscribe(onError: { (_) in
                     observer.onNext(false)
-                }, onCompleted: {                    observer.onNext(true)
+                }, onCompleted: {
+                    observer.onNext(true)
                     observer.onCompleted()
                 })
         }
@@ -95,10 +96,11 @@ final class UserUsecase {
             ]
 
             return CoreDataManager.shared.update(entityName: entityName, attributes: value)
-                .subscribe(onNext: {
-                    observer.onNext(true)
-                }, onError: { (_) in
+                .subscribe(onError: { (_) in
                     observer.onNext(false)
+                }, onCompleted: {
+                    observer.onNext(true)
+                    observer.onCompleted()
                 })
         }
     }
@@ -110,7 +112,8 @@ final class UserUsecase {
                                     nickname: nickname,
                                     gender: gender,
                                     height: Int(user.height),
-                                    weight: Int(user.weight))
+                                    weight: Int(user.weight),
+                                    goal: Int(user.goal))
             return userInfo
         }
         return nil

@@ -78,8 +78,15 @@ final class UserViewController: UIViewController, BaseViewControllerTemplate {
 
             navigationController?.pushViewController(removeAllDataViewController, animated: true)
         case .changeGoal:
-            performSegue(withIdentifier: "changeGoalSegue", sender: self)
-            return
+            guard let changeGoalViewController = storyboard?.instantiateViewController(identifier: ChangeGoalViewController.identifier, creator: { [weak self] coder -> ChangeGoalViewController in
+                guard let viewModel = self?.viewModel
+                else { return ChangeGoalViewController(viewModel: UserViewModel()) }
+
+                return .init(coder: coder, viewModel: viewModel) ?? ChangeGoalViewController(viewModel: UserViewModel())
+            })
+            else { return }
+
+            navigationController?.pushViewController(changeGoalViewController, animated: true)
         case .editUserInfo:
             guard let editUserInfoViewController = storyboard?.instantiateViewController(identifier: EditUserInfoViewController.identifier, creator: { [weak self] coder -> EditUserInfoViewController in
                 guard let viewModel = self?.viewModel

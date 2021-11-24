@@ -87,7 +87,8 @@ final class TrackingProgressUsecase {
                                     nickname: nickname,
                                     gender: gender,
                                     height: Int(user.height),
-                                    weight: Int(user.weight))
+                                    weight: Int(user.weight),
+                                    goal: Int(user.goal))
             return userInfo
         }
         return nil
