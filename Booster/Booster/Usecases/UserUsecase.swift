@@ -79,6 +79,7 @@ final class UserUsecase {
             ]
 
             return CoreDataManager.shared.update(entityName: entityName, attributes: value)
+                .take(1)
                 .subscribe(onError: { (_) in
                     observer.onNext(false)
                 }, onCompleted: {
@@ -96,6 +97,7 @@ final class UserUsecase {
             ]
 
             return CoreDataManager.shared.update(entityName: entityName, attributes: value)
+                .take(1)
                 .subscribe(onError: { (_) in
                     observer.onNext(false)
                 }, onCompleted: {

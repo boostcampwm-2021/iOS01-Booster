@@ -53,6 +53,7 @@ final class UserViewModel {
             else { return Disposables.create() }
 
             return self.usecase.editUserInfo(model: newModel)
+                .take(1)
                 .subscribe(onNext: { result in
                     if result {
                         self.model.accept(newModel)
@@ -75,6 +76,7 @@ final class UserViewModel {
             else { return Disposables.create() }
 
             return self.usecase.changeGoal(to: goal)
+                .take(1)
                 .subscribe(onNext: { result in
                     if result {
                         self.model.accept(newModel)
