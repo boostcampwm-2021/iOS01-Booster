@@ -135,14 +135,14 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
         contentTextView.text = value.content
 
         configureScrollViewHeight()
-        configureMapView(value: value)
+        configureMapView(trackingModel: value)
     }
 
     private func configureScrollViewHeight() {
         scrollView.contentSize = CGSize(width: scrollView.frame.width, height: contentTextView.frame.height + mapView.frame.height * 2.5)
     }
 
-    private func configureMapView(value: TrackingModel) {
+    private func configureMapView(trackingModel value: TrackingModel) {
         if value.coordinates.count == 0 { return }
 
         let points: [CLLocationCoordinate2D?] = value.coordinates.map {
@@ -247,17 +247,17 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
         mapView.addAnnotation(annotation)
     }
 
-    private func removeMileStoneAnnotation(of mileStone: Milestone) -> Bool {
-        guard let annotation = mapView.annotations.first(where: {
-            let coordinate = Coordinate(latitude: $0.coordinate.latitude, longitude: $0.coordinate.longitude)
-            return coordinate == mileStone.coordinate
-        })
-        else { return false }
-
-        mapView.removeAnnotation(annotation)
-
-        return true
-    }
+//    private func removeMileStoneAnnotation(of mileStone: Milestone) -> Bool {
+//        guard let annotation = mapView.annotations.first(where: {
+//            let coordinate = Coordinate(latitude: $0.coordinate.latitude, longitude: $0.coordinate.longitude)
+//            return coordinate == mileStone.coordinate
+//        })
+//        else { return false }
+//
+//        mapView.removeAnnotation(annotation)
+//
+//        return true
+//    }
 
     private func gradientColorOfCoordinate(at coordinate: Coordinate,
                                            coordinates: [Coordinate],

@@ -8,7 +8,7 @@
 import UIKit
 import RxSwift
 
-protocol ModifyFeedViewControllerDelegate {
+protocol ModifyFeedViewControllerDelegate: AnyObject {
     func didModifyRecord()
 }
 
@@ -19,7 +19,7 @@ final class ModifyFeedViewController: UIViewController, BaseViewControllerTempla
 
     // MARK: - Properties
     var viewModel: ModifyFeedViewModel
-    var delegate: ModifyFeedViewControllerDelegate?
+    weak var delegate: ModifyFeedViewControllerDelegate?
     private let disposeBag = DisposeBag()
 
     // MARK: - Init
