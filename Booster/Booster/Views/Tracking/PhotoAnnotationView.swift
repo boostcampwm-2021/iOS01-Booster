@@ -2,16 +2,18 @@ import UIKit
 import MapKit
 
 class PhotoAnnotationView: MKAnnotationView {
-    @IBOutlet var backgroundView: UIView!
-    @IBOutlet var photoImageView: UIImageView!
+    @IBOutlet weak var backgroundView: UIView!
+    @IBOutlet weak var photoImageView: UIImageView!
+
+    private var pathColor: UIColor = .boosterOrange
 
     override func draw(_ rect: CGRect) {
         super.draw(rect)
 
-        drawTriBackground()
+        drawTriBackground(color: self.pathColor)
     }
 
-    private func drawTriBackground() {
+    private func drawTriBackground(color: UIColor) {
         let path = UIBezierPath()
         path.lineWidth = 2
 
@@ -23,8 +25,14 @@ class PhotoAnnotationView: MKAnnotationView {
         path.addLine(to: point2)
         path.addLine(to: point3)
         path.close()
-        UIColor.boosterOrange.set()
+        color.set()
         path.stroke()
         path.fill()
+
+        backgroundView.backgroundColor = color
+    }
+
+    func changeColor(_ color: UIColor) {
+        pathColor = color
     }
 }

@@ -16,7 +16,7 @@
 		28C970312744EB64005BD7BC /* ModifyFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C970302744EB64005BD7BC /* ModifyFeedViewController.swift */; };
 		37852ACF273C27F100BA3D67 /* StatisticsModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37852ACE273C27F100BA3D67 /* StatisticsModelTests.swift */; };
 		37852AD6273C286D00BA3D67 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F302733CDAA00B090D9 /* Statistics.swift */; };
-		37852AD8273C2D0B00BA3D67 /* StatisticsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37852AD7273C2D0B00BA3D67 /* StatisticsViewModelTests.swift */; };
+		37852AD8273C2D0B00BA3D67 /* StepStatisticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37852AD7273C2D0B00BA3D67 /* StepStatisticsTests.swift */; };
 		379E3C57273BC182002B0B15 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379E3C56273BC182002B0B15 /* ChartView.swift */; };
 		3B31B5F9273C05D8009D9190 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B31B5F8273C05D8009D9190 /* FeedCell.swift */; };
 		3B31B5FC273C0A66009D9190 /* CellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B31B5FB273C0A66009D9190 /* CellConfigurator.swift */; };
@@ -153,7 +153,7 @@
 		28C970302744EB64005BD7BC /* ModifyFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyFeedViewController.swift; sourceTree = "<group>"; };
 		37852ACC273C27F100BA3D67 /* StatisticsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StatisticsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		37852ACE273C27F100BA3D67 /* StatisticsModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsModelTests.swift; sourceTree = "<group>"; };
-		37852AD7273C2D0B00BA3D67 /* StatisticsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewModelTests.swift; sourceTree = "<group>"; };
+		37852AD7273C2D0B00BA3D67 /* StepStatisticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepStatisticsTests.swift; sourceTree = "<group>"; };
 		379E3C56273BC182002B0B15 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		3B31B5F8273C05D8009D9190 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		3B31B5FB273C0A66009D9190 /* CellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfigurator.swift; sourceTree = "<group>"; };
@@ -284,7 +284,7 @@
 		37852ACD273C27F100BA3D67 /* StatisticsTests */ = {
 			isa = PBXGroup;
 			children = (
-				37852AD7273C2D0B00BA3D67 /* StatisticsViewModelTests.swift */,
+				37852AD7273C2D0B00BA3D67 /* StepStatisticsTests.swift */,
 				37852ACE273C27F100BA3D67 /* StatisticsModelTests.swift */,
 			);
 			path = StatisticsTests;
@@ -953,7 +953,7 @@
 				37852ACF273C27F100BA3D67 /* StatisticsModelTests.swift in Sources */,
 				3B31B61F274109AF009D9190 /* HealthStoreManager.swift in Sources */,
 				3B31B61E274109A5009D9190 /* BoosterObservable.swift in Sources */,
-				37852AD8273C2D0B00BA3D67 /* StatisticsViewModelTests.swift in Sources */,
+				37852AD8273C2D0B00BA3D67 /* StepStatisticsTests.swift in Sources */,
 				37852AD6273C286D00BA3D67 /* Statistics.swift in Sources */,
 				3B31B61D27410997009D9190 /* StatisticsViewModel.swift in Sources */,
 			);

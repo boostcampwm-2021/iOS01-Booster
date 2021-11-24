@@ -36,7 +36,7 @@ struct TrackingModel {
         self.title = title
         self.content = content
         self.imageData = imageData
-        self.endDate = nil
+        self.endDate = endDate
         self.address = address
     }
 }
