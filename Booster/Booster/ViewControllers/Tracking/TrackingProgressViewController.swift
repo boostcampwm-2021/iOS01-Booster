@@ -305,16 +305,16 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
 
     private func bindViewModel() {
         viewModel.state
-            .observe(on: MainScheduler.asyncInstance)
-            .bind { [weak self] value in
+            .asDriver()
+            .drive(onNext: { [weak self] value in
                 if value != .end { self?.update() } else { self?.stopAnimation() }
-            }.disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
 
         viewModel.tracking
-            .observe(on: MainScheduler.asyncInstance)
-            .bind { [weak self] value in
+            .asDriver()
+            .drive(onNext: { [weak self] value in
                 self?.configure(model: value)
-            }.disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
 
         viewModel.addMilestones.bind { [weak self] milestones in
             guard let milestone = milestones.last,
@@ -325,13 +325,13 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         }.disposed(by: disposeBag)
 
         viewModel.saveResult
-            .observe(on: MainScheduler.asyncInstance)
-            .bind { [weak self] error in
-            guard error == nil
-            else { return }
+            .asDriver(onErrorJustReturn: .none)
+            .drive(onNext: { [weak self] error in
+                guard error == nil
+                else { return }
 
-            self?.navigationController?.popViewController(animated: true)
-        }.disposed(by: disposeBag)
+                self?.navigationController?.popViewController(animated: true)
+            }).disposed(by: disposeBag)
     }
 
     private func configure(model: TrackingModel) {
@@ -686,15 +686,14 @@ extension TrackingProgressViewController: UITextFieldDelegate {
 extension TrackingProgressViewController: MilestonePhotoViewControllerDelegate {
     func delete(milestone: Milestone) {
         viewModel.remove(of: milestone)
-            .observe(on: MainScheduler.asyncInstance)
-            .subscribe { value in
-                if let value = value.element,
-                    value && self.mapView.removeMilestoneAnnotation(of: milestone) {
+            .asDriver(onErrorJustReturn: false)
+            .drive(onNext: { value in
+                if value && self.mapView.removeMilestoneAnnotation(of: milestone) {
                     let title = "삭제 완료"
                     let message = "마일스톤을 삭제했어요"
                     let alertViewController: UIAlertController = .simpleAlert(title: title, message: message)
                     self.present(alertViewController, animated: true)
                 }
-            }.disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
     }
 }

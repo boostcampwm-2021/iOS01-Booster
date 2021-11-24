@@ -287,7 +287,7 @@ extension DetailFeedViewController {
         modifyViewController.title = "글 수정"
         navigationController?.pushViewController(modifyViewController, animated: true)
     }
-    
+
     private func shareDetailFeedImage() {
         guard let image = snapshot()
         else { return }
@@ -320,7 +320,7 @@ extension DetailFeedViewController {
 
         return image
     }
-    
+
     private func removeDetailFeed() {
         let alertController = UIAlertController(title: "글 삭제하기", message: "정말로 산책 기록을 지우시겠어요?", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "취소", style: .cancel)
