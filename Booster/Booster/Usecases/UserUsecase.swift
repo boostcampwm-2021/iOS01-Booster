@@ -78,17 +78,12 @@ final class UserUsecase {
                 CoreDataKeys.weight: model.weight
             ]
 
-            CoreDataManager.shared.save(value: value, type: entityName) { (response) in
-                switch response {
-                case .success:
-                    observer.onNext(true)
-                case .failure:
+            return CoreDataManager.shared.update(entityName: entityName, attributes: value)
+                .subscribe(onError: { (_) in
                     observer.onNext(false)
-                }
-                observer.onCompleted()
-            }
-
-            return Disposables.create()
+                }, onCompleted: {                    observer.onNext(true)
+                    observer.onCompleted()
+                })
         }
     }
 
@@ -98,18 +93,13 @@ final class UserUsecase {
             let value: [String: Any] = [
                 CoreDataKeys.goal: goal
             ]
-            // TODO: Change To Update
-            CoreDataManager.shared.save(value: value, type: entityName) { (response) in
-                switch response {
-                case .success:
-                    observer.onNext(true)
-                case .failure:
-                    observer.onNext(false)
-                }
-                observer.onCompleted()
-            }
 
-            return Disposables.create()
+            return CoreDataManager.shared.update(entityName: entityName, attributes: value)
+                .subscribe(onNext: {
+                    observer.onNext(true)
+                }, onError: { (_) in
+                    observer.onNext(false)
+                })
         }
     }
 

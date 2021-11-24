@@ -48,16 +48,24 @@ final class UserViewModel {
         if let weight = weight { newModel.weight = weight }
         if let nickname = nickname { newModel.nickname = nickname }
 
-        let observableResult = save(model: newModel)
-        observableResult
-            .subscribe(onNext: { [weak self] isSaved in
-                guard let self = self
-                else { return }
+        return Observable.create { [weak self] observer in
+            guard let self = self
+            else { return Disposables.create() }
 
-                if isSaved { self.model.accept(newModel) }
-            }).disposed(by: disposeBag)
-
-        return observableResult
+            return self.usecase.editUserInfo(model: newModel)
+                .subscribe(onNext: { value in
+                    if value {
+                        self.model.accept(newModel)
+                        observer.onNext(true)
+                    } else {
+                        observer.onNext(false)
+                    }
+                    observer.onCompleted()
+                }, onError: { (_) in
+                    print("#????")
+                    observer.onNext(false)
+                })
+        }
     }
 
     private func fetchUserInfo() {
@@ -69,20 +77,5 @@ final class UserViewModel {
 
                 self.model.accept(fetchedModel)
             }.disposed(by: disposeBag)
-    }
-
-    private func save(model: UserInfo) -> Observable<Bool> {
-        return Observable.create { [weak self] observer in
-            guard let self = self
-            else { return Disposables.create() }
-
-            return self.usecase.editUserInfo(model: self.model.value)
-                .subscribe(onNext: { isSaved in
-                    observer.onNext(isSaved)
-                    observer.onCompleted()
-                }, onError: { error in
-                    observer.onError(error)
-                })
-            }
     }
 }

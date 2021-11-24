@@ -131,6 +131,7 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
                       let genderType = GenderButtonType(rawValue: userInfo.gender)
                 else { return }
 
+                self.genderButtonState = genderType
                 self.setButtonState(by: genderType)
                 self.nickNameTextField.text = userInfo.nickname
                 self.heightTextField.text = "\(userInfo.height)"
