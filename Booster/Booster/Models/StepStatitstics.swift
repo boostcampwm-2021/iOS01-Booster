@@ -9,8 +9,14 @@ import Foundation
 
 struct StepStatistics {
     let step: Int
-    let intervalString: String
     let abbreviatedDateString: String
+    let intervalString: String?
+
+    init(step: Int, abbreviatedDateString: String, intervalString: String? = nil) {
+        self.step = step
+        self.abbreviatedDateString = abbreviatedDateString
+        self.intervalString = intervalString
+    }
 }
 
 extension StepStatistics: Comparable {
@@ -22,13 +28,9 @@ extension StepStatistics: Comparable {
 struct StepStatisticsCollection {
     private var stepStatisticsCollection = [StepStatistics]()
 
-    let durationString: String
+    var durationString: String?
 
     var count: Int { stepStatisticsCollection.count }
-
-    init(durationString: String) {
-        self.durationString = durationString
-    }
 
     subscript (index: Int) -> StepStatistics {
         return stepStatisticsCollection[index]
@@ -53,7 +55,7 @@ struct StepStatisticsCollection {
 
     func stepRatios() -> [Float]? {
         guard let maxStepStatistics = maxStepStatistics(),
-              maxStepStatistics.step > 0 else { return nil }
+              maxStepStatistics.step > 0 else { return [Float](repeating: Float(0.0), count: stepStatisticsCollection.count) }
 
         return stepStatisticsCollection.map { Float($0.step) / Float(maxStepStatistics.step) }
     }

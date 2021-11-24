@@ -66,7 +66,7 @@ final class UserUsecase {
             return Disposables.create()
         }
     }
-
+  
     func editUserInfo(model: UserInfo) -> Observable<Bool> {
         return Observable.create { observer in
             let entityName = "User"
@@ -78,7 +78,7 @@ final class UserUsecase {
                 CoreDataKeys.weight: model.weight
             ]
 
-            CoreDataManager.shared.save(value: value, type: entityName) { (response) in
+            CoreDataManager.shared.save(attributes: value, type: entityName) { (response) in
                 switch response {
                 case .success:
                     observer.onNext(true)

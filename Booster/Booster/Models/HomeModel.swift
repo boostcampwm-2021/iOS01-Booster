@@ -13,7 +13,7 @@ struct HomeModel {
     var activeTime: TimeInterval
     var goal: Int
     var totalStepCount: Int
-    var hourlyStatistics: StatisticsCollection
+    var hourlyStatistics: StepStatisticsCollection
 
     init() {
         kcal = 0
@@ -21,6 +21,6 @@ struct HomeModel {
         activeTime = 0
         goal = 0
         totalStepCount = 0
-        hourlyStatistics = StatisticsCollection()
+        hourlyStatistics = StepStatisticsCollection()
     }
 }
