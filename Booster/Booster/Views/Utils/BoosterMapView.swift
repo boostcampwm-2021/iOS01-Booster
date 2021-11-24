@@ -8,31 +8,23 @@
 import UIKit
 import MapKit
 
-enum AnnotationIdentifier: String {
-    case milestone
-    case startDot
-    case endDot
-}
+class BoosterMapView: MKMapView {
+    enum AnnotationIdentifier: String {
+        case milestone
+        case startDot
+        case endDot
+    }
 
-protocol BoosterMapViewProtocol {
-    func setRegion(to location: CLLocation, meterRadius: Double)
-    func addAnnotation(type: AnnotationIdentifier, _ latitude: CLLocationDegrees, _ longitude: CLLocationDegrees)
-    func drawPath(from prevCoordinate: CLLocationCoordinate2D?, to currentCoordinate: CLLocationCoordinate2D?)
-    func gradientColorOfCoordinate(at coordinate: Coordinate,
-                                           coordinates: Coordinates,
-                                           from fromColor: UIColor,
-                                           to toColor: UIColor) -> UIColor?
-}
-
-class BoosterMapView: MKMapView, BoosterMapViewProtocol {
     func setRegion(to location: CLLocation, meterRadius: Double) {
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
-                                             latitudinalMeters: meterRadius * 2,
-                                             longitudinalMeters: meterRadius * 2)
+                                                  latitudinalMeters: meterRadius * 2,
+                                                  longitudinalMeters: meterRadius * 2)
         setRegion(coordinateRegion, animated: false)
     }
-    
-    func addAnnotation(type: AnnotationIdentifier, _ latitude: CLLocationDegrees, _ longitude: CLLocationDegrees) {
+
+    func addAnnotation(type: AnnotationIdentifier,
+                       _ latitude: CLLocationDegrees,
+                       _ longitude: CLLocationDegrees) {
         let annotation = MKPointAnnotation()
         annotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         annotation.title = type.rawValue
@@ -50,11 +42,11 @@ class BoosterMapView: MKMapView, BoosterMapViewProtocol {
 
         addOverlay(line)
     }
-    
+
     func gradientColorOfCoordinate(at coordinate: Coordinate,
-                                           coordinates: Coordinates,
-                                           from fromColor: UIColor,
-                                           to toColor: UIColor) -> UIColor? {
+                                   coordinates: Coordinates,
+                                   from fromColor: UIColor,
+                                   to toColor: UIColor) -> UIColor? {
         guard let indexOfTargetCoordinate = coordinates.firstIndex(of: coordinate)
         else { return nil }
 
