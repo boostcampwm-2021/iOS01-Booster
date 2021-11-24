@@ -13,17 +13,18 @@ final class DetailFeedViewModel {
     // MARK: - Properties
     let startDate: Date
     var trackingModel = BehaviorRelay<TrackingModel>(value: TrackingModel())
+    var isDeletedMilestone = PublishSubject<Bool>()
     var isDeletedAll = PublishSubject<Bool>()
     private let predicate: NSPredicate
-    private let usecase: DetailFeedUsecase
+    private let usecase: DetailFeedUsecaseProtocol
     private let disposeBag = DisposeBag()
     private var gradientColorOffset = -1
 
     // MARK: - Init
-    init(start date: Date) {
+    init(start date: Date, usecase: DetailFeedUsecaseProtocol) {
+        self.usecase = usecase
         startDate = date
         predicate = NSPredicate(format: "startDate = %@", startDate as NSDate)
-        usecase = DetailFeedUsecase()
         fetchDetailFeedList()
     }
 
@@ -38,26 +39,21 @@ final class DetailFeedViewModel {
 
     func reset() { gradientColorOffset = -1 }
 
-    func remove(of milestone: Milestone) -> Observable<Bool> {
-        return Observable.create { [weak self] observer in
-            guard let self = self,
-                  let index = self.trackingModel.value.milestones.firstIndex(of: milestone)
-            else { return Disposables.create() }
+    func remove(of milestone: Milestone) {
+        guard let index = trackingModel.value.milestones.firstIndex(of: milestone)
+        else { return }
 
-            var newTrackingModel = self.trackingModel.value
-            _ = newTrackingModel.milestones.remove(at: index)
+        var newTrackingModel = self.trackingModel.value
+        _ = newTrackingModel.milestones.remove(at: index)
 
-            self.usecase.update(model: newTrackingModel, predicate: self.predicate)
-                .subscribe(onError: { _ in
-                    observer.onNext(false)
-                }, onCompleted: {
-                    self.trackingModel.accept(newTrackingModel)
-                    observer.onNext(true)
-                })
-                .disposed(by: self.disposeBag)
-
-            return Disposables.create()
-        }
+        usecase.update(milestones: newTrackingModel.milestones, predicate: predicate)
+            .subscribe(onError: { _ in
+                self.isDeletedMilestone.onNext(false)
+            }, onCompleted: {
+                self.trackingModel.accept(newTrackingModel)
+                self.isDeletedMilestone.onNext(true)
+            })
+            .disposed(by: disposeBag)
     }
 
     func removeAll() {
@@ -92,15 +88,7 @@ final class DetailFeedViewModel {
         return gradientColorOffset
     }
 
-    private func isOnPathAsApproximation(currentLatitude: Double,
-                                         currentLongitude: Double,
-                                         compareLatitude: Double,
-                                         compareLongitude: Double) -> Bool {
-        let approximation = 0.00000000001
-        return abs(currentLatitude - compareLatitude) < approximation && abs(currentLongitude - compareLongitude) < approximation
-    }
-
-    private func fetchDetailFeedList() {
+    func fetchDetailFeedList() {
         usecase.fetch(predicate: predicate)
             .subscribe { [weak self] value in
                 guard let model = value.element
@@ -109,5 +97,18 @@ final class DetailFeedViewModel {
                 self?.trackingModel.accept(model)
             }
             .disposed(by: disposeBag)
+    }
+
+    func createModifyFeedViewModel() -> ModifyFeedViewModel {
+        let writingRecord = WritingRecord(title: trackingModel.value.title, content: trackingModel.value.content)
+        return ModifyFeedViewModel(startDate: startDate, writingRecord: writingRecord, usecase: ModifyFeedUsecase())
+    }
+
+    private func isOnPathAsApproximation(currentLatitude: Double,
+                                         currentLongitude: Double,
+                                         compareLatitude: Double,
+                                         compareLongitude: Double) -> Bool {
+        let approximation = 0.000000001
+        return abs(currentLatitude - compareLatitude) < approximation && abs(currentLongitude - compareLongitude) < approximation
     }
 }

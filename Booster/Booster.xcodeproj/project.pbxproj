@@ -14,6 +14,9 @@
 		28C9702D273C3041005BD7BC /* DetailFeedUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C9702C273C3041005BD7BC /* DetailFeedUsecase.swift */; };
 		28C9702F2740D731005BD7BC /* HomeUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C9702E2740D731005BD7BC /* HomeUsecase.swift */; };
 		28C970312744EB64005BD7BC /* ModifyFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C970302744EB64005BD7BC /* ModifyFeedViewController.swift */; };
+		28C97039274C8359005BD7BC /* ModifyFeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C97038274C8359005BD7BC /* ModifyFeedViewModel.swift */; };
+		28C9703B274C84DC005BD7BC /* ModifyFeedUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C9703A274C84DC005BD7BC /* ModifyFeedUsecase.swift */; };
+		28C9703D274C87D1005BD7BC /* WritingRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C9703C274C87D1005BD7BC /* WritingRecord.swift */; };
 		37852ACF273C27F100BA3D67 /* StatisticsModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37852ACE273C27F100BA3D67 /* StatisticsModelTests.swift */; };
 		37852AD6273C286D00BA3D67 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F302733CDAA00B090D9 /* Statistics.swift */; };
 		37852AD8273C2D0B00BA3D67 /* StepStatisticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37852AD7273C2D0B00BA3D67 /* StepStatisticsTests.swift */; };
@@ -151,6 +154,9 @@
 		28C9702C273C3041005BD7BC /* DetailFeedUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFeedUsecase.swift; sourceTree = "<group>"; };
 		28C9702E2740D731005BD7BC /* HomeUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUsecase.swift; sourceTree = "<group>"; };
 		28C970302744EB64005BD7BC /* ModifyFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyFeedViewController.swift; sourceTree = "<group>"; };
+		28C97038274C8359005BD7BC /* ModifyFeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyFeedViewModel.swift; sourceTree = "<group>"; };
+		28C9703A274C84DC005BD7BC /* ModifyFeedUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyFeedUsecase.swift; sourceTree = "<group>"; };
+		28C9703C274C87D1005BD7BC /* WritingRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingRecord.swift; sourceTree = "<group>"; };
 		37852ACC273C27F100BA3D67 /* StatisticsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StatisticsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		37852ACE273C27F100BA3D67 /* StatisticsModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsModelTests.swift; sourceTree = "<group>"; };
 		37852AD7273C2D0B00BA3D67 /* StepStatisticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepStatisticsTests.swift; sourceTree = "<group>"; };
@@ -457,6 +463,7 @@
 			children = (
 				FA614F192733CDAA00B090D9 /* FeedViewModel.swift */,
 				28C96FEC27396F6B005BD7BC /* DetailFeedViewModel.swift */,
+				28C97038274C8359005BD7BC /* ModifyFeedViewModel.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -647,6 +654,7 @@
 				FA614F332733CDAA00B090D9 /* Coordinate.swift */,
 				FA614F362733CDAA00B090D9 /* TrackingModel.swift */,
 				3B31B62027413664009D9190 /* FeedList.swift */,
+				28C9703C274C87D1005BD7BC /* WritingRecord.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -727,6 +735,7 @@
 				28C9702E2740D731005BD7BC /* HomeUsecase.swift */,
 				FA473A4A2743A2FB0000C5DC /* UserUsecase.swift */,
 				3B37B99D274385B6001EB120 /* EnrollUsecase.swift */,
+				28C9703A274C84DC005BD7BC /* ModifyFeedUsecase.swift */,
 			);
 			path = Usecases;
 			sourceTree = "<group>";
@@ -1035,13 +1044,16 @@
 				3B6FE5052744DDBE00A815D1 /* NicknameEnrollView.swift in Sources */,
 				FA473A16273B95750000C5DC /* BaseViewControllerTemplate.swift in Sources */,
 				FA614F852733CDAA00B090D9 /* TrackingMapView.swift in Sources */,
+				28C9703B274C84DC005BD7BC /* ModifyFeedUsecase.swift in Sources */,
 				FA473A4B2743A2FB0000C5DC /* UserUsecase.swift in Sources */,
 				FA614F5E2733CDAA00B090D9 /* TrackingProgressViewModel.swift in Sources */,
 				FA614F7D2733CDAA00B090D9 /* SceneDelegate.swift in Sources */,
 				FADAC0D02745F55100A026E2 /* EditUserInfoTextField.swift in Sources */,
 				3B38FB1A273BABBE00F8620D /* TrackingViewModel.swift in Sources */,
 				3B31B600273CD2F7009D9190 /* Tracking+CoreDataProperties.swift in Sources */,
+				28C97039274C8359005BD7BC /* ModifyFeedViewModel.swift in Sources */,
 				FA614F5C2733CDAA00B090D9 /* StatisticsViewModel.swift in Sources */,
+				28C9703D274C87D1005BD7BC /* WritingRecord.swift in Sources */,
 				FA614F8B2733CDAA00B090D9 /* HealthStoreManager.swift in Sources */,
 				28C970312744EB64005BD7BC /* ModifyFeedViewController.swift in Sources */,
 				3B37B999274366A8001EB120 /* EnrollViewModel.swift in Sources */,

@@ -36,8 +36,8 @@ final class FeedViewController: UIViewController, BaseViewControllerTemplate {
             .bind { [weak self] date in
                 let storyboardName = "Feed"
                 let detailFeedViewController = UIStoryboard(name: storyboardName, bundle: .main)
-                    .instantiateViewController(identifier: String(describing: DetailFeedViewController.self)) { coder in
-                        return DetailFeedViewController(coder: coder, start: date)
+                    .instantiateViewController(identifier: DetailFeedViewController.identifier) { coder in
+                        return DetailFeedViewController(coder: coder, viewModel: DetailFeedViewModel(start: date, usecase: DetailFeedUsecase()))
                     }
 
                 self?.navigationController?.pushViewController(detailFeedViewController, animated: true)

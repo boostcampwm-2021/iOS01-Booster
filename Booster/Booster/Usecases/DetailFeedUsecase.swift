@@ -8,9 +8,15 @@
 import Foundation
 import RxSwift
 
+protocol DetailFeedUsecaseProtocol {
+    func update(milestones: [Milestone], predicate: NSPredicate) -> Observable<Void>
+    func fetch(predicate: NSPredicate) -> Observable<TrackingModel>
+    func remove(predicate: NSPredicate) -> Observable<Void>
+}
+
 typealias TrackingSaveError = DetailFeedUsecase.TrackingError
 
-final class DetailFeedUsecase {
+final class DetailFeedUsecase: DetailFeedUsecaseProtocol {
     enum TrackingError: Error {
         case modelError
         case error(Error)
@@ -33,11 +39,8 @@ final class DetailFeedUsecase {
 
     private let entityName = "Tracking"
 
-    func update(model: TrackingModel, predicate: NSPredicate) -> Observable<Void> {
-        guard let coordinates = try? NSKeyedArchiver.archivedData(withRootObject: model.coordinates, requiringSecureCoding: false),
-              let milestones = try? NSKeyedArchiver.archivedData(withRootObject: model.milestones, requiringSecureCoding: false),
-              let endDate = model.endDate,
-              let distance = Double(String(format: "%.2f", model.distance))
+    func update(milestones: [Milestone], predicate: NSPredicate) -> Observable<Void> {
+        guard let milestones = try? NSKeyedArchiver.archivedData(withRootObject: milestones, requiringSecureCoding: false)
         else {
             return Observable.create { observable in
                 observable.on(.error(TrackingError.modelError))
@@ -45,23 +48,10 @@ final class DetailFeedUsecase {
             }
         }
 
-        let value: [String: Any] = [
-            CoreDataKeys.startDate: model.startDate,
-            CoreDataKeys.endDate: endDate,
-            CoreDataKeys.steps: model.steps,
-            CoreDataKeys.calories: model.calories,
-            CoreDataKeys.seconds: model.seconds,
-            CoreDataKeys.distance: distance,
-            CoreDataKeys.coordinates: coordinates,
-            CoreDataKeys.milestones: milestones,
-            CoreDataKeys.title: model.title,
-            CoreDataKeys.content: model.content,
-            CoreDataKeys.imageData: model.imageData,
-            CoreDataKeys.address: model.address
-        ]
+        let attributes: [String: Any] = [CoreDataKeys.milestones: milestones]
 
         return CoreDataManager.shared.update(entityName: entityName,
-                                             attributes: value,
+                                             attributes: attributes,
                                              predicate: predicate)
     }
 
