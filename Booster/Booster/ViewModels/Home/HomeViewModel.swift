@@ -6,17 +6,16 @@
 //
 import Foundation
 import HealthKit
+
 import RxSwift
 import RxRelay
 
 final class HomeViewModel {
     // MARK: - Properties
-    var homeModel = BehaviorRelay<HomeModel>(value: HomeModel())
-    private let homeUsecase: HomeUsecase
+    private let homeUsecase = HomeUsecase()
     private let disposeBag = DisposeBag()
 
-    // MARK: - Init
-    init() { self.homeUsecase = HomeUsecase() }
+    var homeModel = BehaviorRelay<HomeModel>(value: HomeModel())
 
     // MARK: - Functions
     func fetchQueries() {
@@ -28,15 +27,15 @@ final class HomeViewModel {
 
     private func fetchTodayHourlyStepCountsData() {
         homeUsecase.fetchHourlyStepCountsData()
-            .subscribe { [weak self] result in
-                guard let statistics = result.element,
-                      let entity = self?.convertHkStatisticsToCustomStatisticsOfStepCount(statistics)
+            .subscribe { [weak self] hkStatisticsEvent in
+                guard let self = self,
+                      let hkStatistics = hkStatisticsEvent.element,
+                      let entity = self.configureStepStatistics(using: hkStatistics)
                 else { return }
 
-                guard var newHomeModel = self?.homeModel.value
-                else { return }
-                newHomeModel.hourlyStatistics.append(statistics: entity)
-                self?.homeModel.accept(newHomeModel)
+                var newHomeModel = self.homeModel.value
+                newHomeModel.hourlyStatistics.append(entity)
+                self.homeModel.accept(newHomeModel)
             }
             .disposed(by: disposeBag)
     }
@@ -44,16 +43,16 @@ final class HomeViewModel {
     private func fetchTodayDistanceData() {
         homeUsecase.fetchTodayTotalData(type: .distanceWalkingRunning)
             .subscribe { [weak self] result in
-                guard let statistics = result.element
+                guard let self = self,
+                      let statistics = result.element
                 else { return }
 
                 let distance = statistics.sumQuantity()?.doubleValue(for: HKUnit.meter()) ?? 0
                 let km = distance / 1000
 
-                guard var newHomeModel = self?.homeModel.value
-                else { return }
+                var newHomeModel = self.homeModel.value
                 newHomeModel.km = km
-                self?.homeModel.accept(newHomeModel)
+                self.homeModel.accept(newHomeModel)
             }
             .disposed(by: disposeBag)
     }
@@ -61,15 +60,15 @@ final class HomeViewModel {
     private func fetchTodayKcalData() {
         homeUsecase.fetchTodayTotalData(type: .activeEnergyBurned)
             .subscribe {[weak self] result in
-                guard let statistics = result.element
+                guard let self = self,
+                      let statistics = result.element
                 else { return }
 
                 let kcal = statistics.sumQuantity()?.doubleValue(for: HKUnit.kilocalorie()) ?? 0
 
-                guard var newHomeModel = self?.homeModel.value
-                else { return }
+                var newHomeModel = self.homeModel.value
                 newHomeModel.kcal = Int(kcal)
-                self?.homeModel.accept(newHomeModel)
+                self.homeModel.accept(newHomeModel)
 
             }
             .disposed(by: disposeBag)
@@ -78,55 +77,30 @@ final class HomeViewModel {
     private func fetchTodayTotalStepCountsData() {
         homeUsecase.fetchTodayTotalData(type: .stepCount)
             .subscribe { [weak self] result in
-                guard let statistics = result.element,
+                guard let self = self,
+                      let statistics = result.element,
                       let seconds = statistics.duration()?.doubleValue(for: .second()),
                       let sum = statistics.sumQuantity()?.doubleValue(for: .count())
                 else { return }
 
-                guard var newHomeModel = self?.homeModel.value
-                else { return }
+                var newHomeModel = self.homeModel.value
                 newHomeModel.activeTime = TimeInterval(seconds)
                 newHomeModel.totalStepCount = Int(sum)
-                self?.homeModel.accept(newHomeModel)
+                self.homeModel.accept(newHomeModel)
 
             }
             .disposed(by: disposeBag)
     }
 
-    private func addEmptyStatisticsIfNeeded(nowDate: Date) {
-        let dateformatter = DateFormatter()
-        dateformatter.dateFormat = "hh"
+    private func configureStepStatistics(using statistics: HKStatistics) -> StepStatistics? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.dateFormat = "H"
 
-        var newHomeModel = homeModel.value
-        guard let lastStatisticsDate = homeModel.value.hourlyStatistics.statistics().last
-        else {
-            let nowHour = Int(dateformatter.string(from: nowDate)) ?? 0
-            for _ in 0..<nowHour {
-                newHomeModel.hourlyStatistics.append(statistics: Statistics(date: Date(), step: 0))
-            }
-            homeModel.accept(newHomeModel)
-            return
-        }
-
-        let preHour = Int(dateformatter.string(from: lastStatisticsDate.date)) ?? 0
-        let nowHour = Int(dateformatter.string(from: nowDate)) ?? 0
-
-        var interval = nowHour - preHour
-        if interval < 0 { interval += 12 }
-        if interval > 1 {
-            for _ in 0..<interval - 1 {
-                newHomeModel.hourlyStatistics.append(statistics: Statistics(date: Date(), step: 0))
-            }
-        }
-        homeModel.accept(newHomeModel)
-    }
-
-    private func convertHkStatisticsToCustomStatisticsOfStepCount(_ statistics: HKStatistics) -> Statistics? {
-        guard let quantity = statistics.sumQuantity()
-        else { return nil }
-        let step = Int(quantity.doubleValue(for: HKUnit.count()))
+        let step = Int(statistics.sumQuantity()?.doubleValue(for: HKUnit.count()) ?? 0)
         let date = statistics.startDate
-        addEmptyStatisticsIfNeeded(nowDate: date)
-        return Statistics(date: date, step: step)
+        let string = dateFormatter.string(from: date)
+
+        return StepStatistics(step: step, abbreviatedDateString: string)
     }
 }

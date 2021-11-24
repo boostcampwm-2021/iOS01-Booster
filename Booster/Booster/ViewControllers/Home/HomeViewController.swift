@@ -18,9 +18,10 @@ final class HomeViewController: UIViewController, BaseViewControllerTemplate {
     @IBOutlet private weak var hourlyBarChartView: ChartView!
 
     // MARK: - Properties
-    var viewModel = HomeViewModel()
     private let disposeBag = DisposeBag()
     private let todayHoursContant = 24
+
+    var viewModel = HomeViewModel()
 
     // MARK: - Life Cycles
     override func viewDidLoad() {
@@ -87,27 +88,10 @@ final class HomeViewController: UIViewController, BaseViewControllerTemplate {
     }
 
     private func configureHourlyChartView() {
-        let stepRatios: [CGFloat] = configureStepRatios(using: viewModel.homeModel.value.hourlyStatistics)
-        hourlyBarChartView.drawChart(stepRatios: stepRatios, strings: ["0", "6", "12", "18"])
-    }
+        guard let stepRatios = viewModel.homeModel.value.hourlyStatistics.stepRatios()
+        else { return }
 
-    private func configureStepRatios(using statisticsCollection: StatisticsCollection) -> [CGFloat] {
-        guard let maxStep = statisticsCollection.maxStatistics()?.step
-        else { return [CGFloat](repeating: 0, count: todayHoursContant) }
-
-        if maxStep == 0 { return [CGFloat](repeating: 0, count: todayHoursContant) }
-
-        var stepRatios = [CGFloat]()
-        for statistics in statisticsCollection.statistics() {
-            let step: Int = statistics.step
-            let stepRatio = CGFloat(step) / CGFloat(maxStep)
-            stepRatios.append(stepRatio)
-        }
-
-        if stepRatios.count < todayHoursContant {
-            stepRatios += [CGFloat](repeating: 0, count: todayHoursContant - stepRatios.count)
-        }
-        return stepRatios
+        hourlyBarChartView.drawChart(stepRatios: stepRatios.map { CGFloat($0) }, strings: ["0", "6", "12", "18"])
     }
 
     private func gradientLayer(ratio: [NSNumber],
