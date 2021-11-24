@@ -19,7 +19,7 @@
 		28C9703D274C87D1005BD7BC /* WritingRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C9703C274C87D1005BD7BC /* WritingRecord.swift */; };
 		37852ACF273C27F100BA3D67 /* StatisticsModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37852ACE273C27F100BA3D67 /* StatisticsModelTests.swift */; };
 		37852AD6273C286D00BA3D67 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F302733CDAA00B090D9 /* Statistics.swift */; };
-		37852AD8273C2D0B00BA3D67 /* StatisticsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37852AD7273C2D0B00BA3D67 /* StatisticsViewModelTests.swift */; };
+		37852AD8273C2D0B00BA3D67 /* StepStatisticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37852AD7273C2D0B00BA3D67 /* StepStatisticsTests.swift */; };
 		379E3C57273BC182002B0B15 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379E3C56273BC182002B0B15 /* ChartView.swift */; };
 		3B31B5F9273C05D8009D9190 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B31B5F8273C05D8009D9190 /* FeedCell.swift */; };
 		3B31B5FC273C0A66009D9190 /* CellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B31B5FB273C0A66009D9190 /* CellConfigurator.swift */; };
@@ -123,7 +123,8 @@
 		FA614F962738F7A200B090D9 /* MilestonePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F952738F7A200B090D9 /* MilestonePhotoViewController.swift */; };
 		FA614F982738FDA900B090D9 /* MilestonePhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F972738FDA900B090D9 /* MilestonePhotoViewModel.swift */; };
 		FA84966C274A13890021F903 /* NotificationSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA84966B274A13890021F903 /* NotificationSettingViewController.swift */; };
-		FAA291BA2744FE8B0042D2D5 /* EraseAllDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA291B92744FE8B0042D2D5 /* EraseAllDataViewController.swift */; };
+		FAA291BA2744FE8B0042D2D5 /* RemoveAllDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA291B92744FE8B0042D2D5 /* RemoveAllDataViewController.swift */; };
+		FAAD240B274D0F23009E2F52 /* NotificationSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAD240A274D0F23009E2F52 /* NotificationSettingViewModel.swift */; };
 		FACBAB6A2746034900CD6B76 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBAB692746034900CD6B76 /* UIButton+Extension.swift */; };
 		FADAC0D02745F55100A026E2 /* EditUserInfoTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADAC0CF2745F55100A026E2 /* EditUserInfoTextField.swift */; };
 /* End PBXBuildFile section */
@@ -158,7 +159,7 @@
 		28C9703C274C87D1005BD7BC /* WritingRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingRecord.swift; sourceTree = "<group>"; };
 		37852ACC273C27F100BA3D67 /* StatisticsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StatisticsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		37852ACE273C27F100BA3D67 /* StatisticsModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsModelTests.swift; sourceTree = "<group>"; };
-		37852AD7273C2D0B00BA3D67 /* StatisticsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewModelTests.swift; sourceTree = "<group>"; };
+		37852AD7273C2D0B00BA3D67 /* StepStatisticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepStatisticsTests.swift; sourceTree = "<group>"; };
 		379E3C56273BC182002B0B15 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		3B31B5F8273C05D8009D9190 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		3B31B5FB273C0A66009D9190 /* CellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfigurator.swift; sourceTree = "<group>"; };
@@ -253,7 +254,8 @@
 		FA614F952738F7A200B090D9 /* MilestonePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestonePhotoViewController.swift; sourceTree = "<group>"; };
 		FA614F972738FDA900B090D9 /* MilestonePhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestonePhotoViewModel.swift; sourceTree = "<group>"; };
 		FA84966B274A13890021F903 /* NotificationSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingViewController.swift; sourceTree = "<group>"; };
-		FAA291B92744FE8B0042D2D5 /* EraseAllDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraseAllDataViewController.swift; sourceTree = "<group>"; };
+		FAA291B92744FE8B0042D2D5 /* RemoveAllDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveAllDataViewController.swift; sourceTree = "<group>"; };
+		FAAD240A274D0F23009E2F52 /* NotificationSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingViewModel.swift; sourceTree = "<group>"; };
 		FACBAB692746034900CD6B76 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		FADAC0CF2745F55100A026E2 /* EditUserInfoTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserInfoTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -288,7 +290,7 @@
 		37852ACD273C27F100BA3D67 /* StatisticsTests */ = {
 			isa = PBXGroup;
 			children = (
-				37852AD7273C2D0B00BA3D67 /* StatisticsViewModelTests.swift */,
+				37852AD7273C2D0B00BA3D67 /* StepStatisticsTests.swift */,
 				37852ACE273C27F100BA3D67 /* StatisticsModelTests.swift */,
 			);
 			path = StatisticsTests;
@@ -416,7 +418,7 @@
 			children = (
 				FA614F462733CDAA00B090D9 /* UserViewController.swift */,
 				FA473A4C2744EC1C0000C5DC /* ChangeGoalViewController.swift */,
-				FAA291B92744FE8B0042D2D5 /* EraseAllDataViewController.swift */,
+				FAA291B92744FE8B0042D2D5 /* RemoveAllDataViewController.swift */,
 				FA2578F62745E99800597382 /* EditUserInfoViewController.swift */,
 				FA84966B274A13890021F903 /* NotificationSettingViewController.swift */,
 			);
@@ -535,6 +537,7 @@
 			children = (
 				FA473A48274391740000C5DC /* UserViewModel.swift */,
 				FA473A4E2744EE730000C5DC /* GoalViewModel.swift */,
+				FAAD240A274D0F23009E2F52 /* NotificationSettingViewModel.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -959,7 +962,7 @@
 				37852ACF273C27F100BA3D67 /* StatisticsModelTests.swift in Sources */,
 				3B31B61F274109AF009D9190 /* HealthStoreManager.swift in Sources */,
 				3B31B61E274109A5009D9190 /* BoosterObservable.swift in Sources */,
-				37852AD8273C2D0B00BA3D67 /* StatisticsViewModelTests.swift in Sources */,
+				37852AD8273C2D0B00BA3D67 /* StepStatisticsTests.swift in Sources */,
 				37852AD6273C286D00BA3D67 /* Statistics.swift in Sources */,
 				3B31B61D27410997009D9190 /* StatisticsViewModel.swift in Sources */,
 			);
@@ -1024,7 +1027,7 @@
 				FACBAB6A2746034900CD6B76 /* UIButton+Extension.swift in Sources */,
 				FA614F822733CDAA00B090D9 /* UserViewController.swift in Sources */,
 				FA614F7E2733CDAA00B090D9 /* StatisticsViewController.swift in Sources */,
-				FAA291BA2744FE8B0042D2D5 /* EraseAllDataViewController.swift in Sources */,
+				FAA291BA2744FE8B0042D2D5 /* RemoveAllDataViewController.swift in Sources */,
 				FA473A4F2744EE730000C5DC /* GoalViewModel.swift in Sources */,
 				3B6FE5032743A85B00A815D1 /* InfoPickerView.swift in Sources */,
 				FA614F862733CDAA00B090D9 /* PhotoAnnotationView.swift in Sources */,
@@ -1033,6 +1036,7 @@
 				FA614F7F2733CDAA00B090D9 /* HomeViewController.swift in Sources */,
 				28C9702D273C3041005BD7BC /* DetailFeedUsecase.swift in Sources */,
 				FA614F8A2733CDAA00B090D9 /* TrackingProgressUsecase.swift in Sources */,
+				FAAD240B274D0F23009E2F52 /* NotificationSettingViewModel.swift in Sources */,
 				FA614F982738FDA900B090D9 /* MilestonePhotoViewModel.swift in Sources */,
 				28C96FF3273A4634005BD7BC /* UIResponder+Extension.swift in Sources */,
 				FA614F692733CDAA00B090D9 /* CoreDataManager.swift in Sources */,

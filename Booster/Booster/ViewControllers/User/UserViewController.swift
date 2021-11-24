@@ -8,14 +8,14 @@ final class UserViewController: UIViewController, BaseViewControllerTemplate {
     }
 
     private enum MyInfoCellType: Int {
-        case eraseAllData = 0
+        case removeAllData = 0
         case changeGoal
         case editUserInfo
         case notificationSetting
 
         var title: String {
             switch self {
-            case .eraseAllData:
+            case .removeAllData:
                 return "모든 데이터 지우기"
             case .changeGoal:
                 return "목표 바꾸기"
@@ -71,12 +71,12 @@ final class UserViewController: UIViewController, BaseViewControllerTemplate {
 
     private func myInfoCellDidSelectActions(cellType: MyInfoCellType) {
         switch cellType {
-        case .eraseAllData:
-            guard let eraseAllDataViewController = storyboard?.instantiateViewController(withIdentifier: EraseAllDataViewController.identifier) as? EraseAllDataViewController
+        case .removeAllData:
+            guard let removeAllDataViewController = storyboard?.instantiateViewController(withIdentifier: RemoveAllDataViewController.identifier) as? RemoveAllDataViewController
             else { return }
-            eraseAllDataViewController.viewModel = viewModel
+            removeAllDataViewController.viewModel = viewModel
 
-            navigationController?.pushViewController(eraseAllDataViewController, animated: true)
+            navigationController?.pushViewController(removeAllDataViewController, animated: true)
         case .changeGoal:
             performSegue(withIdentifier: "changeGoalSegue", sender: self)
             return

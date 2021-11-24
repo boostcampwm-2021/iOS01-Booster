@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import RxSwift
+import RxRelay
 
 final class UserViewModel {
     enum UserViewModelError: Error {
@@ -13,56 +15,74 @@ final class UserViewModel {
     }
 
     private let usecase: UserUsecase
-    private(set) var model: UserInfo
+    private let disposeBag = DisposeBag()
+    private(set) var model = BehaviorRelay<UserInfo>(value: UserInfo())
 
     init() {
         usecase = UserUsecase()
-        model = UserInfo(age: 25, nickname: "히로롱", gender: "여", height: 164, weight: 80)
+        fetchUserInfo()
     }
 
     func userPhysicalInfo() -> String {
-        return "\(model.age)살, \(model.height)cm, \(model.weight)kg, \(model.gender)"
+        return "\(model.value.age)살, \(model.value.height)cm, \(model.value.weight)kg, \(model.value.gender)"
     }
 
-    func eraseAllData(completion: @escaping (Result<Int, Error>) -> Void) {
-        let semaphore = DispatchSemaphore(value: 0)
+    func removeAllData() -> Observable<Bool> {
+        return Observable.create { [weak self] observer in
+            guard let self = self
+            else { return Disposables.create() }
 
-        var resultOfHealthKit: Result<Int, Error>?
-        var resultOfCoreData: Result<Void, Error>?
-
-        usecase.eraseAllDataOfHealthKit { (result) in
-            resultOfHealthKit = result
-            semaphore.signal()
+            return Observable.zip(self.usecase.removeAllDataOfHealthKit(), self.usecase.removeAllDataOfCoreData())
+                .subscribe(onNext: { healthKitResult, coreDataResult in
+                    observer.onNext(healthKitResult || coreDataResult)
+                    observer.onCompleted()
+                })
         }
-        semaphore.wait()
-
-        usecase.eraseAllDataOfCoreData { (result) in
-            resultOfCoreData = result
-            semaphore.signal()
-        }
-        semaphore.wait()
-
-        guard let resultOfHealthKit = try? resultOfHealthKit?.get(),
-              let resultOfCoreData = try? resultOfCoreData?.get()
-        else {
-            completion(.failure(UserViewModelError.noData))
-            return
-        }
-
-        completion(.success(resultOfHealthKit))
     }
 
-    func editUserInfo(gender: String? = nil, age: Int? = nil, height: Int? = nil, weight: Int? = nil, nickname: String? = nil) {
-        if let gender = gender { model.gender = gender }
-        if let age = age { model.age = age }
-        if let height = height { model.height = height }
-        if let weight = weight { model.weight = weight }
-        if let nickname = nickname { model.nickname = nickname }
+    func editUserInfo(gender: String? = nil, age: Int? = nil, height: Int? = nil, weight: Int? = nil, nickname: String? = nil) -> Observable<Bool> {
+        var newModel = model.value
+        if let gender = gender { newModel.gender = gender }
+        if let age = age { newModel.age = age }
+        if let height = height { newModel.height = height }
+        if let weight = weight { newModel.weight = weight }
+        if let nickname = nickname { newModel.nickname = nickname }
+
+        let observableResult = save(model: newModel)
+        observableResult
+            .subscribe(onNext: { [weak self] isSaved in
+                guard let self = self
+                else { return }
+
+                if isSaved { self.model.accept(newModel) }
+            }).disposed(by: disposeBag)
+
+        return observableResult
     }
 
-    func save(completion: @escaping (Bool) -> Void) {
-        usecase.editUserInfo(model: model) { isSaved in
-            completion(isSaved)
-        }
+    private func fetchUserInfo() {
+        usecase.fetchUserInfo()
+            .subscribe { [weak self] value in
+                guard let self = self,
+                      let fetchedModel = value.element
+                else { return }
+
+                self.model.accept(fetchedModel)
+            }.disposed(by: disposeBag)
+    }
+
+    private func save(model: UserInfo) -> Observable<Bool> {
+        return Observable.create { [weak self] observer in
+            guard let self = self
+            else { return Disposables.create() }
+
+            return self.usecase.editUserInfo(model: self.model.value)
+                .subscribe(onNext: { isSaved in
+                    observer.onNext(isSaved)
+                    observer.onCompleted()
+                }, onError: { error in
+                    observer.onError(error)
+                })
+            }
     }
 }

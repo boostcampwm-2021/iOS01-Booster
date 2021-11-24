@@ -6,20 +6,26 @@
 //
 
 import UIKit
+import RxSwift
 
-final class NotificationSettingViewController: UIViewController {
+final class NotificationSettingViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - @IBOutlet
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var subTitleLabel: UILabel!
     @IBOutlet private weak var notificationImageView: UIImageView!
     @IBOutlet private weak var onOffButton: UIButton!
 
+    // MARK: - Properties
+    var viewModel = NotificationSettingViewModel()
+    private let disposeBag = DisposeBag()
+
     // MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        configureNavigationBar()
+        configureNavigationBarTitle()
         configureNotificationUI()
+        bind()
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(willEnterForeground(_:)),
                                                name: UIApplication.willEnterForegroundNotification,
@@ -60,53 +66,37 @@ final class NotificationSettingViewController: UIViewController {
     }
 
     // MARK: - Functions
-    private func configureNavigationBar() {
+    private func configureNavigationBarTitle() {
         navigationItem.title = "알림 설정"
+    }
+
+    private func bind() {
+        viewModel.model.asDriver()
+            .drive(onNext: { [weak self] notificationSettingModel in
+                self?.titleLabel.text = notificationSettingModel.title
+                self?.subTitleLabel.text = notificationSettingModel.subTitle
+                self?.notificationImageView.image = notificationSettingModel.image
+                self?.onOffButton.backgroundColor = notificationSettingModel.buttonBackgroundColor
+                self?.onOffButton.setAttributedTitle(notificationSettingModel.buttonAttributedTitle, for: .normal)
+                self?.onOffButton.tintColor = notificationSettingModel.buttonTintColor
+            }).disposed(by: disposeBag)
     }
 
     private func configureNotificationUI() {
         let center = UNUserNotificationCenter.current()
 
         center.getNotificationSettings(completionHandler: { [weak self] (settings) in
+            guard let self = self
+            else { return }
             let status = settings.authorizationStatus
 
             if status == .authorized {
-                self?.configureNotificationOnUI()
+                self.viewModel.setState(to: .on)
+                self.animateShaking(of: self.notificationImageView)
             } else if status == .denied {
-                self?.configureNotificationOffUI()
+                self.viewModel.setState(to: .off)
             }
         })
-    }
-
-    private func configureNotificationOffUI() {
-        let title = "현재 알림이 꺼져있어요"
-        let subTitle = "알람을 키면\n좋은 소식들을 가득 들려드릴게요"
-        let buttonTitle = "알림 켜기"
-
-        DispatchQueue.main.sync { [weak self] in
-            self?.titleLabel.text = title
-            self?.subTitleLabel.text = subTitle
-            self?.notificationImageView.image = UIImage.notificationOff
-            self?.onOffButton.backgroundColor = .boosterOrange
-            self?.onOffButton.setAttributedTitle(NSAttributedString(string: buttonTitle), for: .normal)
-            self?.onOffButton.tintColor = .boosterBlackLabel
-        }
-    }
-
-    private func configureNotificationOnUI() {
-        let title = "현재 알림이 켜져있어요"
-        let subTitle = "좋은 소식들을\n들려드리기 위해 열심히 노력하고 있어요!"
-        let buttonTitle = "알림 끄기"
-
-        animateShaking(of: notificationImageView)
-        DispatchQueue.main.sync { [weak self] in
-            self?.titleLabel.text = title
-            self?.subTitleLabel.text = subTitle
-            self?.notificationImageView.image = UIImage.notificationOn
-            self?.onOffButton.backgroundColor = .boosterEnableButtonGray
-            self?.onOffButton.setAttributedTitle(NSAttributedString(string: buttonTitle), for: .normal)
-            self?.onOffButton.tintColor = .boosterGray
-        }
     }
 
     private func animateShaking(of view: UIImageView) {
