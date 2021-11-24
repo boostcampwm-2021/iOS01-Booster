@@ -174,20 +174,6 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         }
     }
 
-    @objc private func keyboardWillShow(_ notification: Notification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
-            view.frame.origin.y == 0 {
-            view.frame.origin.y = -keyboardSize.height
-        }
-    }
-
-    @objc private func keyboardWillHide(_ notification: Notification) {
-        if view.frame.origin.y != 0 {
-            view.frame.origin.y = 0
-            view.setNeedsLayout()
-        }
-    }
-
     // MARK: - Functions
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -220,14 +206,37 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
     }
 
     private func configureNotifications() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.keyboardWillShow(_:)),
-                                               name: UIResponder.keyboardWillShowNotification,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.keyboardWillHide(_:)),
-                                               name: UIResponder.keyboardWillHideNotification,
-                                               object: nil)
+        NotificationCenter.default.rx
+            .notification(UIResponder.keyboardWillShowNotification, object: nil)
+            .map { notification -> CGFloat in
+                return (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height ?? 0.0
+            }.asDriver(onErrorJustReturn: 0.0)
+            .drive(onNext: { [weak self] value in
+                guard let self = self
+                else { return }
+
+                let viewY = self.view.frame.origin.y
+                self.view.frame.origin.y = viewY == 0 ? -value : viewY
+            },
+                   onCompleted: nil,
+                   onDisposed: nil)
+            .disposed(by: disposeBag)
+
+        NotificationCenter.default.rx
+            .notification(UIResponder.keyboardWillHideNotification, object: nil)
+            .map { notification -> CGFloat in
+                return (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height ?? 10.0
+            }.asDriver(onErrorJustReturn: 10.0)
+            .drive(onNext: { [weak self] _ in
+                guard let self = self
+                else { return }
+
+                self.view.frame.origin.y = 0
+                self.view.setNeedsLayout()
+            },
+                   onCompleted: nil,
+                   onDisposed: nil)
+            .disposed(by: disposeBag)
     }
 
     private func bindView() {
