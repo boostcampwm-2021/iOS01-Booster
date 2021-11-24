@@ -166,6 +166,13 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
             isMoved = distance > 5
         }
 
+        pedometer.queryPedometerData(from: Date(timeIntervalSinceNow: -1), to: Date()) { [weak self] data, _ in
+            guard let data = data
+            else { return }
+
+            self?.viewModel.steps.onNext(data.numberOfSteps.intValue)
+        }
+
         switch isMoved && timerTime <= Int(limit) {
         case true:
             viewModel.seconds.onNext(time)
@@ -409,20 +416,9 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
                     self.mapView.setRegion(to: location)
                 }
             }
-            updatePedometer()
             manager.distanceFilter = 1
         } else {
             navigationController?.popViewController(animated: true)
-        }
-    }
-
-    private func updatePedometer() {
-        pedometer.queryPedometerData(from: startDate, to: Date()) { [weak self] data, _ in
-            guard let self = self,
-                  let data = data
-            else { return }
-
-            self.viewModel.steps.onNext(data.numberOfSteps.intValue)
         }
     }
 
