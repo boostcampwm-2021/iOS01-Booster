@@ -1,5 +1,60 @@
 import Foundation
 
+final class Coordinates {
+    private var coordinates: [Coordinate]
+
+    var first: Coordinate? {
+        return coordinates.first
+    }
+    var last: Coordinate? {
+        return coordinates.last
+    }
+    var count: Int {
+        return coordinates.count
+    }
+    var all: [Coordinate] {
+        return coordinates
+    }
+
+    subscript(index: Int) -> Coordinate? {
+        if index > coordinates.count - 1 {
+            return nil
+        }
+        return coordinates[index]
+    }
+
+    init(coordinates: [Coordinate] = []) {
+        self.coordinates = coordinates
+    }
+
+    func append(_ coordinate: Coordinate) {
+        coordinates.append(coordinate)
+    }
+
+    func append(_ newCoordinates: [Coordinate]) {
+        coordinates += newCoordinates
+    }
+
+    func center() -> Coordinate {
+        let ((minLatitude, maxLatitude), (minLongitude, maxLongitude)) = coordinates
+            .filter { $0.latitude != nil && $0.longitude != nil }
+            .reduce(((90.0, -90.0), (180.0, -180.0))) { next, current in
+            ((min(current.latitude!, next.0.0),
+              max(current.latitude!, next.0.1)),
+             (min(current.longitude!, next.1.0),
+              max(current.longitude!, next.1.1)))
+        }
+        let centerLatitude = (minLatitude + maxLatitude) / 2
+        let centerLongitude = (minLongitude + maxLongitude) / 2
+
+        return Coordinate(latitude: centerLatitude, longitude: centerLongitude)
+    }
+
+    func firstIndex(of coordinate: Coordinate) -> Int? {
+        return coordinates.firstIndex(of: coordinate)
+    }
+}
+
 final class Coordinate: NSObject, NSCoding {
     var latitude: Double?
     var longitude: Double?
