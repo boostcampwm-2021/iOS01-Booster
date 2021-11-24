@@ -71,15 +71,15 @@ final class DetailFeedViewModel {
               let currentLongitude = coordinate.longitude
         else { return nil }
 
-        for (index, compareCoordinate) in trackingModel.value.coordinates.enumerated() {
-            if let latitude = compareCoordinate.latitude,
-               let longitude = compareCoordinate.longitude {
-                if isOnPathAsApproximation(currentLatitude: currentLatitude,
-                                           currentLongitude: currentLongitude,
-                                           compareLatitude: latitude,
-                                           compareLongitude: longitude) { return index }
-            }
-        }
+//        for (index, compareCoordinate) in trackingModel.value.coordinates.enumerated() {
+//            if let latitude = compareCoordinate.latitude,
+//               let longitude = compareCoordinate.longitude {
+//                if isOnPathAsApproximation(currentLatitude: currentLatitude,
+//                                           currentLongitude: currentLongitude,
+//                                           compareLatitude: latitude,
+//                                           compareLongitude: longitude) { return index }
+//            }
+//        }
         return nil
     }
 

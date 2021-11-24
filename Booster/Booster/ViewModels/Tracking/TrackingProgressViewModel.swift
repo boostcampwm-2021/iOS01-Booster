@@ -84,43 +84,24 @@ final class TrackingProgressViewModel {
     }
 
     func centerCoordinateOfPath() -> CLLocationCoordinate2D? {
-        guard let startCoordinate = startCoordinate(),
-              let startLat = startCoordinate.latitude,
-              let startLong = startCoordinate.longitude
+        let center = tracking.value.coordinates.center()
+        guard let latitude = center.latitude,
+              let longitude = center.longitude
         else { return nil }
-
-        var maxLat: Double = startLat
-        var minLat: Double = startLat
-        var maxLong: Double = startLong
-        var minLong: Double = startLong
-
-        tracking.value.coordinates.forEach { (coordinate) in
-            guard let latValue = coordinate.latitude,
-                  let longValue = coordinate.longitude
-            else { return }
-
-            if maxLat < latValue { maxLat = latValue } else if minLat > latValue { minLat = latValue }
-
-            if maxLong < longValue { maxLong = longValue } else if minLong > longValue { minLong = longValue}
-        }
-
-        let midLat = (maxLat + minLat) / 2.0
-        let midLong = (maxLong + minLong) / 2.0
-
-        return CLLocationCoordinate2D(latitude: midLat, longitude: midLong)
+        return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
 
     private func bind() {
         coordinates.map { (values) -> [Coordinate] in
-            var coordinates = self.tracking.value.coordinates
-            coordinates += values
-            return coordinates
+            let coordinates = self.tracking.value.coordinates
+            coordinates.append(values)
+            return coordinates.all
         }.bind { [weak self] values in
             guard let self = self
             else { return }
 
             var tracking = self.tracking.value
-            tracking.coordinates = values
+            tracking.coordinates = Coordinates(coordinates: values)
             self.tracking.accept(tracking)
         }.disposed(by: disposeBag)
 
