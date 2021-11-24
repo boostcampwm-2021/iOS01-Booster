@@ -78,7 +78,7 @@ final class UserUsecase {
                 CoreDataKeys.weight: model.weight
             ]
 
-            CoreDataManager.shared.save(value: value, type: entityName) { (response) in
+            CoreDataManager.shared.save(attributes: value, type: entityName) { (response) in
                 switch response {
                 case .success:
                     observer.onNext(true)
@@ -99,7 +99,7 @@ final class UserUsecase {
                 CoreDataKeys.goal: goal
             ]
             // TODO: Change To Update
-            CoreDataManager.shared.save(value: value, type: entityName) { (response) in
+            CoreDataManager.shared.save(attributes: value, type: entityName) { (response) in
                 switch response {
                 case .success:
                     observer.onNext(true)
