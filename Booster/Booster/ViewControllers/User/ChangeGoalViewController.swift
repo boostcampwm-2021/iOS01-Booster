@@ -63,7 +63,7 @@ class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
         viewModel.model.asDriver()
             .drive(onNext: { [weak self] result in
                 self?.setTitleLabelText(to: result.goal)
-                self?.placeholderOfGoalTextField(steps: result.goal)
+                self?.setPlaceholderOfGoalTextField(steps: result.goal)
             }).disposed(by: disposeBag)
     }
 
@@ -79,7 +79,7 @@ class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
         stepsTextField.layer.masksToBounds = true
     }
 
-    private func placeholderOfGoalTextField(steps: Int) {
+    private func setPlaceholderOfGoalTextField(steps: Int) {
         stepsTextField.clearsOnBeginEditing = true
         stepsTextField.textColor = .boosterGray
         stepsTextField.text = attributedTextOfcurrentGoal(steps: steps)
@@ -108,23 +108,7 @@ class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
 
     private func changeGoal(to goal: Int) {
         if changeGoalValidator() {
-            viewModel.changeGoal(to: goal)
-                .observe(on: MainScheduler.instance)
-                .subscribe(onNext: { [weak self] result in
-                    guard let self = self
-                    else { return }
-                    if result {
-                        self.setTitleLabelText(to: goal)
-                        let alert = self.popViewControllerAlertController(message: "변경 성공!")
-                        self.present(alert, animated: true, completion: nil)
-                    } else {
-                        let alert = UIAlertController.simpleAlert(title: "변경 실패", message: "알 수 없는 오류로 변경을 할 수 없어요")
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                }, onError: { [weak self] (_) in
-                    let alert = UIAlertController.simpleAlert(title: "변경 실패", message: "알 수 없는 오류로 변경을 할 수 없어요")
-                    self?.present(alert, animated: true, completion: nil)
-                }).disposed(by: disposeBag)
+            updateGoal(goal: goal)
         } else {
             let title = "변경 실패"
             let message = "걸음 수가 빈칸 이거나 0인지 확인해주세요"
@@ -132,7 +116,28 @@ class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
             present(alert, animated: true, completion: nil)
         }
     }
-
+    
+    private func updateGoal(goal: Int) {
+        viewModel.changeGoal(to: goal)
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] result in
+                guard let self = self
+                else { return }
+                
+                var alert = UIAlertController()
+                
+                if result {
+                    NotificationCenter.default.post(name: .init(rawValue: "DidUpdateGoal"), object: goal)
+                    let title = "변경 성공"
+                    let message = "걸음 수를 \(goal)으로 변경했어요"
+                    alert = self.popViewControllerAlertController(title: title, message: message)
+                } else {
+                    alert = UIAlertController.simpleAlert(title: "변경 실패", message: "알 수 없는 오류로 변경을 할 수 없어요")
+                }
+                self.present(alert, animated: true, completion: nil)
+            }).disposed(by: disposeBag)
+    }
+    
     private func popViewControllerAlertController(title: String = "", message: String) -> UIAlertController {
         let alert = UIAlertController.simpleAlert(title: title,
                                               message: message,
