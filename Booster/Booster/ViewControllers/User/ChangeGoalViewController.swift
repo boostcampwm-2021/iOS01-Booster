@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - @IBOutlet
@@ -13,7 +15,7 @@ class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
     @IBOutlet private var stepsTextField: UITextField!
 
     // MARK: - Properties
-    var viewModel: GoalViewModel?
+    var viewModel = UserInfo()
     private var steps: Int = 10000
 
     // MARK: - Life Cycles
@@ -34,7 +36,14 @@ class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
 
     @IBAction private func saveButtonDidTap(_ sender: UIButton) {
         if changeGoalValidator() {
-
+            guard let goalText = stepsTextField.text,
+                  let goal = Int(goalText)
+            else { return }
+            UserUsecase().changeGoal(to: goal)
+                .observe(on: MainScheduler.instance)
+                .subscribe(onNext: { _ in
+                    self.titleLabel.text = "\(goal)"
+                })
         } else {
             let title = "변경 실패"
             let message = "걸음 수가 빈칸 이거나 0인지 확인해주세요"
