@@ -11,7 +11,7 @@ import RxSwift
 
 final class EditUserInfoViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - Enum
-    private enum genderButtonType: String {
+    private enum GenderButtonType: String {
         case male = "남"
         case female = "여"
 
@@ -31,8 +31,8 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
     // MARK: - Properties
     var viewModel: UserViewModel
 
-    private let disposalBag: DisposeBag = DisposeBag()
-    private var genderButtonState: genderButtonType = .female
+    private let disposeBag = DisposeBag()
+    private var genderButtonState: GenderButtonType = .female
     private lazy var pickerViewFrame = CGRect(x: 0,
                                               y: view.frame.height - 170,
                                               width: view.frame.width,
@@ -41,9 +41,9 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
         let pickerView = InfoPickerView(frame: pickerViewFrame, type: .height)
         pickerView.rx.itemSelected.map { (row, _) -> Int in
             return Int(row + pickerView.type.range.lowerBound)
-        }.bind { [weak self] (value) in
+        }.bind { [weak self] value in
             self?.heightTextField.text = "\(value)"
-        }.disposed(by: disposalBag)
+        }.disposed(by: disposeBag)
 
         return pickerView
     }()
@@ -52,9 +52,9 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
         let pickerView = InfoPickerView(frame: pickerViewFrame, type: .weight)
         pickerView.rx.itemSelected.map { (row, _) -> Int in
             return Int(row + pickerView.type.range.lowerBound)
-        }.bind { [weak self] (value) in
+        }.bind { [weak self] value in
             self?.weightTextField.text = "\(value)"
-        }.disposed(by: disposalBag)
+        }.disposed(by: disposeBag)
 
         return pickerView
     }()
@@ -63,9 +63,9 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
         let pickerView = InfoPickerView(frame: pickerViewFrame, type: .age)
         pickerView.rx.itemSelected.map { (row, _) -> Int in
             return Int(row + pickerView.type.range.lowerBound)
-        }.bind { [weak self] (value) in
+        }.bind { [weak self] value in
             self?.ageTextField.text = "\(value)"
-        }.disposed(by: disposalBag)
+        }.disposed(by: disposeBag)
 
         return pickerView
     }()
@@ -92,7 +92,7 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
         configureNavigationBarTitle()
         configureUIButton()
         configureUITextField()
-        loadUserInfoToView()
+        bind()
     }
 
     // MARK: - @IBActions
@@ -124,6 +124,21 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
     }
 
     // MARK: - Functions
+    private func bind() {
+        viewModel.model.asDriver()
+            .drive(onNext: { [weak self] userInfo in
+                guard let self = self,
+                      let genderType = GenderButtonType(rawValue: userInfo.gender)
+                else { return }
+
+                self.setButtonState(by: genderType)
+                self.nickNameTextField.text = userInfo.nickname
+                self.heightTextField.text = "\(userInfo.height)"
+                self.weightTextField.text = "\(userInfo.weight)"
+                self.ageTextField.text = "\(userInfo.age)"
+            }).disposed(by: disposeBag)
+    }
+
     private func configureNavigationBarTitle() {
         navigationItem.title = "개인 정보 수정"
     }
@@ -138,28 +153,28 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
         let height = Int(height) ?? nil
         let weight = Int(weight) ?? nil
         let nickName = nickName == "" ? nil : nickName
+        var alert = UIAlertController()
+
         viewModel.editUserInfo(gender: gender,
                                age: age,
                                height: height,
                                weight: weight,
                                nickname: nickName)
-        viewModel.save { [weak self] (isSaved) in
-            DispatchQueue.main.async {
-                var alert = UIAlertController()
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] isSaved in
+                guard let self = self
+                else { return }
+
                 if isSaved {
-                    alert = UIAlertController.simpleAlert(title: "",
-                                                          message: "수정 완료",
-                                                          action: { (_) -> Void in
-                        self?.navigationController?.popViewController(animated: true)
-                        return
-                    })
+                    let message = "수정 완료"
+                    alert = self.popViewControllerAlertController(message: message)
                 } else {
-                    alert = UIAlertController.simpleAlert(title: "", message: "수정 실패")
+                    let message = "수정 실패"
+                    alert = self.popViewControllerAlertController(message: message)
                 }
-                self?.present(alert, animated: true)
-                dump(self?.viewModel)
-            }
-        }
+            }, onCompleted: { [weak self] in
+                self?.present(alert, animated: true, completion: nil)
+            }).disposed(by: disposeBag)
     }
 
     private func configureUIButton() {
@@ -185,14 +200,17 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
         ageTextField.resignFirstResponder()
     }
 
-    private func loadUserInfoToView() {
-        if let gender = genderButtonType(rawValue: viewModel.model.gender) {
-            (gender == .male) ? (maleGenderButton.isEnabled = false) : (femaleGenderButton.isEnabled = false)
-        }
+    private func setButtonState(by gender: GenderButtonType) {
+        (gender == .male) ? (maleGenderButton.isEnabled = false) : (femaleGenderButton.isEnabled = false)
+    }
 
-        nickNameTextField.text = viewModel.model.nickname
-        heightTextField.text = "\(viewModel.model.height)"
-        weightTextField.text = "\(viewModel.model.weight)"
-        ageTextField.text = "\(viewModel.model.age)"
+    private func popViewControllerAlertController(title: String = "", message: String) -> UIAlertController {
+        let alert = UIAlertController.simpleAlert(title: title,
+                                              message: message,
+                                              action: { (_) -> Void in
+            self.navigationController?.popViewController(animated: true)
+        })
+
+        return alert
     }
 }
