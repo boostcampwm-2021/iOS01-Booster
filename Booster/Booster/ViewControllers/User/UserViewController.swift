@@ -32,9 +32,6 @@ final class UserViewController: UIViewController, BaseViewControllerTemplate {
 
     // MARK: - Properties
     var viewModel: UserViewModel = UserViewModel()
-    private let userHeaderHeight: CGFloat = 200
-    private let myInfoHeaderHeight: CGFloat = 60
-    private let cellHeight: CGFloat = 60
 
     // MARK: - Life Cycles
     override func viewDidLoad() {
@@ -181,14 +178,14 @@ extension UserViewController: UITableViewDelegate {
 
         switch sectionType {
         case .userHeader:
-            return userHeaderHeight
+            return UserInfoHeaderView.viewHeight
         case .myInfo:
-            return myInfoHeaderHeight
+            return MyInfoHeaderView.viewHeight
         }
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let cellHeight: CGFloat = cellHeight
+        let cellHeight: CGFloat = UserInfoBaseCell.cellHeight
 
         return cellHeight
     }
