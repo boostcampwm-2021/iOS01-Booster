@@ -71,9 +71,13 @@ final class UserViewController: UIViewController, BaseViewControllerTemplate {
     private func myInfoCellDidSelectActions(cellType: MyInfoCellType) {
         switch cellType {
         case .removeAllData:
-            guard let removeAllDataViewController = storyboard?.instantiateViewController(withIdentifier: RemoveAllDataViewController.identifier) as? RemoveAllDataViewController
+            guard let removeAllDataViewController = storyboard?.instantiateViewController(identifier: RemoveAllDataViewController.identifier, creator: { [weak self] coder -> RemoveAllDataViewController in
+                guard let viewModel = self?.viewModel
+                else { return RemoveAllDataViewController(viewModel: UserViewModel()) }
+
+                return .init(coder: coder, viewModel: viewModel) ?? RemoveAllDataViewController(viewModel: UserViewModel())
+            })
             else { return }
-            removeAllDataViewController.viewModel = viewModel
 
             navigationController?.pushViewController(removeAllDataViewController, animated: true)
         case .changeGoal:
