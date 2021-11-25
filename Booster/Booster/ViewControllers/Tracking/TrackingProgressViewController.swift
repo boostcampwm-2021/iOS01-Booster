@@ -195,10 +195,15 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         navigationItem.leftBarButtonItem = backButtonItem
 
         mapView.delegate = self
+        manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        manager.distanceFilter = 1
+        manager.allowsBackgroundLocationUpdates = true
+        manager.startUpdatingLocation()
+
         configureNotifications()
         bindViewModel()
         bindView()
-        locationAuth()
     }
 
     private func configureNotifications() {
@@ -364,12 +369,12 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
 
         switch isStart {
         case true:
+            manager.startUpdatingLocation()
             timer = Timer.scheduledTimer(timeInterval: 1,
                                          target: self,
                                          selector: #selector(trackingTimer),
                                          userInfo: nil,
                                          repeats: true)
-            locationAuth()
         case false:
             pedomterSteps = viewModel.tracking.value.steps
             lastestTime = viewModel.tracking.value.seconds
@@ -391,27 +396,6 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         contentTextView.bottomAnchor.constraint(equalTo: infoView.bottomAnchor, constant: -10).isActive = true
         contentTextView.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -25).isActive = true
         contentTextView.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 25).isActive = true
-    }
-
-    private func locationAuth() {
-        manager.requestWhenInUseAuthorization()
-        if CLLocationManager.locationServicesEnabled() {
-            manager.desiredAccuracy = kCLLocationAccuracyBest
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self
-                else { return }
-                self.manager.allowsBackgroundLocationUpdates = true
-                self.manager.startUpdatingLocation()
-
-                if let location = self.manager.location {
-                    self.viewModel.coordinates.onNext([Coordinate(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)])
-                    self.mapView.setRegion(to: location, meterRadius: 100)
-                }
-            }
-            manager.distanceFilter = 1
-        } else {
-            navigationController?.popViewController(animated: true)
-        }
     }
 
     private func stopAnimation() {
@@ -517,8 +501,7 @@ extension TrackingProgressViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let currentLocation = locations.last
         else { return }
-        print(locations, "locations")
-        print(viewModel.tracking.value.distance, "distance")
+
         let currentCoordinate = currentLocation.coordinate
 
         guard let latestCoordinate = viewModel.latestCoordinate(),
@@ -537,6 +520,18 @@ extension TrackingProgressViewController: CLLocationManagerDelegate {
         viewModel.distance.onNext(latestLocation.distance(from: currentLocation))
         let coordinate = Coordinate(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude)
         viewModel.coordinates.onNext([coordinate])
+    }
+
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .notDetermined, .restricted, .denied:
+            manager.requestAlwaysAuthorization()
+        default:
+            if let location = manager.location, viewModel.state.value == .start {
+                viewModel.coordinates.onNext([Coordinate(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)])
+                mapView.setRegion(to: location, meterRadius: 100)
+            }
+        }
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
