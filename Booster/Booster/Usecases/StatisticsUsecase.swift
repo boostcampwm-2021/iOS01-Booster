@@ -11,6 +11,8 @@ import HealthKit
 import RxSwift
 
 final class StatisticsUsecase {
+    private let disposeBag = DisposeBag()
+
     func execute(duration: Calendar.Component,
                  interval: DateComponents) -> Observable<StepStatisticsCollection> {
         return Observable.create { [weak self] observer in
@@ -29,19 +31,21 @@ final class StatisticsUsecase {
 
             let predicate = HKQuery.predicateForSamples(withStart: startDate, end: anchorDate)
 
-            HealthStoreManager.shared.requestStatisticsCollectionQuery(type: type,
+            let observable = HealthKitManager.shared.requestStatisticsCollectionQuery(type: type,
                                                                        predicate: predicate,
                                                                        interval: interval,
-                                                                       anchorDate: anchorDate) { hkStatisticsCollection in
-                guard let startDate = hkStatisticsCollection.statistics().first?.startDate,
-                      let anchorDate = hkStatisticsCollection.statistics().last?.endDate
+                                                                       anchorDate: anchorDate)
+
+            observable.subscribe { hkStatisticsCollection in
+                guard let hkStatisticsCollection = hkStatisticsCollection.element,
+                      let startDate = hkStatisticsCollection.statistics().first?.startDate,
+                      let endDate = hkStatisticsCollection.statistics().last?.endDate
                 else { return }
 
-                let durationString = self.configureDurationString(startDate: startDate, endDate: anchorDate)
+                var stepStatisticsCollection = StepStatisticsCollection()
+                stepStatisticsCollection.durationString = self.configureDurationString(startDate: startDate, endDate: endDate)
 
-                var stepStatisticsCollection = StepStatisticsCollection(durationString: durationString)
-
-                hkStatisticsCollection.enumerateStatistics(from: startDate, to: anchorDate) { (statistics, _) in
+                hkStatisticsCollection.enumerateStatistics(from: startDate, to: endDate) { (statistics, _) in
                     guard let quantity = statistics.sumQuantity(),
                           let endDate = calendar.date(byAdding: .day, value: -1, to: statistics.endDate)
                     else { return }
@@ -53,14 +57,15 @@ final class StatisticsUsecase {
                     let abbreviatedDateString = self.configureAbbreviatedDateString(startDate: startDate, interval: interval)
 
                     let stepStatistics = StepStatistics(step: step,
-                                                        intervalString: intervalString,
-                                                        abbreviatedDateString: abbreviatedDateString)
+                                                        abbreviatedDateString: abbreviatedDateString,
+                                                        intervalString: intervalString)
 
                     stepStatisticsCollection.append(stepStatistics)
                 }
 
                 observer.onNext(stepStatisticsCollection)
-            }
+
+            }.disposed(by: self.disposeBag)
 
             return Disposables.create()
         }

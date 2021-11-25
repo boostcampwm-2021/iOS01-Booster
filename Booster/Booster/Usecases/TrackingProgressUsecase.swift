@@ -33,7 +33,7 @@ final class TrackingProgressUsecase {
 
     func save(model: TrackingModel) -> Observable<Void> {
         let entity = "Tracking"
-        guard let coordinates = try? NSKeyedArchiver.archivedData(withRootObject: model.coordinates, requiringSecureCoding: false),
+        guard let coordinates = try? NSKeyedArchiver.archivedData(withRootObject: model.coordinates.all, requiringSecureCoding: false),
               let milestones = try? NSKeyedArchiver.archivedData(withRootObject: model.milestones, requiringSecureCoding: false),
               let endDate = model.endDate,
               let distance = Double(String(format: "%.2f", model.distance/1000))

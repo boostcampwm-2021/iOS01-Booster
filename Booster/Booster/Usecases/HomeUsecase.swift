@@ -6,38 +6,46 @@
 //
 import Foundation
 import HealthKit
+
 import RxSwift
 
 final class HomeUsecase {
+    private let disposeBag = DisposeBag()
+
     func fetchHourlyStepCountsData() -> Observable<HKStatistics> {
         return Observable.create { [weak self] observer in
-            guard let stepCountSampleType = HKSampleType.quantityType(forIdentifier: .stepCount),
+            guard let self = self,
+                  let stepCountSampleType = HKSampleType.quantityType(forIdentifier: .stepCount),
                   let anchorDate = Calendar.current.date(bySettingHour: 0,
                                                          minute: 0,
                                                          second: 0,
                                                          of: Date()),
-                  let predicate = self?.createTodayPredicate()
+                  let now = Calendar.current.date(byAdding: .hour, value: 23, to: anchorDate)
             else { return Disposables.create() }
 
-            let now = Date()
-
-            HealthStoreManager.shared.requestStatisticsCollectionQuery(type: stepCountSampleType,
+            let predicate = HKQuery.predicateForSamples(withStart: anchorDate,
+                                                        end: now,
+                                                        options: .strictStartDate)
+            let observable = HealthKitManager.shared.requestStatisticsCollectionQuery(type: stepCountSampleType,
                                                                        predicate: predicate,
                                                                        interval: DateComponents(hour: 1),
-                                                                       anchorDate: anchorDate) { result in
-                result.enumerateStatistics(from: Calendar.current.startOfDay(for: now),
-                                           to: now,
-                                           with: { statistics, _ in
+                                                                       anchorDate: anchorDate)
+            observable.subscribe { hkStatisticsCollection in
+                hkStatisticsCollection.enumerateStatistics(from: Calendar.current.startOfDay(for: now),
+                                                           to: now,
+                                                           with: { statistics, _ in
                     observer.onNext(statistics)
                 })
-            }
+            }.disposed(by: self.disposeBag)
+
             return Disposables.create()
         }
     }
 
     func fetchTodayTotalData(type: HKQuantityTypeIdentifier) -> Observable<HKStatistics> {
-        return Observable.create { observer in
-            guard let sampleType = HKSampleType.quantityType(forIdentifier: type)
+        return Observable.create { [weak self] observer in
+            guard let self = self,
+                  let sampleType = HKSampleType.quantityType(forIdentifier: type)
             else { return Disposables.create() }
 
             let now = Date()
@@ -46,16 +54,11 @@ final class HomeUsecase {
                                                         end: now,
                                                         options: .strictStartDate)
 
-            HealthStoreManager.shared.requestStatisticsQuery(type: sampleType, predicate: predicate) { result in
+            HealthKitManager.shared.requestStatisticsQuery(type: sampleType, predicate: predicate).subscribe { result in
                 observer.onNext(result)
-            }
+            }.disposed(by: self.disposeBag)
+
             return Disposables.create()
         }
-    }
-
-    private func createTodayPredicate(end: Date = Date()) -> NSPredicate {
-        return HKQuery.predicateForSamples(withStart: Calendar.current.startOfDay(for: end),
-                                           end: end,
-                                           options: .strictStartDate)
     }
 }
