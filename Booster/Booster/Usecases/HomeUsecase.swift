@@ -17,7 +17,9 @@ final class HomeUsecase {
             let anchorDate = Calendar.current.startOfDay(for: Date())
             guard let self = self,
                   let stepCountSampleType = HKSampleType.quantityType(forIdentifier: .stepCount),
-                  let endDate = Calendar.current.date(byAdding: .hour, value: 23, to: anchorDate)
+                  let endDate = Calendar.current.date(byAdding: .hour,
+                                                      value: 23,
+                                                      to: anchorDate)
             else { return Disposables.create() }
 
             let predicate = HKQuery.predicateForSamples(withStart: anchorDate,
