@@ -1,5 +1,5 @@
 //
-//  aaVC.swift
+//  StatisticsViewController.swift
 //  Booster
 //
 //  Created by Hani on 2021/11/17.
@@ -92,7 +92,7 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
             .tapGesture()
             .when(.recognized)
             .asLocation(in: .view)
-            .subscribe(onNext: { [weak self] location in
+            .bind(onNext: { [weak self] location in
                 guard let self = self,
                       (0..<self.chartView.frame.width).contains(location.x)
                 else { return }
@@ -105,7 +105,7 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
             .panGesture()
             .when(.changed)
             .asLocation(in: .view)
-            .subscribe(onNext: { [weak self] location in
+            .bind(onNext: { [weak self] location in
                 guard let self = self,
                       (0..<self.chartView.frame.width).contains(location.x)
                 else { return }

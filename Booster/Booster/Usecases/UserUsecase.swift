@@ -66,7 +66,7 @@ final class UserUsecase {
             return Disposables.create()
         }
     }
-
+  
     func editUserInfo(model: UserInfo) -> Observable<Bool> {
         return Observable.create { _ in
             let entityName = "User"
@@ -78,15 +78,15 @@ final class UserUsecase {
                 CoreDataKeys.weight: model.weight
             ]
 
-//            CoreDataManager.shared.save(value: value, type: entityName) { (response) in
-//                switch response {
-//                case .success:
-//                    observer.onNext(true)
-//                case .failure:
-//                    observer.onNext(false)
-//                }
-//                observer.onCompleted()
-//            }
+            CoreDataManager.shared.save(attributes: value, type: entityName) { (response) in
+                switch response {
+                case .success:
+                    observer.onNext(true)
+                case .failure:
+                    observer.onNext(false)
+                }
+                observer.onCompleted()
+            }
 
             return Disposables.create()
         }
@@ -99,15 +99,15 @@ final class UserUsecase {
                 CoreDataKeys.goal: goal
             ]
             // TODO: Change To Update
-//            CoreDataManager.shared.save(value: value, type: entityName) { (response) in
-//                switch response {
-//                case .success:
-//                    observer.onNext(true)
-//                case .failure:
-//                    observer.onNext(false)
-//                }
-//                observer.onCompleted()
-//            }
+            CoreDataManager.shared.save(attributes: value, type: entityName) { (response) in
+                switch response {
+                case .success:
+                    observer.onNext(true)
+                case .failure:
+                    observer.onNext(false)
+                }
+                observer.onCompleted()
+            }
 
             return Disposables.create()
         }

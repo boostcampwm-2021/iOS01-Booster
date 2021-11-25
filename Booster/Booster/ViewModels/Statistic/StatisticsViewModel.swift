@@ -1,5 +1,5 @@
 //
-//  viewModel.swift
+//  StatisticsViewModel.swift
 //  Booster
 //
 //  Created by Hani on 2021/11/16.
@@ -20,9 +20,9 @@ final class StatisticsViewModel {
     private let usecase = StatisticsUsecase()
     private let disposeBag = DisposeBag()
 
-    var weekStepStatisticsCollection: StepStatisticsCollection?
-    var monthStepStatisticsCollection: StepStatisticsCollection?
-    var yearStepStatisticsCollection: StepStatisticsCollection?
+    private var weekStepStatisticsCollection: StepStatisticsCollection?
+    private var monthStepStatisticsCollection: StepStatisticsCollection?
+    private var yearStepStatisticsCollection: StepStatisticsCollection?
 
     var selectedDuration: BehaviorRelay<Duration> = BehaviorRelay(value: .week)
     var selectedStatisticsIndex: BehaviorRelay<Int?> = BehaviorRelay(value: nil)
@@ -92,5 +92,7 @@ final class StatisticsViewModel {
             .subscribe { [weak self] stepStatisticsCollection in
                 self?.yearStepStatisticsCollection = stepStatisticsCollection
             }.disposed(by: disposeBag)
+
     }
+
 }

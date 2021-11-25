@@ -47,7 +47,7 @@ final class CoreDataManager {
 
             let backgroundContext = self.container.newBackgroundContext()
 
-            backgroundContext.perform { [weak self] in
+            backgroundContext.performAndWait { [weak self] in
                 guard let self = self
                 else { return }
 

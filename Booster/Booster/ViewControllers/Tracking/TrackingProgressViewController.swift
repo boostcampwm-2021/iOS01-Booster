@@ -5,17 +5,6 @@ import RxSwift
 import RxCocoa
 
 final class TrackingProgressViewController: UIViewController, BaseViewControllerTemplate {
-    // MARK: - Enum
-    enum NibName: String {
-        case photoAnnotationView = "PhotoAnnotationView"
-    }
-
-    enum Identifier {
-        enum Annotation: String {
-            case milestone = "milestone"
-        }
-    }
-
     // MARK: - @IBOutlet
     @IBOutlet weak var mapView: TrackingMapView!
     @IBOutlet weak var pedometerLabel: UILabel!
@@ -166,25 +155,18 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
             isMoved = distance > 5
         }
 
+        pedometer.queryPedometerData(from: Date(timeIntervalSinceNow: -1), to: Date()) { [weak self] data, _ in
+            guard let data = data
+            else { return }
+
+            self?.viewModel.steps.onNext(data.numberOfSteps.intValue)
+        }
+
         switch isMoved && timerTime <= Int(limit) {
         case true:
             viewModel.seconds.onNext(time)
         case false:
             viewModel.state.accept(viewModel.state.value == .start ? .pause : .start)
-        }
-    }
-
-    @objc private func keyboardWillShow(_ notification: Notification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
-            view.frame.origin.y == 0 {
-            view.frame.origin.y = -keyboardSize.height
-        }
-    }
-
-    @objc private func keyboardWillHide(_ notification: Notification) {
-        if view.frame.origin.y != 0 {
-            view.frame.origin.y = 0
-            view.setNeedsLayout()
         }
     }
 
@@ -220,14 +202,37 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
     }
 
     private func configureNotifications() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.keyboardWillShow(_:)),
-                                               name: UIResponder.keyboardWillShowNotification,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.keyboardWillHide(_:)),
-                                               name: UIResponder.keyboardWillHideNotification,
-                                               object: nil)
+        NotificationCenter.default.rx
+            .notification(UIResponder.keyboardWillShowNotification, object: nil)
+            .map { notification -> CGFloat in
+                return (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height ?? 0.0
+            }.asDriver(onErrorJustReturn: 0.0)
+            .drive(onNext: { [weak self] value in
+                guard let self = self
+                else { return }
+
+                let viewY = self.view.frame.origin.y
+                self.view.frame.origin.y = viewY == 0 ? -value : viewY
+            },
+                   onCompleted: nil,
+                   onDisposed: nil)
+            .disposed(by: disposeBag)
+
+        NotificationCenter.default.rx
+            .notification(UIResponder.keyboardWillHideNotification, object: nil)
+            .map { notification -> CGFloat in
+                return (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height ?? 10.0
+            }.asDriver(onErrorJustReturn: 10.0)
+            .drive(onNext: { [weak self] _ in
+                guard let self = self
+                else { return }
+
+                self.view.frame.origin.y = 0
+                self.view.setNeedsLayout()
+            },
+                   onCompleted: nil,
+                   onDisposed: nil)
+            .disposed(by: disposeBag)
     }
 
     private func bindView() {
@@ -289,16 +294,16 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
 
     private func bindViewModel() {
         viewModel.state
-            .observe(on: MainScheduler.asyncInstance)
-            .bind { [weak self] value in
+            .asDriver()
+            .drive(onNext: { [weak self] value in
                 if value != .end { self?.update() } else { self?.stopAnimation() }
-            }.disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
 
         viewModel.tracking
-            .observe(on: MainScheduler.asyncInstance)
-            .bind { [weak self] value in
+            .asDriver()
+            .drive(onNext: { [weak self] value in
                 self?.configure(model: value)
-            }.disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
 
         viewModel.addMilestones.bind { [weak self] milestones in
             guard let milestone = milestones.last,
@@ -311,13 +316,13 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         }.disposed(by: disposeBag)
 
         viewModel.saveResult
-            .observe(on: MainScheduler.asyncInstance)
-            .bind { [weak self] error in
-            guard error == nil
-            else { return }
+            .asDriver(onErrorJustReturn: .none)
+            .drive(onNext: { [weak self] error in
+                guard error == nil
+                else { return }
 
-            self?.navigationController?.popViewController(animated: true)
-        }.disposed(by: disposeBag)
+                self?.navigationController?.popViewController(animated: true)
+            }).disposed(by: disposeBag)
     }
 
     private func configure(model: TrackingModel) {
@@ -402,20 +407,9 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
                     self.mapView.setRegion(to: location, meterRadius: 100)
                 }
             }
-            updatePedometer()
             manager.distanceFilter = 1
         } else {
             navigationController?.popViewController(animated: true)
-        }
-    }
-
-    private func updatePedometer() {
-        pedometer.queryPedometerData(from: startDate, to: Date()) { [weak self] data, _ in
-            guard let self = self,
-                  let data = data
-            else { return }
-
-            self.viewModel.steps.onNext(data.numberOfSteps.intValue)
         }
     }
 
@@ -580,12 +574,12 @@ extension TrackingProgressViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation { return nil }
 
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Identifier.Annotation.milestone.rawValue)
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: PhotoAnnotationView.identifier)
         annotationView?.canShowCallout = false
         if annotationView == nil {
-            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: Identifier.Annotation.milestone.rawValue)
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: PhotoAnnotationView.identifier)
 
-            guard let customView = UINib(nibName: NibName.photoAnnotationView.rawValue, bundle: nil).instantiate(withOwner: self, options: nil).first as? PhotoAnnotationView,
+            guard let customView = UINib(nibName: PhotoAnnotationView.identifier, bundle: nil).instantiate(withOwner: self, options: nil).first as? PhotoAnnotationView,
                   let mileStone: Milestone = viewModel.tracking.value.milestones.last
             else { return nil }
 
@@ -683,15 +677,14 @@ extension TrackingProgressViewController: UITextFieldDelegate {
 extension TrackingProgressViewController: MilestonePhotoViewControllerDelegate {
     func delete(milestone: Milestone) {
         viewModel.remove(of: milestone)
-            .observe(on: MainScheduler.asyncInstance)
-            .subscribe { value in
-                if let value = value.element,
-                    value && self.mapView.removeMilestoneAnnotation(of: milestone) {
+            .asDriver(onErrorJustReturn: false)
+            .drive(onNext: { value in
+                if value && self.mapView.removeMilestoneAnnotation(of: milestone) {
                     let title = "삭제 완료"
                     let message = "마일스톤을 삭제했어요"
                     let alertViewController: UIAlertController = .simpleAlert(title: title, message: message)
                     self.present(alertViewController, animated: true)
                 }
-            }.disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
     }
 }
