@@ -196,7 +196,7 @@ final class TrackingProgressViewModel {
 
             var tracking = self.tracking.value
 
-            tracking.steps += value
+            tracking.steps = value
             self.tracking.accept(tracking)
         }.disposed(by: disposeBag)
 

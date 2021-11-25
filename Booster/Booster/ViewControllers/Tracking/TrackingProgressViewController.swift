@@ -27,7 +27,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
 
     // MARK: - Properties
     private let pedometer = CMPedometer()
-    private let startDate = Date()
+    private var pedomterSteps: Int = 0
     private var lastestTime: Int = 0
     private var timerDate = Date()
     private var timer = Timer()
@@ -155,11 +155,11 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
             isMoved = distance > 5
         }
 
-        pedometer.queryPedometerData(from: Date(timeIntervalSinceNow: -1), to: Date()) { [weak self] data, _ in
+        pedometer.queryPedometerData(from: timerDate, to: Date()) { [weak self] data, _ in
             guard let data = data
             else { return }
 
-            self?.viewModel.steps.onNext(data.numberOfSteps.intValue)
+            self?.viewModel.steps.onNext(data.numberOfSteps.intValue + (self?.pedomterSteps ?? 0))
         }
 
         switch isMoved && timerTime <= Int(limit) {
@@ -195,10 +195,15 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         navigationItem.leftBarButtonItem = backButtonItem
 
         mapView.delegate = self
+        manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        manager.distanceFilter = 1
+        manager.allowsBackgroundLocationUpdates = true
+        manager.startUpdatingLocation()
+
         configureNotifications()
         bindViewModel()
         bindView()
-        locationAuth()
     }
 
     private func configureNotifications() {
@@ -364,13 +369,14 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
 
         switch isStart {
         case true:
+            manager.startUpdatingLocation()
             timer = Timer.scheduledTimer(timeInterval: 1,
                                          target: self,
                                          selector: #selector(trackingTimer),
                                          userInfo: nil,
                                          repeats: true)
-            locationAuth()
         case false:
+            pedomterSteps = viewModel.tracking.value.steps
             lastestTime = viewModel.tracking.value.seconds
             viewModel.seconds.onNext(lastestTime)
             timer.invalidate()
@@ -390,27 +396,6 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         contentTextView.bottomAnchor.constraint(equalTo: infoView.bottomAnchor, constant: -10).isActive = true
         contentTextView.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -25).isActive = true
         contentTextView.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 25).isActive = true
-    }
-
-    private func locationAuth() {
-        manager.requestWhenInUseAuthorization()
-        if CLLocationManager.locationServicesEnabled() {
-            manager.desiredAccuracy = kCLLocationAccuracyBest
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self
-                else { return }
-                self.manager.allowsBackgroundLocationUpdates = true
-                self.manager.startUpdatingLocation()
-
-                if let location = self.manager.location {
-                    self.viewModel.coordinates.onNext([Coordinate(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)])
-                    self.mapView.setRegion(to: location, meterRadius: 100)
-                }
-            }
-            manager.distanceFilter = 1
-        } else {
-            navigationController?.popViewController(animated: true)
-        }
     }
 
     private func stopAnimation() {
@@ -516,8 +501,7 @@ extension TrackingProgressViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let currentLocation = locations.last
         else { return }
-        print(locations, "locations")
-        print(viewModel.tracking.value.distance, "distance")
+
         let currentCoordinate = currentLocation.coordinate
 
         guard let latestCoordinate = viewModel.latestCoordinate(),
@@ -538,17 +522,27 @@ extension TrackingProgressViewController: CLLocationManagerDelegate {
         viewModel.coordinates.onNext([coordinate])
     }
 
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        let error = error as? CLError
-        if error?.code == .denied && error?.code == .deferredFailed {
-            let title = "GPS 오류"
-            let message = "GPS 권한 확인 또는 GPS기능을 다시 연결 해주시기 바랍니다."
-            let alertController: UIAlertController = .simpleAlert(title: title, message: message)
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .restricted, .denied:
+            viewModel.state.accept(.pause)
 
-            viewModel.state.accept(viewModel.state.value == .start ? .pause : .start)
-            manager.stopUpdatingLocation()
-            manager.stopMonitoringSignificantLocationChanges()
+            let title = "위치 권한"
+            let content = "기록을 위해 위치 권한을 설정 앱에서 위치 권한을 켜주시기 바랍니다."
+            let alertController: UIAlertController = .simpleAlert(title: title, message: content) { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }
+
             present(alertController, animated: true)
+        case .notDetermined:
+            viewModel.state.accept(.pause)
+
+            manager.requestWhenInUseAuthorization()
+        default:
+            if let location = manager.location, viewModel.state.value == .start {
+                viewModel.coordinates.onNext([Coordinate(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)])
+                mapView.setRegion(to: location, meterRadius: 100)
+            }
         }
     }
 }
