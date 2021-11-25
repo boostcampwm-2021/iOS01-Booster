@@ -91,7 +91,7 @@ final class HomeViewController: UIViewController, BaseViewControllerTemplate {
         guard let stepRatios = viewModel.homeModel.value.hourlyStatistics.stepRatios()
         else { return }
 
-        hourlyBarChartView.drawChart(stepRatios: stepRatios.map { CGFloat($0) }, strings: ["0", "6", "12", "18"])
+//        hourlyBarChartView.drawChart(stepRatios: stepRatios.map { CGFloat($0) }, strings: ["0", "6", "12", "18"])
     }
 
     private func gradientLayer(ratio: [NSNumber],

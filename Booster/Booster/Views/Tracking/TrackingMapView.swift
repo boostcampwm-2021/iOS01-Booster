@@ -66,6 +66,8 @@ class TrackingMapView: BoosterMapView {
             guard let startLatitude = prevCoordinate?.latitude,
                   let startLongitude = prevCoordinate?.longitude
             else { return }
+            var endCoordinate
+            = Coordinate(latitude: startLatitude, longitude: startLongitude)
 
             var point = snapshot.point(for: CLLocationCoordinate2D(latitude: startLatitude, longitude: startLongitude))
             point.x -= dotSize.width / 2.0
@@ -88,7 +90,9 @@ class TrackingMapView: BoosterMapView {
                     context.addLine(to: snapshot.point(for: CLLocationCoordinate2D(latitude: currentLatitude, longitude: currentLongitude)))
                     context.move(to: snapshot.point(for: CLLocationCoordinate2D(latitude: currentLatitude, longitude: currentLongitude)))
                 }
+
                 prevCoordinate = coordinate
+                if coordinate.latitude != nil && coordinate.longitude != nil { endCoordinate = coordinate }
 
                 if let gradientColor = self?.gradientColorOfCoordinate(at: coordinate,
                                                                  coordinates: coordinates,
@@ -99,8 +103,7 @@ class TrackingMapView: BoosterMapView {
                 }
             }
 
-            if let endCoordinate = coordinates.last,
-               let endLatitude = endCoordinate.latitude,
+            if let endLatitude = endCoordinate.latitude,
                let endLongitude = endCoordinate.longitude {
                 var point = snapshot.point(for: CLLocationCoordinate2D(latitude: endLatitude, longitude: endLongitude))
                 point.y -= dotSize.height / 2.0
