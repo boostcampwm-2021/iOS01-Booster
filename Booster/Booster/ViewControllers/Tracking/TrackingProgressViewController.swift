@@ -295,14 +295,14 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
     private func bindViewModel() {
         viewModel.state
             .asDriver()
-            .drive(onNext: { [weak self] value in
-                if value != .end { self?.update() } else { self?.stopAnimation() }
+            .drive(onNext: { [weak self] trackingState in
+                if trackingState != .end { self?.update() } else { self?.stopAnimation() }
             }).disposed(by: disposeBag)
 
-        viewModel.tracking
+        viewModel.trackingModel
             .asDriver()
-            .drive(onNext: { [weak self] value in
-                self?.configure(model: value)
+            .drive(onNext: { [weak self] trackingModel in
+                self?.configure(model: trackingModel)
             }).disposed(by: disposeBag)
 
         viewModel.addMilestones.bind { [weak self] milestones in
@@ -371,7 +371,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
                                          repeats: true)
             locationAuth()
         case false:
-            lastestTime = viewModel.tracking.value.seconds
+            lastestTime = viewModel.trackingModel.value.seconds
             viewModel.seconds.onNext(lastestTime)
             timer.invalidate()
             manager.stopUpdatingLocation()
@@ -403,7 +403,8 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
                 self.manager.startUpdatingLocation()
 
                 if let location = self.manager.location {
-                    self.viewModel.coordinates.onNext([Coordinate(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)])
+                    let coordinate = Coordinate(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+                    self.viewModel.coordinates.onNext(Coordinates(coordinate: coordinate))
                     self.mapView.setRegion(to: location, meterRadius: 100)
                 }
             }
@@ -415,7 +416,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
 
     private func stopAnimation() {
         let title = " steps"
-        let content = "\(viewModel.tracking.value.steps)"
+        let content = "\(viewModel.trackingModel.value.steps)"
 
         pedometer.stopUpdates()
         pedometer.stopEventUpdates()
@@ -499,12 +500,12 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         guard let center = self.viewModel.centerCoordinateOfPath()
         else { return }
 
-        let coordinates = self.viewModel.tracking.value.coordinates
+        let coordinates = self.viewModel.trackingModel.value.coordinates
 
         self.mapView.snapShotImageOfPath(backgroundColor: .clear,
                                          coordinates: coordinates,
                                          center: center,
-                                         range: self.viewModel.tracking.value.distance) { image in
+                                         range: self.viewModel.trackingModel.value.distance) { image in
             self.viewModel.imageData.onNext(image?.pngData() ?? Data())
             self.viewModel.save()
         }
@@ -516,16 +517,15 @@ extension TrackingProgressViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let currentLocation = locations.last
         else { return }
-        print(locations, "locations")
-        print(viewModel.tracking.value.distance, "distance")
+
         let currentCoordinate = currentLocation.coordinate
 
-        guard let latestCoordinate = viewModel.latestCoordinate(),
+        guard let latestCoordinate = viewModel.lastCoordinate,
               let prevLatitude = latestCoordinate.latitude,
               let prevLongitude = latestCoordinate.longitude
         else {
             let coordinate = Coordinate(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude)
-            viewModel.coordinates.onNext([coordinate])
+            viewModel.coordinates.onNext(Coordinates(coordinate: coordinate))
             return
         }
         let prevCoordinate = CLLocationCoordinate2D(latitude: prevLatitude, longitude: prevLongitude)
@@ -535,7 +535,7 @@ extension TrackingProgressViewController: CLLocationManagerDelegate {
 
         viewModel.distance.onNext(latestLocation.distance(from: currentLocation))
         let coordinate = Coordinate(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude)
-        viewModel.coordinates.onNext([coordinate])
+        viewModel.coordinates.onNext(Coordinates(coordinate: coordinate))
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -580,7 +580,7 @@ extension TrackingProgressViewController: MKMapViewDelegate {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: PhotoAnnotationView.identifier)
 
             guard let customView = UINib(nibName: PhotoAnnotationView.identifier, bundle: nil).instantiate(withOwner: self, options: nil).first as? PhotoAnnotationView,
-                  let mileStone: Milestone = viewModel.tracking.value.milestones.last
+                  let mileStone: Milestone = viewModel.trackingModel.value.milestones.last
             else { return nil }
 
             customView.photoImageView.image = UIImage(data: mileStone.imageData)
@@ -678,8 +678,8 @@ extension TrackingProgressViewController: MilestonePhotoViewControllerDelegate {
     func delete(milestone: Milestone) {
         viewModel.remove(of: milestone)
             .asDriver(onErrorJustReturn: false)
-            .drive(onNext: { value in
-                if value && self.mapView.removeMilestoneAnnotation(of: milestone) {
+            .drive(onNext: { isRemoved in
+                if isRemoved && self.mapView.removeMilestoneAnnotation(of: milestone) {
                     let title = "삭제 완료"
                     let message = "마일스톤을 삭제했어요"
                     let alertViewController: UIAlertController = .simpleAlert(title: title, message: message)

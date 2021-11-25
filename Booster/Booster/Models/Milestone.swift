@@ -1,5 +1,51 @@
 import Foundation
 
+final class Milestones {
+    private var milestones: [Milestone]
+
+    var first: Milestone? {
+        return milestones.first
+    }
+    var last: Milestone? {
+        return milestones.last
+    }
+    var count: Int {
+        return milestones.count
+    }
+    var all: [Milestone] {
+        return milestones
+    }
+
+    subscript(index: Int) -> Milestone? {
+        if index > milestones.count - 1 {
+            return nil
+        }
+        return milestones[index]
+    }
+
+    init(milestones: [Milestone] = []) {
+        self.milestones = milestones
+    }
+
+    func append(_ milestone: Milestone) {
+        milestones.append(milestone)
+    }
+
+    func append(_ newMilestone: [Milestone]) {
+        milestones += newMilestone
+    }
+
+    func firstIndex(of milestone: Milestone) -> Int? {
+        return milestones.firstIndex(of: milestone)
+    }
+
+    func milestone(at coordinate: Coordinate) -> Milestone? {
+        return milestones.first(where: { milestone in
+            milestone.coordinate == coordinate
+        })
+    }
+}
+
 final class Milestone: NSObject, NSCoding {
     var coordinate: Coordinate
     var imageData: Data
