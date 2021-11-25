@@ -18,7 +18,7 @@ final class TrackingProgressViewModel {
     let distance = PublishSubject<Double>()
     let saveResult = PublishSubject<Error?>()
     let coordinates = PublishSubject<Coordinates>()
-    let addMilestones = PublishSubject<[Milestone]>()
+    let cachedMilestones = BehaviorRelay<Milestones>(value: Milestones())
     var lastCoordinate: Coordinate? {
         return trackingModel.value.coordinates.last
     }
@@ -43,28 +43,12 @@ final class TrackingProgressViewModel {
             }).disposed(by: disposeBag)
     }
 
-    func mileStone(at coordinate: Coordinate) -> Observable<Milestone?> {
-        return Observable.create { [weak self] observable in
-            let target = self?.trackingModel.value.milestones.first(where: { (value) in
-                return value.coordinate == coordinate
-            })
-
-            observable.onNext(target)
-
-            return Disposables.create()
-        }
-    }
-
     func remove(of mileStone: Milestone) -> Observable<Bool> {
         return Observable.create { [weak self] observable in
             guard let self = self
             else { return Disposables.create() }
 
-            var tracking = self.trackingModel.value
-
-            if let index = self.trackingModel.value.milestones.firstIndex(of: mileStone) {
-                tracking.milestones.remove(at: index)
-                self.trackingModel.accept(tracking)
+            if let _ = self.trackingModel.value.milestones.remove(of: mileStone) {
 
                 observable.onNext(true)
             } else {
@@ -73,6 +57,12 @@ final class TrackingProgressViewModel {
 
             return Disposables.create()
         }
+    }
+
+    func append(of milestone: Milestone) {
+        let newMilestones = cachedMilestones.value
+        newMilestones.append(milestone)
+        cachedMilestones.accept(newMilestones)
     }
 
     func centerCoordinateOfPath() -> CLLocationCoordinate2D? {
@@ -97,17 +87,14 @@ final class TrackingProgressViewModel {
             self.trackingModel.accept(tracking)
         }.disposed(by: disposeBag)
 
-        addMilestones.map { (values) -> [Milestone] in
-            var milestones = self.trackingModel.value.milestones
-            milestones += values
-            return milestones
-        }.bind { [weak self] values in
+        cachedMilestones
+            .bind { [weak self] milestones in
             guard let self = self
             else { return }
 
-            var tracking = self.trackingModel.value
-            tracking.milestones = values
-            self.trackingModel.accept(tracking)
+            let newTrackingModel = self.trackingModel.value
+            newTrackingModel.milestones.append(milestones.all)
+            self.trackingModel.accept(newTrackingModel)
         }.disposed(by: disposeBag)
 
         state.filter {

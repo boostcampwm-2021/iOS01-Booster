@@ -23,7 +23,15 @@ final class Milestones {
         return milestones[index]
     }
 
-    init(milestones: [Milestone] = []) {
+    init() {
+        self.milestones = []
+    }
+
+    init(milestone: Milestone) {
+        self.milestones = [milestone]
+    }
+
+    init(milestones: [Milestone]) {
         self.milestones = milestones
     }
 
@@ -33,6 +41,13 @@ final class Milestones {
 
     func append(_ newMilestone: [Milestone]) {
         milestones += newMilestone
+    }
+
+    func remove(of milestone: Milestone) -> Milestone? {
+        guard let index = firstIndex(of: milestone)
+        else { return nil }
+
+        return milestones.remove(at: index)
     }
 
     func firstIndex(of milestone: Milestone) -> Int? {

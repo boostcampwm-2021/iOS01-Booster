@@ -249,29 +249,22 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
                           let imageData = UIImage(systemName: "camera")?.pngData()
                     else { return }
 
-                    self.viewModel.mileStone(at: Coordinate(latitude: currentLatitude, longitude: currentLongitude))
-                        .observe(on: MainScheduler.asyncInstance)
-                        .subscribe { [weak self] value in
-                            guard let element = value.element, let _ = element
-                            else {
-                                #if targetEnvironment(simulator)
-                                let milestone = Milestone(latitude: currentLatitude,
-                                                          longitude: currentLongitude,
-                                                          imageData: imageData)
-                                self?.viewModel.addMilestones.onNext([milestone])
-                                #else
-                                self?.present(self?.imagePickerController ?? UIImagePickerController(), animated: true)
-                                #endif
-
-                                return
-                            }
-
-                            let title = "추가 실패"
-                            let message = "이미 다른 마일스톤이 존재합니다\n작성한 마일스톤을 제거해주세요"
-                            let alert: UIAlertController = .simpleAlert(title: title, message: message)
-                            self?.present(alert, animated: true, completion: nil)
-
-                        }.disposed(by: self.disposeBag)
+                    let currentCoordinate = Coordinate(latitude: currentLatitude, longitude: currentLongitude)
+                    if let _ = self.viewModel.trackingModel.value.milestones.milestone(at: currentCoordinate) {
+                        let title = "추가 실패"
+                        let message = "이미 다른 마일스톤이 존재합니다\n작성한 마일스톤을 제거해주세요"
+                        let alert: UIAlertController = .simpleAlert(title: title, message: message)
+                        self.present(alert, animated: true, completion: nil)
+                    } else {
+                        #if targetEnvironment(simulator)
+                        let milestone = Milestone(latitude: currentLatitude,
+                                                  longitude: currentLongitude,
+                                                  imageData: imageData)
+                        self.viewModel.append(of: milestone)
+                        #else
+                        self.present(self.imagePickerController, animated: true)
+                        #endif
+                    }
                 default:
                     self.viewModel.state.accept(.end)
                 }
@@ -305,7 +298,8 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
                 self?.configure(model: trackingModel)
             }).disposed(by: disposeBag)
 
-        viewModel.addMilestones.bind { [weak self] milestones in
+        viewModel.cachedMilestones
+            .bind { [weak self] milestones in
             guard let milestone = milestones.last,
                   let latitude = milestone.coordinate.latitude,
                   let longitude = milestone.coordinate.longitude
@@ -601,21 +595,15 @@ extension TrackingProgressViewController: MKMapViewDelegate {
         mapView.deselectAnnotation(view.annotation, animated: false)
         let coordinate = Coordinate(latitude: view.annotation?.coordinate.latitude, longitude: view.annotation?.coordinate.longitude)
 
-        viewModel.mileStone(at: coordinate)
-            .observe(on: MainScheduler.asyncInstance)
-            .subscribe { [weak self] value in
-                guard let self = self,
-                      let element = value.element,
-                      let selectedMileStone = element
-                else { return }
+        guard let selectedMilestone = viewModel.cachedMilestones.value.milestone(at: coordinate)
+        else { return }
 
-                let milestonePhotoViewModel = MilestonePhotoViewModel(milestone: selectedMileStone)
-                let milestonePhotoVC = MilestonePhotoViewController(viewModel: milestonePhotoViewModel)
-                milestonePhotoVC.viewModel = milestonePhotoViewModel
-                milestonePhotoVC.delegate = self
+        let milestonePhotoViewModel = MilestonePhotoViewModel(milestone: selectedMilestone)
+        let milestonePhotoVC = MilestonePhotoViewController(viewModel: milestonePhotoViewModel)
+        milestonePhotoVC.viewModel = milestonePhotoViewModel
+        milestonePhotoVC.delegate = self
 
-                self.present(milestonePhotoVC, animated: true, completion: nil)
-            }.disposed(by: disposeBag)
+        self.present(milestonePhotoVC, animated: true, completion: nil)
     }
 }
 
@@ -630,7 +618,7 @@ extension TrackingProgressViewController: UIImagePickerControllerDelegate & UINa
             let milestone = Milestone(latitude: currentLatitude,
                                       longitude: currentLongitude,
                                       imageData: imageData)
-            viewModel.addMilestones.onNext([milestone])
+            viewModel.append(of: milestone)
         }
         picker.dismiss(animated: true, completion: nil)
     }
