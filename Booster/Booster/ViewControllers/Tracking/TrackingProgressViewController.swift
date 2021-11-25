@@ -27,7 +27,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
 
     // MARK: - Properties
     private let pedometer = CMPedometer()
-    private let startDate = Date()
+    private var pedomterSteps: Int = 0
     private var lastestTime: Int = 0
     private var timerDate = Date()
     private var timer = Timer()
@@ -155,11 +155,11 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
             isMoved = distance > 5
         }
 
-        pedometer.queryPedometerData(from: Date(timeIntervalSinceNow: -1), to: Date()) { [weak self] data, _ in
+        pedometer.queryPedometerData(from: timerDate, to: Date()) { [weak self] data, _ in
             guard let data = data
             else { return }
 
-            self?.viewModel.steps.onNext(data.numberOfSteps.intValue)
+            self?.viewModel.steps.onNext(data.numberOfSteps.intValue + (self?.pedomterSteps ?? 0))
         }
 
         switch isMoved && timerTime <= Int(limit) {
@@ -371,6 +371,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
                                          repeats: true)
             locationAuth()
         case false:
+            pedomterSteps = viewModel.tracking.value.steps
             lastestTime = viewModel.tracking.value.seconds
             viewModel.seconds.onNext(lastestTime)
             timer.invalidate()
