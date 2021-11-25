@@ -41,6 +41,8 @@ final class UserViewController: UIViewController, BaseViewControllerTemplate {
         userTableView.delegate = self
         registerNib()
         configureNavigationBarTitle()
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -205,4 +207,11 @@ extension UserViewController: UITableViewDelegate {
         }
     }
 
+}
+
+// MARK: - navigationController.interactivePopGestureRecognizer.delegate
+extension UserViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return navigationController?.viewControllers.count ?? 0 > 1
+    }
 }
