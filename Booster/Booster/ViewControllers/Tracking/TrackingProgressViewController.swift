@@ -524,27 +524,25 @@ extension TrackingProgressViewController: CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
-        case .notDetermined, .restricted, .denied:
-            manager.requestAlwaysAuthorization()
+        case .restricted, .denied:
+            viewModel.state.accept(.pause)
+
+            let title = "위치 권한"
+            let content = "기록을 위해 위치 권한을 설정 앱에서 위치 권한을 켜주시기 바랍니다."
+            let alertController: UIAlertController = .simpleAlert(title: title, message: content) { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }
+
+            present(alertController, animated: true)
+        case .notDetermined:
+            viewModel.state.accept(.pause)
+
+            manager.requestWhenInUseAuthorization()
         default:
             if let location = manager.location, viewModel.state.value == .start {
                 viewModel.coordinates.onNext([Coordinate(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)])
                 mapView.setRegion(to: location, meterRadius: 100)
             }
-        }
-    }
-
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        let error = error as? CLError
-        if error?.code == .denied && error?.code == .deferredFailed {
-            let title = "GPS 오류"
-            let message = "GPS 권한 확인 또는 GPS기능을 다시 연결 해주시기 바랍니다."
-            let alertController: UIAlertController = .simpleAlert(title: title, message: message)
-
-            viewModel.state.accept(viewModel.state.value == .start ? .pause : .start)
-            manager.stopUpdatingLocation()
-            manager.stopMonitoringSignificantLocationChanges()
-            present(alertController, animated: true)
         }
     }
 }
