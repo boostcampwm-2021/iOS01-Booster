@@ -22,10 +22,6 @@
 		37852ACF273C27F100BA3D67 /* StatisticsModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37852ACE273C27F100BA3D67 /* StatisticsModelTests.swift */; };
 		37852AD8273C2D0B00BA3D67 /* StepStatisticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37852AD7273C2D0B00BA3D67 /* StepStatisticsTests.swift */; };
 		379E3C57273BC182002B0B15 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379E3C56273BC182002B0B15 /* ChartView.swift */; };
-		37FD1AE7274CBF0F00FAB0CC /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FD1AE6274CBF0F00FAB0CC /* BaseViewModel.swift */; };
-		37FD1AE9274CC23B00FAB0CC /* repos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FD1AE8274CC23B00FAB0CC /* repos.swift */; };
-		37FD1AEB274CE12100FAB0CC /* StatisticsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FD1AEA274CE12100FAB0CC /* StatisticsViewModelTests.swift */; };
-		37FD1AEC274CE12100FAB0CC /* StatisticsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FD1AEA274CE12100FAB0CC /* StatisticsViewModelTests.swift */; };
 		37FD1AEE274D1D6600FAB0CC /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FD1AED274D1D6600FAB0CC /* HealthKitManager.swift */; };
 		3B31B5F9273C05D8009D9190 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B31B5F8273C05D8009D9190 /* FeedCell.swift */; };
 		3B31B5FC273C0A66009D9190 /* CellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B31B5FB273C0A66009D9190 /* CellConfigurator.swift */; };
@@ -168,9 +164,6 @@
 		37852ACE273C27F100BA3D67 /* StatisticsModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsModelTests.swift; sourceTree = "<group>"; };
 		37852AD7273C2D0B00BA3D67 /* StepStatisticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepStatisticsTests.swift; sourceTree = "<group>"; };
 		379E3C56273BC182002B0B15 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
-		37FD1AE6274CBF0F00FAB0CC /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
-		37FD1AE8274CC23B00FAB0CC /* repos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = repos.swift; sourceTree = "<group>"; };
-		37FD1AEA274CE12100FAB0CC /* StatisticsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewModelTests.swift; sourceTree = "<group>"; };
 		37FD1AED274D1D6600FAB0CC /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		3B31B5F8273C05D8009D9190 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		3B31B5FB273C0A66009D9190 /* CellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfigurator.swift; sourceTree = "<group>"; };
@@ -300,7 +293,6 @@
 		37852ACD273C27F100BA3D67 /* StatisticsTests */ = {
 			isa = PBXGroup;
 			children = (
-				37FD1AEA274CE12100FAB0CC /* StatisticsViewModelTests.swift */,
 				37852AD7273C2D0B00BA3D67 /* StepStatisticsTests.swift */,
 				37852ACE273C27F100BA3D67 /* StatisticsModelTests.swift */,
 			);
@@ -493,7 +485,6 @@
 			isa = PBXGroup;
 			children = (
 				FA473A15273B95750000C5DC /* BaseViewControllerTemplate.swift */,
-				37FD1AE6274CBF0F00FAB0CC /* BaseViewModel.swift */,
 			);
 			path = BaseProtocol;
 			sourceTree = "<group>";
@@ -757,7 +748,6 @@
 			isa = PBXGroup;
 			children = (
 				FA614F532733CDAA00B090D9 /* HealthStoreManager.swift */,
-				37FD1AE8274CC23B00FAB0CC /* repos.swift */,
 				37FD1AED274D1D6600FAB0CC /* HealthKitManager.swift */,
 			);
 			path = Services;
@@ -977,7 +967,6 @@
 				37852ACF273C27F100BA3D67 /* StatisticsModelTests.swift in Sources */,
 				3B31B61F274109AF009D9190 /* HealthStoreManager.swift in Sources */,
 				3B31B61E274109A5009D9190 /* BoosterObservable.swift in Sources */,
-				37FD1AEC274CE12100FAB0CC /* StatisticsViewModelTests.swift in Sources */,
 				37852AD8273C2D0B00BA3D67 /* StepStatisticsTests.swift in Sources */,
 				3B31B61D27410997009D9190 /* StatisticsViewModel.swift in Sources */,
 			);
@@ -1011,7 +1000,6 @@
 				FA614F5F2733CDAA00B090D9 /* FeedViewModel.swift in Sources */,
 				28C97068274E26E1005BD7BC /* DetailFeedMapView.swift in Sources */,
 				3B31B5F9273C05D8009D9190 /* FeedCell.swift in Sources */,
-				37FD1AEB274CE12100FAB0CC /* StatisticsViewModelTests.swift in Sources */,
 				FA614F7A2733CDAA00B090D9 /* TimeInterval+extension.swift in Sources */,
 				FA614F5B2733CDAA00B090D9 /* CircleRenderer.swift in Sources */,
 				3B38FB1C273BF7CD00F8620D /* FeedUseCase.swift in Sources */,
@@ -1031,7 +1019,6 @@
 				FA614F902733D2CA00B090D9 /* UIColor+Extension.swift in Sources */,
 				FA614F5D2733CDAA00B090D9 /* HomeViewModel.swift in Sources */,
 				FA614F6F2733CDAA00B090D9 /* UserInfo.swift in Sources */,
-				37FD1AE9274CC23B00FAB0CC /* repos.swift in Sources */,
 				FA473A4D2744EC1C0000C5DC /* ChangeGoalViewController.swift in Sources */,
 				FA614F7C2733CDAA00B090D9 /* AppDelegate.swift in Sources */,
 				FA614F812733CDAA00B090D9 /* TrackingViewController.swift in Sources */,
@@ -1067,7 +1054,6 @@
 				FA614F7D2733CDAA00B090D9 /* SceneDelegate.swift in Sources */,
 				FADAC0D02745F55100A026E2 /* EditUserInfoTextField.swift in Sources */,
 				3B38FB1A273BABBE00F8620D /* TrackingViewModel.swift in Sources */,
-				37FD1AE7274CBF0F00FAB0CC /* BaseViewModel.swift in Sources */,
 				3B31B600273CD2F7009D9190 /* Tracking+CoreDataProperties.swift in Sources */,
 				28C97039274C8359005BD7BC /* ModifyFeedViewModel.swift in Sources */,
 				FA614F5C2733CDAA00B090D9 /* StatisticsViewModel.swift in Sources */,

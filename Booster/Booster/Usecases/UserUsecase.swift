@@ -66,7 +66,7 @@ final class UserUsecase {
             return Disposables.create()
         }
     }
-  
+
     func editUserInfo(model: UserInfo) -> Observable<Bool> {
         return Observable.create { observer in
             let entityName = "User"

@@ -177,16 +177,6 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
 
 // MARK: - Setting ActionSheet Alert Events
 extension DetailFeedViewController {
-    private func presentModifyViewController() {
-        let storyboardName = "Feed"
-        let modifyViewController = UIStoryboard(name: storyboardName, bundle: .main).instantiateViewController(identifier: ModifyFeedViewController.identifier) { coder in
-            return ModifyFeedViewController(coder: coder, viewModel: self.viewModel.createModifyFeedViewModel())
-        }
-        modifyViewController.delegate = self
-        modifyViewController.title = "글 수정"
-        navigationController?.pushViewController(modifyViewController, animated: true)
-    }
-
     private func shareDetailFeedImage() {
         guard let image = snapshot()
         else { return }
