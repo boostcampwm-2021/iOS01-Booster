@@ -17,6 +17,8 @@
 		28C97039274C8359005BD7BC /* ModifyFeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C97038274C8359005BD7BC /* ModifyFeedViewModel.swift */; };
 		28C9703B274C84DC005BD7BC /* ModifyFeedUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C9703A274C84DC005BD7BC /* ModifyFeedUsecase.swift */; };
 		28C9703D274C87D1005BD7BC /* WritingRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C9703C274C87D1005BD7BC /* WritingRecord.swift */; };
+		28C97066274E21CC005BD7BC /* BoosterMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C97065274E21CC005BD7BC /* BoosterMapView.swift */; };
+		28C97068274E26E1005BD7BC /* DetailFeedMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C97067274E26E1005BD7BC /* DetailFeedMapView.swift */; };
 		37852ACF273C27F100BA3D67 /* StatisticsModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37852ACE273C27F100BA3D67 /* StatisticsModelTests.swift */; };
 		37852AD8273C2D0B00BA3D67 /* StepStatisticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37852AD7273C2D0B00BA3D67 /* StepStatisticsTests.swift */; };
 		379E3C57273BC182002B0B15 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379E3C56273BC182002B0B15 /* ChartView.swift */; };
@@ -160,6 +162,8 @@
 		28C97038274C8359005BD7BC /* ModifyFeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyFeedViewModel.swift; sourceTree = "<group>"; };
 		28C9703A274C84DC005BD7BC /* ModifyFeedUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyFeedUsecase.swift; sourceTree = "<group>"; };
 		28C9703C274C87D1005BD7BC /* WritingRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingRecord.swift; sourceTree = "<group>"; };
+		28C97065274E21CC005BD7BC /* BoosterMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterMapView.swift; sourceTree = "<group>"; };
+		28C97067274E26E1005BD7BC /* DetailFeedMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFeedMapView.swift; sourceTree = "<group>"; };
 		37852ACC273C27F100BA3D67 /* StatisticsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StatisticsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		37852ACE273C27F100BA3D67 /* StatisticsModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsModelTests.swift; sourceTree = "<group>"; };
 		37852AD7273C2D0B00BA3D67 /* StepStatisticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepStatisticsTests.swift; sourceTree = "<group>"; };
@@ -364,6 +368,8 @@
 			isa = PBXGroup;
 			children = (
 				3B6FE5022743A85B00A815D1 /* InfoPickerView.swift */,
+				28C97065274E21CC005BD7BC /* BoosterMapView.swift */,
+				FA614F8D2733CF9000B090D9 /* EmptyView.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -515,6 +521,7 @@
 			isa = PBXGroup;
 			children = (
 				3B31B5F8273C05D8009D9190 /* FeedCell.swift */,
+				28C97067274E26E1005BD7BC /* DetailFeedMapView.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -727,7 +734,6 @@
 				FA473A19273BA2050000C5DC /* Feed */,
 				FA473A18273BA1F30000C5DC /* Statistic */,
 				FA473A17273BA1E80000C5DC /* Tracking */,
-				FA614F8D2733CF9000B090D9 /* EmptyView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1003,6 +1009,7 @@
 			files = (
 				FA614F782733CDAA00B090D9 /* UIFont+Extension.swift in Sources */,
 				FA614F5F2733CDAA00B090D9 /* FeedViewModel.swift in Sources */,
+				28C97068274E26E1005BD7BC /* DetailFeedMapView.swift in Sources */,
 				3B31B5F9273C05D8009D9190 /* FeedCell.swift in Sources */,
 				37FD1AEB274CE12100FAB0CC /* StatisticsViewModelTests.swift in Sources */,
 				FA614F7A2733CDAA00B090D9 /* TimeInterval+extension.swift in Sources */,
@@ -1076,6 +1083,7 @@
 				FA473A3C274375BB0000C5DC /* UserInfoBaseCell.swift in Sources */,
 				3B38FB14273A5F3B00F8620D /* TrackingCountDownView.swift in Sources */,
 				3B31B62127413664009D9190 /* FeedList.swift in Sources */,
+				28C97066274E21CC005BD7BC /* BoosterMapView.swift in Sources */,
 				FA84966C274A13890021F903 /* NotificationSettingViewController.swift in Sources */,
 				3B37B99E274385B6001EB120 /* EnrollUsecase.swift in Sources */,
 				FA614F722733CDAA00B090D9 /* HomeModel.swift in Sources */,

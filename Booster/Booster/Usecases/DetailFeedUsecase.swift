@@ -86,7 +86,7 @@ final class DetailFeedUsecase: DetailFeedUsecaseProtocol {
                                               calories: Int(tracking.calories),
                                               seconds: Int(tracking.seconds),
                                               distance: tracking.distance,
-                                              coordinates: coordinates,
+                                              coordinates: Coordinates(coordinates: coordinates),
                                               milestones: milestones,
                                               title: title,
                                               content: content,

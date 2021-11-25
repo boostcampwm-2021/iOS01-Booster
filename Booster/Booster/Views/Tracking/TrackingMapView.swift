@@ -1,7 +1,7 @@
 import UIKit
 import MapKit
 
-class TrackingMapView: MKMapView {
+class TrackingMapView: BoosterMapView {
     private var overlay: MKOverlay = MKCircle()
 
     override init(frame: CGRect) {
@@ -14,23 +14,6 @@ class TrackingMapView: MKMapView {
         super.init(coder: coder)
 
         configure()
-    }
-
-    func addMilestoneAnnotation(on coordinate: CLLocationCoordinate2D) -> Bool {
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = coordinate
-        annotation.title = "milestone"
-        addAnnotation(annotation)
-
-        return true
-    }
-
-    func addMilestoneAnnotation(latitude lat: CLLocationDegrees, longitude long: CLLocationDegrees) {
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-        annotation.title = "milestone"
-
-        addAnnotation(annotation)
     }
 
     func removeMilestoneAnnotation(of mileStone: Milestone) -> Bool {
@@ -46,33 +29,15 @@ class TrackingMapView: MKMapView {
         return true
     }
 
-    func setRegion(to location: CLLocation) {
-        let regionRadius: CLLocationDistance = 100
-        let coordRegion = MKCoordinateRegion(center: location.coordinate,
-                                             latitudinalMeters: regionRadius*2,
-                                             longitudinalMeters: regionRadius*2)
-        setRegion(coordRegion, animated: false)
-    }
-
-    func drawPath(from prevCoordinate: CLLocationCoordinate2D?, to currentCoordinate: CLLocationCoordinate2D?) {
-        guard let currentCoordinate = currentCoordinate,
-              let prevCoordinate = prevCoordinate
-        else { return }
-
-        let points: [CLLocationCoordinate2D] = [prevCoordinate, currentCoordinate]
-        let line = MKPolyline(coordinates: points, count: points.count)
-        line.title = "path"
-
-        addOverlay(line)
-    }
-
     func snapShotImageOfPath(backgroundColor color: UIColor = .white,
-                             coordinates: [Coordinate],
+                             coordinates: Coordinates,
                              center: CLLocationCoordinate2D,
                              range: Double,
                              completion: @escaping(UIImage?) -> Void) {
         let dotSize = CGSize(width: 16, height: 16)
         let options = MKMapSnapshotter.Options()
+        let range = range + 50
+
         options.size = CGSize(width: 250, height: 250)
         options.region = MKCoordinateRegion(center: center,
                                             latitudinalMeters: range,
@@ -97,7 +62,7 @@ class TrackingMapView: MKMapView {
             context.setStrokeColor(UIColor.boosterOrange.cgColor)
             context.setLineCap(.round)
 
-            var prevCoordinate: Coordinate? = self?.startCoordinate(coordinates: coordinates)
+            var prevCoordinate: Coordinate? = coordinates.first
             guard let startLatitude = prevCoordinate?.latitude,
                   let startLongitude = prevCoordinate?.longitude
             else { return }
@@ -109,7 +74,7 @@ class TrackingMapView: MKMapView {
             context.addEllipse(in: CGRect(origin: point, size: dotSize))
             context.drawPath(using: .fill)
 
-            for coordinate in coordinates {
+            for coordinate in coordinates.all {
                 if let prevLatitude = prevCoordinate?.latitude,
                    let prevLongitude = prevCoordinate?.longitude {
                     context.move(to: snapshot.point(for: CLLocationCoordinate2D(latitude: prevLatitude, longitude: prevLongitude)))
@@ -134,7 +99,7 @@ class TrackingMapView: MKMapView {
                 }
             }
 
-            if let endCoordinate = self?.endCoordinate(coordinates: coordinates),
+            if let endCoordinate = coordinates.last,
                let endLatitude = endCoordinate.latitude,
                let endLongitude = endCoordinate.longitude {
                 var point = snapshot.point(for: CLLocationCoordinate2D(latitude: endLatitude, longitude: endLongitude))
@@ -156,37 +121,5 @@ class TrackingMapView: MKMapView {
         showsUserLocation = true
         userLocation.title = ""
         tintColor = .boosterOrange
-    }
-
-    private func gradientColorOfCoordinate(at coordinate: Coordinate,
-                                           coordinates: [Coordinate],
-                                           from fromColor: UIColor,
-                                           to toColor: UIColor) -> UIColor? {
-        guard let indexOfTargetCoordinate = coordinates.firstIndex(of: coordinate)
-        else { return nil }
-
-        let percentOfPathProgress = Double(indexOfTargetCoordinate) / Double(coordinates.count)
-
-        let red = fromColor.redValue + ((toColor.redValue - fromColor.redValue) * percentOfPathProgress)
-        let green = fromColor.greenValue + ((toColor.greenValue - fromColor.greenValue) * percentOfPathProgress)
-        let blue = fromColor.blueValue + ((toColor.blueValue - fromColor.blueValue) * percentOfPathProgress)
-
-        return UIColor(red: red, green: green, blue: blue, alpha: 1)
-    }
-
-    private func startCoordinate(coordinates: [Coordinate]) -> Coordinate? {
-        for coordinate in coordinates {
-            if coordinate.latitude != nil && coordinate.longitude != nil { return coordinate }
-        }
-
-        return nil
-    }
-
-    private func endCoordinate(coordinates: [Coordinate]) -> Coordinate? {
-        for coordinate in coordinates.reversed() {
-            if coordinate.latitude != nil && coordinate.longitude != nil { return coordinate }
-        }
-
-        return nil
     }
 }

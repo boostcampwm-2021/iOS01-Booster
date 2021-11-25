@@ -68,7 +68,7 @@ final class UserUsecase {
     }
   
     func editUserInfo(model: UserInfo) -> Observable<Bool> {
-        return Observable.create { observer in
+        return Observable.create { _ in
             let entityName = "User"
             let value: [String: Any] = [
                 CoreDataKeys.age: model.age,
@@ -93,7 +93,7 @@ final class UserUsecase {
     }
 
     func changeGoal(to goal: Int) -> Observable<Bool> {
-        return Observable.create { observer in
+        return Observable.create { _ in
             let entityName = "User"
             let value: [String: Any] = [
                 CoreDataKeys.goal: goal

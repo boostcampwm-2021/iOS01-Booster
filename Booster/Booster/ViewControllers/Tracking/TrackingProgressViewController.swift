@@ -310,7 +310,9 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
                   let latitude = milestone.coordinate.latitude,
                   let longitude = milestone.coordinate.longitude
             else { return }
-            self?.mapView.addMilestoneAnnotation(latitude: latitude, longitude: longitude)
+            self?.mapView.addAnnotation(type: .milestone,
+                                        latitude,
+                                        longitude)
         }.disposed(by: disposeBag)
 
         viewModel.saveResult
@@ -402,7 +404,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
 
                 if let location = self.manager.location {
                     self.viewModel.coordinates.onNext([Coordinate(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)])
-                    self.mapView.setRegion(to: location)
+                    self.mapView.setRegion(to: location, meterRadius: 100)
                 }
             }
             manager.distanceFilter = 1
