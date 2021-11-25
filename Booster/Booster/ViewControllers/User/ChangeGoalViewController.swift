@@ -128,7 +128,6 @@ class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
                 var alert = UIAlertController()
 
                 if result {
-                    NotificationCenter.default.post(name: .init(rawValue: "DidUpdateGoal"), object: goal)
                     let title = "변경 성공"
                     let message = "걸음 수를 \(goal)으로 변경했어요"
                     alert = self.popViewControllerAlertController(title: title, message: message)
