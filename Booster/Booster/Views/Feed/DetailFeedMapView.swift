@@ -20,10 +20,6 @@ final class DetailFeedMapView: BoosterMapView {
         configure()
     }
 
-    private func configure() {
-        layer.cornerRadius = frame.height / 17
-    }
-
     func configure(trackingModel value: TrackingModel) {
         let centerLocation = value.coordinates.center()
         setRegion(to: CLLocation(latitude: centerLocation.latitude ?? 0, longitude: centerLocation.longitude ?? 0), meterRadius: value.distance * 1000 + 50)
@@ -49,6 +45,10 @@ final class DetailFeedMapView: BoosterMapView {
         newAnnotationView.isUserInteractionEnabled = false
         newAnnotationView.layer.cornerRadius = newAnnotationView.frame.height / 2
         return newAnnotationView
+    }
+    
+    private func configure() {
+        layer.cornerRadius = frame.height / 17
     }
 
     private func configureMilestones(_ milestones: [Milestone]) {

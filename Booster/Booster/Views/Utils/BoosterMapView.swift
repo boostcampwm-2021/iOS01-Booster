@@ -15,6 +15,18 @@ class BoosterMapView: MKMapView {
         case endDot
     }
 
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+
+        configure()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+
+        configure()
+    }
+
     func setRegion(to location: CLLocation, meterRadius: Double) {
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
                                                   latitudinalMeters: meterRadius * 2,
@@ -57,5 +69,9 @@ class BoosterMapView: MKMapView {
         let blue = fromColor.blueValue + ((toColor.blueValue - fromColor.blueValue) * percentOfPathProgress)
 
         return UIColor(red: red, green: green, blue: blue, alpha: 1)
+    }
+    
+    private func configure() {
+        isPitchEnabled = false
     }
 }
