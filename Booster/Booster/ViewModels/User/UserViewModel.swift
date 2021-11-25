@@ -48,41 +48,57 @@ final class UserViewModel {
         if let weight = weight { newModel.weight = weight }
         if let nickname = nickname { newModel.nickname = nickname }
 
-        let observableResult = save(model: newModel)
-        observableResult
-            .subscribe(onNext: { [weak self] isSaved in
-                guard let self = self
-                else { return }
-
-                if isSaved { self.model.accept(newModel) }
-            }).disposed(by: disposeBag)
-
-        return observableResult
-    }
-
-    private func fetchUserInfo() {
-        usecase.fetchUserInfo()
-            .subscribe { [weak self] value in
-                guard let self = self,
-                      let fetchedModel = value.element
-                else { return }
-
-                self.model.accept(fetchedModel)
-            }.disposed(by: disposeBag)
-    }
-
-    private func save(model: UserInfo) -> Observable<Bool> {
         return Observable.create { [weak self] observer in
             guard let self = self
             else { return Disposables.create() }
 
-            return self.usecase.editUserInfo(model: self.model.value)
-                .subscribe(onNext: { isSaved in
-                    observer.onNext(isSaved)
+            return self.usecase.editUserInfo(model: newModel)
+                .take(1)
+                .subscribe(onNext: { result in
+                    if result {
+                        self.model.accept(newModel)
+                        observer.onNext(true)
+                    } else {
+                        observer.onNext(false)
+                    }
                     observer.onCompleted()
-                }, onError: { error in
-                    observer.onError(error)
+                }, onError: { (_) in
+                    observer.onNext(false)
                 })
-            }
+        }
+    }
+
+    func changeGoal(to goal: Int) -> Observable<Bool> {
+        var newModel = model.value
+        newModel.goal = goal
+        return Observable.create { [weak self] observer in
+            guard let self = self
+            else { return Disposables.create() }
+
+            return self.usecase.changeGoal(to: goal)
+                .take(1)
+                .subscribe(onNext: { result in
+                    if result {
+                        self.model.accept(newModel)
+                        observer.onNext(true)
+                    } else {
+                        observer.onNext(false)
+                    }
+                    observer.onCompleted()
+                }, onError: { (_) in
+                    observer.onNext(false)
+                })
+        }
+    }
+
+    private func fetchUserInfo() {
+        usecase.fetchUserInfo()
+            .subscribe { [weak self] result in
+                guard let self = self,
+                      let fetchedModel = result.element
+                else { return }
+
+                self.model.accept(fetchedModel)
+            }.disposed(by: disposeBag)
     }
 }

@@ -68,7 +68,7 @@ final class UserUsecase {
     }
   
     func editUserInfo(model: UserInfo) -> Observable<Bool> {
-        return Observable.create { _ in
+        return Observable.create { observer in
             let entityName = "User"
             let value: [String: Any] = [
                 CoreDataKeys.age: model.age,
@@ -78,38 +78,32 @@ final class UserUsecase {
                 CoreDataKeys.weight: model.weight
             ]
 
-            CoreDataManager.shared.save(attributes: value, type: entityName) { (response) in
-                switch response {
-                case .success:
-                    observer.onNext(true)
-                case .failure:
+            return CoreDataManager.shared.update(entityName: entityName, attributes: value)
+                .take(1)
+                .subscribe(onError: { (_) in
                     observer.onNext(false)
-                }
-                observer.onCompleted()
-            }
-
-            return Disposables.create()
+                }, onCompleted: {
+                    observer.onNext(true)
+                    observer.onCompleted()
+                })
         }
     }
 
     func changeGoal(to goal: Int) -> Observable<Bool> {
-        return Observable.create { _ in
+        return Observable.create { observer in
             let entityName = "User"
             let value: [String: Any] = [
                 CoreDataKeys.goal: goal
             ]
-            // TODO: Change To Update
-            CoreDataManager.shared.save(attributes: value, type: entityName) { (response) in
-                switch response {
-                case .success:
-                    observer.onNext(true)
-                case .failure:
-                    observer.onNext(false)
-                }
-                observer.onCompleted()
-            }
 
-            return Disposables.create()
+            return CoreDataManager.shared.update(entityName: entityName, attributes: value)
+                .take(1)
+                .subscribe(onError: { (_) in
+                    observer.onNext(false)
+                }, onCompleted: {
+                    observer.onNext(true)
+                    observer.onCompleted()
+                })
         }
     }
 
@@ -120,7 +114,8 @@ final class UserUsecase {
                                     nickname: nickname,
                                     gender: gender,
                                     height: Int(user.height),
-                                    weight: Int(user.weight))
+                                    weight: Int(user.weight),
+                                    goal: Int(user.goal))
             return userInfo
         }
         return nil

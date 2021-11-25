@@ -91,7 +91,7 @@ final class CoreDataManager {
         }
     }
 
-    func update(entityName: String, attributes: [String: Any], predicate: NSPredicate) -> Observable<Void> {
+    func update(entityName: String, attributes: [String: Any], predicate: NSPredicate? = nil) -> Observable<Void> {
         return Observable.create { [weak self] observer in
             guard let self = self
             else { return Disposables.create() }
