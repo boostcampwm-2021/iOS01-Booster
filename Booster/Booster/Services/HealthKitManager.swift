@@ -91,15 +91,13 @@ final class HealthKitManager {
         }
     }
 
-    func requestStatisticsQuery(type: HKQuantityType, predicate: NSPredicate) -> Observable<HKStatistics> {
+    func requestStatisticsQuery(type: HKQuantityType, predicate: NSPredicate) -> Observable<HKStatistics?> {
         return Observable.create { [weak self] observer in
             let query = HKStatisticsQuery(
                 quantityType: type,
                 quantitySamplePredicate: predicate,
                 options: [.cumulativeSum, .duration]) { _, statistics, _ in
-                if let statistics = statistics {
-                    return observer.onNext(statistics)
-                }
+                return observer.onNext(statistics)
             }
 
             self?.healthStore?.execute(query)
