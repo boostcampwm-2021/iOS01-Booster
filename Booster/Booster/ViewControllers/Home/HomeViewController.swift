@@ -51,7 +51,7 @@ final class HomeViewController: UIViewController {
             .subscribe({ [weak self] homeModel in
                 guard let homeModel = homeModel.element
                 else { return }
-                
+
                 self?.updateUI(using: homeModel)
             })
             .disposed(by: disposeBag)
@@ -60,7 +60,8 @@ final class HomeViewController: UIViewController {
     private func updateUI(using homeModel: HomeModel) {
         guard let stepRatios = homeModel.stepRatios()
         else { return }
-        
+        if stepRatios.count == 0 { return }
+
         kmLabel.text = String(format: "%.2f", homeModel.km)
         kcalLabel.text = "\(homeModel.kcal)"
         timeActiveLabel.text = homeModel.activeTime.stringToMinutesAndSeconds()

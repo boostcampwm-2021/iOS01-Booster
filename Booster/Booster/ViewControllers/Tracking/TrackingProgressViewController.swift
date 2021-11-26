@@ -374,8 +374,8 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
                                          userInfo: nil,
                                          repeats: true)
         case false:
-            pedomterSteps = viewModel.tracking.value.steps
-            lastestTime = viewModel.tracking.value.seconds
+            pedomterSteps = viewModel.trackingModel.value.steps
+            lastestTime = viewModel.trackingModel.value.seconds
             viewModel.seconds.onNext(lastestTime)
             timer.invalidate()
             stopTracking()
@@ -542,7 +542,8 @@ extension TrackingProgressViewController: CLLocationManagerDelegate {
             manager.requestWhenInUseAuthorization()
         default:
             if let location = manager.location, viewModel.state.value == .start {
-                viewModel.coordinates.onNext([Coordinate(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)])
+                let coordinate = Coordinate(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+                viewModel.coordinates.onNext(Coordinates(coordinate: coordinate))
                 mapView.setRegion(to: location, meterRadius: 100)
             }
         }

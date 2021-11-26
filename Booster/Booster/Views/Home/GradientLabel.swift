@@ -29,7 +29,7 @@ final class GradientLabel: UILabel {
         let gradientLayer: CAGradientLayer = configuregradientLayer(using: ratio)
         let gradientColor: UIColor = configureGradientColor(using: gradientLayer)
         textColor = gradientColor
-        
+
         UIView.animate(withDuration: 2) { [weak self] in
             self?.layer.opacity = Opacity.one
         }

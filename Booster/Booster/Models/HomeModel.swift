@@ -30,7 +30,7 @@ struct HomeModel {
 
         return (Double(totalStepCount) / Double(goal))
     }
-    
+
     func stepRatios() -> [Float]? {
         hourlyStatistics.stepRatios()
     }
