@@ -138,7 +138,6 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        manager.stopUpdatingLocation()
         tabBarController?.tabBar.isHidden = false
     }
 
@@ -301,7 +300,12 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         viewModel.state
             .asDriver()
             .drive(onNext: { [weak self] value in
-                if value != .end { self?.update() } else { self?.stopAnimation() }
+                if value != .end {
+                    self?.update()
+                } else {
+                    self?.stopTracking()
+                    self?.stopAnimation()
+                }
             }).disposed(by: disposeBag)
 
         viewModel.tracking
@@ -380,9 +384,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
             lastestTime = viewModel.tracking.value.seconds
             viewModel.seconds.onNext(lastestTime)
             timer.invalidate()
-            manager.stopUpdatingLocation()
-            pedometer.stopUpdates()
-            pedometer.stopEventUpdates()
+            stopTracking()
         }
     }
 
@@ -493,6 +495,12 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
             self.viewModel.imageData.onNext(image?.pngData() ?? Data())
             self.viewModel.save()
         }
+    }
+
+    private func stopTracking() {
+        manager.stopUpdatingLocation()
+        pedometer.stopUpdates()
+        pedometer.stopEventUpdates()
     }
 }
 

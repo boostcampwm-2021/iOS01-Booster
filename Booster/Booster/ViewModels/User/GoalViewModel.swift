@@ -11,10 +11,10 @@ import RxRelay
 
 final class GoalViewModel {
     private(set) var model = BehaviorRelay<UserInfo>(value: UserInfo())
-    private let usecase: UserUsecase
+    private let usecase = UserUsecase()
     private let disposeBag = DisposeBag()
 
     init() {
-        usecase = UserUsecase()
+
     }
 }

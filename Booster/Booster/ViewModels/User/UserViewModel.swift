@@ -14,12 +14,11 @@ final class UserViewModel {
         case noData
     }
 
-    private let usecase: UserUsecase
+    private let usecase = UserUsecase()
     private let disposeBag = DisposeBag()
     private(set) var model = BehaviorRelay<UserInfo>(value: UserInfo())
 
     init() {
-        usecase = UserUsecase()
         fetchUserInfo()
     }
 
