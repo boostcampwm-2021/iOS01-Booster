@@ -28,7 +28,7 @@ final class DetailFeedMapView: BoosterMapView {
         let centerLocation = value.coordinates.center()
         setRegion(to: CLLocation(latitude: centerLocation.latitude ?? 0, longitude: centerLocation.longitude ?? 0), meterRadius: value.distance * 1000 + 50)
 
-        configureMilestones(value.milestones)
+        configureMilestones(value.milestones.all)
     }
 
     func createMilestoneView(milestone: Milestone, color: UIColor) -> MKAnnotationView? {

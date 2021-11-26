@@ -30,9 +30,7 @@ final class DetailFeedViewModel {
 
     // MARK: - Functions
     func milestone(at coordinate: Coordinate) -> Milestone? {
-        let target = trackingModel.value.milestones.first(where: { value in
-            return value.coordinate == coordinate
-        })
+        let target = trackingModel.value.milestones.milestone(at: coordinate)
 
         return target
     }
@@ -40,13 +38,10 @@ final class DetailFeedViewModel {
     func reset() { gradientColorOffset = -1 }
 
     func remove(of milestone: Milestone) {
-        guard let index = trackingModel.value.milestones.firstIndex(of: milestone)
-        else { return }
+        let newTrackingModel = self.trackingModel.value
+        _ = newTrackingModel.milestones.remove(of: milestone)
 
-        var newTrackingModel = self.trackingModel.value
-        _ = newTrackingModel.milestones.remove(at: index)
-
-        usecase.update(milestones: newTrackingModel.milestones, predicate: predicate)
+        usecase.update(milestones: newTrackingModel.milestones.all, predicate: predicate)
             .subscribe(onError: { _ in
                 self.isDeletedMilestone.onNext(false)
             }, onCompleted: {

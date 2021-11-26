@@ -8,7 +8,7 @@ struct TrackingModel {
     var seconds: Int
     var distance: Double
     var coordinates: Coordinates
-    var milestones: [Milestone]
+    var milestones: Milestones
     var title: String
     var content: String
     var imageData: Data
@@ -21,7 +21,7 @@ struct TrackingModel {
          seconds: Int = 0,
          distance: Double = 0,
          coordinates: Coordinates = Coordinates(),
-         milestones: [Milestone] = [],
+         milestones: Milestones = Milestones(),
          title: String = "",
          content: String = "",
          imageData: Data = Data(),

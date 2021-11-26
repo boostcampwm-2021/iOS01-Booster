@@ -17,12 +17,15 @@ final class TrackingProgressViewModel {
     let steps = PublishSubject<Int>()
     let distance = PublishSubject<Double>()
     let saveResult = PublishSubject<Error?>()
-    let coordinates = PublishSubject<[Coordinate]>()
-    let addMilestones = PublishSubject<[Milestone]>()
+    let coordinates = PublishSubject<Coordinates>()
+    let cachedMilestones = BehaviorRelay<Milestones>(value: Milestones())
+    var lastCoordinate: Coordinate? {
+        return trackingModel.value.coordinates.last
+    }
     private let disposeBag = DisposeBag()
     private let trackingUsecase: TrackingProgressUsecase
-    private(set) var tracking = BehaviorRelay<TrackingModel>(value: TrackingModel())
-    private(set) var user =  BehaviorRelay<UserInfo>(value: UserInfo())
+    private(set) var trackingModel = BehaviorRelay<TrackingModel>(value: TrackingModel())
+    private(set) var userModel =  BehaviorRelay<UserInfo>(value: UserInfo())
     private(set) var state = BehaviorRelay<TrackingState>(value: .start)
 
     init() {
@@ -31,48 +34,21 @@ final class TrackingProgressViewModel {
         bind()
     }
 
-    func latestCoordinate() -> Coordinate? {
-        guard let latestCoordinate: Coordinate = tracking.value.coordinates.last
-        else { return nil }
-
-        return latestCoordinate
-    }
-
-    func startCoordinate() -> Coordinate? {
-        guard let startCoordinate: Coordinate = tracking.value.coordinates.first
-        else { return nil }
-
-        return startCoordinate
-    }
-
     func save() {
-        return trackingUsecase.save(model: self.tracking.value)
-            .subscribe(onNext: {
-                self.saveResult.onNext(nil)
-            }, onError: { error in
-                self.saveResult.onNext(error)
+        return trackingUsecase.save(model: trackingModel.value)
+            .subscribe(onNext: { [weak self] in
+                self?.saveResult.onNext(nil)
+            }, onError: { [weak self] error in
+                self?.saveResult.onNext(error)
             }).disposed(by: disposeBag)
     }
 
-    func mileStone(at coordinate: Coordinate) -> Observable<Milestone?> {
-        return Observable.create { observable in
-            let target = self.tracking.value.milestones.first(where: { (value) in
-                return value.coordinate == coordinate
-            })
-
-            observable.onNext(target)
-
-            return Disposables.create()
-        }
-    }
-
     func remove(of mileStone: Milestone) -> Observable<Bool> {
-        return Observable.create { observable in
-            var tracking = self.tracking.value
+        return Observable.create { [weak self] observable in
+            guard let self = self
+            else { return Disposables.create() }
 
-            if let index = self.tracking.value.milestones.firstIndex(of: mileStone) {
-                tracking.milestones.remove(at: index)
-                self.tracking.accept(tracking)
+            if let _ = self.trackingModel.value.milestones.remove(of: mileStone) {
 
                 observable.onNext(true)
             } else {
@@ -83,8 +59,14 @@ final class TrackingProgressViewModel {
         }
     }
 
+    func append(of milestone: Milestone) {
+        let newMilestones = cachedMilestones.value
+        newMilestones.append(milestone)
+        cachedMilestones.accept(newMilestones)
+    }
+
     func centerCoordinateOfPath() -> CLLocationCoordinate2D? {
-        let center = tracking.value.coordinates.center()
+        let center = trackingModel.value.coordinates.center()
         guard let latitude = center.latitude,
               let longitude = center.longitude
         else { return nil }
@@ -93,29 +75,26 @@ final class TrackingProgressViewModel {
 
     private func bind() {
         coordinates.map { (values) -> [Coordinate] in
-            let coordinates = self.tracking.value.coordinates
+            let coordinates = self.trackingModel.value.coordinates
             coordinates.append(values)
             return coordinates.all
         }.bind { [weak self] values in
             guard let self = self
             else { return }
 
-            var tracking = self.tracking.value
+            var tracking = self.trackingModel.value
             tracking.coordinates = Coordinates(coordinates: values)
-            self.tracking.accept(tracking)
+            self.trackingModel.accept(tracking)
         }.disposed(by: disposeBag)
 
-        addMilestones.map { (values) -> [Milestone] in
-            var milestones = self.tracking.value.milestones
-            milestones += values
-            return milestones
-        }.bind { [weak self] values in
+        cachedMilestones
+            .bind { [weak self] milestones in
             guard let self = self
             else { return }
 
-            var tracking = self.tracking.value
-            tracking.milestones = values
-            self.tracking.accept(tracking)
+            let newTrackingModel = self.trackingModel.value
+            newTrackingModel.milestones.append(milestones.all)
+            self.trackingModel.accept(newTrackingModel)
         }.disposed(by: disposeBag)
 
         state.filter {
@@ -124,9 +103,9 @@ final class TrackingProgressViewModel {
             guard let self = self
             else { return TrackingModel() }
 
-            var tracking = self.tracking.value
+            var tracking = self.trackingModel.value
             tracking.endDate = Date()
-            self.tracking.accept(tracking)
+            self.trackingModel.accept(tracking)
             return tracking
         }.bind { [weak self] tracking in
             self?.trackingUsecase.save(count: Double(tracking.steps),
@@ -152,49 +131,49 @@ final class TrackingProgressViewModel {
             guard let self = self
             else { return }
 
-            var tracking = self.tracking.value
+            var tracking = self.trackingModel.value
             tracking.coordinates.append(Coordinate(latitude: nil, longitude: nil))
-            self.tracking.accept(tracking)
+            self.trackingModel.accept(tracking)
         }.disposed(by: disposeBag)
 
         title.bind { [weak self] value in
             guard let self = self
             else { return }
 
-            var tracking = self.tracking.value
+            var tracking = self.trackingModel.value
             tracking.title = value
-            self.tracking.accept(tracking)
+            self.trackingModel.accept(tracking)
         }.disposed(by: disposeBag)
 
         content.bind { [weak self] value in
             guard let self = self
             else { return }
 
-            var tracking = self.tracking.value
+            var tracking = self.trackingModel.value
             tracking.content = value
-            self.tracking.accept(tracking)
+            self.trackingModel.accept(tracking)
         }.disposed(by: disposeBag)
 
         imageData.bind { value in
-            var tracking = self.tracking.value
+            var tracking = self.trackingModel.value
             tracking.imageData = value
-            self.tracking.accept(tracking)
+            self.trackingModel.accept(tracking)
         }.disposed(by: disposeBag)
 
         seconds.bind { [weak self] value in
             guard let self = self
             else { return }
 
-            var tracking = self.tracking.value
+            var tracking = self.trackingModel.value
             tracking.seconds = value
-            self.tracking.accept(tracking)
+            self.trackingModel.accept(tracking)
         }.disposed(by: disposeBag)
 
         steps.bind { [weak self] value in
             guard let self = self
             else { return }
 
-            var tracking = self.tracking.value
+            var tracking = self.trackingModel.value
 
             tracking.steps = value
             self.tracking.accept(tracking)
@@ -204,21 +183,21 @@ final class TrackingProgressViewModel {
             guard let self = self
             else { return }
 
-            var tracking = self.tracking.value
+            var tracking = self.trackingModel.value
             let met: Double = 4.8
             let perHourDistance = 5.6 * 1000
 
             tracking.distance += value
-            tracking.calories = Int(met * Double(self.user.value.weight) * (tracking.distance / perHourDistance))
+            tracking.calories = Int(met * Double(self.userModel.value.weight) * (tracking.distance / perHourDistance))
 
-            self.tracking.accept(tracking)
+            self.trackingModel.accept(tracking)
         }.disposed(by: disposeBag)
     }
 
     private func fetchUserInfo() {
         trackingUsecase.fetch()
             .subscribe { [weak self] value in
-                self?.user.accept(value)
+                self?.userModel.accept(value)
             }.disposed(by: disposeBag)
     }
 }

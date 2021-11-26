@@ -23,8 +23,16 @@ final class Coordinates {
         return coordinates[index]
     }
 
-    init(coordinates: [Coordinate] = []) {
+    init() {
+        self.coordinates = []
+    }
+
+    init(coordinates: [Coordinate]) {
         self.coordinates = coordinates
+    }
+
+    init(coordinate: Coordinate) {
+        self.coordinates = [coordinate]
     }
 
     func append(_ coordinate: Coordinate) {
@@ -33,6 +41,10 @@ final class Coordinates {
 
     func append(_ newCoordinates: [Coordinate]) {
         coordinates += newCoordinates
+    }
+
+    func append(_ newCoordinates: Coordinates) {
+        coordinates += newCoordinates.coordinates
     }
 
     func center() -> Coordinate {
