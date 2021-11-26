@@ -175,8 +175,8 @@ final class TrackingProgressViewModel {
 
             var tracking = self.trackingModel.value
 
-            tracking.steps += value
-            self.trackingModel.accept(tracking)
+            tracking.steps = value
+            self.tracking.accept(tracking)
         }.disposed(by: disposeBag)
 
         distance.bind { [weak self] value in

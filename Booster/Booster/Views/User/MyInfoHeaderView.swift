@@ -10,4 +10,5 @@ import UIKit
 final class MyInfoHeaderView: UITableViewHeaderFooterView {
     @IBOutlet weak var headerTitleLabel: UILabel!
 
+    static let viewHeight: CGFloat = 60
 }

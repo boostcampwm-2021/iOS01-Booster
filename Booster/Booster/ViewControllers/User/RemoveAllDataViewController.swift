@@ -13,8 +13,23 @@ final class RemoveAllDataViewController: UIViewController, BaseViewControllerTem
     @IBOutlet private weak var subTitleLabel: UILabel!
 
     // MARK: - Properties
-    var viewModel = UserViewModel()
+    var viewModel: UserViewModel
     private let disposeBag = DisposeBag()
+
+    // MARK: - Init
+    init(viewModel: UserViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    init?(coder: NSCoder, viewModel: UserViewModel) {
+        self.viewModel = viewModel
+        super.init(coder: coder)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     // MARK: - Life Cycles
     override func viewDidLoad() {
@@ -24,7 +39,7 @@ final class RemoveAllDataViewController: UIViewController, BaseViewControllerTem
         bind()
     }
 
-    // MAKR: - @IBAction
+    // MARK: - @IBAction
     @IBAction private func removeAllButtonDidTap(_ sender: UIButton) {
         var alert = UIAlertController()
 

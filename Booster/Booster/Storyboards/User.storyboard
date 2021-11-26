@@ -32,7 +32,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="XCD-IF-09o">
-                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="psA-Kf-U6R">
@@ -57,7 +57,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="qsR-Ob-qOH"/>
-                    <nil key="simulatedTopBarMetrics"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="userTableView" destination="XCD-IF-09o" id="euh-jb-cfN"/>
@@ -80,7 +79,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jtX-Va-dPj">
-                                <rect key="frame" x="25" y="74" width="175" height="109.5"/>
+                                <rect key="frame" x="25" y="118" width="175" height="109.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="아쉬워요" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OdZ-V0-8i8">
                                         <rect key="frame" x="0.0" y="0.0" width="175" height="36.5"/>
@@ -103,13 +102,13 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="산책에 대한 기록들은..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UtB-LM-UFO">
-                                <rect key="frame" x="25" y="193.5" width="364" height="22"/>
+                                <rect key="frame" x="25" y="237.5" width="364" height="22"/>
                                 <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="15"/>
                                 <color key="textColor" name="boosterGray"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ozo-g4-J7M">
-                                <rect key="frame" x="25" y="681" width="364" height="46"/>
+                                <rect key="frame" x="25" y="632" width="364" height="46"/>
                                 <color key="backgroundColor" name="boosterOrange"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46" id="kjT-2K-ZtJ"/>
@@ -158,6 +157,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="subTitleLabel" destination="UtB-LM-UFO" id="KeV-Nx-pbc"/>
                     </connections>
@@ -175,13 +175,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="별명" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RpI-2Q-lvm">
-                                <rect key="frame" x="25" y="84" width="364" height="22"/>
+                                <rect key="frame" x="25" y="128" width="364" height="22"/>
                                 <fontDescription key="fontDescription" name="NotoSansKR-Bold" family="Noto Sans KR" pointSize="15"/>
                                 <color key="textColor" name="boosterGray"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder=" " textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7pw-cZ-Igf" customClass="EditUserInfoTextField" customModule="Booster" customModuleProvider="target">
-                                <rect key="frame" x="25" y="114" width="364" height="30.5"/>
+                                <rect key="frame" x="25" y="158" width="364" height="30.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30.5" id="Z87-29-sTc"/>
                                 </constraints>
@@ -190,13 +190,13 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="키" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZEf-np-hs6">
-                                <rect key="frame" x="25" y="154.5" width="364" height="22"/>
+                                <rect key="frame" x="25" y="198.5" width="364" height="22"/>
                                 <fontDescription key="fontDescription" name="NotoSansKR-Bold" family="Noto Sans KR" pointSize="15"/>
                                 <color key="textColor" name="boosterGray"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder=" " textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pZT-3t-4Sp" customClass="EditUserInfoTextField" customModule="Booster" customModuleProvider="target">
-                                <rect key="frame" x="25" y="184.5" width="364" height="30.5"/>
+                                <rect key="frame" x="25" y="228.5" width="364" height="30.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30.5" id="s6y-R5-Fim"/>
                                 </constraints>
@@ -205,13 +205,13 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="몸무게" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jgP-4D-pdW">
-                                <rect key="frame" x="25" y="225" width="364" height="22"/>
+                                <rect key="frame" x="25" y="269" width="364" height="22"/>
                                 <fontDescription key="fontDescription" name="NotoSansKR-Bold" family="Noto Sans KR" pointSize="15"/>
                                 <color key="textColor" name="boosterGray"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder=" " textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fBf-Mu-VWA" customClass="EditUserInfoTextField" customModule="Booster" customModuleProvider="target">
-                                <rect key="frame" x="25" y="255" width="364" height="30.5"/>
+                                <rect key="frame" x="25" y="299" width="364" height="30.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30.5" id="d1v-Wh-nIT"/>
                                 </constraints>
@@ -220,13 +220,13 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="나이" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t7E-lB-x2X">
-                                <rect key="frame" x="25" y="295.5" width="364" height="22"/>
+                                <rect key="frame" x="25" y="339.5" width="364" height="22"/>
                                 <fontDescription key="fontDescription" name="NotoSansKR-Bold" family="Noto Sans KR" pointSize="15"/>
                                 <color key="textColor" name="boosterGray"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder=" " textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Egg-GA-zrJ" customClass="EditUserInfoTextField" customModule="Booster" customModuleProvider="target">
-                                <rect key="frame" x="25" y="325.5" width="364" height="30.5"/>
+                                <rect key="frame" x="25" y="369.5" width="364" height="30.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30.5" id="CJ5-MR-nwZ"/>
                                 </constraints>
@@ -235,7 +235,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Stz-uY-Rct">
-                                <rect key="frame" x="25" y="396" width="364" height="46"/>
+                                <rect key="frame" x="25" y="440" width="364" height="46"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hU4-q3-XZt">
                                         <rect key="frame" x="0.0" y="0.0" width="172" height="46"/>
@@ -285,7 +285,7 @@
                                 </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="성별" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VjS-rT-0VE">
-                                <rect key="frame" x="25" y="366" width="364" height="22"/>
+                                <rect key="frame" x="25" y="410" width="364" height="22"/>
                                 <fontDescription key="fontDescription" name="NotoSansKR-Bold" family="Noto Sans KR" pointSize="15"/>
                                 <color key="textColor" name="boosterGray"/>
                                 <nil key="highlightedColor"/>
@@ -360,7 +360,7 @@
                             </button>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="ageTextField" destination="Egg-GA-zrJ" id="CNd-i4-QMs"/>
                         <outlet property="femaleGenderButton" destination="hU4-q3-XZt" id="U6q-WX-M7l"/>
@@ -388,22 +388,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="현재 알림이 꺼져있어요" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xz2-Wu-k6x">
-                                <rect key="frame" x="25" y="94" width="244" height="37"/>
+                                <rect key="frame" x="25" y="138" width="244" height="37"/>
                                 <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans KR" pointSize="25"/>
                                 <color key="textColor" name="boosterLabel"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="알람알람알람알람알람알람알람알람알람알람알람알람알람알람알람알람알람알람알람" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JtG-MH-oly">
-                                <rect key="frame" x="25" y="141" width="364" height="43.5"/>
+                                <rect key="frame" x="25" y="185" width="364" height="43.5"/>
                                 <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="15"/>
                                 <color key="textColor" name="boosterGray"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="notificationOff" translatesAutoresizingMaskIntoConstraints="NO" id="26g-HZ-HCc">
-                                <rect key="frame" x="157.5" y="264.5" width="99" height="110"/>
+                                <rect key="frame" x="157.5" y="308.5" width="99" height="110"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="raC-gZ-MLa">
-                                <rect key="frame" x="25" y="444.5" width="364" height="46"/>
+                                <rect key="frame" x="25" y="488.5" width="364" height="46"/>
                                 <color key="backgroundColor" name="boosterOrange"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46" id="jJO-Lt-ojf"/>
@@ -453,6 +453,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="notificationImageView" destination="26g-HZ-HCc" id="kfL-8D-4ds"/>
                         <outlet property="onOffButton" destination="raC-gZ-MLa" id="gaJ-Lp-bQZ"/>
@@ -473,13 +474,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="목표" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pbg-5Z-gId">
-                                <rect key="frame" x="25" y="74" width="46" height="36.5"/>
+                                <rect key="frame" x="25" y="118" width="46" height="36.5"/>
                                 <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans KR" pointSize="25"/>
                                 <color key="textColor" name="boosterLabel"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eic-A8-vjy">
-                                <rect key="frame" x="55" y="200.5" width="304" height="73"/>
+                                <rect key="frame" x="55" y="244.5" width="304" height="73"/>
                                 <color key="backgroundColor" name="boosterBackground"/>
                                 <color key="tintColor" name="boosterOrange"/>
                                 <color key="textColor" name="boosterOrange"/>
@@ -525,6 +526,7 @@
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="stepsTextField" destination="eic-A8-vjy" id="Yop-zb-Za8"/>
                         <outlet property="titleLabel" destination="Pbg-5Z-gId" id="Fnh-bx-hSk"/>
