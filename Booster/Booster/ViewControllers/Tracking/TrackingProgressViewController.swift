@@ -87,7 +87,9 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
                 guard let text = value
                 else { return }
 
-                self?.viewModel.content.onNext(text)
+                if textView.textColor != .lightGray {
+                    self?.viewModel.content.onNext(text)
+                }
             }.disposed(by: disposeBag)
         textView.delegate = self
         return textView
