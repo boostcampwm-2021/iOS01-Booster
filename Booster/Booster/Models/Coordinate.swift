@@ -50,6 +50,12 @@ final class Coordinates {
         return Coordinate(latitude: centerLatitude, longitude: centerLongitude)
     }
 
+    func indexRatio(_ coordinate: Coordinate) -> Double? {
+        guard let index = coordinates.firstIndex(of: coordinate)
+        else { return nil }
+        return Double(index) / Double(coordinates.count)
+    }
+
     func firstIndex(of coordinate: Coordinate) -> Int? {
         return coordinates.firstIndex(of: coordinate)
     }

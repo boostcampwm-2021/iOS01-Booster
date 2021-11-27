@@ -30,14 +30,8 @@ final class DetailFeedViewModel {
 
     // MARK: - Functions
     func milestone(at coordinate: Coordinate) -> Milestone? {
-        let target = trackingModel.value.milestones.first(where: { value in
-            return value.coordinate == coordinate
-        })
-
-        return target
+        return trackingModel.value.milestones.filter { $0.coordinate == coordinate }.first
     }
-
-    func reset() { gradientColorOffset = -1 }
 
     func remove(of milestone: Milestone) {
         guard let index = trackingModel.value.milestones.firstIndex(of: milestone)
@@ -83,9 +77,13 @@ final class DetailFeedViewModel {
         return nil
     }
 
-    func offsetOfGradientColor() -> Int {
+    func offsetOfGradientColorCoordinate() -> Coordinate? {
         gradientColorOffset += 1
-        return gradientColorOffset
+        return trackingModel.value.coordinates[gradientColorOffset] ?? nil
+    }
+
+    func indexRatioOfCoordinate(_ coordinate: Coordinate) -> Double? {
+        return trackingModel.value.coordinates.indexRatio(coordinate)
     }
 
     func fetchDetailFeedList() {

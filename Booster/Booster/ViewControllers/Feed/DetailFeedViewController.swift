@@ -27,7 +27,6 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
 
     var viewModel: DetailFeedViewModel
     private let disposeBag = DisposeBag()
-    private var gradientColors: [UIColor] = []
 
     // MARK: - Init
     init?(coder: NSCoder, viewModel: DetailFeedViewModel) {
@@ -130,8 +129,6 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
 
         findLocationTitle(coordinate: startPoint)
 
-        gradientColors = value.coordinates.all.map { pathMapView.gradientColorOfCoordinate(at: $0, coordinates: value.coordinates, from: .boosterBackground, to: .boosterOrange) ?? .clear  }
-
         createPath(points: points, meter: value.distance * 1000)
     }
 
@@ -226,12 +223,16 @@ extension DetailFeedViewController {
 // MARK: - MapView Delegate
 extension DetailFeedViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        guard let polyLine = overlay as? MKPolyline
+        guard let polyLine = overlay as? MKPolyline,
+              let coordinate = viewModel.offsetOfGradientColorCoordinate(),
+              let ratio = viewModel.indexRatioOfCoordinate(coordinate)
         else { return MKOverlayRenderer() }
 
         let polyLineRenderer = MKPolylineRenderer(polyline: polyLine)
-        polyLineRenderer.strokeColor = gradientColors[viewModel.offsetOfGradientColor()]
         polyLineRenderer.lineWidth = 8
+        polyLineRenderer.strokeColor = pathMapView.gradientColorOfCoordinate(indexRatio: ratio,
+                                                                             from: .boosterBackground,
+                                                                             to: .boosterOrange)
         return polyLineRenderer
     }
 
@@ -251,7 +252,11 @@ extension DetailFeedViewController: MKMapViewDelegate {
         switch identifier {
         case .milestone:
             guard let milestone = viewModel.milestone(at: coordinate),
-                  let annotationView = pathMapView.createMilestoneView(milestone: milestone, color: gradientColors[viewModel.indexOfCoordinate(coordinate) ?? 0])
+                  let ratio = viewModel.indexRatioOfCoordinate(coordinate),
+                  let annotationView = pathMapView.createMilestoneView(milestone: milestone,
+                                                                       color: pathMapView.gradientColorOfCoordinate(indexRatio: ratio,
+                                                                                                                    from: .boosterBackground,
+                                                                                                                    to: .boosterOrange) ?? .boosterOrange)
             else { return nil }
             return annotationView
         case .startDot, .endDot:
