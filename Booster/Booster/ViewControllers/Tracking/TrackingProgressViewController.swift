@@ -148,17 +148,27 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         let time = timerTime + lastestTime
         let limit: Double = 300
 
-        pedometer.queryPedometerData(from: Date(timeIntervalSinceNow: -limit), to: Date()) { data, _ in
-            guard let data = data, let distance = data.distance?.intValue
-            else { return }
-            isMoved = distance > 5
-        }
+        if CMPedometer.authorizationStatus() == .authorized {
+            pedometer.queryPedometerData(from: Date(timeIntervalSinceNow: -limit), to: Date()) { data, _ in
+                guard let data = data, let distance = data.distance?.intValue
+                else { return }
+                isMoved = distance > 5
+            }
 
-        pedometer.queryPedometerData(from: timerDate, to: Date()) { [weak self] data, _ in
-            guard let data = data
-            else { return }
+            pedometer.queryPedometerData(from: timerDate, to: Date()) { [weak self] data, _ in
+                guard let data = data
+                else { return }
 
-            self?.viewModel.steps.onNext(data.numberOfSteps.intValue + (self?.pedomterSteps ?? 0))
+                self?.viewModel.steps.onNext(data.numberOfSteps.intValue + (self?.pedomterSteps ?? 0))
+            }
+        } else {
+            viewModel.state.accept(.pause)
+
+            let title = "동작 및 피트니스"
+            let content = "걸음 수 기록을 위해 동작 및 피트니스를 설정 앱에서 권한을 허용해주시기 바랍니다."
+            let alertController: UIAlertController = .simpleAlert(title: title, message: content)
+
+            present(alertController, animated: true)
         }
 
         switch isMoved && timerTime <= Int(limit) {
@@ -257,8 +267,8 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
                     if let _ = self.viewModel.trackingModel.value.milestones.milestone(at: currentCoordinate) {
                         let title = "추가 실패"
                         let message = "이미 다른 마일스톤이 존재합니다\n작성한 마일스톤을 제거해주세요"
-                        let alert: UIAlertController = .simpleAlert(title: title, message: message)
-                        self.present(alert, animated: true, completion: nil)
+                        let alertController: UIAlertController = .simpleAlert(title: title, message: message)
+                        self.present(alertController, animated: true, completion: nil)
                     } else {
                         #if targetEnvironment(simulator)
                         let milestone = Milestone(latitude: currentLatitude,
@@ -270,7 +280,15 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
                         #endif
                     }
                 default:
-                    self.viewModel.state.accept(.end)
+                    let title = "기록 종료"
+                    let content = "기록을 종료하고 저장 단계로 넘어가시겠습니까?"
+                    let alertController: UIAlertController = .alert(title: title,
+                                                                    message: content,
+                                                                    success: { _ in
+                        self.viewModel.state.accept(.end)
+                    })
+
+                    self.present(alertController, animated: true)
                 }
             }.disposed(by: disposeBag)
 
@@ -284,7 +302,20 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
                 case .end:
                     self.makeImageData()
                 default:
-                    self.viewModel.state.accept(self.viewModel.state.value == .start ? .pause : .start)
+                    let status = CLLocationManager.authorizationStatus()
+                    if CMPedometer.authorizationStatus() == .authorized
+                        && CLLocationManager.locationServicesEnabled()
+                        && status != .denied
+                        && status != .notDetermined
+                        && status != .restricted {
+                        self.viewModel.state.accept(self.viewModel.state.value == .start ? .pause : .start)
+                    } else {
+                        let title = "동작/피트니스 및 위치 권한"
+                        let content = "걸음 수 기록 및 위치 정보 수집을 위해 설정 앱에서 권한을 확인 해주시기 바랍니다."
+                        let alertController: UIAlertController = .simpleAlert(title: title, message: content)
+
+                        self.present(alertController, animated: true)
+                    }
                 }
             }.disposed(by: disposeBag)
     }
@@ -402,7 +433,6 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         pedometer.stopEventUpdates()
         manager.stopUpdatingLocation()
         manager.stopMonitoringSignificantLocationChanges()
-        pedometer.stopUpdates()
 
         leftButton.isHidden = true
         userLocationButton.isHidden = true
@@ -531,9 +561,7 @@ extension TrackingProgressViewController: CLLocationManagerDelegate {
 
             let title = "위치 권한"
             let content = "기록을 위해 위치 권한을 설정 앱에서 위치 권한을 켜주시기 바랍니다."
-            let alertController: UIAlertController = .simpleAlert(title: title, message: content) { [weak self] _ in
-                self?.navigationController?.popViewController(animated: true)
-            }
+            let alertController: UIAlertController = .simpleAlert(title: title, message: content)
 
             present(alertController, animated: true)
         case .notDetermined:
