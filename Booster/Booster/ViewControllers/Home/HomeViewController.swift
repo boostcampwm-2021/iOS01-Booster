@@ -38,9 +38,9 @@ final class HomeViewController: UIViewController {
         let shareTypes = Set([activeEnergyBurned, distanceWalkingRunning, stepCount])
         let readTypes = Set([activeEnergyBurned, distanceWalkingRunning, stepCount])
 
-        HealthStoreManager.shared.requestAuthorization(shareTypes: shareTypes, readTypes: readTypes) { isSuccess in
+        HealthStoreManager.shared.requestAuthorization(shareTypes: shareTypes, readTypes: readTypes) { [weak self] isSuccess in
             if isSuccess {
-                self.viewModel.fetchQueries()
+                self?.viewModel.fetchQueries()
             }
         }
     }
@@ -60,7 +60,6 @@ final class HomeViewController: UIViewController {
     private func updateUI(using homeModel: HomeModel) {
         guard let stepRatios = homeModel.stepRatios()
         else { return }
-        if stepRatios.count == 0 { return }
 
         kmLabel.text = String(format: "%.2f", homeModel.km)
         kcalLabel.text = "\(homeModel.kcal)"

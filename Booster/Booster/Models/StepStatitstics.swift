@@ -10,9 +10,9 @@ import Foundation
 struct StepStatistics {
     let step: Int
     let abbreviatedDateString: String
-    let intervalString: String?
+    let intervalString: String
 
-    init(step: Int, abbreviatedDateString: String, intervalString: String? = nil) {
+    init(step: Int, abbreviatedDateString: String, intervalString: String = String()) {
         self.step = step
         self.abbreviatedDateString = abbreviatedDateString
         self.intervalString = intervalString
@@ -55,7 +55,7 @@ struct StepStatisticsCollection {
 
     func stepRatios() -> [Float]? {
         guard let maxStepStatistics = maxStepStatistics(),
-              maxStepStatistics.step > 0 else { return [Float](repeating: Float(0.0), count: stepStatisticsCollection.count) }
+              maxStepStatistics.step > 0 else { return [Float](repeating: 0, count: stepStatisticsCollection.count) }
 
         return stepStatisticsCollection.map { Float($0.step) / Float(maxStepStatistics.step) }
     }
