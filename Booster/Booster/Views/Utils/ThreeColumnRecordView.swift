@@ -90,7 +90,7 @@ final class ThreeColumnRecordView: UIView {
 
         kcalLabel.translatesAutoresizingMaskIntoConstraints = false
         kcalLabel.topAnchor.constraint(equalTo: kcalRecordLabel.bottomAnchor, constant: 5).isActive = true
-        kcalLabel.centerXAnchor.constraint(equalToSystemSpacingAfter: kcalRecordLabel.centerXAnchor, multiplier: 0.97).isActive = true
+        kcalLabel.widthAnchor.constraint(equalTo: kcalRecordLabel.widthAnchor, multiplier: 0.97).isActive = true
 
         timeRecordLabel.translatesAutoresizingMaskIntoConstraints = false
         timeRecordLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1.008).isActive = true
@@ -106,7 +106,7 @@ final class ThreeColumnRecordView: UIView {
         kmRecordLabel.centerYAnchor.constraint(equalTo: kcalRecordLabel.centerYAnchor).isActive = true
 
         kmLabel.translatesAutoresizingMaskIntoConstraints = false
-        kmLabel.centerXAnchor.constraint(equalToSystemSpacingAfter: kmRecordLabel.centerXAnchor, multiplier: 0.996).isActive = true
+        kmLabel.widthAnchor.constraint(equalTo: kmRecordLabel.widthAnchor, multiplier: 0.996).isActive = true
         kmLabel.centerYAnchor.constraint(equalTo: kcalLabel.centerYAnchor).isActive = true
     }
 }

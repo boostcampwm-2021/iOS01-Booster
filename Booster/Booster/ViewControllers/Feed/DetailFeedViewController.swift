@@ -74,16 +74,14 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
         viewModel.isDeletedMilestone
             .observe(on: MainScheduler.instance)
             .bind { [weak self] isDeleted in
-                if isDeleted { self?.presentAlertController(title: "삭제 완료", message: "마일스톤을 삭제했어요") }
-                else { self?.presentAlertController(title: "삭제 오류", message: "마일스톤을 삭제하는 데 문제가 생겼어요\n잠시 후 다시 시도해주세요") }
+                if isDeleted { self?.presentAlertController(title: "삭제 완료", message: "마일스톤을 삭제했어요") } else { self?.presentAlertController(title: "삭제 오류", message: "마일스톤을 삭제하는 데 문제가 생겼어요\n잠시 후 다시 시도해주세요") }
             }
             .disposed(by: disposeBag)
 
         viewModel.isDeletedAll
             .observe(on: MainScheduler.instance)
             .bind { [weak self] isDeleted in
-                if isDeleted { self?.presentDeleteAlertController() }
-                else { self?.presentAlertController(title: "삭제 실패", message: "산책 기록을 삭제할 수 없어요\n잠시 후 다시 시도해주세요") }
+                if isDeleted { self?.presentDeleteAlertController() } else { self?.presentAlertController(title: "삭제 실패", message: "산책 기록을 삭제할 수 없어요\n잠시 후 다시 시도해주세요") }
             }
             .disposed(by: disposeBag)
     }
