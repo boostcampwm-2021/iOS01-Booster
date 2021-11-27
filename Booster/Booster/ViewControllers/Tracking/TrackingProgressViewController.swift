@@ -329,7 +329,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
                 if value != .end {
                     self?.update()
                 } else {
-                    self?.stopTracking()
+                    self?.viewModel.address(observable: self?.locationToAddress() ?? Observable<String>.empty())
                     self?.stopAnimation()
                 }
             }).disposed(by: disposeBag)
@@ -431,10 +431,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         let title = " steps"
         let content = "\(viewModel.trackingModel.value.steps)"
 
-        pedometer.stopUpdates()
-        pedometer.stopEventUpdates()
-        manager.stopUpdatingLocation()
-        manager.stopMonitoringSignificantLocationChanges()
+        stopTracking()
 
         leftButton.isHidden = true
         userLocationButton.isHidden = true
@@ -527,6 +524,26 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         manager.stopUpdatingLocation()
         pedometer.stopUpdates()
         pedometer.stopEventUpdates()
+    }
+
+    private func locationToAddress() -> Observable<String> {
+        return Observable.create { [weak self] observable in
+            guard let center = self?.viewModel.centerCoordinateOfPath()
+            else { return Disposables.create { observable.onCompleted() } }
+
+            let location = CLLocation(latitude: center.latitude, longitude: center.longitude)
+            let geocoder = CLGeocoder()
+            let locale = Locale(identifier: "Ko-kr")
+            geocoder.reverseGeocodeLocation(location, preferredLocale: locale) { placemarks, _ in
+                guard let placemarks = placemarks,
+                      let address = placemarks.last
+                else { return }
+
+                observable.onNext("\(address.locality ?? "-") \(address.subLocality ?? "-"), \(address.administrativeArea ?? "")")
+            }
+
+            return Disposables.create { observable.onCompleted() }
+        }
     }
 }
 
