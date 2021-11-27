@@ -15,9 +15,7 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var locationInfoLabel: UILabel!
     @IBOutlet private weak var stepCountsLabel: UILabel!
-    @IBOutlet private weak var kcalLabel: UILabel!
-    @IBOutlet private weak var timeLabel: UILabel!
-    @IBOutlet private weak var kmLabel: UILabel!
+    @IBOutlet private weak var recordView: ThreeColumnRecordView!
     @IBOutlet private weak var settingBarButtonItem: UIBarButtonItem!
 
     @IBOutlet private weak var contentTextView: UITextView!
@@ -66,39 +64,37 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
             })
             .disposed(by: disposeBag)
 
-        viewModel.trackingModel
-            .observe(on: MainScheduler.instance)
-            .subscribe { [weak self] value in
-                guard let model = value.element
-                else { return }
-
+        viewModel.trackingModel.asDriver()
+            .drive(onNext: { [weak self] tracking in
                 self?.pathMapView.removeAnnotations(self?.pathMapView.annotations ?? [])
-                self?.configureUI(value: model)
-
-            }
+                self?.configureUI(value: tracking)
+            })
             .disposed(by: disposeBag)
 
         viewModel.isDeletedMilestone
             .observe(on: MainScheduler.instance)
             .bind { [weak self] isDeleted in
-                if isDeleted { self?.presentAlertController(title: "삭제 완료", message: "마일스톤을 삭제했어요") } else { self?.presentAlertController(title: "삭제 오류", message: "마일스톤을 삭제하는 데 문제가 생겼어요\n잠시 후 다시 시도해주세요") }
+                if isDeleted { self?.presentAlertController(title: "삭제 완료", message: "마일스톤을 삭제했어요") }
+                else { self?.presentAlertController(title: "삭제 오류", message: "마일스톤을 삭제하는 데 문제가 생겼어요\n잠시 후 다시 시도해주세요") }
             }
             .disposed(by: disposeBag)
 
         viewModel.isDeletedAll
             .observe(on: MainScheduler.instance)
             .bind { [weak self] isDeleted in
-                if isDeleted { self?.presentDeleteAlertController() } else { self?.presentAlertController(title: "삭제 실패", message: "산책 기록을 삭제할 수 없어요\n잠시 후 다시 시도해주세요") }
+                if isDeleted { self?.presentDeleteAlertController() }
+                else { self?.presentAlertController(title: "삭제 실패", message: "산책 기록을 삭제할 수 없어요\n잠시 후 다시 시도해주세요") }
             }
             .disposed(by: disposeBag)
     }
 
     private func configureUI(value: TrackingModel) {
+        recordView.configureLabels(kcal: "\(value.calories)",
+                                   time: TimeInterval(value.seconds).stringToMinutesAndSeconds(),
+                                   km: String(format: "%.2f", value.distance))
+
         titleLabel.text = value.title
         stepCountsLabel.text = "\(value.steps)"
-        kcalLabel.text = "\(value.calories)"
-        timeLabel.text = TimeInterval(value.seconds).stringToMinutesAndSeconds()
-        kmLabel.text = String(format: "%.2f", value.distance)
         contentTextView.text = value.content
 
         configureScrollViewHeight()
@@ -175,36 +171,13 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
 // MARK: - Setting ActionSheet Alert Events
 extension DetailFeedViewController {
     private func shareDetailFeedImage() {
-        guard let image = snapshot()
+        guard let image = screenshotView.snapshot()
         else { return }
 
         let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = view
 
         present(activityViewController, animated: true, completion: nil)
-    }
-
-    private func snapshot() -> UIImage? {
-        let currentFrame: CGRect = screenshotView.frame
-
-        screenshotView.frame = CGRect.init(x: 0,
-                                           y: 0,
-                                           width: screenshotView.frame.size.width,
-                                           height: screenshotView.frame.size.height)
-
-        UIGraphicsBeginImageContextWithOptions(screenshotView.frame.size,
-                                               true,
-                                               0.0)
-        guard let cgContext = UIGraphicsGetCurrentContext()
-        else { return nil }
-        screenshotView.layer.render(in: cgContext)
-        guard let image = UIGraphicsGetImageFromCurrentImageContext()
-        else { return nil }
-        screenshotView.frame = currentFrame
-
-        UIGraphicsEndImageContext()
-
-        return image
     }
 
     private func removeDetailFeed() {
@@ -318,7 +291,6 @@ extension DetailFeedViewController {
 
         let milestonePhotoViewModel = MilestonePhotoViewModel(milestone: selectedMileStone)
         let milestonePhotoViewController = MilestonePhotoViewController(viewModel: milestonePhotoViewModel)
-        milestonePhotoViewController.viewModel = milestonePhotoViewModel
         milestonePhotoViewController.delegate = self
 
         present(milestonePhotoViewController, animated: true, completion: nil)

@@ -19,6 +19,8 @@
 		28C9703D274C87D1005BD7BC /* WritingRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C9703C274C87D1005BD7BC /* WritingRecord.swift */; };
 		28C97066274E21CC005BD7BC /* BoosterMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C97065274E21CC005BD7BC /* BoosterMapView.swift */; };
 		28C97068274E26E1005BD7BC /* DetailFeedMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C97067274E26E1005BD7BC /* DetailFeedMapView.swift */; };
+		28C9708A275283FA005BD7BC /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C97089275283FA005BD7BC /* UIView+Extension.swift */; };
+		28C9708C27528CFC005BD7BC /* ThreeColumnRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C9708B27528CFC005BD7BC /* ThreeColumnRecordView.swift */; };
 		37852ACF273C27F100BA3D67 /* StatisticsModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37852ACE273C27F100BA3D67 /* StatisticsModelTests.swift */; };
 		37852AD8273C2D0B00BA3D67 /* StepStatisticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37852AD7273C2D0B00BA3D67 /* StepStatisticsTests.swift */; };
 		379E3C57273BC182002B0B15 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379E3C56273BC182002B0B15 /* ChartView.swift */; };
@@ -161,6 +163,8 @@
 		28C9703C274C87D1005BD7BC /* WritingRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingRecord.swift; sourceTree = "<group>"; };
 		28C97065274E21CC005BD7BC /* BoosterMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterMapView.swift; sourceTree = "<group>"; };
 		28C97067274E26E1005BD7BC /* DetailFeedMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFeedMapView.swift; sourceTree = "<group>"; };
+		28C97089275283FA005BD7BC /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		28C9708B27528CFC005BD7BC /* ThreeColumnRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeColumnRecordView.swift; sourceTree = "<group>"; };
 		37852ACC273C27F100BA3D67 /* StatisticsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StatisticsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		37852ACE273C27F100BA3D67 /* StatisticsModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsModelTests.swift; sourceTree = "<group>"; };
 		37852AD7273C2D0B00BA3D67 /* StepStatisticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepStatisticsTests.swift; sourceTree = "<group>"; };
@@ -364,6 +368,7 @@
 				3B6FE5022743A85B00A815D1 /* InfoPickerView.swift */,
 				28C97065274E21CC005BD7BC /* BoosterMapView.swift */,
 				FA614F8D2733CF9000B090D9 /* EmptyView.swift */,
+				28C9708B27528CFC005BD7BC /* ThreeColumnRecordView.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -679,6 +684,7 @@
 				FA473A04273A1F8A0000C5DC /* UIImage+Extension.swift */,
 				28C96FF2273A4634005BD7BC /* UIResponder+Extension.swift */,
 				FACBAB692746034900CD6B76 /* UIButton+Extension.swift */,
+				28C97089275283FA005BD7BC /* UIView+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1011,6 +1017,7 @@
 				FA473A4527438A3E0000C5DC /* MyInfoHeaderView.swift in Sources */,
 				3B37B99C274371B9001EB120 /* GenderEnrollView.swift in Sources */,
 				FA614F792733CDAA00B090D9 /* UIAlertController+Extention.swift in Sources */,
+				28C9708A275283FA005BD7BC /* UIView+Extension.swift in Sources */,
 				FA614F832733CDAA00B090D9 /* FeedViewController.swift in Sources */,
 				FA614F712733CDAA00B090D9 /* Milestone.swift in Sources */,
 				FA2578F72745E99800597382 /* EditUserInfoViewController.swift in Sources */,
@@ -1042,6 +1049,7 @@
 				FA614F942733D51C00B090D9 /* EnrollViewController.swift in Sources */,
 				FA614F7B2733CDAA00B090D9 /* BoosterObservable.swift in Sources */,
 				FA614F7F2733CDAA00B090D9 /* HomeViewController.swift in Sources */,
+				28C9708C27528CFC005BD7BC /* ThreeColumnRecordView.swift in Sources */,
 				28C9702D273C3041005BD7BC /* DetailFeedUsecase.swift in Sources */,
 				FA614F8A2733CDAA00B090D9 /* TrackingProgressUsecase.swift in Sources */,
 				FAAD240B274D0F23009E2F52 /* NotificationSettingViewModel.swift in Sources */,

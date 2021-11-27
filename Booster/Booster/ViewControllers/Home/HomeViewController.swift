@@ -8,6 +8,8 @@ final class HomeViewController: UIViewController {
     @IBOutlet private weak var kcalLabel: UILabel!
     @IBOutlet private weak var timeActiveLabel: UILabel!
     @IBOutlet private weak var kmLabel: UILabel!
+    @IBOutlet private weak var recordView: ThreeColumnRecordView!
+
     @IBOutlet private weak var todayTotalStepCountLabel: GradientLabel!
     @IBOutlet private weak var goalLabel: UILabel!
     @IBOutlet private weak var hourlyBarChartView: ChartView!
@@ -62,9 +64,10 @@ final class HomeViewController: UIViewController {
         else { return }
         if stepRatios.count == 0 { return }
 
-        kmLabel.text = String(format: "%.2f", homeModel.km)
-        kcalLabel.text = "\(homeModel.kcal)"
-        timeActiveLabel.text = homeModel.activeTime.stringToMinutesAndSeconds()
+        recordView.configureLabels(kcal: "\(homeModel.kcal)",
+                                   time: homeModel.activeTime.stringToMinutesAndSeconds(),
+                                   km: String(format: "%.2f", homeModel.km),
+                                   timeLabelName: "time active")
         hourlyBarChartView.drawChart(stepRatios: stepRatios.map { CGFloat($0) }, strings: ["0", "6", "12", "18"])
         todayTotalStepCountLabel.drawLabel(step: homeModel.totalStepCount, ratio: homeModel.gradientRatio())
     }
