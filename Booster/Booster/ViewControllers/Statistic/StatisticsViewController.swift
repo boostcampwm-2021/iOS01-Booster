@@ -23,33 +23,10 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
     @IBOutlet private weak var averageStepCountLabel: UILabel!
     @IBOutlet private weak var dateLabel: UILabel!
 
-    @IBOutlet private weak var chartView: ChartView!
+    @IBOutlet private weak var chartView: SelectionChartView!
 
     // MARK: - Properties
     private let disposeBag = DisposeBag()
-    private let sideInset: CGFloat = 20
-    private let fontSize: CGFloat = 15
-    private lazy var barView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .boosterLabel
-        return view
-    }()
-
-    private lazy var intervalLabel: UILabel = {
-        let label = UILabel()
-        label.frame.origin.y = chartView.frame.origin.y
-        label.font = UIFont.bazaronite(size: fontSize)
-        label.textColor = UIColor.boosterLabel
-        return label
-    }()
-
-    private lazy var stepCountLabel: UILabel = {
-        let label = UILabel()
-        label.frame.origin.y = chartView.frame.origin.y + fontSize
-        label.font = UIFont.bazaronite(size: fontSize)
-        label.textColor = UIColor.boosterLabel
-        return label
-    }()
 
     var viewModel = StatisticsViewModel()
 
@@ -57,7 +34,6 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        addSubviews()
         bind()
     }
 
@@ -70,12 +46,6 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
     }
 
     // MARK: - functions
-    private func addSubviews() {
-        view.addSubview(intervalLabel)
-        view.addSubview(stepCountLabel)
-        view.addSubview(barView)
-    }
-
     private func requestAuthorizationForStepCount() {
         guard let stepCount = HKQuantityType.quantityType(forIdentifier: .stepCount)
         else { return }
@@ -158,75 +128,60 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
 
     private func bind() {
         viewModel.selectedDuration
+            .subscribe(on: MainScheduler.instance)
             .debounce(RxTimeInterval.milliseconds(50), scheduler: MainScheduler.instance)
-            .subscribe(on: MainScheduler.asyncInstance)
             .distinctUntilChanged()
-            .observe(on: MainScheduler.instance)
             .bind(onNext: { [weak self] _ in
                 guard let self = self,
-                      let statisticsCollection = self.viewModel.selectedStatisticsCollection(),
-                      let stepRatios = statisticsCollection.stepRatios()?.map({ CGFloat($0) }),
-                      let stepCount = statisticsCollection.stepCountPerDuration()
+                      let statisticsCollection = self.viewModel.selectedStatisticsCollection()
                 else { return }
 
-                let strings = statisticsCollection.abbreviatedStrings()
-                self.chartView.drawChart(stepRatios: stepRatios, strings: strings)
-                self.averageStepCountLabel.text = String(stepCount)
-                self.dateLabel.text = statisticsCollection.durationString
+                self.updateDuration(using: statisticsCollection)
             })
             .disposed(by: disposeBag)
 
         viewModel.selectedStatisticsIndex
-            .subscribe(on: MainScheduler.asyncInstance)
+            .subscribe(on: MainScheduler.instance)
             .distinctUntilChanged()
-            .observe(on: MainScheduler.instance)
             .bind(onNext: { [weak self] index in
                 guard let self = self,
                       let statisticsCollection = self.viewModel.selectedStatisticsCollection()
                 else { return }
 
-                self.updateSelectedLabel(using: statisticsCollection, index: index)
+                self.updateSelection(using: statisticsCollection, index: index)
             })
             .disposed(by: disposeBag)
     }
 
-    private func updateSelectedLabel(using statisticsCollection: StepStatisticsCollection, index: Int?) {
+    private func updateDuration(using statisticsCollection: StepStatisticsCollection) {
+        guard let stepRatios = statisticsCollection.stepRatios()?.map({ CGFloat($0) }),
+              let stepCount = statisticsCollection.stepCountPerDuration()
+        else { return }
+
+        averageStepCountLabel.text = String(stepCount)
+        dateLabel.text = statisticsCollection.durationString
+
+        let strings = statisticsCollection.abbreviatedStrings()
+        chartView.drawChart(stepRatios: stepRatios, strings: strings)
+    }
+
+    private func updateSelection(using statisticsCollection: StepStatisticsCollection, index: Int?) {
         guard let index = index,
               let stepRatios = statisticsCollection.stepRatios()
         else {
-            stepCountLabel.text = String()
-            intervalLabel.text = String()
-            barView.frame = .zero
+            chartView.clearSelection()
             return
         }
 
-        let selectedStatistics: StepStatistics = statisticsCollection[index]
-
-        let step = selectedStatistics.step
-        let intervalString = selectedStatistics.intervalString
-
         let xOffset = 1 / CGFloat(statisticsCollection.count)
         let centerLabel = 0.5
-        let xCoordinate = (centerLabel + CGFloat(index)) * xOffset * chartView.frame.width + sideInset
-        let stepRatio = 1 - CGFloat(stepRatios[index])
+        let xCoordinate = (centerLabel + CGFloat(index)) * xOffset * chartView.frame.width
+        let height = 1 - CGFloat(stepRatios[index])
 
-        intervalLabel.text = intervalString
-        intervalLabel.sizeToFit()
-        intervalLabel.center.x = xCoordinate
+        let selectedStatistics: StepStatistics = statisticsCollection[index]
+        let step = selectedStatistics.step
+        let interval = selectedStatistics.intervalString
 
-        intervalLabel.frame.origin.x = max(intervalLabel.frame.origin.x, sideInset)
-        intervalLabel.frame.origin.x = min(intervalLabel.frame.origin.x, view.frame.width - intervalLabel.frame.width - sideInset)
-
-        stepCountLabel.text = "\(step)걸음"
-        stepCountLabel.sizeToFit()
-        stepCountLabel.center.x = xCoordinate
-
-        stepCountLabel.frame.origin.x = max(stepCountLabel.frame.origin.x, sideInset)
-        stepCountLabel.frame.origin.x = min(stepCountLabel.frame.origin.x, view.frame.width - stepCountLabel.frame.width - sideInset)
-
-        barView.frame = CGRect(x: xCoordinate,
-                               y: chartView.frame.origin.y + fontSize * 2,
-                               width: 1,
-                               height: chartView.topSpace - fontSize * 2 + chartView.centerSpace * stepRatio)
+        chartView.updateSelection(interval: interval, step: step, x: xCoordinate, height: height)
     }
 }

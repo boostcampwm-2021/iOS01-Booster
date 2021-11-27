@@ -20,12 +20,9 @@ final class StatisticsUsecase {
                   let type = HKQuantityType.quantityType(forIdentifier: .stepCount)
             else { return Disposables.create() }
 
-            var calendar = Calendar(identifier: .gregorian)
-            calendar.locale = Locale(identifier: "ko_KR")
+            let anchorDate = Calendar.current.startOfDay(for: Date())
 
-            let anchorDate = calendar.startOfDay(for: Date())
-
-            guard let startDate = calendar.date(byAdding: duration,
+            guard let startDate = Calendar.current.date(byAdding: duration,
                                                 value: -1,
                                                 to: anchorDate) else { return Disposables.create() }
 
@@ -47,7 +44,7 @@ final class StatisticsUsecase {
 
                 hkStatisticsCollection.enumerateStatistics(from: startDate, to: endDate) { (statistics, _) in
                     guard let quantity = statistics.sumQuantity(),
-                          let endDate = calendar.date(byAdding: .day, value: -1, to: statistics.endDate)
+                          let endDate = Calendar.current.date(byAdding: .day, value: -1, to: statistics.endDate)
                     else { return }
 
                     let startDate = statistics.startDate
@@ -72,10 +69,7 @@ final class StatisticsUsecase {
     }
 
     private func configureDurationString(startDate: Date, endDate: Date) -> String {
-        var calendar = Calendar(identifier: .gregorian)
-        calendar.locale = Locale(identifier: "ko_KR")
-
-        guard let endDate = calendar.date(byAdding: .day, value: -1, to: endDate)
+        guard let endDate = Calendar.current.date(byAdding: .day, value: -1, to: endDate)
         else { return String() }
 
         let dateFormatter = DateFormatter()
@@ -92,11 +86,8 @@ final class StatisticsUsecase {
 
         let startDateString = dateFormatter.string(from: startDate)
 
-        var calendar = Calendar.init(identifier: .gregorian)
-        calendar.locale = Locale(identifier: "ko_KR")
-
-        let startDateComponents = calendar.dateComponents([.year, .month, .day], from: startDate)
-        let endDateComponents   = calendar.dateComponents([.year, .month, .day], from: endDate)
+        let startDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: startDate)
+        let endDateComponents   = Calendar.current.dateComponents([.year, .month, .day], from: endDate)
 
         if startDateComponents.year != endDateComponents.year {
             return "\(startDateString) - \(dateFormatter.string(from: endDate))"

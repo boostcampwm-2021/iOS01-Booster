@@ -53,7 +53,8 @@ final class StatisticsViewModel {
 
     func selectStatistics(tappedCoordinate: Float) {
         guard let statisticsCollection = selectedStatisticsCollection(),
-              statisticsCollection.count > 0 else { return }
+              statisticsCollection.count > 0
+        else { return }
 
         let offset = 1 / Float(statisticsCollection.count)
         let selectedIndex = Int(tappedCoordinate / offset)
@@ -67,7 +68,8 @@ final class StatisticsViewModel {
 
     func selectStatistics(pannedCoordinate: Float) {
         guard let statisticsCollection = selectedStatisticsCollection(),
-              statisticsCollection.count > 0 else { return }
+              statisticsCollection.count > 0
+        else { return }
 
         let offset = 1 / Float(statisticsCollection.count)
         let selectedIndex = Int(pannedCoordinate / offset)
