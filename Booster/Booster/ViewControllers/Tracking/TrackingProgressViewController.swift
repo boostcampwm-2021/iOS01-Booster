@@ -253,7 +253,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
 
     private func bindView() {
         leftButton.rx.tap
-            .throttle(.seconds(1), scheduler: MainScheduler.asyncInstance)
+            .throttle(.microseconds(1500), scheduler: MainScheduler.asyncInstance)
             .bind { [weak self] _ in
                 guard let self = self
                 else { return }
