@@ -131,7 +131,7 @@ final class TrackingProgressViewModel {
             guard let self = self
             else { return }
 
-            var tracking = self.trackingModel.value
+            let tracking = self.trackingModel.value
             tracking.coordinates.append(Coordinate(latitude: nil, longitude: nil))
             self.trackingModel.accept(tracking)
         }.disposed(by: disposeBag)
