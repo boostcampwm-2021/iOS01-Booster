@@ -23,8 +23,16 @@ final class Coordinates {
         return coordinates[index]
     }
 
-    init(coordinates: [Coordinate] = []) {
+    init() {
+        self.coordinates = []
+    }
+
+    init(coordinates: [Coordinate]) {
         self.coordinates = coordinates
+    }
+
+    init(coordinate: Coordinate) {
+        self.coordinates = [coordinate]
     }
 
     func append(_ coordinate: Coordinate) {
@@ -33,6 +41,10 @@ final class Coordinates {
 
     func append(_ newCoordinates: [Coordinate]) {
         coordinates += newCoordinates
+    }
+
+    func append(_ newCoordinates: Coordinates) {
+        coordinates += newCoordinates.coordinates
     }
 
     func center() -> Coordinate {
@@ -51,8 +63,9 @@ final class Coordinates {
     }
 
     func indexRatio(_ coordinate: Coordinate) -> Double? {
-        guard let index = coordinates.firstIndex(of: coordinate)
-        else { return nil }
+        guard let index = coordinates.enumerated().filter({ $0.element == coordinate }).first?.offset
+        else { return  nil }
+
         return Double(index) / Double(coordinates.count)
     }
 

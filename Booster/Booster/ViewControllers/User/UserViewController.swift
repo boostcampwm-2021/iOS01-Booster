@@ -32,9 +32,6 @@ final class UserViewController: UIViewController, BaseViewControllerTemplate {
 
     // MARK: - Properties
     var viewModel: UserViewModel = UserViewModel()
-    private let userHeaderHeight: CGFloat = 200
-    private let myInfoHeaderHeight: CGFloat = 60
-    private let cellHeight: CGFloat = 60
 
     // MARK: - Life Cycles
     override func viewDidLoad() {
@@ -44,6 +41,8 @@ final class UserViewController: UIViewController, BaseViewControllerTemplate {
         userTableView.delegate = self
         registerNib()
         configureNavigationBarTitle()
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -72,9 +71,13 @@ final class UserViewController: UIViewController, BaseViewControllerTemplate {
     private func myInfoCellDidSelectActions(cellType: MyInfoCellType) {
         switch cellType {
         case .removeAllData:
-            guard let removeAllDataViewController = storyboard?.instantiateViewController(withIdentifier: RemoveAllDataViewController.identifier) as? RemoveAllDataViewController
+            guard let removeAllDataViewController = storyboard?.instantiateViewController(identifier: RemoveAllDataViewController.identifier, creator: { [weak self] coder -> RemoveAllDataViewController in
+                guard let viewModel = self?.viewModel
+                else { return RemoveAllDataViewController(viewModel: UserViewModel()) }
+
+                return .init(coder: coder, viewModel: viewModel) ?? RemoveAllDataViewController(viewModel: UserViewModel())
+            })
             else { return }
-            removeAllDataViewController.viewModel = viewModel
 
             navigationController?.pushViewController(removeAllDataViewController, animated: true)
         case .changeGoal:
@@ -181,14 +184,14 @@ extension UserViewController: UITableViewDelegate {
 
         switch sectionType {
         case .userHeader:
-            return userHeaderHeight
+            return UserInfoHeaderView.viewHeight
         case .myInfo:
-            return myInfoHeaderHeight
+            return MyInfoHeaderView.viewHeight
         }
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let cellHeight: CGFloat = cellHeight
+        let cellHeight: CGFloat = UserInfoBaseCell.cellHeight
 
         return cellHeight
     }
@@ -208,4 +211,11 @@ extension UserViewController: UITableViewDelegate {
         }
     }
 
+}
+
+// MARK: - navigationController.interactivePopGestureRecognizer.delegate
+extension UserViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return navigationController?.viewControllers.count ?? 0 > 1
+    }
 }

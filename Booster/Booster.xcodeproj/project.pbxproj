@@ -22,6 +22,7 @@
 		37852ACF273C27F100BA3D67 /* StatisticsModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37852ACE273C27F100BA3D67 /* StatisticsModelTests.swift */; };
 		37852AD8273C2D0B00BA3D67 /* StepStatisticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37852AD7273C2D0B00BA3D67 /* StepStatisticsTests.swift */; };
 		379E3C57273BC182002B0B15 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379E3C56273BC182002B0B15 /* ChartView.swift */; };
+		37AE2EA8274F5401003F5FF7 /* GradientLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AE2EA7274F5401003F5FF7 /* GradientLabel.swift */; };
 		37FD1AEE274D1D6600FAB0CC /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FD1AED274D1D6600FAB0CC /* HealthKitManager.swift */; };
 		3B31B5F9273C05D8009D9190 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B31B5F8273C05D8009D9190 /* FeedCell.swift */; };
 		3B31B5FC273C0A66009D9190 /* CellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B31B5FB273C0A66009D9190 /* CellConfigurator.swift */; };
@@ -164,6 +165,7 @@
 		37852ACE273C27F100BA3D67 /* StatisticsModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsModelTests.swift; sourceTree = "<group>"; };
 		37852AD7273C2D0B00BA3D67 /* StepStatisticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepStatisticsTests.swift; sourceTree = "<group>"; };
 		379E3C56273BC182002B0B15 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		37AE2EA7274F5401003F5FF7 /* GradientLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientLabel.swift; sourceTree = "<group>"; };
 		37FD1AED274D1D6600FAB0CC /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		3B31B5F8273C05D8009D9190 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		3B31B5FB273C0A66009D9190 /* CellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfigurator.swift; sourceTree = "<group>"; };
@@ -534,6 +536,7 @@
 		FA473A1B273BA2130000C5DC /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				37AE2EA7274F5401003F5FF7 /* GradientLabel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1024,6 +1027,7 @@
 				FA614F812733CDAA00B090D9 /* TrackingViewController.swift in Sources */,
 				3B31B5FF273CD2F7009D9190 /* Tracking+CoreDataClass.swift in Sources */,
 				28C96FED27396F6B005BD7BC /* DetailFeedViewModel.swift in Sources */,
+				37AE2EA8274F5401003F5FF7 /* GradientLabel.swift in Sources */,
 				FA614F6D2733CDAA00B090D9 /* User+CoreDataClass.swift in Sources */,
 				3B6FE5002743A5F400A815D1 /* EnrollWriteView.swift in Sources */,
 				3BE60F6427464E0300B4EFB8 /* StepStatitstics.swift in Sources */,
@@ -1345,7 +1349,7 @@
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "만보기 기능을 업데이트 하기 위해 필요합니다";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "트래킹 및 현재 위치를 보여주기 위해 권한이 필요합니다";
 				INFOPLIST_KEY_NSLocationUsageDescription = "트래킹 및 현재 위치를 보여주기 위해 권한이 필요합니다";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "트래킹 및 현재 위치를 보여주기 위해 권한이 필요합니다";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "트래킹 기록을 위해 위치 정보 사용이 필요합니다.";
 				INFOPLIST_KEY_NSMotionUsageDescription = "걸음 수 트래킹을 위해 권한이 필요합니다";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -1363,7 +1367,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1386,7 +1390,7 @@
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "만보기 기능을 업데이트 하기 위해 필요합니다";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "트래킹 및 현재 위치를 보여주기 위해 권한이 필요합니다";
 				INFOPLIST_KEY_NSLocationUsageDescription = "트래킹 및 현재 위치를 보여주기 위해 권한이 필요합니다";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "트래킹 및 현재 위치를 보여주기 위해 권한이 필요합니다";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "트래킹 기록을 위해 위치 정보 사용이 필요합니다.";
 				INFOPLIST_KEY_NSMotionUsageDescription = "걸음 수 트래킹을 위해 권한이 필요합니다";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -1404,7 +1408,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
