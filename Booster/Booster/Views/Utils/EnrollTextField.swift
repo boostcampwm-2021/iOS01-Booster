@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EnrollTextField: UITextField {
+final class EnrollTextField: UITextField {
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         return false
     }
