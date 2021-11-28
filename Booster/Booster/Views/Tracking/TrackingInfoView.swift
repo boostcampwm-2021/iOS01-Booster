@@ -128,6 +128,85 @@ final class TrackingInfoView: UIView {
         configureUI()
     }
 
+    func stopPedometerText() {
+        let title = " steps"
+        let content = "\(pedometerLabel.text ?? "0")"
+        leftButton.isHidden = true
+        pedometerLabel.attributedText = makeAttributedText(content: content,
+                                                           title: title,
+                                                           contentFont: .bazaronite(size: 60),
+                                                           titleFont: .notoSansKR(.regular, 20),
+                                                           color: .boosterOrange)
+        pedometerLabel.sizeToFit()
+    }
+
+    func stopAnimation() {
+        rightButtonWidthConstraint?.constant = 70
+        rightButtonHeightConstraint?.constant = 70
+        rightButton.layer.cornerRadius = 35
+        rightButtonTrailingConstraint?.constant = -25
+        rightButtonBottomConstraint?.constant = -25
+        pedometerTrailingConstraint?.isActive = false
+        pedometerLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25).isActive = true
+        pedometerTopConstraint?.constant = 20
+        [timeTopConstraint, kcalTopConstraint, distanceTopConstraint].forEach {
+            $0?.constant = 130
+        }
+
+        rightButton.setImage(.systemPencil, for: .normal)
+    }
+
+    func update(state: TrackingProgressViewModel.TrackingState) {
+        let isStart: Bool = state == .start
+        [distanceLabel, timeLabel, kcalLabel].forEach {
+            $0?.textColor = isStart ? .boosterBackground : .boosterLabel
+        }
+
+        backgroundColor = isStart ? .boosterOrange : .boosterBackground
+        rightButton.backgroundColor = isStart ? .boosterBackground : .boosterOrange
+        leftButton.backgroundColor = isStart ? .boosterOrange : .boosterBackground
+        leftButton.layer.borderColor = isStart ? UIColor.boosterBackground.cgColor : UIColor.boosterOrange.cgColor
+        leftButton.tintColor = isStart ? .boosterBackground : .boosterOrange
+        rightButton.tintColor = isStart ? .boosterOrange : .boosterBackground
+        rightButton.setImage(isStart ? .systemPause : .systemPlay, for: .normal)
+        leftButton.setImage(isStart ? .systemCamera : .systemStop, for: .normal)
+    }
+
+    func configure(model: TrackingModel, state: TrackingProgressViewModel.TrackingState) {
+        let timeContent = makeTimerText(time: model.seconds)
+        let kcalContent = "\(model.calories)\n"
+        let distanceContent = "\(String.init(format: "%.1f", model.distance/1000))\n"
+        let stepsTitle = "\(state == .end ? " steps" : "")"
+        let kcalTitle = "kcal"
+        let timeTitle = "time"
+        let distanceTitle = "km"
+        let stepsColor: UIColor = state == .end ? .boosterOrange : .boosterBlackLabel
+        let color: UIColor = state == .start ? .boosterBackground : .boosterLabel
+
+        pedometerLabel.attributedText = makeAttributedText(content: "\(model.steps)",
+                                                           title: stepsTitle,
+                                                           contentFont: .bazaronite(size: 60),
+                                                           titleFont: .notoSansKR(.regular, 20),
+                                                           color: stepsColor)
+        kcalLabel.attributedText = makeAttributedText(content: kcalContent, title: kcalTitle, color: color)
+        timeLabel.attributedText = makeAttributedText(content: timeContent, title: timeTitle, color: color)
+        distanceLabel.attributedText = makeAttributedText(content: distanceContent, title: distanceTitle, color: color)
+    }
+
+    func configureWrite() {
+        addSubview(titleTextField)
+        addSubview(contentTextView)
+        titleTextField.topAnchor.constraint(equalTo: kcalLabel.bottomAnchor, constant: 40).isActive = true
+        titleTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25).isActive = true
+        titleTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25).isActive = true
+        contentTextView.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 10).isActive = true
+        contentTextView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
+        contentTextView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25).isActive = true
+        contentTextView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25).isActive = true
+
+        bringSubviewToFront(rightButton)
+    }
+    
     private func configureUI() {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .boosterOrange
@@ -203,86 +282,6 @@ final class TrackingInfoView: UIView {
         }
 
         return mutableString
-    }
-
-    func stopPedometerText() {
-        let title = " steps"
-        let content = "\(pedometerLabel.text ?? "0")"
-        leftButton.isHidden = true
-        pedometerLabel.attributedText = makeAttributedText(content: content,
-                                                           title: title,
-                                                           contentFont: .bazaronite(size: 60),
-                                                           titleFont: .notoSansKR(.regular, 20),
-                                                           color: .boosterOrange)
-        pedometerLabel.sizeToFit()
-    }
-
-    func stopAnimation() {
-        rightButtonWidthConstraint?.constant = 70
-        rightButtonHeightConstraint?.constant = 70
-        rightButton.layer.cornerRadius = 35
-        rightButtonTrailingConstraint?.constant = -25
-        rightButtonBottomConstraint?.constant = -25
-        print(frame.maxX, pedometerLabel.frame.width)
-        pedometerTrailingConstraint?.isActive = false
-        pedometerLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25).isActive = true
-        pedometerTopConstraint?.constant = 20
-        [timeTopConstraint, kcalTopConstraint, distanceTopConstraint].forEach {
-            $0?.constant = 130
-        }
-
-        rightButton.setImage(.systemPencil, for: .normal)
-    }
-
-    func update(state: TrackingProgressViewModel.TrackingState) {
-        let isStart: Bool = state == .start
-        [distanceLabel, timeLabel, kcalLabel].forEach {
-            $0?.textColor = isStart ? .boosterBackground : .boosterLabel
-        }
-
-        backgroundColor = isStart ? .boosterOrange : .boosterBackground
-        rightButton.backgroundColor = isStart ? .boosterBackground : .boosterOrange
-        leftButton.backgroundColor = isStart ? .boosterOrange : .boosterBackground
-        leftButton.layer.borderColor = isStart ? UIColor.boosterBackground.cgColor : UIColor.boosterOrange.cgColor
-        leftButton.tintColor = isStart ? .boosterBackground : .boosterOrange
-        rightButton.tintColor = isStart ? .boosterOrange : .boosterBackground
-        rightButton.setImage(isStart ? .systemPause : .systemPlay, for: .normal)
-        leftButton.setImage(isStart ? .systemCamera : .systemStop, for: .normal)
-    }
-
-    func configure(model: TrackingModel, state: TrackingProgressViewModel.TrackingState) {
-        let timeContent = makeTimerText(time: model.seconds)
-        let kcalContent = "\(model.calories)\n"
-        let distanceContent = "\(String.init(format: "%.1f", model.distance/1000))\n"
-        let stepsTitle = "\(state == .end ? " steps" : "")"
-        let kcalTitle = "kcal"
-        let timeTitle = "time"
-        let distanceTitle = "km"
-        let stepsColor: UIColor = state == .end ? .boosterOrange : .boosterBlackLabel
-        let color: UIColor = state == .start ? .boosterBackground : .boosterLabel
-
-        pedometerLabel.attributedText = makeAttributedText(content: "\(model.steps)",
-                                                           title: stepsTitle,
-                                                           contentFont: .bazaronite(size: 60),
-                                                           titleFont: .notoSansKR(.regular, 20),
-                                                           color: stepsColor)
-        kcalLabel.attributedText = makeAttributedText(content: kcalContent, title: kcalTitle, color: color)
-        timeLabel.attributedText = makeAttributedText(content: timeContent, title: timeTitle, color: color)
-        distanceLabel.attributedText = makeAttributedText(content: distanceContent, title: distanceTitle, color: color)
-    }
-
-    func configureWrite() {
-        addSubview(titleTextField)
-        addSubview(contentTextView)
-        titleTextField.topAnchor.constraint(equalTo: kcalLabel.bottomAnchor, constant: 40).isActive = true
-        titleTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25).isActive = true
-        titleTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25).isActive = true
-        contentTextView.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 10).isActive = true
-        contentTextView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
-        contentTextView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25).isActive = true
-        contentTextView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25).isActive = true
-
-        bringSubviewToFront(rightButton)
     }
 }
 
