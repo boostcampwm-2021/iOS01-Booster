@@ -21,6 +21,7 @@
 		28C97068274E26E1005BD7BC /* DetailFeedMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C97067274E26E1005BD7BC /* DetailFeedMapView.swift */; };
 		28C9708A275283FA005BD7BC /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C97089275283FA005BD7BC /* UIView+Extension.swift */; };
 		28C9708C27528CFC005BD7BC /* ThreeColumnRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C9708B27528CFC005BD7BC /* ThreeColumnRecordView.swift */; };
+		28C970922753D10E005BD7BC /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C970912753D10E005BD7BC /* ToastView.swift */; };
 		37852ACF273C27F100BA3D67 /* StatisticsModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37852ACE273C27F100BA3D67 /* StatisticsModelTests.swift */; };
 		37852AD8273C2D0B00BA3D67 /* StepStatisticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37852AD7273C2D0B00BA3D67 /* StepStatisticsTests.swift */; };
 		379E3C57273BC182002B0B15 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379E3C56273BC182002B0B15 /* ChartView.swift */; };
@@ -165,6 +166,7 @@
 		28C97067274E26E1005BD7BC /* DetailFeedMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFeedMapView.swift; sourceTree = "<group>"; };
 		28C97089275283FA005BD7BC /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		28C9708B27528CFC005BD7BC /* ThreeColumnRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeColumnRecordView.swift; sourceTree = "<group>"; };
+		28C970912753D10E005BD7BC /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		37852ACC273C27F100BA3D67 /* StatisticsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StatisticsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		37852ACE273C27F100BA3D67 /* StatisticsModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsModelTests.swift; sourceTree = "<group>"; };
 		37852AD7273C2D0B00BA3D67 /* StepStatisticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepStatisticsTests.swift; sourceTree = "<group>"; };
@@ -369,6 +371,7 @@
 				28C97065274E21CC005BD7BC /* BoosterMapView.swift */,
 				FA614F8D2733CF9000B090D9 /* EmptyView.swift */,
 				28C9708B27528CFC005BD7BC /* ThreeColumnRecordView.swift */,
+				28C970912753D10E005BD7BC /* ToastView.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1069,6 +1072,7 @@
 				3B31B600273CD2F7009D9190 /* Tracking+CoreDataProperties.swift in Sources */,
 				28C97039274C8359005BD7BC /* ModifyFeedViewModel.swift in Sources */,
 				FA614F5C2733CDAA00B090D9 /* StatisticsViewModel.swift in Sources */,
+				28C970922753D10E005BD7BC /* ToastView.swift in Sources */,
 				28C9703D274C87D1005BD7BC /* WritingRecord.swift in Sources */,
 				FA614F8B2733CDAA00B090D9 /* HealthStoreManager.swift in Sources */,
 				37FD1AEE274D1D6600FAB0CC /* HealthKitManager.swift in Sources */,
