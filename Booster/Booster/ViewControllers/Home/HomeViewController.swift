@@ -5,9 +5,6 @@ import RxSwift
 
 final class HomeViewController: UIViewController {
     // MARK: - @IBOutlet
-    @IBOutlet private weak var kcalLabel: UILabel!
-    @IBOutlet private weak var timeActiveLabel: UILabel!
-    @IBOutlet private weak var kmLabel: UILabel!
     @IBOutlet private weak var recordView: ThreeColumnRecordView!
 
     @IBOutlet private weak var todayTotalStepCountLabel: GradientLabel!
