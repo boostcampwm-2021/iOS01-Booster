@@ -12,9 +12,9 @@ extension UIView {
         let currentFrame: CGRect = self.frame
 
         self.frame = CGRect.init(x: 0,
-                                           y: 0,
-                                           width: self.frame.size.width,
-                                           height: self.frame.size.height)
+                                 y: 0,
+                                 width: self.frame.size.width,
+                                 height: self.frame.size.height)
 
         UIGraphicsBeginImageContextWithOptions(self.frame.size,
                                                true,

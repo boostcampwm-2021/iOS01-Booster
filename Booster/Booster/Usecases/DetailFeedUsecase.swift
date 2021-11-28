@@ -43,7 +43,7 @@ final class DetailFeedUsecase: DetailFeedUsecaseProtocol {
         guard let milestones = try? NSKeyedArchiver.archivedData(withRootObject: milestones, requiringSecureCoding: false)
         else {
             return Observable.create { observer in
-                observer.on(.error(TrackingError.modelError))
+                observer.onError(TrackingError.modelError)
                 return Disposables.create()
             }
         }
