@@ -131,6 +131,7 @@
 		FAB252C42753C5FF00A4FC5B /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F332733CDAA00B090D9 /* Coordinate.swift */; };
 		FAB252CC2753D1AF00A4FC5B /* MilestoneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB252CB2753D1AF00A4FC5B /* MilestoneTests.swift */; };
 		FAB252D22753D57000A4FC5B /* Milestone.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F312733CDAA00B090D9 /* Milestone.swift */; };
+		FAB252D32753D6D700A4FC5B /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F332733CDAA00B090D9 /* Coordinate.swift */; };
 		FACBAB6A2746034900CD6B76 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBAB692746034900CD6B76 /* UIButton+Extension.swift */; };
 		FADAC0D02745F55100A026E2 /* EditUserInfoTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADAC0CF2745F55100A026E2 /* EditUserInfoTextField.swift */; };
 /* End PBXBuildFile section */
@@ -933,7 +934,6 @@
 					};
 					FAB252C82753D1AF00A4FC5B = {
 						CreatedOnToolsVersion = 13.0;
-						TestTargetID = 3B4E3FE3272A696E00577625;
 					};
 				};
 			};
@@ -1213,6 +1213,7 @@
 			files = (
 				FAB252D22753D57000A4FC5B /* Milestone.swift in Sources */,
 				FAB252CC2753D1AF00A4FC5B /* MilestoneTests.swift in Sources */,
+				FAB252D32753D6D700A4FC5B /* Coordinate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1602,7 +1603,6 @@
 		FAB252D02753D1AF00A4FC5B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
@@ -1619,14 +1619,12 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Booster.app/Booster";
 			};
 			name = Debug;
 		};
 		FAB252D12753D1AF00A4FC5B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
@@ -1643,7 +1641,6 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Booster.app/Booster";
 			};
 			name = Release;
 		};
