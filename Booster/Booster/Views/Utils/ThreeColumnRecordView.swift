@@ -60,13 +60,13 @@ final class ThreeColumnRecordView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        configure()
+        configureLayout()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
 
-        configure()
+        configureLayout()
     }
 
     func configureLabels(kcal: String, time: String, km: String, timeLabelName: String? = nil) {
@@ -76,7 +76,7 @@ final class ThreeColumnRecordView: UIView {
         timeLabel.text = timeLabelName ?? "time"
     }
 
-    private func configure() {
+    private func configureLayout() {
         addSubview(kcalRecordLabel)
         addSubview(timeRecordLabel)
         addSubview(kmRecordLabel)
