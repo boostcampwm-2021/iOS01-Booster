@@ -292,8 +292,8 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
     private func bindViewModel() {
         viewModel.state
             .asDriver()
-            .drive(onNext: { [weak self] value in
-                if value != .end {
+            .drive(onNext: { [weak self] trackingState in
+                if trackingState != .end {
                     self?.update()
                 } else {
                     self?.stopTracking()
@@ -598,7 +598,7 @@ extension TrackingProgressViewController: MKMapViewDelegate {
         mapView.deselectAnnotation(view.annotation, animated: false)
         let coordinate = Coordinate(latitude: view.annotation?.coordinate.latitude, longitude: view.annotation?.coordinate.longitude)
 
-        guard let selectedMilestone = viewModel.cachedMilestones.value.milestone(at: coordinate)
+        guard let selectedMilestone = viewModel.milestone(at: coordinate)
         else { return }
 
         let milestonePhotoViewModel = MilestonePhotoViewModel(milestone: selectedMilestone)

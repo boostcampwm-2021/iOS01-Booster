@@ -121,13 +121,13 @@ class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
         viewModel.changeGoal(to: goal)
             .take(1)
             .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] result in
+            .subscribe(onNext: { [weak self] success in
                 guard let self = self
                 else { return }
 
                 var alert = UIAlertController()
 
-                if result {
+                if success {
                     let title = "변경 성공"
                     let message = "걸음 수를 \(goal)으로 변경했어요"
                     alert = self.popViewControllerAlertController(title: title, message: message)
@@ -142,8 +142,8 @@ class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
 
     private func popViewControllerAlertController(title: String, message: String) -> UIAlertController {
         let alert = UIAlertController.simpleAlert(title: title,
-                                              message: message,
-                                              action: { (_) -> Void in
+                                                  message: message,
+                                                  action: { (_) -> Void in
             self.navigationController?.popViewController(animated: true)
         })
 

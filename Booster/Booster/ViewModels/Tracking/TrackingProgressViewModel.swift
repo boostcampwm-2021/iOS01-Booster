@@ -65,6 +65,10 @@ final class TrackingProgressViewModel {
         cachedMilestones.accept(newMilestones)
     }
 
+    func milestone(at coordinate: Coordinate) -> Milestone? {
+        return cachedMilestones.value.milestone(at: coordinate)
+    }
+
     func centerCoordinateOfPath() -> CLLocationCoordinate2D? {
         let center = trackingModel.value.coordinates.center()
         guard let latitude = center.latitude,
