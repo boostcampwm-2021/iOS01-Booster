@@ -49,7 +49,7 @@ final class FeedViewModel {
             }.bind { [weak self] value in
                 if let count = self?.recordCount(),
                    count != 0 {
-                    self?.next.on(.next(value))
+                    self?.next.onNext(value)
                 }
             }.disposed(by: disposeBag)
     }
