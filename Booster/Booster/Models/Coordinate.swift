@@ -39,12 +39,8 @@ final class Coordinates {
         coordinates.append(coordinate)
     }
 
-    func append(_ newCoordinates: [Coordinate]) {
+    func appends(_ newCoordinates: [Coordinate]) {
         coordinates += newCoordinates
-    }
-
-    func append(_ newCoordinates: Coordinates) {
-        coordinates += newCoordinates.coordinates
     }
 
     func center() -> Coordinate {
