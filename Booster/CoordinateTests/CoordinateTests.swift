@@ -49,10 +49,10 @@ class CoordinateTests: XCTestCase {
     func test_좌표추가_성공() throws {
         // given
         let coordinate = Coordinate(latitude: 1, longitude: 1)
-        
+
         // when
         coordinates.append(coordinate)
-        
+
         // then
         XCTAssertEqual(coordinates.all, [coordinate], "좌표 추가에 실패하였습니다.")
     }
@@ -64,10 +64,10 @@ class CoordinateTests: XCTestCase {
             Coordinate(latitude: 2, longitude: 2),
             Coordinate(latitude: 3, longitude: 3)
         ]
-        
+
         // when
         coordinates.appends(coordinateList)
-        
+
         // then
         XCTAssertEqual(coordinates.all, coordinateList, "좌표배열 추가에 실패하였습니다.")
     }
@@ -80,10 +80,10 @@ class CoordinateTests: XCTestCase {
             Coordinate(latitude: 2, longitude: 2),
             Coordinate(latitude: 3, longitude: 3)
         ]
-        
+
         // when
         coordinates.appends(coordinateList)
-        
+
         // then
         XCTAssertEqual(coordinates.first, first, "첫번째 좌표가 일치하지 않습니다.")
     }
@@ -96,14 +96,14 @@ class CoordinateTests: XCTestCase {
             Coordinate(latitude: 3, longitude: 3),
             last
         ]
-        
+
         // when
         coordinates.appends(coordinateList)
-        
+
         // then
         XCTAssertEqual(coordinates.last, last, "마지막 좌표가 일치하지 않습니다.")
     }
-    
+
     func test_좌표_갯수() throws {
         // given
         let count = 3
@@ -112,10 +112,10 @@ class CoordinateTests: XCTestCase {
             Coordinate(latitude: 2, longitude: 2),
             Coordinate(latitude: 3, longitude: 3)
         ]
-        
+
         // when
         coordinates.appends(coordinateList)
-        
+
         // then
         XCTAssertEqual(coordinates.count, count, "좌표의 갯수가 일치하지 않습니다.")
     }
@@ -127,10 +127,10 @@ class CoordinateTests: XCTestCase {
             Coordinate(latitude: 2, longitude: 2),
             Coordinate(latitude: 3, longitude: 3)
         ]
-        
+
         // when
         coordinates.appends(coordinateList)
-        
+
         // then
         XCTAssertEqual(coordinates.all, coordinateList, "좌표 전체가 일치하지 않습니다.")
     }
@@ -145,7 +145,7 @@ class CoordinateTests: XCTestCase {
         ]
         // when
         coordinates.appends(coordinateList)
-        
+
         // then
         XCTAssertEqual(coordinates.center(), center, "좌표의 중앙이 일치하지 않습니다.")
     }
@@ -158,10 +158,10 @@ class CoordinateTests: XCTestCase {
             Coordinate(latitude: 10, longitude: 80)
         ]
         let targetCoordinate = Coordinate(latitude: 20, longitude: 60)
-        
+
         // when
         coordinates.appends(coordinateList)
-        
+
         // then
         XCTAssertEqual(coordinates.firstIndex(of: targetCoordinate), 3, "해당 좌표가 존재하지 않습니다.")
     }
@@ -174,10 +174,10 @@ class CoordinateTests: XCTestCase {
             Coordinate(latitude: 10, longitude: 80)
         ]
         let targetCoordinate = Coordinate(latitude: 10, longitude: 10)
-        
+
         // when
         coordinates.appends(coordinateList)
-        
+
         // then
         XCTAssertNil(coordinates.firstIndex(of: targetCoordinate), "해당 좌표가 존재합니다.")
     }

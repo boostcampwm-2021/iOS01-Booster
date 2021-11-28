@@ -74,9 +74,9 @@ final class TrackingProgressViewModel {
     }
 
     private func bind() {
-        coordinates.map { (values) -> [Coordinate] in
+        coordinates.map { values -> [Coordinate] in
             let coordinates = self.trackingModel.value.coordinates
-            coordinates.append(values)
+            coordinates.appends(values.all)
             return coordinates.all
         }.bind { [weak self] values in
             guard let self = self
@@ -93,7 +93,7 @@ final class TrackingProgressViewModel {
             else { return }
 
             let newTrackingModel = self.trackingModel.value
-            newTrackingModel.milestones.append(milestones.all)
+            newTrackingModel.milestones.appends(milestones.all)
             self.trackingModel.accept(newTrackingModel)
         }.disposed(by: disposeBag)
 
