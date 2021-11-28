@@ -172,22 +172,14 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
     }
 
     private func bindView() {
-        infoView.titleTextField.rx.controlEvent([.editingDidEnd])
-            .bind {
-                self.infoView.rightButton.isHidden = false
-            }.disposed(by: disposeBag)
-        infoView.titleTextField.rx.controlEvent([.editingDidBegin])
-            .bind {
-                self.infoView.rightButton.isHidden = true
-            }.disposed(by: disposeBag)
         infoView.titleTextField.rx.text
             .distinctUntilChanged()
             .skip(1)
-            .bind { [weak self] value in
+            .bind { [weak viewModel] value in
                 guard let text = value
                 else { return }
 
-                self?.viewModel.title.onNext(text)
+                viewModel?.title.onNext(text)
             }.disposed(by: disposeBag)
         infoView.contentTextView.rx.text
             .distinctUntilChanged()

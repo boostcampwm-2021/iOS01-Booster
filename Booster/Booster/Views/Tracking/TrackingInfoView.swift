@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 import RxCocoa
 
 final class TrackingInfoView: UIView {
@@ -81,6 +82,16 @@ final class TrackingInfoView: UIView {
                                                                 color: .lightGray)
         textField.autocorrectionType = .no
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.rx.controlEvent([.editingDidEnd])
+            .bind { [weak rightButton] in
+                rightButton?.isHidden = false
+            }
+            .disposed(by: disposeBag)
+        textField.rx.controlEvent([.editingDidBegin])
+            .bind { [weak rightButton] in
+                rightButton?.isHidden = true
+            }
+            .disposed(by: disposeBag)
         textField.delegate = self
         return textField
     }()
@@ -117,6 +128,7 @@ final class TrackingInfoView: UIView {
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
+    private let disposeBag = disposeBag()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -206,7 +218,7 @@ final class TrackingInfoView: UIView {
 
         bringSubviewToFront(rightButton)
     }
-    
+
     private func configureUI() {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .boosterOrange
