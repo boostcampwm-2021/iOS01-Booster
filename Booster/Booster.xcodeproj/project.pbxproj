@@ -130,6 +130,7 @@
 		FAB252BE2753C5EB00A4FC5B /* CoordinateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB252BD2753C5EB00A4FC5B /* CoordinateTests.swift */; };
 		FAB252C42753C5FF00A4FC5B /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F332733CDAA00B090D9 /* Coordinate.swift */; };
 		FAB252CC2753D1AF00A4FC5B /* MilestoneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB252CB2753D1AF00A4FC5B /* MilestoneTests.swift */; };
+		FAB252D22753D57000A4FC5B /* Milestone.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F312733CDAA00B090D9 /* Milestone.swift */; };
 		FACBAB6A2746034900CD6B76 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBAB692746034900CD6B76 /* UIButton+Extension.swift */; };
 		FADAC0D02745F55100A026E2 /* EditUserInfoTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADAC0CF2745F55100A026E2 /* EditUserInfoTextField.swift */; };
 /* End PBXBuildFile section */
@@ -1210,6 +1211,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAB252D22753D57000A4FC5B /* Milestone.swift in Sources */,
 				FAB252CC2753D1AF00A4FC5B /* MilestoneTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
