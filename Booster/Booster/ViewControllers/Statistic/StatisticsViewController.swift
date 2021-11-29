@@ -155,20 +155,19 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
     }
 
     private func updateDuration(using statisticsCollection: StepStatisticsCollection) {
-        guard let stepRatios = statisticsCollection.stepRatios()?.map({ CGFloat($0) }),
-              let stepCount = statisticsCollection.stepCountPerDuration()
+        guard let stepCount = statisticsCollection.stepCountPerDuration()
         else { return }
 
         averageStepCountLabel.text = String(stepCount)
         dateLabel.text = statisticsCollection.durationString
 
         let strings = statisticsCollection.abbreviatedStrings()
+        let stepRatios = statisticsCollection.stepRatios().map { CGFloat($0) }
         chartView.drawChart(stepRatios: stepRatios, strings: strings)
     }
 
     private func updateSelection(using statisticsCollection: StepStatisticsCollection, index: Int?) {
-        guard let index = index,
-              let stepRatios = statisticsCollection.stepRatios()
+        guard let index = index
         else {
             chartView.clearSelection()
             return
@@ -177,6 +176,7 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
         let xOffset = 1 / CGFloat(statisticsCollection.count)
         let centerLabel = 0.5
         let xCoordinate = (centerLabel + CGFloat(index)) * xOffset * chartView.frame.width
+        let stepRatios = statisticsCollection.stepRatios()
         let height = 1 - CGFloat(stepRatios[index])
 
         let selectedStatistics: StepStatistics = statisticsCollection[index]
