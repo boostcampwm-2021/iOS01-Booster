@@ -91,7 +91,7 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vFG-gS-Dc3" customClass="ChartView" customModule="Booster" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vFG-gS-Dc3" customClass="SelectionChartView" customModule="Booster" customModuleProvider="target">
                                 <rect key="frame" x="20" y="194.5" width="374" height="618.5"/>
                                 <color key="backgroundColor" name="boosterBackground"/>
                             </view>
@@ -113,7 +113,7 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="averageStepCountLabel" destination="7Uo-QT-eJ9" id="WHy-kj-pP6"/>
-                        <outlet property="chartView" destination="vFG-gS-Dc3" id="83x-cr-5mQ"/>
+                        <outlet property="chartView" destination="vFG-gS-Dc3" id="jgk-Sc-nJf"/>
                         <outlet property="dateLabel" destination="zT5-Yx-3KO" id="cni-zl-DAE"/>
                         <outlet property="durationLabel" destination="FfD-j0-uiq" id="I6j-M6-IP2"/>
                         <outlet property="monthButton" destination="who-he-Jct" id="PvU-15-LJ6"/>

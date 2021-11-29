@@ -52,14 +52,14 @@ final class HealthKitManager {
         }
     }
 
-    func requestAuthorization(shareTypes: Set<HKSampleType>, readTypes: Set<HKSampleType>) -> Observable<Bool> {
+    func requestAuthorization(shareTypes: Set<HKSampleType>, readTypes: Set<HKSampleType>) -> Single<Bool> {
 
-        return Observable.create { [weak self] observer in
+        return Single.create { [weak self] single in
             self?.healthStore?.requestAuthorization(toShare: shareTypes, read: readTypes) { (success, error) in
                 guard error == nil
                 else { return  }
 
-                return observer.onNext(success)
+                return single(.success(success))
             }
 
             return Disposables.create()
@@ -69,8 +69,8 @@ final class HealthKitManager {
     func requestStatisticsCollectionQuery(type: HKQuantityType,
                                           predicate: NSPredicate,
                                           interval: DateComponents,
-                                          anchorDate: Date) -> Observable<HKStatisticsCollection> {
-        return Observable.create { [weak self] observer in
+                                          anchorDate: Date) -> Single<HKStatisticsCollection> {
+        return Single.create { [weak self] single in
             let query = HKStatisticsCollectionQuery(
                 quantityType: type,
                 quantitySamplePredicate: predicate,
@@ -81,7 +81,7 @@ final class HealthKitManager {
 
             query.initialResultsHandler = { _, hkStatisticsCollection, _ in
                 if let hkStatisticsCollection = hkStatisticsCollection {
-                    return observer.onNext(hkStatisticsCollection)
+                    return single(.success(hkStatisticsCollection))
                 }
             }
 
@@ -91,14 +91,14 @@ final class HealthKitManager {
         }
     }
 
-    func requestStatisticsQuery(type: HKQuantityType, predicate: NSPredicate) -> Observable<HKStatistics?> {
-        return Observable.create { [weak self] observer in
+    func requestStatisticsQuery(type: HKQuantityType, predicate: NSPredicate) -> Single<HKStatistics?> {
+        return Single.create { [weak self] single in
             let query = HKStatisticsQuery(
                 quantityType: type,
                 quantitySamplePredicate: predicate,
                 options: [.cumulativeSum, .duration]) { _, statistics, _ in
-                return observer.onNext(statistics)
-            }
+                    return single(.success(statistics))
+                }
 
             self?.healthStore?.execute(query)
 

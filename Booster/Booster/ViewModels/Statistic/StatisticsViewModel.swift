@@ -53,7 +53,8 @@ final class StatisticsViewModel {
 
     func selectStatistics(tappedCoordinate: Float) {
         guard let statisticsCollection = selectedStatisticsCollection(),
-              statisticsCollection.count > 0 else { return }
+              statisticsCollection.count > 0
+        else { return }
 
         let offset = 1 / Float(statisticsCollection.count)
         let selectedIndex = Int(tappedCoordinate / offset)
@@ -67,7 +68,8 @@ final class StatisticsViewModel {
 
     func selectStatistics(pannedCoordinate: Float) {
         guard let statisticsCollection = selectedStatisticsCollection(),
-              statisticsCollection.count > 0 else { return }
+              statisticsCollection.count > 0
+        else { return }
 
         let offset = 1 / Float(statisticsCollection.count)
         let selectedIndex = Int(pannedCoordinate / offset)
@@ -80,19 +82,24 @@ final class StatisticsViewModel {
     func requestQueryForStatisticsCollection() {
         usecase.execute(duration: .weekOfMonth, interval: .init(day: 1))
             .subscribe { [weak self] stepStatisticsCollection in
-                self?.weekStepStatisticsCollection = stepStatisticsCollection
+                if case let .success(stepStatisticsCollection) = stepStatisticsCollection {
+                    self?.weekStepStatisticsCollection = stepStatisticsCollection
+                }
             }.disposed(by: disposeBag)
 
         usecase.execute(duration: .month, interval: .init(weekOfMonth: 1))
             .subscribe { [weak self] stepStatisticsCollection in
-                self?.monthStepStatisticsCollection = stepStatisticsCollection
+                if case let .success(stepStatisticsCollection) = stepStatisticsCollection {
+                    self?.monthStepStatisticsCollection = stepStatisticsCollection
+                }
             }.disposed(by: disposeBag)
 
         usecase.execute(duration: .year, interval: .init(month: 1))
             .subscribe { [weak self] stepStatisticsCollection in
-                self?.yearStepStatisticsCollection = stepStatisticsCollection
+                if case let .success(stepStatisticsCollection) = stepStatisticsCollection {
+                    self?.yearStepStatisticsCollection = stepStatisticsCollection
+                }
             }.disposed(by: disposeBag)
-
     }
 
 }

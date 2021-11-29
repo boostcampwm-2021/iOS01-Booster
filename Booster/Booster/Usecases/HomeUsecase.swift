@@ -12,8 +12,8 @@ import RxSwift
 final class HomeUsecase {
     private let disposeBag = DisposeBag()
 
-    func fetchHourlyStepCountsData() -> Observable<StepStatisticsCollection> {
-        return Observable.create { [weak self] observer in
+    func fetchHourlyStepCountsData() -> Single<StepStatisticsCollection> {
+        return Single.create { [weak self] single in
             let anchorDate = Calendar.current.startOfDay(for: Date())
             guard let self = self,
                   let stepCountSampleType = HKSampleType.quantityType(forIdentifier: .stepCount),
@@ -32,7 +32,7 @@ final class HomeUsecase {
                                                                        anchorDate: anchorDate)
 
             observable.subscribe { hkStatisticsCollection in
-                guard let hkStatisticsCollection = hkStatisticsCollection.element
+                guard case let .success(hkStatisticsCollection) = hkStatisticsCollection
                 else { return }
 
                 var stepStatisticsCollection = StepStatisticsCollection()
@@ -47,7 +47,7 @@ final class HomeUsecase {
                     stepStatisticsCollection.append(stepStatistics)
                 })
 
-                observer.onNext(stepStatisticsCollection)
+                single(.success(stepStatisticsCollection))
             }.disposed(by: self.disposeBag)
 
             return Disposables.create()
@@ -64,8 +64,8 @@ final class HomeUsecase {
         return StepStatistics(step: step, abbreviatedDateString: string)
     }
 
-    func fetchTodayTotalData(type: HKQuantityTypeIdentifier) -> Observable<HKStatistics?> {
-        return Observable.create { [weak self] observer in
+    func fetchTodayTotalData(type: HKQuantityTypeIdentifier) -> Single<HKStatistics?> {
+        return Single.create { [weak self] single in
             guard let self = self,
                   let sampleType = HKSampleType.quantityType(forIdentifier: type)
             else { return Disposables.create() }
@@ -77,8 +77,8 @@ final class HomeUsecase {
                                                         options: .strictStartDate)
 
             let observable = HealthKitManager.shared.requestStatisticsQuery(type: sampleType, predicate: predicate)
-            observable.subscribe { result in
-               observer.onNext(result)
+            observable.subscribe { hkStatistics in
+                single(.success(hkStatistics))
             }.disposed(by: self.disposeBag)
 
             return Disposables.create()
