@@ -43,11 +43,14 @@ final class FeedViewModel {
     }
 
     private func bind() {
-        select.observe(on: MainScheduler.asyncInstance)
+        select.observe(on: MainScheduler.instance)
             .map { (index) -> Date in
                 return self.list.value[index.row].startDate
             }.bind { [weak self] value in
-                self?.next.on(.next(value))
+                if let count = self?.recordCount(),
+                   count != 0 {
+                    self?.next.onNext(value)
+                }
             }.disposed(by: disposeBag)
     }
 

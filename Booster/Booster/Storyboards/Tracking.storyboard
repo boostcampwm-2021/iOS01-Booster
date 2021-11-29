@@ -1,34 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wXd-j9-ZVj">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
-        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="BAZARONI.TTF">
-            <string>Bazaronite</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Tracking View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
                 <viewController id="Y6W-OH-hqX" customClass="TrackingViewController" customModule="Booster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZzC-UF-L6k" customClass="TrackingMapView" customModule="Booster" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                                 <color key="tintColor" red="1" green="0.33152735230000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xud-Sp-XDJ">
-                                <rect key="frame" x="157" y="673" width="100" height="100"/>
+                                <rect key="frame" x="110" y="379" width="100" height="100"/>
                                 <color key="backgroundColor" name="boosterOrange"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="Gkj-Y2-n3V"/>
@@ -79,89 +73,17 @@
             <objects>
                 <viewController id="1G8-i0-KhG" customClass="TrackingProgressViewController" customModule="Booster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MAc-M0-Psa">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="RB0-kQ-AuZ" customClass="TrackingMapView" customModule="Booster" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="544"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="250"/>
                                 <color key="tintColor" red="1" green="0.33152735230000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </mapView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BsO-pa-eCU">
-                                <rect key="frame" x="0.0" y="544" width="414" height="269"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aoN-Wg-v3J">
-                                        <rect key="frame" x="301.5" y="45" width="80" height="0.0"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="80" id="I3q-Yt-bze"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" name="boosterBackground"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yAN-CY-gSq">
-                                        <rect key="frame" x="32.5" y="45" width="80" height="0.0"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="80" id="XTk-2d-vt4"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" name="boosterBackground"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jrh-bJ-YFM">
-                                        <rect key="frame" x="264" y="129" width="100" height="100"/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="100" id="L19-Id-Cxs"/>
-                                            <constraint firstAttribute="width" constant="100" id="dOT-3R-KR7"/>
-                                        </constraints>
-                                        <color key="tintColor" red="1" green="0.33152735230000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" image="pause" catalog="system"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Qx-5I-QtW">
-                                        <rect key="frame" x="50" y="129" width="100" height="100"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="100" id="55z-ON-pGL"/>
-                                            <constraint firstAttribute="width" constant="100" id="evQ-B1-UuX"/>
-                                        </constraints>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal">
-                                            <imageReference key="image" image="camera" catalog="system" symbolScale="large"/>
-                                        </state>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rf2-h1-ajx">
-                                        <rect key="frame" x="141" y="45" width="135" height="0.0"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="135" id="3UU-HD-CDA"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" name="boosterBackground"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YWQ-h5-4pz">
-                                        <rect key="frame" x="354" y="-80" width="40" height="71.5"/>
-                                        <fontDescription key="fontDescription" name="Bazaronite" family="Bazaronite" pointSize="60"/>
-                                        <color key="textColor" name="boosterBlackLabel"/>
-                                        <color key="highlightedColor" name="boosterBlackLabel"/>
-                                    </label>
-                                </subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BsO-pa-eCU" customClass="TrackingInfoView" customModule="Booster" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="250" width="320" height="269"/>
                                 <color key="backgroundColor" name="boosterOrange"/>
                                 <color key="tintColor" red="1" green="0.33152735230000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstItem="yAN-CY-gSq" firstAttribute="centerX" secondItem="BsO-pa-eCU" secondAttribute="centerX" multiplier="0.35" id="5CK-zZ-AvU"/>
-                                    <constraint firstAttribute="bottom" secondItem="Jrh-bJ-YFM" secondAttribute="bottom" constant="40" id="Bbp-hf-XBu"/>
-                                    <constraint firstItem="aoN-Wg-v3J" firstAttribute="top" secondItem="BsO-pa-eCU" secondAttribute="top" constant="45" id="CvU-Cp-Vjk"/>
-                                    <constraint firstItem="aoN-Wg-v3J" firstAttribute="centerX" secondItem="BsO-pa-eCU" secondAttribute="centerX" multiplier="1.65" id="NQ4-0h-40Y"/>
-                                    <constraint firstAttribute="trailing" secondItem="YWQ-h5-4pz" secondAttribute="trailing" constant="20" id="QkQ-12-AKD"/>
-                                    <constraint firstAttribute="trailing" secondItem="Jrh-bJ-YFM" secondAttribute="trailing" constant="50" id="Z3c-MP-UHf"/>
-                                    <constraint firstItem="Rf2-h1-ajx" firstAttribute="centerX" secondItem="BsO-pa-eCU" secondAttribute="centerX" multiplier="1.008" id="dVy-nu-mOl"/>
-                                    <constraint firstAttribute="bottom" secondItem="8Qx-5I-QtW" secondAttribute="bottom" constant="40" id="eIk-1G-YHc"/>
-                                    <constraint firstItem="Rf2-h1-ajx" firstAttribute="top" secondItem="BsO-pa-eCU" secondAttribute="top" constant="45" id="hZM-yv-ssL"/>
-                                    <constraint firstItem="yAN-CY-gSq" firstAttribute="top" secondItem="BsO-pa-eCU" secondAttribute="top" constant="45" id="iGZ-lf-alN"/>
-                                    <constraint firstItem="8Qx-5I-QtW" firstAttribute="leading" secondItem="BsO-pa-eCU" secondAttribute="leading" constant="50" id="m39-6g-2KD"/>
-                                    <constraint firstItem="YWQ-h5-4pz" firstAttribute="top" secondItem="BsO-pa-eCU" secondAttribute="top" constant="-80" id="uI6-zq-evI"/>
-                                </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xiY-zH-yaJ"/>
@@ -179,24 +101,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="VGC-JZ-0Va"/>
                     <connections>
-                        <outlet property="distanceLabel" destination="aoN-Wg-v3J" id="i5I-tO-iDI"/>
-                        <outlet property="distanceTopConstraint" destination="CvU-Cp-Vjk" id="pJ4-XJ-LRu"/>
                         <outlet property="infoView" destination="BsO-pa-eCU" id="u0D-Ng-Xs4"/>
-                        <outlet property="kcalLabel" destination="yAN-CY-gSq" id="Byy-hC-bVd"/>
-                        <outlet property="kcalTopConstraint" destination="iGZ-lf-alN" id="rsS-5L-Rtc"/>
-                        <outlet property="leftButton" destination="8Qx-5I-QtW" id="HLr-mn-AFk"/>
                         <outlet property="mapView" destination="RB0-kQ-AuZ" id="CF1-hw-nq8"/>
                         <outlet property="mapViewBottomConstraint" destination="o4Y-2q-f3i" id="GH0-8Z-Vsj"/>
-                        <outlet property="pedometerLabel" destination="YWQ-h5-4pz" id="Plf-kO-aB3"/>
-                        <outlet property="pedometerTopConstraint" destination="uI6-zq-evI" id="vfL-Ob-Fp3"/>
-                        <outlet property="pedometerTrailingConstraint" destination="QkQ-12-AKD" id="d5h-eC-MAQ"/>
-                        <outlet property="rightButton" destination="Jrh-bJ-YFM" id="YBT-Tc-reU"/>
-                        <outlet property="rightButtonBottomConstraint" destination="Bbp-hf-XBu" id="hTM-Af-1HG"/>
-                        <outlet property="rightButtonHeightConstraint" destination="L19-Id-Cxs" id="ySh-Jy-YFh"/>
-                        <outlet property="rightButtonTrailingConstraint" destination="Z3c-MP-UHf" id="Mdw-Ex-Uzs"/>
-                        <outlet property="rightButtonWidthConstraint" destination="dOT-3R-KR7" id="A6x-3c-KfR"/>
-                        <outlet property="timeLabel" destination="Rf2-h1-ajx" id="Ejo-Xe-45d"/>
-                        <outlet property="timeTopConstraint" destination="hZM-yv-ssL" id="fc3-gI-NsS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NVv-J2-Iw9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -209,7 +116,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wXd-j9-ZVj" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="KoR-UW-7LE">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
@@ -224,14 +131,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="camera" catalog="system" width="128" height="94"/>
-        <image name="pause" catalog="system" width="88" height="128"/>
         <image name="tracking" width="25" height="25"/>
         <namedColor name="boosterBackground">
             <color red="0.050999999046325684" green="0.050999999046325684" blue="0.050999999046325684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="boosterBlackLabel">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="boosterOrange">
             <color red="1" green="0.36100000143051147" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

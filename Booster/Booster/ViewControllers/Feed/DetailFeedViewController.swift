@@ -15,9 +15,7 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var locationInfoLabel: UILabel!
     @IBOutlet private weak var stepCountsLabel: UILabel!
-    @IBOutlet private weak var kcalLabel: UILabel!
-    @IBOutlet private weak var timeLabel: UILabel!
-    @IBOutlet private weak var kmLabel: UILabel!
+    @IBOutlet private weak var recordView: ThreeColumnRecordView!
     @IBOutlet private weak var settingBarButtonItem: UIBarButtonItem!
 
     @IBOutlet private weak var contentTextView: UITextView!
@@ -27,7 +25,6 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
 
     var viewModel: DetailFeedViewModel
     private let disposeBag = DisposeBag()
-    private var gradientColors: [UIColor] = []
 
     // MARK: - Init
     init?(coder: NSCoder, viewModel: DetailFeedViewModel) {
@@ -67,16 +64,11 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
             })
             .disposed(by: disposeBag)
 
-        viewModel.trackingModel
-            .observe(on: MainScheduler.instance)
-            .subscribe { [weak self] value in
-                guard let model = value.element
-                else { return }
-
+        viewModel.trackingModel.asDriver()
+            .drive(onNext: { [weak self] tracking in
                 self?.pathMapView.removeAnnotations(self?.pathMapView.annotations ?? [])
-                self?.configureUI(value: model)
-
-            }
+                self?.configureUI(value: tracking)
+            })
             .disposed(by: disposeBag)
 
         viewModel.isDeletedMilestone
@@ -95,11 +87,12 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
     }
 
     private func configureUI(value: TrackingModel) {
+        recordView.configureLabels(kcal: "\(value.calories)",
+                                   time: TimeInterval(value.seconds).stringToMinutesAndSeconds(),
+                                   km: String(format: "%.2f", value.distance))
+
         titleLabel.text = value.title
         stepCountsLabel.text = "\(value.steps)"
-        kcalLabel.text = "\(value.calories)"
-        timeLabel.text = TimeInterval(value.seconds).stringToMinutesAndSeconds()
-        kmLabel.text = String(format: "%.2f", value.distance)
         contentTextView.text = value.content
 
         configureScrollViewHeight()
@@ -129,8 +122,6 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
         else { return }
 
         findLocationTitle(coordinate: startPoint)
-
-        gradientColors = value.coordinates.all.map { pathMapView.gradientColorOfCoordinate(at: $0, coordinates: value.coordinates, from: .boosterBackground, to: .boosterOrange) ?? .clear  }
 
         createPath(points: points, meter: value.distance * 1000)
     }
@@ -178,36 +169,13 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
 // MARK: - Setting ActionSheet Alert Events
 extension DetailFeedViewController {
     private func shareDetailFeedImage() {
-        guard let image = snapshot()
+        guard let image = screenshotView.snapshot()
         else { return }
 
         let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = view
 
         present(activityViewController, animated: true, completion: nil)
-    }
-
-    private func snapshot() -> UIImage? {
-        let currentFrame: CGRect = screenshotView.frame
-
-        screenshotView.frame = CGRect.init(x: 0,
-                                           y: 0,
-                                           width: screenshotView.frame.size.width,
-                                           height: screenshotView.frame.size.height)
-
-        UIGraphicsBeginImageContextWithOptions(screenshotView.frame.size,
-                                               true,
-                                               0.0)
-        guard let cgContext = UIGraphicsGetCurrentContext()
-        else { return nil }
-        screenshotView.layer.render(in: cgContext)
-        guard let image = UIGraphicsGetImageFromCurrentImageContext()
-        else { return nil }
-        screenshotView.frame = currentFrame
-
-        UIGraphicsEndImageContext()
-
-        return image
     }
 
     private func removeDetailFeed() {
@@ -226,12 +194,16 @@ extension DetailFeedViewController {
 // MARK: - MapView Delegate
 extension DetailFeedViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        guard let polyLine = overlay as? MKPolyline
+        guard let polyLine = overlay as? MKPolyline,
+              let coordinate = viewModel.offsetOfGradientColorCoordinate(),
+              let ratio = viewModel.indexRatioOfCoordinate(coordinate)
         else { return MKOverlayRenderer() }
 
         let polyLineRenderer = MKPolylineRenderer(polyline: polyLine)
-        polyLineRenderer.strokeColor = gradientColors[viewModel.offsetOfGradientColor()]
         polyLineRenderer.lineWidth = 8
+        polyLineRenderer.strokeColor = pathMapView.gradientColorOfCoordinate(indexRatio: ratio,
+                                                                             from: .boosterBackground,
+                                                                             to: .boosterOrange)
         return polyLineRenderer
     }
 
@@ -251,7 +223,11 @@ extension DetailFeedViewController: MKMapViewDelegate {
         switch identifier {
         case .milestone:
             guard let milestone = viewModel.milestone(at: coordinate),
-                  let annotationView = pathMapView.createMilestoneView(milestone: milestone, color: gradientColors[viewModel.indexOfCoordinate(coordinate) ?? 0])
+                  let ratio = viewModel.indexRatioOfCoordinate(coordinate),
+                  let annotationView = pathMapView.createMilestoneView(milestone: milestone,
+                                                                       color: pathMapView.gradientColorOfCoordinate(indexRatio: ratio,
+                                                                                                                    from: .boosterBackground,
+                                                                                                                    to: .boosterOrange) ?? .boosterOrange)
             else { return nil }
             return annotationView
         case .startDot, .endDot:
@@ -313,7 +289,6 @@ extension DetailFeedViewController {
 
         let milestonePhotoViewModel = MilestonePhotoViewModel(milestone: selectedMileStone)
         let milestonePhotoViewController = MilestonePhotoViewController(viewModel: milestonePhotoViewModel)
-        milestonePhotoViewController.viewModel = milestonePhotoViewModel
         milestonePhotoViewController.delegate = self
 
         present(milestonePhotoViewController, animated: true, completion: nil)

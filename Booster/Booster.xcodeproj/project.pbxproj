@@ -19,10 +19,15 @@
 		28C9703D274C87D1005BD7BC /* WritingRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C9703C274C87D1005BD7BC /* WritingRecord.swift */; };
 		28C97066274E21CC005BD7BC /* BoosterMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C97065274E21CC005BD7BC /* BoosterMapView.swift */; };
 		28C97068274E26E1005BD7BC /* DetailFeedMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C97067274E26E1005BD7BC /* DetailFeedMapView.swift */; };
+		28C9708A275283FA005BD7BC /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C97089275283FA005BD7BC /* UIView+Extension.swift */; };
+		28C9708C27528CFC005BD7BC /* ThreeColumnRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C9708B27528CFC005BD7BC /* ThreeColumnRecordView.swift */; };
+		28C970922753D10E005BD7BC /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C970912753D10E005BD7BC /* ToastView.swift */; };
 		37852ACF273C27F100BA3D67 /* StatisticsModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37852ACE273C27F100BA3D67 /* StatisticsModelTests.swift */; };
 		37852AD8273C2D0B00BA3D67 /* StepStatisticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37852AD7273C2D0B00BA3D67 /* StepStatisticsTests.swift */; };
 		379E3C57273BC182002B0B15 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379E3C56273BC182002B0B15 /* ChartView.swift */; };
 		37AE2EA8274F5401003F5FF7 /* GradientLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AE2EA7274F5401003F5FF7 /* GradientLabel.swift */; };
+		37C3F67E275267C8009AE5D5 /* StatisticsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C3F67D275267C8009AE5D5 /* StatisticsViewModelTests.swift */; };
+		37C3F6802752924C009AE5D5 /* SelectionChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C3F67F2752924C009AE5D5 /* SelectionChartView.swift */; };
 		37FD1AEE274D1D6600FAB0CC /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FD1AED274D1D6600FAB0CC /* HealthKitManager.swift */; };
 		3B31B5F9273C05D8009D9190 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B31B5F8273C05D8009D9190 /* FeedCell.swift */; };
 		3B31B5FC273C0A66009D9190 /* CellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B31B5FB273C0A66009D9190 /* CellConfigurator.swift */; };
@@ -55,6 +60,8 @@
 		3B6FE5002743A5F400A815D1 /* EnrollWriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6FE4FF2743A5F300A815D1 /* EnrollWriteView.swift */; };
 		3B6FE5032743A85B00A815D1 /* InfoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6FE5022743A85B00A815D1 /* InfoPickerView.swift */; };
 		3B6FE5052744DDBE00A815D1 /* NicknameEnrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6FE5042744DDBE00A815D1 /* NicknameEnrollView.swift */; };
+		3B73AC1027523B8F00067779 /* EnrollTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B73AC0F27523B8F00067779 /* EnrollTextField.swift */; };
+		3B73AC122752483700067779 /* TrackingInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B73AC112752483700067779 /* TrackingInfoView.swift */; };
 		3BE60F6127464DE800B4EFB8 /* StatisticsUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE60F6027464DE700B4EFB8 /* StatisticsUsecase.swift */; };
 		3BE60F6427464E0300B4EFB8 /* StepStatitstics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE60F6327464E0300B4EFB8 /* StepStatitstics.swift */; };
 		4500449EAD12786CF0C84845 /* Pods_Booster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1982A2EE6933ED1A7065E1 /* Pods_Booster.framework */; };
@@ -180,11 +187,16 @@
 		28C9703C274C87D1005BD7BC /* WritingRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingRecord.swift; sourceTree = "<group>"; };
 		28C97065274E21CC005BD7BC /* BoosterMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterMapView.swift; sourceTree = "<group>"; };
 		28C97067274E26E1005BD7BC /* DetailFeedMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFeedMapView.swift; sourceTree = "<group>"; };
+		28C97089275283FA005BD7BC /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		28C9708B27528CFC005BD7BC /* ThreeColumnRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeColumnRecordView.swift; sourceTree = "<group>"; };
+		28C970912753D10E005BD7BC /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		37852ACC273C27F100BA3D67 /* StatisticsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StatisticsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		37852ACE273C27F100BA3D67 /* StatisticsModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsModelTests.swift; sourceTree = "<group>"; };
 		37852AD7273C2D0B00BA3D67 /* StepStatisticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepStatisticsTests.swift; sourceTree = "<group>"; };
 		379E3C56273BC182002B0B15 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		37AE2EA7274F5401003F5FF7 /* GradientLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientLabel.swift; sourceTree = "<group>"; };
+		37C3F67D275267C8009AE5D5 /* StatisticsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewModelTests.swift; sourceTree = "<group>"; };
+		37C3F67F2752924C009AE5D5 /* SelectionChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionChartView.swift; sourceTree = "<group>"; };
 		37FD1AED274D1D6600FAB0CC /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		3B31B5F8273C05D8009D9190 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		3B31B5FB273C0A66009D9190 /* CellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfigurator.swift; sourceTree = "<group>"; };
@@ -204,6 +216,8 @@
 		3B6FE4FF2743A5F300A815D1 /* EnrollWriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollWriteView.swift; sourceTree = "<group>"; };
 		3B6FE5022743A85B00A815D1 /* InfoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPickerView.swift; sourceTree = "<group>"; };
 		3B6FE5042744DDBE00A815D1 /* NicknameEnrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameEnrollView.swift; sourceTree = "<group>"; };
+		3B73AC0F27523B8F00067779 /* EnrollTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollTextField.swift; sourceTree = "<group>"; };
+		3B73AC112752483700067779 /* TrackingInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingInfoView.swift; sourceTree = "<group>"; };
 		3BE60F6027464DE700B4EFB8 /* StatisticsUsecase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticsUsecase.swift; sourceTree = "<group>"; };
 		3BE60F6327464E0300B4EFB8 /* StepStatitstics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepStatitstics.swift; sourceTree = "<group>"; };
 		724D72817F933E7C4E0AA2A8 /* Pods-Booster.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booster.debug.xcconfig"; path = "Target Support Files/Pods-Booster/Pods-Booster.debug.xcconfig"; sourceTree = "<group>"; };
@@ -332,6 +346,7 @@
 		37852ACD273C27F100BA3D67 /* StatisticsTests */ = {
 			isa = PBXGroup;
 			children = (
+				37C3F67D275267C8009AE5D5 /* StatisticsViewModelTests.swift */,
 				37852AD7273C2D0B00BA3D67 /* StepStatisticsTests.swift */,
 				37852ACE273C27F100BA3D67 /* StatisticsModelTests.swift */,
 			);
@@ -405,6 +420,8 @@
 				3B6FE5022743A85B00A815D1 /* InfoPickerView.swift */,
 				28C97065274E21CC005BD7BC /* BoosterMapView.swift */,
 				FA614F8D2733CF9000B090D9 /* EmptyView.swift */,
+				28C9708B27528CFC005BD7BC /* ThreeColumnRecordView.swift */,
+				28C970912753D10E005BD7BC /* ToastView.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -539,6 +556,7 @@
 				FA614F4A2733CDAA00B090D9 /* TrackingMapView.swift */,
 				FA614F4B2733CDAA00B090D9 /* PhotoAnnotationView.swift */,
 				3B38FB13273A5F3B00F8620D /* TrackingCountDownView.swift */,
+				3B73AC112752483700067779 /* TrackingInfoView.swift */,
 			);
 			path = Tracking;
 			sourceTree = "<group>";
@@ -547,6 +565,7 @@
 			isa = PBXGroup;
 			children = (
 				379E3C56273BC182002B0B15 /* ChartView.swift */,
+				37C3F67F2752924C009AE5D5 /* SelectionChartView.swift */,
 			);
 			path = Statistic;
 			sourceTree = "<group>";
@@ -720,6 +739,7 @@
 				FA473A04273A1F8A0000C5DC /* UIImage+Extension.swift */,
 				28C96FF2273A4634005BD7BC /* UIResponder+Extension.swift */,
 				FACBAB692746034900CD6B76 /* UIButton+Extension.swift */,
+				28C97089275283FA005BD7BC /* UIView+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1083,6 +1103,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				37852ACF273C27F100BA3D67 /* StatisticsModelTests.swift in Sources */,
+				37C3F67E275267C8009AE5D5 /* StatisticsViewModelTests.swift in Sources */,
 				3B31B61F274109AF009D9190 /* HealthStoreManager.swift in Sources */,
 				3B31B61E274109A5009D9190 /* BoosterObservable.swift in Sources */,
 				37852AD8273C2D0B00BA3D67 /* StepStatisticsTests.swift in Sources */,
@@ -1121,11 +1142,13 @@
 				FA614F7A2733CDAA00B090D9 /* TimeInterval+extension.swift in Sources */,
 				FA614F5B2733CDAA00B090D9 /* CircleRenderer.swift in Sources */,
 				3B38FB1C273BF7CD00F8620D /* FeedUseCase.swift in Sources */,
+				3B73AC1027523B8F00067779 /* EnrollTextField.swift in Sources */,
 				3BE60F6127464DE800B4EFB8 /* StatisticsUsecase.swift in Sources */,
 				FA614F802733CDAA00B090D9 /* TrackingProgressViewController.swift in Sources */,
 				FA473A4527438A3E0000C5DC /* MyInfoHeaderView.swift in Sources */,
 				3B37B99C274371B9001EB120 /* GenderEnrollView.swift in Sources */,
 				FA614F792733CDAA00B090D9 /* UIAlertController+Extention.swift in Sources */,
+				28C9708A275283FA005BD7BC /* UIView+Extension.swift in Sources */,
 				FA614F832733CDAA00B090D9 /* FeedViewController.swift in Sources */,
 				FA614F712733CDAA00B090D9 /* Milestone.swift in Sources */,
 				FA2578F72745E99800597382 /* EditUserInfoViewController.swift in Sources */,
@@ -1157,6 +1180,7 @@
 				FA614F942733D51C00B090D9 /* EnrollViewController.swift in Sources */,
 				FA614F7B2733CDAA00B090D9 /* BoosterObservable.swift in Sources */,
 				FA614F7F2733CDAA00B090D9 /* HomeViewController.swift in Sources */,
+				28C9708C27528CFC005BD7BC /* ThreeColumnRecordView.swift in Sources */,
 				28C9702D273C3041005BD7BC /* DetailFeedUsecase.swift in Sources */,
 				FA614F8A2733CDAA00B090D9 /* TrackingProgressUsecase.swift in Sources */,
 				FAAD240B274D0F23009E2F52 /* NotificationSettingViewModel.swift in Sources */,
@@ -1176,6 +1200,7 @@
 				3B31B600273CD2F7009D9190 /* Tracking+CoreDataProperties.swift in Sources */,
 				28C97039274C8359005BD7BC /* ModifyFeedViewModel.swift in Sources */,
 				FA614F5C2733CDAA00B090D9 /* StatisticsViewModel.swift in Sources */,
+				28C970922753D10E005BD7BC /* ToastView.swift in Sources */,
 				28C9703D274C87D1005BD7BC /* WritingRecord.swift in Sources */,
 				FA614F8B2733CDAA00B090D9 /* HealthStoreManager.swift in Sources */,
 				37FD1AEE274D1D6600FAB0CC /* HealthKitManager.swift in Sources */,
@@ -1186,11 +1211,13 @@
 				FA614F772733CDAA00B090D9 /* NSAttributedString+Extension.swift in Sources */,
 				FA614F6C2733CDAA00B090D9 /* Booster.xcdatamodeld in Sources */,
 				FA473A3C274375BB0000C5DC /* UserInfoBaseCell.swift in Sources */,
+				37C3F6802752924C009AE5D5 /* SelectionChartView.swift in Sources */,
 				3B38FB14273A5F3B00F8620D /* TrackingCountDownView.swift in Sources */,
 				3B31B62127413664009D9190 /* FeedList.swift in Sources */,
 				28C97066274E21CC005BD7BC /* BoosterMapView.swift in Sources */,
 				FA84966C274A13890021F903 /* NotificationSettingViewController.swift in Sources */,
 				3B37B99E274385B6001EB120 /* EnrollUsecase.swift in Sources */,
+				3B73AC122752483700067779 /* TrackingInfoView.swift in Sources */,
 				FA614F722733CDAA00B090D9 /* HomeModel.swift in Sources */,
 				FA614F962738F7A200B090D9 /* MilestonePhotoViewController.swift in Sources */,
 				28C9702F2740D731005BD7BC /* HomeUsecase.swift in Sources */,

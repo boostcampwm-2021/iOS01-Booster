@@ -28,8 +28,8 @@ final class EnrollWriteView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    private lazy var displayTextField: UITextField = {
-        let textField = UITextField(frame: frame)
+    private lazy var displayTextField: EnrollTextField = {
+        let textField = EnrollTextField(frame: frame)
         textField.delegate = self
         textField.textColor = .boosterLabel
         textField.font = .notoSansKR(.regular, 35)

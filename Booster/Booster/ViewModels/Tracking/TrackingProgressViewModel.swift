@@ -65,12 +65,29 @@ final class TrackingProgressViewModel {
         cachedMilestones.accept(newMilestones)
     }
 
+    func milestone(at coordinate: Coordinate) -> Milestone? {
+        return cachedMilestones.value.milestone(at: coordinate)
+    }
+
     func centerCoordinateOfPath() -> CLLocationCoordinate2D? {
         let center = trackingModel.value.coordinates.center()
         guard let latitude = center.latitude,
               let longitude = center.longitude
         else { return nil }
         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    }
+
+    func address(observable: Observable<String>) {
+        observable.subscribe { [weak self] event in
+            guard let element = event.element,
+                  let self = self
+            else { return }
+
+            var tracking = self.trackingModel.value
+            tracking.address = element
+
+            self.trackingModel.accept(tracking)
+        }.disposed(by: disposeBag)
     }
 
     private func bind() {
@@ -131,7 +148,7 @@ final class TrackingProgressViewModel {
             guard let self = self
             else { return }
 
-            var tracking = self.trackingModel.value
+            let tracking = self.trackingModel.value
             tracking.coordinates.append(Coordinate(latitude: nil, longitude: nil))
             self.trackingModel.accept(tracking)
         }.disposed(by: disposeBag)

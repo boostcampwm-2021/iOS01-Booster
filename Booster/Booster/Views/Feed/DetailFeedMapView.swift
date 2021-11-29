@@ -11,17 +11,13 @@ final class DetailFeedMapView: BoosterMapView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        configure()
+        configureLayerStyle()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
 
-        configure()
-    }
-
-    private func configure() {
-        layer.cornerRadius = frame.height / 17
+        configureLayerStyle()
     }
 
     func configure(trackingModel value: TrackingModel) {
@@ -49,6 +45,11 @@ final class DetailFeedMapView: BoosterMapView {
         newAnnotationView.isUserInteractionEnabled = false
         newAnnotationView.layer.cornerRadius = newAnnotationView.frame.height / 2
         return newAnnotationView
+    }
+
+    private func configureLayerStyle() {
+        let cornerRadiusRatio: CGFloat = 17
+        layer.cornerRadius = frame.height / cornerRadiusRatio
     }
 
     private func configureMilestones(_ milestones: [Milestone]) {
