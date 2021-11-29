@@ -43,6 +43,7 @@ class NotificationSettingViewModelTests: XCTestCase {
     func test_초기화_알람상태_켜기() throws {
         // given
         viewModel = NotificationSettingViewModel(state: .on)
+        let model = viewModel.model.value
         let resultModel = NotificationSettingViewModel.NotificationSettingModel(title: "현재 알림이 켜져있어요",
                                                                                 subTitle: "좋은 소식들을\n들려드리기 위해 열심히 노력하고 있어요!",
                                                                                 imageName: "notificationOn",
@@ -50,7 +51,6 @@ class NotificationSettingViewModelTests: XCTestCase {
                                                                                 buttonAttributedTitle: NSAttributedString(string: "알림 끄기"),
                                                                                 buttonTintColorName: "boosterGray")
         // when
-        let model = viewModel.model.value
         let isEqual = ((model.title == resultModel.title) &&
                        (model.subTitle == resultModel.subTitle) &&
                        (model.imageName == resultModel.imageName) &&
@@ -65,15 +65,15 @@ class NotificationSettingViewModelTests: XCTestCase {
     func test_초기화_알람상태_끄기() throws {
         // given
         viewModel = NotificationSettingViewModel(state: .off)
+        let model = viewModel.model.value
         let resultModel = NotificationSettingViewModel.NotificationSettingModel(title: "현재 알림이 꺼져있어요",
                                                                                 subTitle: "알람을 키면\n좋은 소식들을 가득 들려드릴게요",
                                                                                 imageName: "notificationOff",
                                                                                 buttonBackgroundColorName: "boosterOrange",
                                                                                 buttonAttributedTitle: NSAttributedString(string: "알림 켜기"),
                                                                                 buttonTintColorName: "boosterBlackLabel")
-        
         // when
-        let model = viewModel.model.value
+        
         let isEqual = ((model.title == resultModel.title) &&
                        (model.subTitle == resultModel.subTitle) &&
                        (model.imageName == resultModel.imageName) &&
