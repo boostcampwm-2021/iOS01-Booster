@@ -26,7 +26,8 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -37,16 +38,11 @@
                BlueprintName = "StatisticsTests"
                ReferencedContainer = "container:Booster.xcodeproj">
             </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3B31B60427410470009D9190"
-               BuildableName = "TrackingProgressTests.xctest"
-               BlueprintName = "TrackingProgressTests"
-               ReferencedContainer = "container:Booster.xcodeproj">
-            </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "StatisticsModelTests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
          <TestableReference
             skipped = "NO">
@@ -65,26 +61,6 @@
                BlueprintIdentifier = "FAB252852753C3CE00A4FC5B"
                BuildableName = "CoordinateTEsts.xctest"
                BlueprintName = "CoordinateTEsts"
-               ReferencedContainer = "container:Booster.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FAB252BA2753C5EB00A4FC5B"
-               BuildableName = "CoordinateTests.xctest"
-               BlueprintName = "CoordinateTests"
-               ReferencedContainer = "container:Booster.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FAB252C82753D1AF00A4FC5B"
-               BuildableName = "MilestoneTests.xctest"
-               BlueprintName = "MilestoneTests"
                ReferencedContainer = "container:Booster.xcodeproj">
             </BuildableReference>
          </TestableReference>

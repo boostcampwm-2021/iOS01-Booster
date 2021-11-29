@@ -100,7 +100,7 @@
                         <color key="backgroundColor" name="boosterBackground"/>
                         <constraints>
                             <constraint firstItem="vFG-gS-Dc3" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" constant="20" id="04p-NS-IsF"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="vFG-gS-Dc3" secondAttribute="bottom" id="9UJ-an-SMe"/>
+                            <constraint firstItem="vFG-gS-Dc3" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="9UJ-an-SMe"/>
                             <constraint firstItem="vFG-gS-Dc3" firstAttribute="top" secondItem="zT5-Yx-3KO" secondAttribute="bottom" constant="5" id="F0G-sp-OTz"/>
                             <constraint firstItem="zT5-Yx-3KO" firstAttribute="top" secondItem="ZAm-ew-NSH" secondAttribute="bottom" constant="-5" id="GA5-ur-PUW"/>
                             <constraint firstAttribute="trailing" secondItem="vFG-gS-Dc3" secondAttribute="trailing" constant="20" id="Qz2-Ek-Vjn"/>
