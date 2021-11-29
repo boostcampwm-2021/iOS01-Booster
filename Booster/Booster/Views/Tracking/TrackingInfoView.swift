@@ -128,7 +128,7 @@ final class TrackingInfoView: UIView {
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
-    private let disposeBag = disposeBag()
+    private let disposeBag = DisposeBag()
 
     override init(frame: CGRect) {
         super.init(frame: frame)

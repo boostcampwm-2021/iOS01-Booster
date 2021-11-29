@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
@@ -29,44 +29,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ssn-6d-STD" customClass="GradientLabel" customModule="Booster" customModuleProvider="target">
-                                <rect key="frame" x="182" y="343.5" width="66.5" height="119"/>
+                                <rect key="frame" x="182" y="343.66666666666669" width="66.666666666666686" height="119"/>
                                 <fontDescription key="fontDescription" name="Bazaronite" family="Bazaronite" pointSize="100"/>
                                 <color key="textColor" name="boosterLabel"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Goal 10000" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZn-KZ-HUf">
-                                <rect key="frame" x="187" y="471" width="40.5" height="43.5"/>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="kcal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F17-N7-fTR">
-                                <rect key="frame" x="56" y="114.5" width="28.5" height="22"/>
-                                <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="15"/>
-                                <color key="textColor" name="boosterLabel"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time active" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w4J-fM-4aL">
-                                <rect key="frame" x="168.5" y="114.5" width="77.5" height="22"/>
-                                <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="15"/>
-                                <color key="textColor" name="boosterLabel"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="km" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xHn-DV-MaZ">
-                                <rect key="frame" x="329" y="114.5" width="22.5" height="22"/>
-                                <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="15"/>
-                                <color key="textColor" name="boosterLabel"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="goal" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZn-KZ-HUf" userLabel="Goal ">
-                                <rect key="frame" x="192.5" y="482" width="29" height="22"/>
+                                <rect key="frame" x="192.66666666666666" y="481.66666666666669" width="29" height="22"/>
                                 <fontDescription key="fontDescription" name="NotoSansKR-Light" family="Noto Sans KR" pointSize="15"/>
                                 <color key="textColor" name="boosterLabel"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hourly" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FqG-gg-gIl">
-                                <rect key="frame" x="30" y="616" width="45.5" height="22"/>
-                                <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="15"/>
-                                <color key="textColor" name="boosterLabel"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TBK-bI-lVF" customClass="ChartView" customModule="Booster" customModuleProvider="target">
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TBK-bI-lVF" customClass="ChartView" customModule="Booster" customModuleProvider="target">
                                 <rect key="frame" x="30" y="648" width="354" height="135"/>
                                 <color key="backgroundColor" name="boosterBackground"/>
                             </view>
@@ -78,8 +52,14 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10000" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fPg-k0-zrM" userLabel="Goal Label">
-                                <rect key="frame" x="187" y="508" width="40.5" height="22"/>
+                                <rect key="frame" x="187" y="507.66666666666674" width="40.333333333333343" height="22"/>
                                 <fontDescription key="fontDescription" name="NotoSansKR-Light" family="Noto Sans KR" pointSize="15"/>
+                                <color key="textColor" name="boosterLabel"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="hourly" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FqG-gg-gIl">
+                                <rect key="frame" x="29.999999999999996" y="616" width="45.666666666666657" height="22"/>
+                                <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="15"/>
                                 <color key="textColor" name="boosterLabel"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -91,7 +71,6 @@
                             <constraint firstItem="TZn-KZ-HUf" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="8Jl-ms-AJ2"/>
                             <constraint firstItem="Ssn-6d-STD" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" multiplier="0.9" id="8Vn-4G-Ip2"/>
                             <constraint firstItem="fPg-k0-zrM" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="FTo-pS-Waa"/>
-                            <constraint firstItem="w4J-fM-4aL" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="Fpl-0F-OB4"/>
                             <constraint firstItem="TZn-KZ-HUf" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" multiplier="1.1" id="KfM-fJ-FOK"/>
                             <constraint firstItem="SqD-jA-YKV" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="NMB-Yt-h1a"/>
                             <constraint firstItem="TBK-bI-lVF" firstAttribute="top" secondItem="FqG-gg-gIl" secondAttribute="bottom" constant="10" id="RaE-Jb-piO"/>
@@ -100,11 +79,9 @@
                             <constraint firstItem="Ssn-6d-STD" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" multiplier="1.04" id="cvj-ls-Jg8"/>
                             <constraint firstItem="SqD-jA-YKV" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="fRa-i7-tmI"/>
                             <constraint firstItem="TBK-bI-lVF" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" constant="-30" id="hOr-jE-9hy"/>
-                            <constraint firstAttribute="trailing" secondItem="SqD-jA-YKV" secondAttribute="trailing" id="qxK-In-OMO"/>
                             <constraint firstItem="fPg-k0-zrM" firstAttribute="top" secondItem="TZn-KZ-HUf" secondAttribute="bottom" constant="4" id="iTP-9b-eei"/>
-                            <constraint firstItem="xHn-DV-MaZ" firstAttribute="top" secondItem="576-pf-rBg" secondAttribute="bottom" constant="10" id="jbE-D7-EUl"/>
-                            <constraint firstItem="w4J-fM-4aL" firstAttribute="top" secondItem="DK1-7W-5Tf" secondAttribute="bottom" constant="10" id="mad-Fk-COx"/>
-                            <constraint firstItem="576-pf-rBg" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" multiplier="0.2" id="non-pq-QWR"/>
+                            <constraint firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" multiplier="0.2" id="non-pq-QWR"/>
+                            <constraint firstAttribute="trailing" secondItem="SqD-jA-YKV" secondAttribute="trailing" id="qxK-In-OMO"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="TBK-bI-lVF" secondAttribute="trailing" constant="30" id="u28-3r-V2B"/>
                         </constraints>
                     </view>
