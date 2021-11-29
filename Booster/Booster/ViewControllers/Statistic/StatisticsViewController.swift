@@ -35,14 +35,14 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
         super.viewDidLoad()
 
         bind()
+        addGestures()
+        addActions()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         requestAuthorizationForStepCount()
-        addGestures()
-        addActions()
     }
 
     // MARK: - functions
