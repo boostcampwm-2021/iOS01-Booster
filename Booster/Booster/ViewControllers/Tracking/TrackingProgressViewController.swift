@@ -33,7 +33,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         buttonItem.image = .systemArrowLeft
         buttonItem.tintColor = .boosterBlackLabel
         buttonItem.rx.tap
-            .throttle(.seconds(1), scheduler: MainScheduler.asyncInstance)
+            .throttle(.seconds(1), scheduler: MainScheduler.instance)
             .bind { [weak self] in
                 let title = "되돌아가기"
                 let message = "현재 기록 상황이 다 지워집니다\n정말로 되돌아가실 건가요?"
@@ -197,7 +197,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
                 }
             }.disposed(by: disposeBag)
         infoView.leftButton.rx.tap
-            .throttle(.microseconds(1500), scheduler: MainScheduler.asyncInstance)
+            .throttle(.microseconds(1500), scheduler: MainScheduler.instance)
             .bind { [weak self] _ in
                 guard let self = self
                 else { return }
@@ -239,7 +239,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
             }.disposed(by: disposeBag)
 
         infoView.rightButton.rx.tap
-            .throttle(.seconds(1), scheduler: MainScheduler.asyncInstance)
+            .throttle(.seconds(1), scheduler: MainScheduler.instance)
             .bind { [weak self] _ in
                 guard let self = self
                 else { return }
