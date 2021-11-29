@@ -52,16 +52,12 @@ final class HomeViewController: UIViewController {
     }
 
     private func bindHomeViewModel() {
-        viewModel.homeModel
+        viewModel.homeModel.asDriver()
             .skip(4)
-            .observe(on: MainScheduler.instance)
-            .subscribe({ [weak self] homeModel in
-                guard let homeModel = homeModel.element
-                else { return }
-
+            .drive { [weak self] homeModel in
                 self?.updateUI(using: homeModel)
                 self?.viewModel.sendGoalNotification()
-            })
+            }
             .disposed(by: disposeBag)
     }
 
