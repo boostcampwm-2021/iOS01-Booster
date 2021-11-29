@@ -39,7 +39,7 @@ final class Milestones {
         milestones.append(milestone)
     }
 
-    func append(_ newMilestone: [Milestone]) {
+    func appends(_ newMilestone: [Milestone]) {
         milestones += newMilestone
     }
 
