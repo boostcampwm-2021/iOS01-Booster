@@ -77,7 +77,7 @@ final class BoosterUserNotification {
                                                         trigger: notificationTrigger)
 
         UNUserNotificationCenter.current().add(notificationRequest) { error in
-            print("## \(error?.localizedDescription)")
+            
         }
     }
     
@@ -97,7 +97,6 @@ final class BoosterUserNotification {
                                                         trigger: nil)
 
         UNUserNotificationCenter.current().add(notificationRequest) { [weak self] error in
-            print("## \(error?.localizedDescription)")
             self?.removeGoalNotification()
         }
     }
