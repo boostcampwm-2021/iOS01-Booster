@@ -10,15 +10,6 @@ import RxSwift
 import RxCocoa
 
 final class TrackingInfoView: UIView {
-    weak var pedometerTrailingConstraint: NSLayoutConstraint?
-    weak var pedometerTopConstraint: NSLayoutConstraint?
-    weak var kcalTopConstraint: NSLayoutConstraint?
-    weak var timeTopConstraint: NSLayoutConstraint?
-    weak var distanceTopConstraint: NSLayoutConstraint?
-    weak var rightButtonHeightConstraint: NSLayoutConstraint?
-    weak var rightButtonWidthConstraint: NSLayoutConstraint?
-    weak var rightButtonTrailingConstraint: NSLayoutConstraint?
-    weak var rightButtonBottomConstraint: NSLayoutConstraint?
     lazy var leftButton: UIButton = {
         let button = UIButton(frame: frame)
         button.layer.borderWidth = 1
@@ -129,7 +120,16 @@ final class TrackingInfoView: UIView {
         return textView
     }()
     private let disposeBag = DisposeBag()
-
+    private weak var pedometerTrailingConstraint: NSLayoutConstraint?
+    private weak var pedometerTopConstraint: NSLayoutConstraint?
+    private weak var kcalTopConstraint: NSLayoutConstraint?
+    private weak var timeTopConstraint: NSLayoutConstraint?
+    private weak var distanceTopConstraint: NSLayoutConstraint?
+    private weak var rightButtonHeightConstraint: NSLayoutConstraint?
+    private weak var rightButtonWidthConstraint: NSLayoutConstraint?
+    private weak var rightButtonTrailingConstraint: NSLayoutConstraint?
+    private weak var rightButtonBottomConstraint: NSLayoutConstraint?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
