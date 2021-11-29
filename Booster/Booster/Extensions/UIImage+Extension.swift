@@ -20,4 +20,5 @@ extension UIImage {
     static let assetFoot = UIImage(named: "foot") ?? UIImage()
     static let notificationOn = UIImage(named: "notificationOn") ?? UIImage()
     static let notificationOff = UIImage(named: "notificationOff") ?? UIImage()
+    static let caution = UIImage(named: "caution") ?? UIImage()
 }
