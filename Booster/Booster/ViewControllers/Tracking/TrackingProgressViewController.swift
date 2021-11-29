@@ -1,5 +1,6 @@
 import UIKit
 import MapKit
+import Network
 import CoreMotion
 import RxSwift
 import RxCocoa
@@ -12,6 +13,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
 
     // MARK: - Properties
     private let pedometer = CMPedometer()
+    private let monitor = NWPathMonitor()
     private var pedomterSteps: Int = 0
     private var lastestTime: Int = 0
     private var timerDate = Date()
@@ -135,6 +137,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         configureNotifications()
         bindViewModel()
         bindView()
+        startMonitor()
     }
 
     private func configureNotifications() {
@@ -382,6 +385,29 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
 
             return Disposables.create { observable.onCompleted() }
         }
+    }
+    
+    private func startMonitor() {
+        monitor.rx
+            .observe(on: MainScheduler.instance)
+            .subscribe { [weak self] event in
+                guard let element = event.element,
+                      let state = self?.viewModel.state.value
+                else { return }
+                
+                switch element.status {
+                case .satisfied:
+                    self?.infoView.leftButton.isUserInteractionEnabled = true
+                    self?.infoView.rightButton.isUserInteractionEnabled = true
+                default :
+                    self?.viewModel.state.accept(state == .start ? .pause : state)
+                    self?.infoView.leftButton.isUserInteractionEnabled = false
+                    self?.infoView.rightButton.isUserInteractionEnabled = false
+                    let message = "원할한 서비스를 위해 \n네트워크를 연결해주세요\n네트워크 재연결 이후\n기록을 재시작/저장이 가능합니다."
+                    self?.view.showToastView(message: message)
+                }
+            }
+            .disposed(by: disposeBag)
     }
 }
 
