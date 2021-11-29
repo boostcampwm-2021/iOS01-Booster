@@ -71,7 +71,8 @@ final class TrackingViewController: UIViewController, BaseViewControllerTemplate
                 case .satisfied:
                     self?.nextButton.isUserInteractionEnabled = true
                 default :
-                    self?.view.showToastView(message: "not connect")
+                    let message = "원할한 서비스를 위해 \n네트워크를 연결해주세요"
+                    self?.view.showToastView(message: message)
                     self?.nextButton.isUserInteractionEnabled = false
                 }
             }
@@ -83,16 +84,4 @@ extension TrackingViewController: MKMapViewDelegate {
     func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         mapView.setUserTrackingMode(.followWithHeading, animated: true)
     }
-}
-
-extension NWPathMonitor {
-  var rx: Observable<NWPath> {
-    Observable.create { [weak self] observer in
-      self?.pathUpdateHandler = { path in
-        observer.onNext(path)
-      }
-      self?.start(queue: DispatchQueue.global())
-      return Disposables.create { self?.cancel() }
-    }
-  }
 }
