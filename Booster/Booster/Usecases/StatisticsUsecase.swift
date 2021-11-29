@@ -14,8 +14,8 @@ final class StatisticsUsecase {
     private let disposeBag = DisposeBag()
 
     func execute(duration: Calendar.Component,
-                 interval: DateComponents) -> Observable<StepStatisticsCollection> {
-        return Observable.create { [weak self] observer in
+                 interval: DateComponents) -> Single<StepStatisticsCollection> {
+        return Single.create { [weak self] single in
             guard let self = self,
                   let type = HKQuantityType.quantityType(forIdentifier: .stepCount)
             else { return Disposables.create() }
@@ -34,7 +34,7 @@ final class StatisticsUsecase {
                                                                        anchorDate: anchorDate)
 
             observable.subscribe { hkStatisticsCollection in
-                guard let hkStatisticsCollection = hkStatisticsCollection.element,
+                guard case let .success(hkStatisticsCollection) = hkStatisticsCollection,
                       let startDate = hkStatisticsCollection.statistics().first?.startDate,
                       let endDate = hkStatisticsCollection.statistics().last?.endDate
                 else { return }
@@ -60,7 +60,7 @@ final class StatisticsUsecase {
                     stepStatisticsCollection.append(stepStatistics)
                 }
 
-                observer.onNext(stepStatisticsCollection)
+                single(.success(stepStatisticsCollection))
 
             }.disposed(by: self.disposeBag)
 

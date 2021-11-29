@@ -29,7 +29,7 @@ final class HomeViewModel {
         homeUsecase.fetchHourlyStepCountsData()
             .subscribe { [weak self] stepStatisticsCollection in
                 guard let self = self,
-                      let stepStatisticsCollection = stepStatisticsCollection.element
+                      case let .success(stepStatisticsCollection) = stepStatisticsCollection
                 else { return }
 
                 var newHomeModel = self.homeModel.value
@@ -42,12 +42,12 @@ final class HomeViewModel {
 
     private func fetchTodayDistanceData() {
         homeUsecase.fetchTodayTotalData(type: .distanceWalkingRunning)
-            .subscribe { [weak self] result in
+            .subscribe { [weak self] hkStatistics in
                 guard let self = self,
-                      let statistics = result.element
+                      case let .success(hkStatistics) = hkStatistics
                 else { return }
 
-                let distance = statistics?.sumQuantity()?.doubleValue(for: HKUnit.meter()) ?? 0
+                let distance = hkStatistics?.sumQuantity()?.doubleValue(for: HKUnit.meter()) ?? 0
                 let km = distance / 1000
 
                 var newHomeModel = self.homeModel.value
@@ -60,12 +60,12 @@ final class HomeViewModel {
 
     private func fetchTodayKcalData() {
         homeUsecase.fetchTodayTotalData(type: .activeEnergyBurned)
-            .subscribe {[weak self] result in
+            .subscribe {[weak self] hkStatistics in
                 guard let self = self,
-                      let statistics = result.element
+                      case let .success(hkStatistics) = hkStatistics
                 else { return }
 
-                let kcal = statistics?.sumQuantity()?.doubleValue(for: HKUnit.kilocalorie()) ?? 0
+                let kcal = hkStatistics?.sumQuantity()?.doubleValue(for: HKUnit.kilocalorie()) ?? 0
 
                 var newHomeModel = self.homeModel.value
                 newHomeModel.kcal = Int(kcal)
@@ -77,13 +77,13 @@ final class HomeViewModel {
 
     private func fetchTodayTotalStepCountsData() {
         homeUsecase.fetchTodayTotalData(type: .stepCount)
-            .subscribe { [weak self] result in
+            .subscribe { [weak self] hkStatistics in
                 guard let self = self,
-                      let statistics = result.element
+                      case let .success(hkStatistics) = hkStatistics
                 else { return }
 
-                let time = statistics?.duration()?.doubleValue(for: .second()) ?? 0
-                let sum = statistics?.sumQuantity()?.doubleValue(for: .count()) ?? 0
+                let time = hkStatistics?.duration()?.doubleValue(for: .second()) ?? 0
+                let sum = hkStatistics?.sumQuantity()?.doubleValue(for: .count()) ?? 0
 
                 var newHomeModel = self.homeModel.value
                 newHomeModel.activeTime = TimeInterval(time)
