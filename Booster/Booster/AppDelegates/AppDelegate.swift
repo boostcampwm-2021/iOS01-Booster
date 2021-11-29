@@ -7,7 +7,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert], completionHandler: { _, _ in
             let boosterUserNotification = BoosterUserNotification()
-            if !boosterUserNotification.isAlreadyAdded(type: .morning) { boosterUserNotification.updateNotification(requestType: .add, type: .morning)}
+            if !boosterUserNotification.isAlreadyAdded(type: .morning) { boosterUserNotification.setNotification(requestType: .add, type: .morning)}
         })
         
         return true
