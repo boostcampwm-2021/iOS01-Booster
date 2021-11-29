@@ -36,7 +36,7 @@ final class TrackingProgressUsecase {
         guard let coordinates = try? NSKeyedArchiver.archivedData(withRootObject: model.coordinates.all, requiringSecureCoding: false),
               let milestones = try? NSKeyedArchiver.archivedData(withRootObject: model.milestones.all, requiringSecureCoding: false),
               let endDate = model.endDate,
-              let distance = Double(String(format: "%.2f", model.distance/1000))
+              let distance = Double(String(format: "%.2f", model.distance / 1000))
         else {
             return Observable.create { observable in
                 observable.on(.error(TrackingError.modelError))

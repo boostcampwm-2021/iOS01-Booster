@@ -37,11 +37,12 @@ final class HomeViewController: UIViewController {
         let shareTypes = Set([activeEnergyBurned, distanceWalkingRunning, stepCount])
         let readTypes = Set([activeEnergyBurned, distanceWalkingRunning, stepCount])
 
-        HealthStoreManager.shared.requestAuthorization(shareTypes: shareTypes, readTypes: readTypes) { isSuccess in
-            if isSuccess {
-                self.viewModel.fetchQueries()
-            }
-        }
+        HealthKitManager.shared.requestAuthorization(shareTypes: shareTypes, readTypes: readTypes)
+            .subscribe { [weak self] requestResult in
+                if case .success = requestResult {
+                    self?.viewModel.fetchQueries()
+                }
+            }.disposed(by: disposeBag)
     }
 
     private func bindHomeViewModel() {
@@ -59,7 +60,6 @@ final class HomeViewController: UIViewController {
     private func updateUI(using homeModel: HomeModel) {
         guard let stepRatios = homeModel.stepRatios()
         else { return }
-        if stepRatios.count == 0 { return }
 
         recordView.configureLabels(kcal: "\(homeModel.kcal)",
                                    time: homeModel.activeTime.stringToMinutesAndSeconds(),

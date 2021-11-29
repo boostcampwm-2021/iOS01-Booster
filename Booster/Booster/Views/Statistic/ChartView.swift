@@ -42,6 +42,9 @@ final class ChartView: UIView {
     }
 
     func drawChart(stepRatios: [CGFloat], strings: [String]) {
+        guard stepRatios.count > 0, strings.count > 0
+        else { return }
+
         self.graphLayer.sublayers?.forEach { $0.removeFromSuperlayer() }
 
         let barOffset: CGFloat = graphLayer.frame.width / CGFloat(stepRatios.count)
