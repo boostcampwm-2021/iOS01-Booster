@@ -1,5 +1,7 @@
 import UIKit
 import MapKit
+import Network
+import RxSwift
 
 protocol TrackingProgressDelegate: AnyObject {
     func location(mapView: TrackingMapView)
@@ -17,6 +19,8 @@ final class TrackingViewController: UIViewController, BaseViewControllerTemplate
 
     // MARK: - Properties
     var viewModel: TrackingViewModel = TrackingViewModel()
+    private let monitor = NWPathMonitor()
+    private let disposeBag = DisposeBag()
     private var overlay: MKOverlay = MKCircle()
     private var current: CLLocation = CLLocation()
 
@@ -28,6 +32,7 @@ final class TrackingViewController: UIViewController, BaseViewControllerTemplate
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
     }
 
@@ -52,6 +57,25 @@ final class TrackingViewController: UIViewController, BaseViewControllerTemplate
         nextButton.layer.cornerRadius = nextButton.bounds.width / 2
         trackingMapView.showsUserLocation = true
         trackingMapView.delegate = self
+        startMonitor()
+    }
+    
+    private func startMonitor() {
+        monitor.rx
+            .observe(on: MainScheduler.instance)
+            .subscribe { [weak self] event in
+                guard let element = event.element
+                else { return }
+                
+                switch element.status {
+                case .satisfied:
+                    self?.nextButton.isUserInteractionEnabled = true
+                default :
+                    self?.view.showToastView(message: "not connect")
+                    self?.nextButton.isUserInteractionEnabled = false
+                }
+            }
+            .disposed(by: disposeBag)
     }
 }
 
@@ -59,4 +83,16 @@ extension TrackingViewController: MKMapViewDelegate {
     func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         mapView.setUserTrackingMode(.followWithHeading, animated: true)
     }
+}
+
+extension NWPathMonitor {
+  var rx: Observable<NWPath> {
+    Observable.create { [weak self] observer in
+      self?.pathUpdateHandler = { path in
+        observer.onNext(path)
+      }
+      self?.start(queue: DispatchQueue.global())
+      return Disposables.create { self?.cancel() }
+    }
+  }
 }
