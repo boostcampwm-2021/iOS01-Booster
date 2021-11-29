@@ -26,13 +26,13 @@ final class ToastView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        configure()
+        configureInitialSetting()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
 
-        configure()
+        configureInitialSetting()
     }
 
     func configureLabel(message: String) {
@@ -44,7 +44,7 @@ final class ToastView: UIView {
         return toastLabel.frame.size.height
     }
 
-    private func configure() {
+    private func configureInitialSetting() {
         backgroundColor = .boosterEnableButtonGray
         layer.cornerRadius = frame.size.height / 4
 

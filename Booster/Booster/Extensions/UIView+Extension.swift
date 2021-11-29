@@ -32,7 +32,10 @@ extension UIView {
     }
 
     func showToastView(message: String) {
-        let toastView = ToastView.init(frame: CGRect(x: 30, y: frame.size.height, width: frame.size.width - 60, height: 80))
+        let toastView = ToastView.init(frame: CGRect(x: 30,
+                                                     y: frame.size.height,
+                                                     width: frame.size.width - 60,
+                                                     height: 80))
         toastView.configureLabel(message: message)
 
         self.addSubview(toastView)
@@ -49,10 +52,10 @@ extension UIView {
                                 options: options,
                                 animations: {
 
-            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.1/3.0) {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.1 / 3.0) {
                 toastView.transform = CGAffineTransform(translationX: 0, y: -(toastView.frame.size.height * 2 + 30))
             }
-            UIView.addKeyframe(withRelativeStartTime: 3.9/4.0, relativeDuration: 0.1/3.0) {
+            UIView.addKeyframe(withRelativeStartTime: 3.9 / 4.0, relativeDuration: 0.1 / 3.0) {
                 toastView.transform = .identity
             }
 

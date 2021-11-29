@@ -69,7 +69,10 @@ final class ThreeColumnRecordView: UIView {
         configureLayout()
     }
 
-    func configureLabels(kcal: String, time: String, km: String, timeLabelName: String? = nil) {
+    func configureLabels(kcal: String,
+                         time: String,
+                         km: String,
+                         timeLabelName: String? = nil) {
         kcalRecordLabel.text = kcal
         timeRecordLabel.text = time
         kmRecordLabel.text = km
