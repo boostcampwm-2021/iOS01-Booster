@@ -13,14 +13,12 @@ PODS:
   - RxRelay (6.2.0):
     - RxSwift (= 6.2.0)
   - RxSwift (6.2.0)
-  - SwiftLint (0.45.0)
 
 DEPENDENCIES:
   - RxCocoa
   - RxDataSources
   - RxGesture
   - RxSwift
-  - SwiftLint
 
 SPEC REPOS:
   trunk:
@@ -30,7 +28,6 @@ SPEC REPOS:
     - RxGesture
     - RxRelay
     - RxSwift
-    - SwiftLint
 
 SPEC CHECKSUMS:
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
@@ -39,8 +36,7 @@ SPEC CHECKSUMS:
   RxGesture: f059f2aeef966fb17dad56ee440e76410f10e55f
   RxRelay: e72dbfd157807478401ef1982e1c61c945c94b2f
   RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
-  SwiftLint: e5c7f1fba68eccfc51509d5b2ce1699f5502e0c7
 
-PODFILE CHECKSUM: 41ab3255c77291d55a85a29e4a8d1c3b5ebf8d79
+PODFILE CHECKSUM: ef6c423840d8dc11f186a7d82fdf7d634bb4136a
 
 COCOAPODS: 1.11.2
