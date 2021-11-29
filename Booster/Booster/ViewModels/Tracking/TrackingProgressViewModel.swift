@@ -74,18 +74,16 @@ final class TrackingProgressViewModel {
     }
 
     func address(observable: Observable<String>) {
-        observable.subscribe(onNext: { [weak self] value in
-            guard let self = self
+        observable.subscribe { [weak self] event in
+            guard let element = event.element,
+                  let self = self
             else { return }
-            var tracking = self.trackingModel.value
-            tracking.address = value
 
-            print(value)
+            var tracking = self.trackingModel.value
+            tracking.address = element
+
             self.trackingModel.accept(tracking)
-        }, onError: nil,
-           onCompleted: nil,
-           onDisposed: nil)
-        .disposed(by: disposeBag)
+        }.disposed(by: disposeBag)
     }
 
     private func bind() {
