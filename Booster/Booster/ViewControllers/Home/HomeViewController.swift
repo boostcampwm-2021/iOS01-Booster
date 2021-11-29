@@ -21,6 +21,12 @@ final class HomeViewController: UIViewController {
 
         configure()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        viewModel.fetchQueries()
+    }
 
     // MARK: - Functions
     func configure() {
@@ -47,12 +53,14 @@ final class HomeViewController: UIViewController {
 
     private func bindHomeViewModel() {
         viewModel.homeModel
-            .debounce(RxTimeInterval.milliseconds(100), scheduler: MainScheduler.instance)
+            .skip(4)
+            .observe(on: MainScheduler.instance)
             .subscribe({ [weak self] homeModel in
                 guard let homeModel = homeModel.element
                 else { return }
 
                 self?.updateUI(using: homeModel)
+                self?.viewModel.sendGoalNotification()
             })
             .disposed(by: disposeBag)
     }
@@ -65,6 +73,7 @@ final class HomeViewController: UIViewController {
                                    time: homeModel.activeTime.stringToMinutesAndSeconds(),
                                    km: String(format: "%.2f", homeModel.km),
                                    timeLabelName: "time active")
+        goalLabel.text = "\(homeModel.goal)"
         hourlyBarChartView.drawChart(stepRatios: stepRatios.map { CGFloat($0) }, strings: ["0", "6", "12", "18"])
         todayTotalStepCountLabel.drawLabel(step: homeModel.totalStepCount, ratio: homeModel.gradientRatio())
     }

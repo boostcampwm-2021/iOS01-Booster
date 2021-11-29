@@ -54,16 +54,6 @@ final class HomeUsecase {
         }
     }
 
-    private func configureStepStatistics(step: Int, date: Date) -> StepStatistics {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "ko_KR")
-        dateFormatter.dateFormat = "H"
-
-        let string = dateFormatter.string(from: date)
-
-        return StepStatistics(step: step, abbreviatedDateString: string)
-    }
-
     func fetchTodayTotalData(type: HKQuantityTypeIdentifier) -> Single<HKStatistics?> {
         return Single.create { [weak self] single in
             guard let self = self,
@@ -83,5 +73,53 @@ final class HomeUsecase {
 
             return Disposables.create()
         }
+    }
+    
+    func fetchGoalData() -> Single<Int?> {
+        return Single.create { [weak self] single in
+            guard let self = self
+            else { return Disposables.create() }
+            
+            let observable: Observable<UserInfo> = CoreDataManager.shared.fetch()
+                .map { [weak self] (value: [User]) in
+                    var userInfo = UserInfo()
+                    
+                    if let userValue = value.first,
+                       let userInfoValue = self?.convertToUserInfoFrom(user: userValue) {
+                        userInfo = userInfoValue
+                    }
+                    return userInfo
+                }
+        
+            observable.subscribe { result in
+                single(.success(result.element?.goal))
+            }.disposed(by: self.disposeBag)
+            
+            return Disposables.create()
+        }
+    }
+    
+    private func configureStepStatistics(step: Int, date: Date) -> StepStatistics {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.dateFormat = "H"
+
+        let string = dateFormatter.string(from: date)
+
+        return StepStatistics(step: step, abbreviatedDateString: string)
+    }
+    
+    private func convertToUserInfoFrom(user: User) -> UserInfo? {
+        if let nickname = user.nickname,
+           let gender = user.gender {
+            let userInfo = UserInfo(age: Int(user.age),
+                                    nickname: nickname,
+                                    gender: gender,
+                                    height: Int(user.height),
+                                    weight: Int(user.weight),
+                                    goal: Int(user.goal))
+            return userInfo
+        }
+        return nil
     }
 }
