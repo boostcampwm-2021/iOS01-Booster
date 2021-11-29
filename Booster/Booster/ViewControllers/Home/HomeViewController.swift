@@ -38,11 +38,12 @@ final class HomeViewController: UIViewController {
         let shareTypes = Set([activeEnergyBurned, distanceWalkingRunning, stepCount])
         let readTypes = Set([activeEnergyBurned, distanceWalkingRunning, stepCount])
 
-        HealthStoreManager.shared.requestAuthorization(shareTypes: shareTypes, readTypes: readTypes) { [weak self] isSuccess in
-            if isSuccess {
-                self?.viewModel.fetchQueries()
-            }
-        }
+        HealthKitManager.shared.requestAuthorization(shareTypes: shareTypes, readTypes: readTypes)
+            .subscribe { [weak self] requestResult in
+                if case .success = requestResult {
+                    self?.viewModel.fetchQueries()
+                }
+            }.disposed(by: disposeBag)
     }
 
     private func bindHomeViewModel() {

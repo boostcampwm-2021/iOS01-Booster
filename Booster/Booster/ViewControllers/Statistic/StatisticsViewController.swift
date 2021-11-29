@@ -50,11 +50,12 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
         guard let stepCount = HKQuantityType.quantityType(forIdentifier: .stepCount)
         else { return }
 
-        HealthStoreManager.shared.requestAuthorization(shareTypes: [stepCount], readTypes: [stepCount]) { [weak self] success in
-            if success {
-                self?.viewModel.requestQueryForStatisticsCollection()
-            }
-        }
+        HealthKitManager.shared.requestAuthorization(shareTypes: [stepCount], readTypes: [stepCount])
+            .subscribe { [weak self] requestResult in
+                if case .success = requestResult {
+                    self?.viewModel.requestQueryForStatisticsCollection()
+                }
+            }.disposed(by: disposeBag)
     }
 
     private func addGestures() {
