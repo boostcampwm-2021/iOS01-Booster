@@ -73,6 +73,19 @@ final class TrackingProgressViewModel {
         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
 
+    func address(observable: Observable<String>) {
+        observable.subscribe { [weak self] event in
+            guard let element = event.element,
+                  let self = self
+            else { return }
+
+            var tracking = self.trackingModel.value
+            tracking.address = element
+
+            self.trackingModel.accept(tracking)
+        }.disposed(by: disposeBag)
+    }
+
     private func bind() {
         coordinates.map { (values) -> [Coordinate] in
             let coordinates = self.trackingModel.value.coordinates
@@ -131,7 +144,7 @@ final class TrackingProgressViewModel {
             guard let self = self
             else { return }
 
-            var tracking = self.trackingModel.value
+            let tracking = self.trackingModel.value
             tracking.coordinates.append(Coordinate(latitude: nil, longitude: nil))
             self.trackingModel.accept(tracking)
         }.disposed(by: disposeBag)
