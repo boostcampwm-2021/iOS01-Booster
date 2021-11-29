@@ -9,6 +9,7 @@ import UIKit
 import CoreLocation
 import MapKit
 import RxSwift
+import Network
 
 final class DetailFeedViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - Properties
@@ -82,6 +83,17 @@ final class DetailFeedViewController: UIViewController, BaseViewControllerTempla
             .observe(on: MainScheduler.instance)
             .bind { [weak self] isDeleted in
                 if isDeleted { self?.presentDeleteAlertController() } else { self?.presentAlertController(title: "삭제 실패", message: "산책 기록을 삭제할 수 없어요\n잠시 후 다시 시도해주세요") }
+            }
+            .disposed(by: disposeBag)
+        
+        NWPathMonitor().rx
+            .map { $0.status == .satisfied }
+            .take(1)
+            .observe(on: MainScheduler.instance)
+            .bind { [weak self] isConnected in
+                if !isConnected {
+                    self?.view.showToastView(message: "네트워크 연결이 꺼져있어요\n네트워크를 연결한 뒤 다시 시도해주세요")
+                }
             }
             .disposed(by: disposeBag)
     }
