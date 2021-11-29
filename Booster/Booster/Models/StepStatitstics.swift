@@ -48,14 +48,16 @@ struct StepStatisticsCollection {
     }
 
     func stepCountPerDuration() -> Int? {
-        guard stepStatisticsCollection.count > 0 else { return nil }
+        guard stepStatisticsCollection.count > 0
+        else { return nil }
 
         return stepStatisticsCollection.reduce(0) { $0 + $1.step } / stepStatisticsCollection.count
     }
 
     func stepRatios() -> [Float]? {
         guard let maxStepStatistics = maxStepStatistics(),
-              maxStepStatistics.step > 0 else { return [Float](repeating: 0, count: stepStatisticsCollection.count) }
+              maxStepStatistics.step > 0
+        else { return [Float](repeating: 0, count: stepStatisticsCollection.count) }
 
         return stepStatisticsCollection.map { Float($0.step) / Float(maxStepStatistics.step) }
     }
