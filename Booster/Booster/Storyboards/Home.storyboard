@@ -28,30 +28,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="576-pf-rBg">
-                                <rect key="frame" x="333" y="74.5" width="17" height="30"/>
-                                <fontDescription key="fontDescription" name="Bazaronite" family="Bazaronite" pointSize="25"/>
-                                <color key="textColor" name="boosterLabel"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IOt-Vq-NdU">
-                                <rect key="frame" x="64" y="74.5" width="17" height="30"/>
-                                <fontDescription key="fontDescription" name="Bazaronite" family="Bazaronite" pointSize="25"/>
-                                <color key="textColor" name="boosterLabel"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0h 0m" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DK1-7W-5Tf">
-                                <rect key="frame" x="162.5" y="74.5" width="92.5" height="30"/>
-                                <fontDescription key="fontDescription" name="Bazaronite" family="Bazaronite" pointSize="25"/>
-                                <color key="textColor" name="boosterLabel"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ssn-6d-STD" customClass="GradientLabel" customModule="Booster" customModuleProvider="target">
                                 <rect key="frame" x="182" y="343.5" width="66.5" height="119"/>
                                 <fontDescription key="fontDescription" name="Bazaronite" family="Bazaronite" pointSize="100"/>
                                 <color key="textColor" name="boosterLabel"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Goal 10000" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZn-KZ-HUf">
+                                <rect key="frame" x="187" y="471" width="40.5" height="43.5"/>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="kcal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F17-N7-fTR">
                                 <rect key="frame" x="56" y="114.5" width="28.5" height="22"/>
                                 <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="15"/>
@@ -86,6 +70,13 @@
                                 <rect key="frame" x="30" y="648" width="354" height="135"/>
                                 <color key="backgroundColor" name="boosterBackground"/>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SqD-jA-YKV" customClass="ThreeColumnRecordView" customModule="Booster" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="414" height="100"/>
+                                <color key="backgroundColor" name="boosterBackground"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="5GG-df-P1i"/>
+                                </constraints>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10000" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fPg-k0-zrM" userLabel="Goal Label">
                                 <rect key="frame" x="187" y="508" width="40.5" height="22"/>
                                 <fontDescription key="fontDescription" name="NotoSansKR-Light" family="Noto Sans KR" pointSize="15"/>
@@ -97,29 +88,24 @@
                         <color key="backgroundColor" name="boosterBackground"/>
                         <constraints>
                             <constraint firstItem="FqG-gg-gIl" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="4No-r3-mb8"/>
-                            <constraint firstItem="576-pf-rBg" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" multiplier="1.65" id="4gU-Ot-wec"/>
-                            <constraint firstItem="F17-N7-fTR" firstAttribute="top" secondItem="IOt-Vq-NdU" secondAttribute="bottom" constant="10" id="5KZ-2Y-8L3"/>
-                            <constraint firstItem="IOt-Vq-NdU" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" multiplier="0.2" id="61J-pS-Qju"/>
                             <constraint firstItem="TZn-KZ-HUf" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="8Jl-ms-AJ2"/>
                             <constraint firstItem="Ssn-6d-STD" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" multiplier="0.9" id="8Vn-4G-Ip2"/>
                             <constraint firstItem="fPg-k0-zrM" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="FTo-pS-Waa"/>
                             <constraint firstItem="w4J-fM-4aL" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="Fpl-0F-OB4"/>
                             <constraint firstItem="TZn-KZ-HUf" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" multiplier="1.1" id="KfM-fJ-FOK"/>
-                            <constraint firstItem="DK1-7W-5Tf" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" multiplier="1.008" id="Mj9-dP-EXh"/>
+                            <constraint firstItem="SqD-jA-YKV" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="NMB-Yt-h1a"/>
                             <constraint firstItem="TBK-bI-lVF" firstAttribute="top" secondItem="FqG-gg-gIl" secondAttribute="bottom" constant="10" id="RaE-Jb-piO"/>
-                            <constraint firstItem="DK1-7W-5Tf" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" multiplier="0.2" id="TlP-AN-wVg"/>
                             <constraint firstItem="FqG-gg-gIl" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" multiplier="1.4" id="TxX-2f-8JI"/>
                             <constraint firstItem="TBK-bI-lVF" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="Vb6-hK-AQV"/>
-                            <constraint firstItem="xHn-DV-MaZ" firstAttribute="centerX" secondItem="576-pf-rBg" secondAttribute="centerX" multiplier="0.996" id="Zh7-Ct-618"/>
-                            <constraint firstItem="IOt-Vq-NdU" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" multiplier="0.35" id="abj-cV-5f4"/>
                             <constraint firstItem="Ssn-6d-STD" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" multiplier="1.04" id="cvj-ls-Jg8"/>
+                            <constraint firstItem="SqD-jA-YKV" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="fRa-i7-tmI"/>
                             <constraint firstItem="TBK-bI-lVF" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" constant="-30" id="hOr-jE-9hy"/>
+                            <constraint firstAttribute="trailing" secondItem="SqD-jA-YKV" secondAttribute="trailing" id="qxK-In-OMO"/>
                             <constraint firstItem="fPg-k0-zrM" firstAttribute="top" secondItem="TZn-KZ-HUf" secondAttribute="bottom" constant="4" id="iTP-9b-eei"/>
                             <constraint firstItem="xHn-DV-MaZ" firstAttribute="top" secondItem="576-pf-rBg" secondAttribute="bottom" constant="10" id="jbE-D7-EUl"/>
                             <constraint firstItem="w4J-fM-4aL" firstAttribute="top" secondItem="DK1-7W-5Tf" secondAttribute="bottom" constant="10" id="mad-Fk-COx"/>
                             <constraint firstItem="576-pf-rBg" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" multiplier="0.2" id="non-pq-QWR"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="TBK-bI-lVF" secondAttribute="trailing" constant="30" id="u28-3r-V2B"/>
-                            <constraint firstItem="F17-N7-fTR" firstAttribute="centerX" secondItem="IOt-Vq-NdU" secondAttribute="centerX" multiplier="0.97" id="uKr-hb-i34"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="home" selectedImage="home" id="ZN1-p6-8Xg"/>
@@ -127,9 +113,7 @@
                     <connections>
                         <outlet property="goalLabel" destination="fPg-k0-zrM" id="SAa-T5-Uu8"/>
                         <outlet property="hourlyBarChartView" destination="TBK-bI-lVF" id="lkg-ka-wVa"/>
-                        <outlet property="kcalLabel" destination="IOt-Vq-NdU" id="mHf-Oa-YZ3"/>
-                        <outlet property="kmLabel" destination="576-pf-rBg" id="Xhi-iJ-LE1"/>
-                        <outlet property="timeActiveLabel" destination="DK1-7W-5Tf" id="gcb-mb-QTF"/>
+                        <outlet property="recordView" destination="SqD-jA-YKV" id="1a6-SE-gsK"/>
                         <outlet property="todayTotalStepCountLabel" destination="Ssn-6d-STD" id="gdw-or-0vE"/>
                     </connections>
                 </viewController>

@@ -15,6 +15,18 @@ class BoosterMapView: MKMapView {
         case endDot
     }
 
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+
+        configure()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+
+        configure()
+    }
+
     func setRegion(to location: CLLocation, meterRadius: Double) {
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
                                                   latitudinalMeters: meterRadius * 2,
@@ -43,19 +55,17 @@ class BoosterMapView: MKMapView {
         addOverlay(line)
     }
 
-    func gradientColorOfCoordinate(at coordinate: Coordinate,
-                                   coordinates: Coordinates,
+    func gradientColorOfCoordinate(indexRatio percentOfPathProgress: Double,
                                    from fromColor: UIColor,
                                    to toColor: UIColor) -> UIColor? {
-        guard let indexOfTargetCoordinate = coordinates.firstIndex(of: coordinate)
-        else { return nil }
-
-        let percentOfPathProgress = Double(indexOfTargetCoordinate) / Double(coordinates.count)
-
         let red = fromColor.redValue + ((toColor.redValue - fromColor.redValue) * percentOfPathProgress)
         let green = fromColor.greenValue + ((toColor.greenValue - fromColor.greenValue) * percentOfPathProgress)
         let blue = fromColor.blueValue + ((toColor.blueValue - fromColor.blueValue) * percentOfPathProgress)
 
         return UIColor(red: red, green: green, blue: blue, alpha: 1)
+    }
+
+    private func configure() {
+        isPitchEnabled = false
     }
 }

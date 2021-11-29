@@ -30,9 +30,7 @@ final class DetailFeedViewModel {
 
     // MARK: - Functions
     func milestone(at coordinate: Coordinate) -> Milestone? {
-        let target = trackingModel.value.milestones.milestone(at: coordinate)
-
-        return target
+        return trackingModel.value.milestones.milestone(at: coordinate)
     }
 
     func reset() { gradientColorOffset = -1 }
@@ -61,26 +59,13 @@ final class DetailFeedViewModel {
             .disposed(by: disposeBag)
     }
 
-    func indexOfCoordinate(_ coordinate: Coordinate) -> Int? {
-        guard let currentLatitude = coordinate.latitude,
-              let currentLongitude = coordinate.longitude
-        else { return nil }
-
-        for (index, compareCoordinate) in trackingModel.value.coordinates.all.enumerated() {
-            if let latitude = compareCoordinate.latitude,
-               let longitude = compareCoordinate.longitude {
-                if isOnPathAsApproximation(currentLatitude: currentLatitude,
-                                           currentLongitude: currentLongitude,
-                                           compareLatitude: latitude,
-                                           compareLongitude: longitude) { return index }
-            }
-        }
-        return nil
+    func offsetOfGradientColorCoordinate() -> Coordinate? {
+        gradientColorOffset += 1
+        return trackingModel.value.coordinates[gradientColorOffset] ?? nil
     }
 
-    func offsetOfGradientColor() -> Int {
-        gradientColorOffset += 1
-        return gradientColorOffset
+    func indexRatioOfCoordinate(_ coordinate: Coordinate) -> Double? {
+        return trackingModel.value.coordinates.indexRatio(coordinate)
     }
 
     func fetchDetailFeedList() {
@@ -97,13 +82,5 @@ final class DetailFeedViewModel {
     func createModifyFeedViewModel() -> ModifyFeedViewModel {
         let writingRecord = WritingRecord(title: trackingModel.value.title, content: trackingModel.value.content)
         return ModifyFeedViewModel(startDate: startDate, writingRecord: writingRecord, usecase: ModifyFeedUsecase())
-    }
-
-    private func isOnPathAsApproximation(currentLatitude: Double,
-                                         currentLongitude: Double,
-                                         compareLatitude: Double,
-                                         compareLongitude: Double) -> Bool {
-        let approximation = 0.000000001
-        return abs(currentLatitude - compareLatitude) < approximation && abs(currentLongitude - compareLongitude) < approximation
     }
 }

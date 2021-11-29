@@ -94,10 +94,10 @@ class TrackingMapView: BoosterMapView {
                 prevCoordinate = coordinate
                 if coordinate.latitude != nil && coordinate.longitude != nil { endCoordinate = coordinate }
 
-                if let gradientColor = self?.gradientColorOfCoordinate(at: coordinate,
-                                                                 coordinates: coordinates,
-                                                                 from: .boosterBackground,
-                                                                 to: .boosterOrange) {
+                if let ratio = coordinates.indexRatio(coordinate),
+                   let gradientColor = self?.gradientColorOfCoordinate(indexRatio: ratio,
+                                                                       from: .boosterBackground,
+                                                                       to: .boosterOrange) {
                     gradientColor.set()
                     context.strokePath()
                 }
