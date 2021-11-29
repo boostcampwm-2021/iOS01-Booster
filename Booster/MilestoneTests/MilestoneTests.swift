@@ -6,7 +6,6 @@
 //
 
 import XCTest
-@testable import Booster
 
 class MilestoneTests: XCTestCase {
     var milestones: Milestones!
