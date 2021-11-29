@@ -55,6 +55,7 @@
 		3B6FE5002743A5F400A815D1 /* EnrollWriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6FE4FF2743A5F300A815D1 /* EnrollWriteView.swift */; };
 		3B6FE5032743A85B00A815D1 /* InfoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6FE5022743A85B00A815D1 /* InfoPickerView.swift */; };
 		3B6FE5052744DDBE00A815D1 /* NicknameEnrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6FE5042744DDBE00A815D1 /* NicknameEnrollView.swift */; };
+		3B73AC122752483700067779 /* TrackingInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B73AC112752483700067779 /* TrackingInfoView.swift */; };
 		3BE60F6127464DE800B4EFB8 /* StatisticsUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE60F6027464DE700B4EFB8 /* StatisticsUsecase.swift */; };
 		3BE60F6427464E0300B4EFB8 /* StepStatitstics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE60F6327464E0300B4EFB8 /* StepStatitstics.swift */; };
 		4500449EAD12786CF0C84845 /* Pods_Booster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1982A2EE6933ED1A7065E1 /* Pods_Booster.framework */; };
@@ -185,6 +186,7 @@
 		3B6FE4FF2743A5F300A815D1 /* EnrollWriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollWriteView.swift; sourceTree = "<group>"; };
 		3B6FE5022743A85B00A815D1 /* InfoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPickerView.swift; sourceTree = "<group>"; };
 		3B6FE5042744DDBE00A815D1 /* NicknameEnrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameEnrollView.swift; sourceTree = "<group>"; };
+		3B73AC112752483700067779 /* TrackingInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingInfoView.swift; sourceTree = "<group>"; };
 		3BE60F6027464DE700B4EFB8 /* StatisticsUsecase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticsUsecase.swift; sourceTree = "<group>"; };
 		3BE60F6327464E0300B4EFB8 /* StepStatitstics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepStatitstics.swift; sourceTree = "<group>"; };
 		724D72817F933E7C4E0AA2A8 /* Pods-Booster.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booster.debug.xcconfig"; path = "Target Support Files/Pods-Booster/Pods-Booster.debug.xcconfig"; sourceTree = "<group>"; };
@@ -498,6 +500,7 @@
 				FA614F4A2733CDAA00B090D9 /* TrackingMapView.swift */,
 				FA614F4B2733CDAA00B090D9 /* PhotoAnnotationView.swift */,
 				3B38FB13273A5F3B00F8620D /* TrackingCountDownView.swift */,
+				3B73AC112752483700067779 /* TrackingInfoView.swift */,
 			);
 			path = Tracking;
 			sourceTree = "<group>";
@@ -1076,6 +1079,7 @@
 				28C97066274E21CC005BD7BC /* BoosterMapView.swift in Sources */,
 				FA84966C274A13890021F903 /* NotificationSettingViewController.swift in Sources */,
 				3B37B99E274385B6001EB120 /* EnrollUsecase.swift in Sources */,
+				3B73AC122752483700067779 /* TrackingInfoView.swift in Sources */,
 				FA614F722733CDAA00B090D9 /* HomeModel.swift in Sources */,
 				FA614F962738F7A200B090D9 /* MilestonePhotoViewController.swift in Sources */,
 				28C9702F2740D731005BD7BC /* HomeUsecase.swift in Sources */,
