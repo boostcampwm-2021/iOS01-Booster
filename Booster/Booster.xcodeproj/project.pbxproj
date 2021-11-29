@@ -21,10 +21,8 @@
 		28C97068274E26E1005BD7BC /* DetailFeedMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C97067274E26E1005BD7BC /* DetailFeedMapView.swift */; };
 		28C9708A275283FA005BD7BC /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C97089275283FA005BD7BC /* UIView+Extension.swift */; };
 		28C9708C27528CFC005BD7BC /* ThreeColumnRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C9708B27528CFC005BD7BC /* ThreeColumnRecordView.swift */; };
-		28C970922753D10E005BD7BC /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C970912753D10E005BD7BC /* ToastView.swift */; 
+		28C970922753D10E005BD7BC /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C970912753D10E005BD7BC /* ToastView.swift */; };
 		373B1A202754B1DB006D826E /* StepStatitstics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE60F6327464E0300B4EFB8 /* StepStatitstics.swift */; };
-		28C9709827548DEB005BD7BC /* NWPathMonitor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C9709727548DEB005BD7BC /* NWPathMonitor+Extension.swift */; };
-		37852ACF273C27F100BA3D67 /* StatisticsModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37852ACE273C27F100BA3D67 /* StatisticsModelTests.swift */; };
 		37852AD8273C2D0B00BA3D67 /* StepStatisticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37852AD7273C2D0B00BA3D67 /* StepStatisticsTests.swift */; };
 		37952E1A2754B4D000D1B0E3 /* StatisticsUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE60F6027464DE700B4EFB8 /* StatisticsUsecase.swift */; };
 		37952E1C2754D82D00D1B0E3 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FD1AED274D1D6600FAB0CC /* HealthKitManager.swift */; };
@@ -193,7 +191,6 @@
 		28C97089275283FA005BD7BC /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		28C9708B27528CFC005BD7BC /* ThreeColumnRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeColumnRecordView.swift; sourceTree = "<group>"; };
 		28C970912753D10E005BD7BC /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
-		28C9709727548DEB005BD7BC /* NWPathMonitor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NWPathMonitor+Extension.swift"; sourceTree = "<group>"; };
 		2B48040F6799218C11A0F1CA /* Pods-StatisticsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StatisticsTests.release.xcconfig"; path = "Target Support Files/Pods-StatisticsTests/Pods-StatisticsTests.release.xcconfig"; sourceTree = "<group>"; };
 		37852ACC273C27F100BA3D67 /* StatisticsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StatisticsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		37852ACE273C27F100BA3D67 /* StatisticsModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsModelTests.swift; sourceTree = "<group>"; };
@@ -757,7 +754,6 @@
 				28C96FF2273A4634005BD7BC /* UIResponder+Extension.swift */,
 				FACBAB692746034900CD6B76 /* UIButton+Extension.swift */,
 				28C97089275283FA005BD7BC /* UIView+Extension.swift */,
-				28C9709727548DEB005BD7BC /* NWPathMonitor+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1242,7 +1238,6 @@
 				FA614F6F2733CDAA00B090D9 /* UserInfo.swift in Sources */,
 				FA473A4D2744EC1C0000C5DC /* ChangeGoalViewController.swift in Sources */,
 				FA614F7C2733CDAA00B090D9 /* AppDelegate.swift in Sources */,
-				28C9709827548DEB005BD7BC /* NWPathMonitor+Extension.swift in Sources */,
 				FA614F812733CDAA00B090D9 /* TrackingViewController.swift in Sources */,
 				3B31B5FF273CD2F7009D9190 /* Tracking+CoreDataClass.swift in Sources */,
 				28C96FED27396F6B005BD7BC /* DetailFeedViewModel.swift in Sources */,

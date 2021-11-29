@@ -7,11 +7,8 @@
 
 import XCTest
 
-import RxSwift
 import RxCocoa
-import RxTest
-import RxBlocking
-import HealthKit
+import RxSwift
 
 final class StatisticsViewModelTests: XCTestCase {
     private var viewModel: StatisticsViewModel!
