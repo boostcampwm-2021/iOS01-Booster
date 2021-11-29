@@ -21,3 +21,8 @@ end
 target 'TrackingProgressTests' do
   pods
 end
+
+target 'UserTests' do
+  pods
+  pod 'RxTest'
+end

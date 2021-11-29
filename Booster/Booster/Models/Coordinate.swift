@@ -65,8 +65,13 @@ final class Coordinates {
         return Double(index) / Double(coordinates.count)
     }
 
-    func firstIndex(of coordinate: Coordinate) -> Int? {
-        return coordinates.firstIndex(of: coordinate)
+    func firstIndex(of targetCoordinate: Coordinate) -> Int? {
+        for (index, coordinate) in coordinates.enumerated() {
+            if coordinate == targetCoordinate {
+                return index
+            }
+        }
+        return nil
     }
 }
 

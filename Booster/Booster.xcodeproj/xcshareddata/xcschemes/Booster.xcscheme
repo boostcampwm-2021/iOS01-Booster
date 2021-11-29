@@ -32,26 +32,6 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "37852ACB273C27F100BA3D67"
-               BuildableName = "StatisticsTests.xctest"
-               BlueprintName = "StatisticsTests"
-               ReferencedContainer = "container:Booster.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3B31B60427410470009D9190"
-               BuildableName = "TrackingProgressTests.xctest"
-               BlueprintName = "TrackingProgressTests"
-               ReferencedContainer = "container:Booster.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "FAB252732753BCD900A4FC5B"
                BuildableName = "CoordinatesTests.xctest"
                BlueprintName = "CoordinatesTests"
@@ -85,6 +65,16 @@
                BlueprintIdentifier = "FAB252C82753D1AF00A4FC5B"
                BuildableName = "MilestoneTests.xctest"
                BlueprintName = "MilestoneTests"
+               ReferencedContainer = "container:Booster.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FAB252E22754C7BF00A4FC5B"
+               BuildableName = "UserTests.xctest"
+               BlueprintName = "UserTests"
                ReferencedContainer = "container:Booster.xcodeproj">
             </BuildableReference>
          </TestableReference>

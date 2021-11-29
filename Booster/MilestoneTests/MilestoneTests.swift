@@ -142,13 +142,13 @@ class MilestoneTests: XCTestCase {
             Milestone(latitude: 20, longitude: 60, imageData: Data()),
             Milestone(latitude: 10, longitude: 80, imageData: Data())
         ]
-        let targetmilestone = Milestone(latitude: 20, longitude: 60, imageData: Data())
+        let targetMilestone = Milestone(latitude: 20, longitude: 60, imageData: Data())
 
         // when
         milestones.appends(milestonesList)
 
         // then
-        XCTAssertEqual(milestones.firstIndex(of: targetmilestone), 3, "해당 마일스톤이 존재하지 않습니다.")
+        XCTAssertEqual(milestones.firstIndex(of: targetMilestone), 1, "해당 마일스톤이 존재하지 않습니다.")
     }
 
     func test_마일스톤_인덱스_찾기_실패() throws {
@@ -174,14 +174,18 @@ class MilestoneTests: XCTestCase {
             Milestone(latitude: 20, longitude: 60, imageData: Data()),
             Milestone(latitude: 10, longitude: 80, imageData: Data())
         ]
-        let targetmilestones = Milestone(latitude: 10, longitude: 80, imageData: Data())
+        let targetMilestones = Milestone(latitude: 10, longitude: 80, imageData: Data())
 
         // when
         milestones.appends(milestonesList)
-        let removedMilestone = milestones.remove(of: targetmilestones)
-
+        guard let removedMilestone = milestones.remove(of: targetMilestones)
+        else {
+            XCTFail("해당 위치에 마일스톤이 존재하지 않습니다.")
+            return
+        }
+        
         // then
-        XCTAssertEqual(removedMilestone, targetmilestones, "해당 마일스톤이 존재하지 않습니다.")
+        XCTAssertTrue(removedMilestone.coordinate == targetMilestones.coordinate, "해당 위치에 마일스톤이 존재하지 않습니다.")
     }
 
     func test_마일스톤_삭제_실패() throws {
@@ -191,7 +195,7 @@ class MilestoneTests: XCTestCase {
             Milestone(latitude: 20, longitude: 60, imageData: Data()),
             Milestone(latitude: 10, longitude: 80, imageData: Data())
         ]
-        let targetmilestones = Milestone(latitude: 10, longitude: 80, imageData: Data())
+        let targetmilestones = Milestone(latitude: 10, longitude: 90, imageData: Data())
 
         // when
         milestones.appends(milestonesList)
@@ -208,18 +212,18 @@ class MilestoneTests: XCTestCase {
             Milestone(latitude: 20, longitude: 60, imageData: Data()),
             Milestone(latitude: 10, longitude: 80, imageData: Data())
         ]
-        let targetCoordinate = Coordinate(latitude: 10, longitude: 80)
+        let targetMilestone = Coordinate(latitude: 10, longitude: 80)
 
         // when
         milestones.appends(milestonesList)
-        guard let resultMilestone = milestones.milestone(at: targetCoordinate)
+        guard let resultMilestone = milestones.milestone(at: targetMilestone)
         else {
             XCTFail("해당 마일스톤이 존재하지 않습니다(Nil)")
             return
         }
 
         // then
-        XCTAssertEqual(resultMilestone.coordinate, targetCoordinate, "해당 마일스톤이 존재하지 않습니다(Coordinate).")
+        XCTAssertTrue(resultMilestone.coordinate == targetMilestone, "해당 마일스톤이 존재하지 않습니다(Coordinate).")
     }
 
     func test_좌표에_해당하는_마일스톤_찾기_실패() throws {
@@ -229,7 +233,7 @@ class MilestoneTests: XCTestCase {
             Milestone(latitude: 20, longitude: 60, imageData: Data()),
             Milestone(latitude: 10, longitude: 80, imageData: Data())
         ]
-        let targetCoordinate = Coordinate(latitude: 10, longitude: 80)
+        let targetCoordinate = Coordinate(latitude: 20, longitude: 80)
 
         // when
         milestones.appends(milestonesList)

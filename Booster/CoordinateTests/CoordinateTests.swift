@@ -137,9 +137,9 @@ class CoordinateTests: XCTestCase {
 
     func test_중앙좌표_일치() throws {
         // given
-        let center = Coordinate(latitude: 15, longitude: 40)
+        let center = Coordinate(latitude: 30, longitude: 50)
         let coordinateList = [
-            Coordinate(latitude: 30, longitude: 40),
+            Coordinate(latitude: 50, longitude: 20),
             Coordinate(latitude: 20, longitude: 60),
             Coordinate(latitude: 10, longitude: 80)
         ]
@@ -147,7 +147,7 @@ class CoordinateTests: XCTestCase {
         coordinates.appends(coordinateList)
 
         // then
-        XCTAssertEqual(coordinates.center(), center, "좌표의 중앙이 일치하지 않습니다.")
+        XCTAssertTrue(coordinates.center() == center, "좌표의 중앙이 일치하지 않습니다.")
     }
 
     func test_좌표_인덱스_찾기_성공() throws {
@@ -163,7 +163,7 @@ class CoordinateTests: XCTestCase {
         coordinates.appends(coordinateList)
 
         // then
-        XCTAssertEqual(coordinates.firstIndex(of: targetCoordinate), 3, "해당 좌표가 존재하지 않습니다.")
+        XCTAssertEqual(coordinates.firstIndex(of: targetCoordinate), 1, "해당 좌표가 존재하지 않습니다.")
     }
 
     func test_좌표_인덱스_찾기_실패() throws {

@@ -50,8 +50,13 @@ final class Milestones {
         return milestones.remove(at: index)
     }
 
-    func firstIndex(of milestone: Milestone) -> Int? {
-        return milestones.firstIndex(of: milestone)
+    func firstIndex(of targetMilestone: Milestone) -> Int? {
+        for (index, milestone) in milestones.enumerated() {
+            if milestone == targetMilestone {
+                return index
+            }
+        }
+        return nil
     }
 
     func milestone(at coordinate: Coordinate) -> Milestone? {
