@@ -8,6 +8,8 @@ def pods
   pod 'RxCocoa'
   pod 'RxDataSources'
   pod 'RxGesture'
+  pod 'RxTest'
+  pod 'RxBlocking'
 end
 
 target 'Booster' do
@@ -19,5 +21,9 @@ target 'StatisticsTests' do
 end
 
 target 'TrackingProgressTests' do
+  pods
+end
+
+target 'FeedTests' do
   pods
 end
