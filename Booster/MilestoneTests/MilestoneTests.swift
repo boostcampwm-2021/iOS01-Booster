@@ -83,6 +83,36 @@ class MilestoneTests: XCTestCase {
         XCTAssertEqual(milestones.all, milestonesList, "마일스톤배열 추가에 실패하였습니다.")
     }
 
+    func test_subscript_접근_성공() throws {
+        // given
+        let milestonesList = [
+            Milestone(latitude: 1, longitude: 1, imageData: Data()),
+            Milestone(latitude: 2, longitude: 2, imageData: Data()),
+            Milestone(latitude: 3, longitude: 3, imageData: Data())
+        ]
+
+        // when
+        milestones.appends(milestonesList)
+
+        // then
+        XCTAssertNotNil(milestones[1], "인덱스의 접근이 올바르지 않습니다.")
+    }
+    
+    func test_subscript_접근_실패() throws {
+        // given
+        let milestonesList = [
+            Milestone(latitude: 1, longitude: 1, imageData: Data()),
+            Milestone(latitude: 2, longitude: 2, imageData: Data()),
+            Milestone(latitude: 3, longitude: 3, imageData: Data())
+        ]
+
+        // when
+        milestones.appends(milestonesList)
+
+        // then
+        XCTAssertNil(milestones[-1], "인덱스의 접근이 올바릅니다.")
+    }
+    
     func test_첫번째_마일스톤() throws {
         // given
         let first = Milestone(latitude: 1, longitude: 1, imageData: Data())

@@ -7,7 +7,6 @@
 
 import XCTest
 import RxSwift
-@testable import Booster
 
 class NotificationSettingViewModelTests: XCTestCase {
     var disposeBag: DisposeBag!

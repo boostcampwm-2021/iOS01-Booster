@@ -17,7 +17,7 @@ final class Milestones {
     }
 
     subscript(index: Int) -> Milestone? {
-        if index > milestones.count - 1 {
+        if index > milestones.count - 1 || index < 0{
             return nil
         }
         return milestones[index]

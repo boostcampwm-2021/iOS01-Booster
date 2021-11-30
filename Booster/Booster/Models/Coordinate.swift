@@ -17,7 +17,7 @@ final class Coordinates {
     }
 
     subscript(index: Int) -> Coordinate? {
-        if index > coordinates.count - 1 {
+        if index > coordinates.count - 1 || index < 0{
             return nil
         }
         return coordinates[index]

@@ -56,7 +56,7 @@ class CoordinateTests: XCTestCase {
         // then
         XCTAssertEqual(newCoordinates.all, coordinateList, "배열이 정상적으로 초기화 되지 않았습니다.")
     }
-
+    
     func test_좌표추가_성공() throws {
         // given
         let coordinate = Coordinate(latitude: 1, longitude: 1)
@@ -83,6 +83,36 @@ class CoordinateTests: XCTestCase {
         XCTAssertEqual(coordinates.all, coordinateList, "좌표배열 추가에 실패하였습니다.")
     }
 
+    func test_subscript_접근_성공() throws {
+        // given
+        let coordinateList = [
+            Coordinate(latitude: 1, longitude: 1),
+            Coordinate(latitude: 2, longitude: 2),
+            Coordinate(latitude: 3, longitude: 3)
+        ]
+        
+        // when
+        coordinates.appends(coordinateList)
+
+        // then
+        XCTAssertNotNil(coordinates[0], "인덱스의 접근이 올바르지 않습니다.")
+    }
+    
+    func test_subscript_접근_실패() throws {
+        // given
+        let coordinateList = [
+            Coordinate(latitude: 1, longitude: 1),
+            Coordinate(latitude: 2, longitude: 2),
+            Coordinate(latitude: 3, longitude: 3)
+        ]
+        
+        // when
+        coordinates.appends(coordinateList)
+
+        // then
+        XCTAssertNil(coordinates[-1], "인덱스의 접근이 올바릅니다.")
+    }
+    
     func test_첫번째_좌표() throws {
         // given
         let first = Coordinate(latitude: 1, longitude: 1)
