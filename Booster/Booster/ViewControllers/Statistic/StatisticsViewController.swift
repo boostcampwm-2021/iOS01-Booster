@@ -167,7 +167,7 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
             view.addSubview(emptyView!)
         }
         
-        view.showToastView(message: "[건강앱] - [마이페이지] - [앱] - [Booster]\n에서 권한을 허용해주세요", isOnTapBar: true)
+        view.showToastView(message: "[건강앱] - [마이페이지] - [앱] - [Booster]\n에서 권한을 허용해주세요", isOnTabBar: true)
     }
     
     private func updateDuration(using statisticsCollection: StepStatisticsCollection) {
