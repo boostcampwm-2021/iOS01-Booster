@@ -81,12 +81,12 @@ final class HomeUsecase {
             else { return Disposables.create() }
             
             let observable: Observable<UserInfo> = CoreDataManager.shared.fetch()
-                .map { [weak self] (value: [User]) in
+                .map { [weak self] (userOfCoreData: [User]) in
                     var userInfo = UserInfo()
                     
-                    if let userValue = value.first,
-                       let userInfoValue = self?.convertToUserInfoFrom(user: userValue) {
-                        userInfo = userInfoValue
+                    if let userModel = userOfCoreData.first,
+                       let convertToUserModel = self?.convertToUserInfoFrom(user: userModel) {
+                        userInfo = convertToUserModel
                     }
                     return userInfo
                 }
