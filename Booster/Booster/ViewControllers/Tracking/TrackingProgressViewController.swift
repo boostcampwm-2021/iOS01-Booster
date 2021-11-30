@@ -246,6 +246,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
 
                 switch self.viewModel.state.value {
                 case .end:
+                    self.infoView.rightButton.isUserInteractionEnabled = false
                     self.makeImageData()
                 default:
                     let status = CLLocationManager.authorizationStatus()
@@ -309,6 +310,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
                 if value {
                     self?.navigationController?.popViewController(animated: true)
                 }
+                self?.infoView.rightButton.isUserInteractionEnabled = true
             }.disposed(by: disposeBag)
     }
 
