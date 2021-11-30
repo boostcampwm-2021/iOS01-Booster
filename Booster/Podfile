@@ -7,8 +7,6 @@ def mainPods
   pod 'RxSwift'
   pod 'RxCocoa'
   pod 'RxGesture'
-  pod 'RxTest'
-  pod 'RxBlocking'
 end
 
 def testPods
@@ -35,6 +33,12 @@ target 'TrackingProgressTests' do
   testPods
 end
 
+target 'UserTests' do
+  mainPods
+  testPods
+end
+
 target 'FeedTests' do
-  pods
+  mainPods
+  testPods
 end
