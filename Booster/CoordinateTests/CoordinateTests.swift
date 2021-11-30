@@ -29,7 +29,18 @@ class CoordinateTests: XCTestCase {
         // then
         XCTAssertEqual(newCoordinates.all, coordinateList, "배열이 정상적으로 초기화 되지 않았습니다.")
     }
+    
+    func test_초기화_기본값_성공() throws {
+        // given
+        let newCoordinate = Coordinate(latitude: 1, longitude: 1)
 
+        // when
+        coordinates = Coordinates(coordinate: newCoordinate)
+
+        // then
+        XCTAssertEqual(coordinates.all, [newCoordinate], "배열이 정상적으로 초기화 되지 않았습니다.")
+    }
+    
     func test_초기화_배열_성공() throws {
         // given
         let newCoordinates: Coordinates!
@@ -180,5 +191,28 @@ class CoordinateTests: XCTestCase {
 
         // then
         XCTAssertNil(coordinates.firstIndex(of: targetCoordinate), "해당 좌표가 존재합니다.")
+    }
+    
+    func test_좌표_비율() throws {
+        // given
+        let targetCoordinate = Coordinate(latitude: 2, longitude: 2)
+        let coordinateList = [
+            Coordinate(latitude: 1, longitude: 1),
+            targetCoordinate,
+            Coordinate(latitude: 3, longitude: 3),
+            Coordinate(latitude: 4, longitude: 4),
+        ]
+        coordinates.appends(coordinateList)
+
+        // when
+        let expectRatio: Double = 1 / Double(coordinateList.count)
+        guard let resultRatio = coordinates.indexRatio(targetCoordinate)
+        else {
+            XCTFail("존재하지 않는 좌표입니다.")
+            return
+        }
+
+        // then
+        XCTAssertEqual(resultRatio, expectRatio, "좌표의 인덱스 비율이 일치하지 않습니다.")
     }
 }
