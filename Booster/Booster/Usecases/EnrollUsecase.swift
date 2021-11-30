@@ -9,15 +9,6 @@ import Foundation
 import RxSwift
 
 final class EnrollUsecase {
-    private enum CoreDataKeys {
-        static let age = "age"
-        static let gender = "gender"
-        static let height = "height"
-        static let nickname = "nickname"
-        static let weight = "weight"
-        static let goal = "goal"
-    }
-
     private let disposeBag: DisposeBag
     var observable: Observable<Void>
 
