@@ -201,6 +201,8 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
             .bind { [weak self] _ in
                 guard let self = self
                 else { return }
+                
+                self.infoView.leftButton.bounceAnimate()
 
                 switch self.viewModel.state.value {
                 case .start:
@@ -244,6 +246,8 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
                 guard let self = self
                 else { return }
 
+                self.infoView.rightButton.bounceAnimate()
+                
                 switch self.viewModel.state.value {
                 case .end:
                     self.makeImageData()

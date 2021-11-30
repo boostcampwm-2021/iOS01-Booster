@@ -146,7 +146,7 @@ final class TrackingInfoView: UIView {
             $0?.constant = 130
         }
 
-        rightButton.setImage(.systemPencil, for: .normal)
+        rightButton.setImage(.save, for: .normal)
     }
 
     func update(state: TrackingProgressViewModel.TrackingState) {

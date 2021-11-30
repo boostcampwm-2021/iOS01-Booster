@@ -21,4 +21,14 @@ extension UIButton {
 
         self.setBackgroundImage(backgroundImage, for: state)
     }
+    
+    func bounceAnimate() {
+        UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseIn, animations: {
+            self.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.3, options: .curveEaseIn) {
+                self.transform = CGAffineTransform.identity
+            }
+        })
+    }
 }
