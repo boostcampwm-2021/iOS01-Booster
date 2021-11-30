@@ -17,10 +17,8 @@ final class Coordinates {
     }
 
     subscript(index: Int) -> Coordinate? {
-        if index > coordinates.count - 1 || index < 0{
-            return nil
-        }
-        return coordinates[index]
+        if (0..<coordinates.count).contains(index) { return coordinates[index] }
+        else { return nil }
     }
 
     init() {
@@ -66,12 +64,7 @@ final class Coordinates {
     }
 
     func firstIndex(of targetCoordinate: Coordinate) -> Int? {
-        for (index, coordinate) in coordinates.enumerated() {
-            if coordinate == targetCoordinate {
-                return index
-            }
-        }
-        return nil
+        return coordinates.enumerated().first(where: { $0.element == targetCoordinate })?.offset
     }
 }
 

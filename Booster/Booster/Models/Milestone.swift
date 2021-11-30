@@ -17,10 +17,8 @@ final class Milestones {
     }
 
     subscript(index: Int) -> Milestone? {
-        if index > milestones.count - 1 || index < 0{
-            return nil
-        }
-        return milestones[index]
+        if (0..<milestones.count).contains(index) { return milestones[index] }
+        else { return nil }
     }
 
     init() {
@@ -51,12 +49,7 @@ final class Milestones {
     }
 
     func firstIndex(of targetMilestone: Milestone) -> Int? {
-        for (index, milestone) in milestones.enumerated() {
-            if milestone == targetMilestone {
-                return index
-            }
-        }
-        return nil
+        return milestones.enumerated().first(where: { $0.element == targetMilestone })?.offset
     }
 
     func milestone(at coordinate: Coordinate) -> Milestone? {
