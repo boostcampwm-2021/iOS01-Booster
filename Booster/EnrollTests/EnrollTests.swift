@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import RxTest
 
-class EnrollTests: XCTestCase {
+final class EnrollTests: XCTestCase {
     var disposeBag: DisposeBag!
     var scheduler: ConcurrentDispatchQueueScheduler!
     var testScheduler: TestScheduler!

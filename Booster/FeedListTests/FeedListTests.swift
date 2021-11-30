@@ -59,6 +59,7 @@ final class FeedListTests: XCTestCase {
             .subscribe(select)
             .disposed(by: disposeBag)
         viewModel.fetch()
+        sleep(3)
         if viewModel.list.value.count > 0 {
             viewModel.select.onNext(IndexPath(row: 0, section: 0))
         }
