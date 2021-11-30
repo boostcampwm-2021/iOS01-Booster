@@ -31,7 +31,7 @@ extension UIView {
         return image
     }
 
-    func showToastView(message: String) {
+    func showToastView(message: String, isOnTapBar: Bool = false) {
         let toastView = ToastView.init(frame: CGRect(x: 30,
                                                      y: frame.size.height,
                                                      width: frame.size.width - 60,
@@ -53,7 +53,12 @@ extension UIView {
                                 animations: {
 
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.1 / 3.0) {
-                toastView.transform = CGAffineTransform(translationX: 0, y: -(toastView.frame.size.height * 2 + 30))
+                if isOnTapBar {
+                    toastView.transform = CGAffineTransform(translationX: 0, y: -(toastView.frame.size.height * 2 + 80))
+                }
+                else {
+                    toastView.transform = CGAffineTransform(translationX: 0, y: -(toastView.frame.size.height * 2 + 30))
+                }
             }
             UIView.addKeyframe(withRelativeStartTime: 3.9 / 4.0, relativeDuration: 0.1 / 3.0) {
                 toastView.transform = .identity
