@@ -75,10 +75,10 @@ final class NotificationSettingViewController: UIViewController, BaseViewControl
             .drive(onNext: { [weak self] notificationSettingModel in
                 self?.titleLabel.text = notificationSettingModel.title
                 self?.subTitleLabel.text = notificationSettingModel.subTitle
-                self?.notificationImageView.image = notificationSettingModel.image
-                self?.onOffButton.backgroundColor = notificationSettingModel.buttonBackgroundColor
+                self?.notificationImageView.image = UIImage(named: notificationSettingModel.imageName)
+                self?.onOffButton.backgroundColor = UIColor(named: notificationSettingModel.buttonBackgroundColorName)
                 self?.onOffButton.setAttributedTitle(notificationSettingModel.buttonAttributedTitle, for: .normal)
-                self?.onOffButton.tintColor = notificationSettingModel.buttonTintColor
+                self?.onOffButton.tintColor = UIColor(named: notificationSettingModel.buttonTintColorName)
             }).disposed(by: disposeBag)
     }
 
