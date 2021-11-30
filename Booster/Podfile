@@ -32,8 +32,3 @@ target 'TrackingProgressTests' do
   mainPods
   testPods
 end
-
-target 'UserTests' do
-  mainPods
-  testPods
-end
