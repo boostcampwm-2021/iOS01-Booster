@@ -22,4 +22,5 @@ extension UIImage {
     static let notificationOff = UIImage(named: "notificationOff") ?? UIImage()
     static let caution = UIImage(named: "caution") ?? UIImage()
     static let lock = UIImage(named: "lock") ?? UIImage()
+    static let check = UIImage(named: "check") ?? UIImage()
 }

@@ -10,8 +10,8 @@ import UIKit
 final class ToastView: UIView {
     private let leftImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = .caution
         imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = .boosterOrange
         return imageView
     }()
     private let toastLabel: UILabel = {
@@ -35,9 +35,10 @@ final class ToastView: UIView {
         configureInitialSetting()
     }
 
-    func configureLabel(message: String) {
+    func configureUI(message: String, image: UIImage) {
         toastLabel.text = message
         toastLabel.sizeToFit()
+        leftImageView.image = image
     }
 
     func labelHeight() -> CGFloat {
@@ -53,13 +54,13 @@ final class ToastView: UIView {
 
         leftImageView.translatesAutoresizingMaskIntoConstraints = false
         leftImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        leftImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
-        leftImageView.widthAnchor.constraint(equalToConstant: frame.size.width / 7).isActive = true
-        leftImageView.heightAnchor.constraint(equalToConstant: frame.size.width / 7).isActive = true
+        leftImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15).isActive = true
+        leftImageView.widthAnchor.constraint(equalToConstant: frame.size.width / 8).isActive = true
+        leftImageView.heightAnchor.constraint(equalToConstant: frame.size.width / 8).isActive = true
 
         toastLabel.translatesAutoresizingMaskIntoConstraints = false
         toastLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        toastLabel.leadingAnchor.constraint(equalTo: leftImageView.trailingAnchor, constant: 10).isActive = true
+        toastLabel.leadingAnchor.constraint(equalTo: leftImageView.trailingAnchor, constant: 15).isActive = true
         toastLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
     }
 }

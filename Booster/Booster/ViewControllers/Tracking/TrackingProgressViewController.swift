@@ -301,7 +301,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
             .observe(on: MainScheduler.instance)
             .map { [weak self] value -> Bool in
                 let title = value ? "저장이 완료되었습니다." : "다시 시도해주시기 바랍니다."
-                self?.view.showToastView(message: title)
+                self?.view.showToastView(message: title, image: .check)
                 return value
             }
             .delay(.milliseconds(800), scheduler: MainScheduler.instance)

@@ -31,12 +31,12 @@ extension UIView {
         return image
     }
 
-    func showToastView(message: String, isOnTabBar: Bool = false) {
+    func showToastView(message: String, isOnTabBar: Bool = false, image: UIImage = .caution) {
         let toastView = ToastView.init(frame: CGRect(x: 30,
                                                      y: frame.size.height,
                                                      width: frame.size.width - 60,
                                                      height: 80))
-        toastView.configureLabel(message: message)
+        toastView.configureUI(message: message, image: image)
 
         self.addSubview(toastView)
 
