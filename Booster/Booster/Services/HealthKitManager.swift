@@ -7,7 +7,6 @@
 
 import Foundation
 import HealthKit
-
 import RxSwift
 
 typealias RxHealthQuantityType = HealthKitManager.HealthQuantityType
