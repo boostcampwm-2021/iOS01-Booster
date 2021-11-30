@@ -8,7 +8,7 @@ import HealthKit
 import UIKit
 import RxSwift
 
-class BoosterTabBarViewController: UITabBarController, BaseViewControllerTemplate {
+final class BoosterTabBarViewController: UITabBarController, BaseViewControllerTemplate {
     // MARK: - Properties
     var viewModel = BoosterTabBarViewModel(usecase: BoosterTabBarUsecase())
     private let disposeBag = DisposeBag()
