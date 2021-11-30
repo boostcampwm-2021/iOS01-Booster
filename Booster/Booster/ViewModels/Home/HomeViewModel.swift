@@ -23,6 +23,12 @@ final class HomeViewModel {
         fetchTodayDistanceData()
         fetchTodayKcalData()
         fetchTodayTotalStepCountsData()
+        fetchGoalData()
+    }
+    
+    func sendGoalNotification() {
+        let boosterUserNotification = BoosterUserNotification()
+        boosterUserNotification.setNotification(requestType: .add, type: .goal)
     }
 
     private func fetchTodayHourlyStepCountsData() {
@@ -35,7 +41,6 @@ final class HomeViewModel {
                 var newHomeModel = self.homeModel.value
                 newHomeModel.hourlyStatistics = stepStatisticsCollection
                 self.homeModel.accept(newHomeModel)
-
             }
             .disposed(by: disposeBag)
     }
@@ -53,7 +58,6 @@ final class HomeViewModel {
                 var newHomeModel = self.homeModel.value
                 newHomeModel.km = km
                 self.homeModel.accept(newHomeModel)
-
             }
             .disposed(by: disposeBag)
     }
@@ -70,7 +74,6 @@ final class HomeViewModel {
                 var newHomeModel = self.homeModel.value
                 newHomeModel.kcal = Int(kcal)
                 self.homeModel.accept(newHomeModel)
-
             }
             .disposed(by: disposeBag)
     }
@@ -90,7 +93,21 @@ final class HomeViewModel {
                 newHomeModel.totalStepCount = Int(sum)
 
                 self.homeModel.accept(newHomeModel)
-
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    private func fetchGoalData() {
+        homeUsecase.fetchGoalData()
+            .subscribe { [weak self] goal in
+                guard let self = self,
+                      case let .success(goal) = goal
+                else { return }
+                
+                var newHomeModel = self.homeModel.value
+                newHomeModel.goal = goal ?? 10000
+                
+                self.homeModel.accept(newHomeModel)
             }
             .disposed(by: disposeBag)
     }
