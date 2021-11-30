@@ -60,6 +60,7 @@
 		3B6FE5032743A85B00A815D1 /* InfoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6FE5022743A85B00A815D1 /* InfoPickerView.swift */; };
 		3B6FE5052744DDBE00A815D1 /* NicknameEnrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6FE5042744DDBE00A815D1 /* NicknameEnrollView.swift */; };
 		3B73AC122752483700067779 /* TrackingInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B73AC112752483700067779 /* TrackingInfoView.swift */; };
+		3BCBE2752755B51200D165F5 /* NWPathMonitor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCBE2742755B51200D165F5 /* NWPathMonitor+Extension.swift */; };
 		3BDA58ED275466C700875999 /* EnrollTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDA58EC275466C700875999 /* EnrollTextField.swift */; };
 		3BE60F6127464DE800B4EFB8 /* StatisticsUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE60F6027464DE700B4EFB8 /* StatisticsUsecase.swift */; };
 		3BE60F6427464E0300B4EFB8 /* StepStatitstics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE60F6327464E0300B4EFB8 /* StepStatitstics.swift */; };
@@ -219,6 +220,7 @@
 		3B6FE5022743A85B00A815D1 /* InfoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPickerView.swift; sourceTree = "<group>"; };
 		3B6FE5042744DDBE00A815D1 /* NicknameEnrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameEnrollView.swift; sourceTree = "<group>"; };
 		3B73AC112752483700067779 /* TrackingInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingInfoView.swift; sourceTree = "<group>"; };
+		3BCBE2742755B51200D165F5 /* NWPathMonitor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NWPathMonitor+Extension.swift"; sourceTree = "<group>"; };
 		3BDA58EC275466C700875999 /* EnrollTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollTextField.swift; sourceTree = "<group>"; };
 		3BE60F6027464DE700B4EFB8 /* StatisticsUsecase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticsUsecase.swift; sourceTree = "<group>"; };
 		3BE60F6327464E0300B4EFB8 /* StepStatitstics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepStatitstics.swift; sourceTree = "<group>"; };
@@ -756,6 +758,7 @@
 				28C96FF2273A4634005BD7BC /* UIResponder+Extension.swift */,
 				FACBAB692746034900CD6B76 /* UIButton+Extension.swift */,
 				28C97089275283FA005BD7BC /* UIView+Extension.swift */,
+				3BCBE2742755B51200D165F5 /* NWPathMonitor+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1294,6 +1297,7 @@
 				FA473A3C274375BB0000C5DC /* UserInfoBaseCell.swift in Sources */,
 				37C3F6802752924C009AE5D5 /* SelectionChartView.swift in Sources */,
 				3B38FB14273A5F3B00F8620D /* TrackingCountDownView.swift in Sources */,
+				3BCBE2752755B51200D165F5 /* NWPathMonitor+Extension.swift in Sources */,
 				3B31B62127413664009D9190 /* FeedList.swift in Sources */,
 				28C97066274E21CC005BD7BC /* BoosterMapView.swift in Sources */,
 				FA84966C274A13890021F903 /* NotificationSettingViewController.swift in Sources */,

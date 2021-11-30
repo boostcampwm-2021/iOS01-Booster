@@ -16,7 +16,7 @@ final class TrackingProgressViewModel {
     let seconds = PublishSubject<Int>()
     let steps = PublishSubject<Int>()
     let distance = PublishSubject<Double>()
-    let saveResult = PublishSubject<Error?>()
+    let saveResult = PublishSubject<Bool>()
     let coordinates = PublishSubject<Coordinates>()
     let cachedMilestones = BehaviorRelay<Milestones>(value: Milestones())
     var lastCoordinate: Coordinate? {
@@ -37,9 +37,9 @@ final class TrackingProgressViewModel {
     func save() {
         return trackingUsecase.save(model: trackingModel.value)
             .subscribe(onNext: { [weak self] in
-                self?.saveResult.onNext(nil)
+                self?.saveResult.onNext(true)
             }, onError: { [weak self] error in
-                self?.saveResult.onNext(error)
+                self?.saveResult.onNext(false)
             }).disposed(by: disposeBag)
     }
 

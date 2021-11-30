@@ -298,13 +298,16 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         }.disposed(by: disposeBag)
 
         viewModel.saveResult
-            .asDriver(onErrorJustReturn: .none)
-            .drive(onNext: { [weak self] error in
-                guard error == nil
-                else { return }
-
-                self?.navigationController?.popViewController(animated: true)
-            }).disposed(by: disposeBag)
+            .observe(on: MainScheduler.instance)
+            .bind { [weak self] value in
+                switch value {
+                case true:
+                    self?.navigationController?.popViewController(animated: true)
+                case false:
+                    let title = "다시 시도해주시기 바랍니다."
+                    self?.view.showToastView(message: title)
+                }
+            }.disposed(by: disposeBag)
     }
 
     private func update() {
