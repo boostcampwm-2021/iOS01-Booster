@@ -8,8 +8,8 @@ import UIKit
 
 import CoreLocation
 import MapKit
-import RxSwift
 import Network
+import RxSwift
 
 final class DetailFeedViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - Properties

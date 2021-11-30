@@ -2,12 +2,11 @@
 //  NWPathMonitor+Extension.swift
 //  Booster
 //
-//  Created by hiju on 2021/11/29.
+//  Created by 김태훈 on 2021/11/30.
 //
 
-import Foundation
-import RxSwift
 import Network
+import RxSwift
 
 extension NWPathMonitor {
   var rx: Observable<NWPath> {

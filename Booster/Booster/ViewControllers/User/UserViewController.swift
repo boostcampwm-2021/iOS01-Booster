@@ -67,46 +67,6 @@ final class UserViewController: UIViewController, BaseViewControllerTemplate {
 
         navigationController?.navigationBar.titleTextAttributes = attribute
     }
-
-    private func myInfoCellDidSelectActions(cellType: MyInfoCellType) {
-        switch cellType {
-        case .removeAllData:
-            guard let removeAllDataViewController = storyboard?.instantiateViewController(identifier: RemoveAllDataViewController.identifier, creator: { [weak self] coder -> RemoveAllDataViewController in
-                guard let viewModel = self?.viewModel
-                else { return RemoveAllDataViewController(viewModel: UserViewModel()) }
-
-                return .init(coder: coder, viewModel: viewModel) ?? RemoveAllDataViewController(viewModel: UserViewModel())
-            })
-            else { return }
-
-            navigationController?.pushViewController(removeAllDataViewController, animated: true)
-        case .changeGoal:
-            guard let changeGoalViewController = storyboard?.instantiateViewController(identifier: ChangeGoalViewController.identifier, creator: { [weak self] coder -> ChangeGoalViewController in
-                guard let viewModel = self?.viewModel
-                else { return ChangeGoalViewController(viewModel: UserViewModel()) }
-
-                return .init(coder: coder, viewModel: viewModel) ?? ChangeGoalViewController(viewModel: UserViewModel())
-            })
-            else { return }
-
-            navigationController?.pushViewController(changeGoalViewController, animated: true)
-        case .editUserInfo:
-            guard let editUserInfoViewController = storyboard?.instantiateViewController(identifier: EditUserInfoViewController.identifier, creator: { [weak self] coder -> EditUserInfoViewController in
-                guard let viewModel = self?.viewModel
-                else { return EditUserInfoViewController(viewModel: UserViewModel()) }
-
-                return .init(coder: coder, viewModel: viewModel) ?? EditUserInfoViewController(viewModel: UserViewModel())
-            })
-            else { return }
-
-            navigationController?.pushViewController(editUserInfoViewController, animated: true)
-        case .notificationSetting:
-            guard let notificationSettingViewController = storyboard?.instantiateViewController(withIdentifier: NotificationSettingViewController.identifier) as? NotificationSettingViewController
-            else { return }
-
-            navigationController?.pushViewController(notificationSettingViewController, animated: true)
-        }
-    }
 }
 
 // MARK: - TableViewDataSource
@@ -211,6 +171,33 @@ extension UserViewController: UITableViewDelegate {
         }
     }
 
+    private func myInfoCellDidSelectActions(cellType: MyInfoCellType) {
+        let storyboardName = "User"
+        switch cellType {
+        case .removeAllData:
+            let removeAllDataViewController = UIStoryboard(name: storyboardName, bundle: .main).instantiateViewController(identifier: RemoveAllDataViewController.identifier, creator: { [weak self] coder in
+                return RemoveAllDataViewController(coder: coder, viewModel: self?.viewModel ?? UserViewModel())
+            })
+
+            navigationController?.pushViewController(removeAllDataViewController, animated: true)
+        case .changeGoal:
+            let changeGoalViewController = UIStoryboard(name: storyboardName, bundle: .main).instantiateViewController(identifier: ChangeGoalViewController.identifier, creator: { [weak self] coder in
+                   return ChangeGoalViewController(coder: coder, viewModel: self?.viewModel ?? UserViewModel())
+            })
+
+            navigationController?.pushViewController(changeGoalViewController, animated: true)
+        case .editUserInfo:
+            let editUserInfoViewController = UIStoryboard(name: storyboardName, bundle: .main).instantiateViewController(identifier: EditUserInfoViewController.identifier, creator: { [weak self] coder in
+                return EditUserInfoViewController(coder: coder, viewModel: self?.viewModel ?? UserViewModel())
+            })
+
+            navigationController?.pushViewController(editUserInfoViewController, animated: true)
+        case .notificationSetting:
+            let notificationSettingViewController = UIStoryboard(name: storyboardName, bundle: .main).instantiateViewController(withIdentifier: NotificationSettingViewController.identifier)
+
+            navigationController?.pushViewController(notificationSettingViewController, animated: true)
+        }
+    }
 }
 
 // MARK: - navigationController.interactivePopGestureRecognizer.delegate
