@@ -36,7 +36,7 @@ final class UserUsecase {
 
     func removeAllDataOfHealthKit() -> Observable<Bool> {
         return Observable.create { observer in
-            HealthStoreManager.shared.removeAll { result in
+            HealthKitManager.shared.removeAll { result in
                 switch result {
                 case .success:
                     observer.onNext(true)

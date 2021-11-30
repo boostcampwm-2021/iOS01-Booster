@@ -174,7 +174,7 @@ class CoordinateTests: XCTestCase {
         coordinates.appends(coordinateList)
 
         // then
-        XCTAssertEqual(coordinates.firstIndex(of: targetCoordinate), 3, "해당 좌표가 존재하지 않습니다.")
+        XCTAssertEqual(coordinates.firstIndex(of: targetCoordinate), 1, "해당 좌표가 존재하지 않습니다.")
     }
 
     func test_좌표_인덱스_찾기_실패() throws {

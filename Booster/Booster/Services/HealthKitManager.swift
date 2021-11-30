@@ -9,8 +9,8 @@ import Foundation
 import HealthKit
 import RxSwift
 
-typealias RxHealthQuantityType = HealthKitManager.HealthQuantityType
-typealias RxHealthUnit = HealthKitManager.HealthUnit
+typealias HealthQuantityType = HealthKitManager.HealthQuantityType
+typealias HealthUnit = HealthKitManager.HealthUnit
 
 final class HealthKitManager {
     enum HealthQuantityType: CaseIterable {
@@ -122,5 +122,33 @@ final class HealthKitManager {
                                       end: end)
 
         healthStore.save(sample) { _, _ in }
+    }
+    
+    func removeAll(completion: @escaping (Result<Int, Error>) -> Void) {
+        var removedCount = 0
+
+        guard let healthStore = healthStore
+        else {
+            completion(.failure(HealthKitError.optionalCasting))
+            return
+        }
+
+        let predicate = HKQuery.predicateForObjects(from: HKSource.default())
+
+        for type in HealthQuantityType.allCases {
+            guard let quantity = type.quantity
+            else { continue }
+
+            healthStore.deleteObjects(of: quantity, predicate: predicate) { (isDeleted, count, error) in
+                if !isDeleted,
+                   let error = error {
+                    completion(.failure(error))
+                    return
+                }
+
+                removedCount += count
+            }
+        }
+        completion(.success(removedCount / HealthQuantityType.allCases.count))
     }
 }

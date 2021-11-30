@@ -111,14 +111,11 @@ final class CoreDataManager {
                         updateModel.setValue(element.value, forKey: element.key)
                     }
 
-                    guard let _ = try? context.save()
-                    else {
-                        context.rollback()
-                        observer.onError(TrackingError.modelError)
-                        return
-                    }
+                    try context.save()
+
                     observer.onCompleted()
                 } catch let error {
+                    self.container.viewContext.rollback()
                     observer.onError(error)
                 }
             }

@@ -63,7 +63,7 @@ final class TrackingProgressUsecase {
     }
 
     func save(count: Double, start: Date, end: Date, quantity: HealthQuantityType, unit: HealthUnit) {
-        HealthStoreManager.shared.save(count: count, start: start, end: end, quantity: quantity, unit: unit)
+        HealthKitManager.shared.save(count: count, start: start, end: end, quantity: quantity, unit: unit)
     }
 
     func fetch() -> Observable<UserInfo> {

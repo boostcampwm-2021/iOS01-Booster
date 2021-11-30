@@ -42,3 +42,13 @@ target 'FeedTests' do
   mainPods
   testPods
 end
+
+target 'FeedListTests' do
+  mainPods
+  testPods
+end
+
+target 'EnrollTests' do
+  mainPods
+  testPods
+end
