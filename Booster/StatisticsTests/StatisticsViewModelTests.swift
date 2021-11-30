@@ -24,8 +24,10 @@ final class StatisticsViewModelTests: XCTestCase {
         disposeBag = nil
     }
     
-    func test_바인드() throws {
+    func test_바인드하고_데이터변화반응_성공() throws {
         // given
+        viewModel.requestQueryForStatisticsCollection()
+        sleep(1)
         let newDuration: StatisticsViewModel.Duration = .year
         
         // when
@@ -37,21 +39,19 @@ final class StatisticsViewModelTests: XCTestCase {
         XCTAssertNil(index)
     }
     
-    func test_쿼리요청해서_모델생성_성공() throws {
+    func test_시간별데이터_쿼리요청_성공() throws {
         // given
         let staitisticsUsecase = StatisticsUsecase()
-        var stepStatisticsCollection: StepStatisticsCollection?
         let expectation = expectation(description: "Query")
         
         // when
         staitisticsUsecase.execute(duration: .year, interval: .init(month: 1))
             .subscribe({ queryResult in
-                stepStatisticsCollection = try? queryResult.get()
                 expectation.fulfill()
             })
             .disposed(by: disposeBag)
         
-        //then
+        // then
         waitForExpectations(timeout: 2)
     }
     
