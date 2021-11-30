@@ -138,6 +138,23 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
                 self.weightTextField.text = "\(userInfo.weight)"
                 self.ageTextField.text = "\(userInfo.age)"
             }).disposed(by: disposeBag)
+        
+        viewModel.isEditingComplete
+            .asDriver(onErrorJustReturn: false)
+            .drive(onNext: { [weak self] success in
+                guard let self = self
+                else { return }
+                
+                if success {
+                    let title = "수정 완료"
+                    let message = "수정을 완료했어요"
+                    self.presentPopViewControllerAlertController(title: title, message: message)
+                } else {
+                    let title = "수정 실패"
+                    let message = "알 수 없는 이유로 수정에 실패했어요\n다시 시도해 주세요"
+                    self.presentPopViewControllerAlertController(title: title, message: message)
+                }
+            }).disposed(by: disposeBag)
     }
 
     private func configureNavigationBarTitle() {
@@ -154,31 +171,12 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
         let height = Int(height) ?? nil
         let weight = Int(weight) ?? nil
         let nickName = nickName == "" ? nil : nickName
-        var alert = UIAlertController()
 
         viewModel.editUserInfo(gender: gender,
                                age: age,
                                height: height,
                                weight: weight,
                                nickname: nickName)
-            .take(1)
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] isSaved in
-                guard let self = self
-                else { return }
-
-                if isSaved {
-                    let title = "수정 완료"
-                    let message = "수정을 완료했어요"
-                    alert = self.popViewControllerAlertController(title: title, message: message)
-                } else {
-                    let title = "수정 실패"
-                    let message = "알 수 없는 이유로 수정에 실패했어요\n다시 시도해 주세요"
-                    alert = self.popViewControllerAlertController(title: title, message: message)
-                }
-            }, onCompleted: { [weak self] in
-                self?.present(alert, animated: true, completion: nil)
-            }).disposed(by: disposeBag)
     }
 
     private func configureUIButton() {
@@ -208,13 +206,13 @@ final class EditUserInfoViewController: UIViewController, BaseViewControllerTemp
         (gender == .male) ? (maleGenderButton.isEnabled = false) : (femaleGenderButton.isEnabled = false)
     }
 
-    private func popViewControllerAlertController(title: String, message: String) -> UIAlertController {
+    private func presentPopViewControllerAlertController(title: String, message: String) {
         let alert = UIAlertController.simpleAlert(title: title,
                                               message: message,
-                                              action: { (_) -> Void in
-            self.navigationController?.popViewController(animated: true)
+                                              action: { [weak self] _ -> Void in
+            self?.navigationController?.popViewController(animated: true)
         })
 
-        return alert
+        present(alert, animated: true, completion: nil)
     }
 }

@@ -20,50 +20,24 @@ final class StepStatisticsTests: XCTestCase {
 
     func test_통계추가_성공() throws {
         // given
-        let stepStatistics = StepStatistics(step: 1, intervalString: String(), abbreviatedDateString: String())
+        let stepStatistics = StepStatistics(step: 1, abbreviatedDateString: String(), intervalString: String())
 
         // when
-        stepStatisticsCollection.append(statistics: statistics)
+        stepStatisticsCollection.append(stepStatistics)
         let resultStepStatistics: StepStatistics = stepStatisticsCollection[0]
 
         // then
-        XCTAssertEqual(statistics, resultStatistics)
-    }
-
-    func test_통계하나이상있을때_최대값통계_리턴_성공() throws {
-        // given
-        let stepFourStatistics = StepStatistics(step: 4, intervalString: String(), abbreviatedDateString: String())
-        let stepSixStatistics = StepStatistics(step: 6, intervalString: String(), abbreviatedDateString: String())
-        let stepFiveStatistics = StepStatistics(step: 5, intervalString: String(), abbreviatedDateString: String())
-        stepStatisticsCollection.append(statistics: stepFourStatistics)
-        stepStatisticsCollection.append(statistics: stepSixStatistics)
-        stepStatisticsCollection.append(statistics: stepFiveStatistics)
-
-        // when
-        let resultStatistics: StepStatistics? = stepStatisticsCollection.maxStepStatistics()
-
-        // then
-        XCTAssertEqual(stepSixStatistics, resultStatistics)
-    }
-
-    func test_통계하나도없을때_최대값통계_리턴_실패() throws {
-        // given
-
-        // when
-        let resultStepStatistics: StepStatistics? = stepStatisticsCollection.maxStepStatistics()
-
-        // then
-        XCTAssertNil(resultStepStatistics)
+        XCTAssertEqual(stepStatistics, resultStepStatistics)
     }
 
     func test_통계하나이상있을때_평균걸음수_리턴_성공() throws {
         // given
-        let stepFourStatistics = StepStatistics(step: 4, intervalString: String(), abbreviatedDateString: String())
-        let stepSixStatistics = StepStatistics(step: 6, intervalString: String(), abbreviatedDateString: String())
-        let stepFiveStatistics = StepStatistics(step: 5, intervalString: String(), abbreviatedDateString: String())
-        stepStatisticsCollection.append(statistics: stepFourStatistics)
-        stepStatisticsCollection.append(statistics: stepSixStatistics)
-        stepStatisticsCollection.append(statistics: stepFiveStatistics)
+        let stepFourStatistics = StepStatistics(step: 4, abbreviatedDateString: String(), intervalString: String())
+        let stepSixStatistics = StepStatistics(step: 6, abbreviatedDateString: String(), intervalString: String())
+        let stepFiveStatistics = StepStatistics(step: 5, abbreviatedDateString: String(), intervalString: String())
+        stepStatisticsCollection.append(stepFourStatistics)
+        stepStatisticsCollection.append(stepSixStatistics)
+        stepStatisticsCollection.append(stepFiveStatistics)
 
         // when
         let stepCountPerDuration: Int? = stepStatisticsCollection.stepCountPerDuration()
@@ -84,12 +58,12 @@ final class StepStatisticsTests: XCTestCase {
 
     func test_통계하나이상있을때_걸음비율_리턴_성공() throws {
         // given
-        let stepFourStatistics = StepStatistics(step: 2, intervalString: String(), abbreviatedDateString: String())
-        let stepSixStatistics = StepStatistics(step: 4, intervalString: String(), abbreviatedDateString: String())
-        let stepFiveStatistics = StepStatistics(step: 8, intervalString: String(), abbreviatedDateString: String())
-        stepStatisticsCollection.append(statistics: stepFourStatistics)
-        stepStatisticsCollection.append(statistics: stepSixStatistics)
-        stepStatisticsCollection.append(statistics: stepFiveStatistics)
+        let stepFourStatistics = StepStatistics(step: 2, abbreviatedDateString: String(), intervalString: String())
+        let stepSixStatistics = StepStatistics(step: 4, abbreviatedDateString: String(), intervalString: String())
+        let stepFiveStatistics = StepStatistics(step: 8, abbreviatedDateString: String(), intervalString: String())
+        stepStatisticsCollection.append(stepFourStatistics)
+        stepStatisticsCollection.append(stepSixStatistics)
+        stepStatisticsCollection.append(stepFiveStatistics)
 
         // when
         let stepRatios: [Float]? = stepStatisticsCollection.stepRatios()
@@ -102,9 +76,9 @@ final class StepStatisticsTests: XCTestCase {
         // given
 
         // when
-        let stepRatios: [Float]? = stepStatisticsCollection.stepRatios()
+        let stepRatios: [Float] = stepStatisticsCollection.stepRatios()
 
         // then
-        XCTAssertNil(stepRatios)
+        XCTAssertTrue(stepRatios.isEmpty)
     }
 }

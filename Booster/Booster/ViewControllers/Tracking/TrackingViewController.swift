@@ -1,5 +1,7 @@
 import UIKit
 import MapKit
+import Network
+import RxSwift
 
 protocol TrackingProgressDelegate: AnyObject {
     func location(mapView: TrackingMapView)
@@ -17,6 +19,8 @@ final class TrackingViewController: UIViewController, BaseViewControllerTemplate
 
     // MARK: - Properties
     var viewModel: TrackingViewModel = TrackingViewModel()
+    private let monitor = NWPathMonitor()
+    private let disposeBag = DisposeBag()
     private var overlay: MKOverlay = MKCircle()
     private var current: CLLocation = CLLocation()
 
@@ -28,6 +32,7 @@ final class TrackingViewController: UIViewController, BaseViewControllerTemplate
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
     }
 
@@ -52,6 +57,26 @@ final class TrackingViewController: UIViewController, BaseViewControllerTemplate
         nextButton.layer.cornerRadius = nextButton.bounds.width / 2
         trackingMapView.showsUserLocation = true
         trackingMapView.delegate = self
+        startMonitor()
+    }
+    
+    private func startMonitor() {
+        monitor.rx
+            .observe(on: MainScheduler.instance)
+            .subscribe { [weak self] event in
+                guard let element = event.element
+                else { return }
+                
+                switch element.status {
+                case .satisfied:
+                    self?.nextButton.isUserInteractionEnabled = true
+                default :
+                    let message = "원활한 서비스를 위해\n네트워크를 연결해주세요"
+                    self?.view.showToastView(message: message, isOnTabBar: true)
+                    self?.nextButton.isUserInteractionEnabled = false
+                }
+            }
+            .disposed(by: disposeBag)
     }
 }
 

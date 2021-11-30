@@ -54,7 +54,7 @@ struct StepStatisticsCollection {
         return stepStatisticsCollection.reduce(0) { $0 + $1.step } / stepStatisticsCollection.count
     }
 
-    func stepRatios() -> [Float]? {
+    func stepRatios() -> [Float] {
         guard let maxStepStatistics = maxStepStatistics(),
               maxStepStatistics.step > 0
         else { return [Float](repeating: 0, count: stepStatisticsCollection.count) }

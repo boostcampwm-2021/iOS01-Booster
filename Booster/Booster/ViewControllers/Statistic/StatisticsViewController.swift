@@ -26,9 +26,10 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
     @IBOutlet private weak var chartView: SelectionChartView!
 
     // MARK: - Properties
-    private let disposeBag = DisposeBag()
-
     var viewModel = StatisticsViewModel()
+    
+    private let disposeBag = DisposeBag()
+    private var emptyView: EmptyView?
 
     // MARK: - Life Cycles
     override func viewDidLoad() {
@@ -135,8 +136,13 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
             .bind(onNext: { [weak self] _ in
                 guard let self = self,
                       let statisticsCollection = self.viewModel.selectedStatisticsCollection()
-                else { return }
-
+                else {
+                    self?.presentEmptyView()
+                    return
+                }
+                
+                self.emptyView?.removeFromSuperview()
+                self.emptyView = nil
                 self.updateDuration(using: statisticsCollection)
             })
             .disposed(by: disposeBag)
@@ -153,22 +159,31 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
             })
             .disposed(by: disposeBag)
     }
-
+    
+    private func presentEmptyView() {
+        if emptyView == nil {
+            emptyView = EmptyView.init(frame: chartView.frame)
+            emptyView?.apply(title: "데이터 기록이 없어요\n권한을 허용했는지 확인해주세요", image: .lock)
+            view.addSubview(emptyView!)
+        }
+        
+        view.showToastView(message: "[건강앱] - [마이페이지] - [앱] - [Booster]\n에서 권한을 허용해주세요", isOnTabBar: true)
+    }
+    
     private func updateDuration(using statisticsCollection: StepStatisticsCollection) {
-        guard let stepRatios = statisticsCollection.stepRatios()?.map({ CGFloat($0) }),
-              let stepCount = statisticsCollection.stepCountPerDuration()
+        guard let stepCount = statisticsCollection.stepCountPerDuration()
         else { return }
 
         averageStepCountLabel.text = String(stepCount)
         dateLabel.text = statisticsCollection.durationString
 
         let strings = statisticsCollection.abbreviatedStrings()
+        let stepRatios = statisticsCollection.stepRatios().map { CGFloat($0) }
         chartView.drawChart(stepRatios: stepRatios, strings: strings)
     }
 
     private func updateSelection(using statisticsCollection: StepStatisticsCollection, index: Int?) {
-        guard let index = index,
-              let stepRatios = statisticsCollection.stepRatios()
+        guard let index = index
         else {
             chartView.clearSelection()
             return
@@ -177,6 +192,7 @@ final class StatisticsViewController: UIViewController, BaseViewControllerTempla
         let xOffset = 1 / CGFloat(statisticsCollection.count)
         let centerLabel = 0.5
         let xCoordinate = (centerLabel + CGFloat(index)) * xOffset * chartView.frame.width
+        let stepRatios = statisticsCollection.stepRatios()
         let height = 1 - CGFloat(stepRatios[index])
 
         let selectedStatistics: StepStatistics = statisticsCollection[index]
