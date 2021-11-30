@@ -19,6 +19,7 @@ final class TrackingInfoView: UIView {
         button.setImage(.systemCamera, for: .normal)
         button.layer.cornerRadius = 50
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.setPreferredSymbolConfiguration(.some(.init(pointSize: 25)), forImageIn: .normal)
         return button
     }()
     lazy var rightButton: UIButton = {
@@ -28,6 +29,7 @@ final class TrackingInfoView: UIView {
         button.setImage(.systemPause, for: .normal)
         button.layer.cornerRadius = 50
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.setPreferredSymbolConfiguration(.some(.init(pointSize: 25)), forImageIn: .normal)
         return button
     }()
     lazy var distanceLabel: UILabel = {
