@@ -319,6 +319,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         switch isStart {
         case true:
             manager.startUpdatingLocation()
+            timerDate = Date()
             timer = Timer.scheduledTimer(timeInterval: 1,
                                          target: self,
                                          selector: #selector(trackingTimer),
@@ -327,7 +328,6 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         case false:
             pedomterSteps = viewModel.trackingModel.value.steps
             lastestTime = viewModel.trackingModel.value.seconds
-            viewModel.seconds.onNext(lastestTime)
             timer.invalidate()
             stopTracking()
         }

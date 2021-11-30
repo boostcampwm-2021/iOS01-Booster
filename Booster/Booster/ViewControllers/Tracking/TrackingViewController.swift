@@ -1,4 +1,5 @@
 import UIKit
+import CoreMotion
 import MapKit
 import Network
 import RxSwift
@@ -19,6 +20,8 @@ final class TrackingViewController: UIViewController, BaseViewControllerTemplate
 
     // MARK: - Properties
     var viewModel: TrackingViewModel = TrackingViewModel()
+    private let pedometer = CMPedometer()
+    private let manager = CLLocationManager()
     private let monitor = NWPathMonitor()
     private let disposeBag = DisposeBag()
     private var overlay: MKOverlay = MKCircle()
@@ -58,6 +61,8 @@ final class TrackingViewController: UIViewController, BaseViewControllerTemplate
         trackingMapView.showsUserLocation = true
         trackingMapView.delegate = self
         startMonitor()
+        manager.requestAlwaysAuthorization()
+        pedometer.startUpdates(from: Date()) { _, _ in }
     }
     
     private func startMonitor() {
