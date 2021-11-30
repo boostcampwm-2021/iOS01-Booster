@@ -44,6 +44,7 @@ final class FeedViewModel {
 
     private func bind() {
         select.observe(on: MainScheduler.instance)
+            .filter { _ in self.recordCount() > 0 }
             .map { (index) -> Date in
                 return self.list.value[index.row].startDate
             }.bind { [weak self] value in

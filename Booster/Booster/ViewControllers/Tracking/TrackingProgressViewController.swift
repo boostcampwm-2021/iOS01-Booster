@@ -299,13 +299,15 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
 
         viewModel.saveResult
             .observe(on: MainScheduler.instance)
+            .map { [weak self] value -> Bool in
+                let title = value ? "저장이 완료되었습니다." : "다시 시도해주시기 바랍니다."
+                self?.view.showToastView(message: title)
+                return value
+            }
+            .delay(.milliseconds(800), scheduler: MainScheduler.instance)
             .bind { [weak self] value in
-                switch value {
-                case true:
+                if value {
                     self?.navigationController?.popViewController(animated: true)
-                case false:
-                    let title = "다시 시도해주시기 바랍니다."
-                    self?.view.showToastView(message: title)
                 }
             }.disposed(by: disposeBag)
     }

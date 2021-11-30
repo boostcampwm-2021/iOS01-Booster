@@ -3,23 +3,32 @@ platform :ios, '13.0'
 
 use_frameworks!
 
-def pods
+def mainPods
   pod 'RxSwift'
   pod 'RxCocoa'
-  pod 'RxDataSources'
   pod 'RxGesture'
+end
+
+def testPods
   pod 'RxTest'
   pod 'RxBlocking'
 end
 
 target 'Booster' do
-  pods
+  mainPods
+end
+
+target 'HomeTests' do
+  mainPods
+  testPods
 end
 
 target 'StatisticsTests' do
-  pods
+  mainPods
+  testPods
 end
 
 target 'TrackingProgressTests' do
-  pods
+  mainPods
+  testPods
 end

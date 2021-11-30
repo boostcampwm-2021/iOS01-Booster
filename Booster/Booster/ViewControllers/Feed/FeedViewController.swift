@@ -86,15 +86,3 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: width, height: height)
     }
 }
-
-// MARK: - scroll view delegate
-extension FeedViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let contentY = scrollView.contentOffset.y
-        let contentHeight = scrollView.contentSize.height
-
-        if contentY > contentHeight - scrollView.frame.height {
-            viewModel.fetch()
-        }
-    }
-}
