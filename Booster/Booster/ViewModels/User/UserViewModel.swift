@@ -17,7 +17,8 @@ final class UserViewModel {
     private let usecase = UserUsecase()
     private let disposeBag = DisposeBag()
     private(set) var model = BehaviorRelay<UserInfo>(value: UserInfo())
-
+    private(set) var isEditingComplete = PublishRelay<Bool>()
+    
     init() {
         fetchUserInfo()
     }
@@ -39,7 +40,7 @@ final class UserViewModel {
         }
     }
 
-    func editUserInfo(gender: String? = nil, age: Int? = nil, height: Int? = nil, weight: Int? = nil, nickname: String? = nil) -> Observable<Bool> {
+    func editUserInfo(gender: String? = nil, age: Int? = nil, height: Int? = nil, weight: Int? = nil, nickname: String? = nil) {
         var newModel = model.value
         if let gender = gender { newModel.gender = gender }
         if let age = age { newModel.age = age }
@@ -47,24 +48,18 @@ final class UserViewModel {
         if let weight = weight { newModel.weight = weight }
         if let nickname = nickname { newModel.nickname = nickname }
 
-        return Observable.create { [weak self] observer in
-            guard let self = self
-            else { return Disposables.create() }
-
-            return self.usecase.editUserInfo(model: newModel)
-                .take(1)
-                .subscribe(onNext: { result in
-                    if result {
-                        self.model.accept(newModel)
-                        observer.onNext(true)
-                    } else {
-                        observer.onNext(false)
-                    }
-                    observer.onCompleted()
-                }, onError: { (_) in
-                    observer.onNext(false)
-                })
-        }
+        self.usecase.editUserInfo(model: newModel)
+            .take(1)
+            .subscribe(onNext: { [weak self] success in
+                if success {
+                    self?.model.accept(newModel)
+                    self?.isEditingComplete.accept(true)
+                } else {
+                    self?.isEditingComplete.accept(false)
+                }
+            }, onError: { [weak self] _ in
+                self?.isEditingComplete.accept(false)
+            }).disposed(by: disposeBag)
     }
 
     func changeGoal(to goal: Int) -> Observable<Bool> {
