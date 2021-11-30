@@ -33,26 +33,6 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FAB252732753BCD900A4FC5B"
-               BuildableName = "CoordinatesTests.xctest"
-               BlueprintName = "CoordinatesTests"
-               ReferencedContainer = "container:Booster.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FAB252852753C3CE00A4FC5B"
-               BuildableName = "CoordinateTEsts.xctest"
-               BlueprintName = "CoordinateTEsts"
-               ReferencedContainer = "container:Booster.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "FAB252BA2753C5EB00A4FC5B"
                BuildableName = "CoordinateTests.xctest"
                BlueprintName = "CoordinateTests"
