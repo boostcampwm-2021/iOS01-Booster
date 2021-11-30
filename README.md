@@ -7,7 +7,7 @@
 <div align="center">
 <center>
 
-|<img src="https://i.imgur.com/wIXr1QY.png" width=18px> <span style="color:#FF5C00">S014_김태훈</span> | <img src="https://i.imgur.com/wIXr1QY.png" width=18px> <span style="color:#FF5C00">S025_신명섭</span> | <img src="https://i.imgur.com/wIXr1QY.png" width=18px> <span style="color:#FF5C00">S050_이하원</span>  | <img src="https://i.imgur.com/wIXr1QY.png" width=18px> <span style="color:#FF5C00">S060_최희주</span> |
+|<img src="https://i.imgur.com/wIXr1QY.png" width=18px> <b style="color:#FF5C00">S014_김태훈</b> | <img src="https://i.imgur.com/wIXr1QY.png" width=18px> <b style="color:#FF5C00">S025_신명섭</b> | <img src="https://i.imgur.com/wIXr1QY.png" width=18px> <b style="color:#FF5C00">S050_이하원</b>  | <img src="https://i.imgur.com/wIXr1QY.png" width=18px> <b style="color:#FF5C00">S060_최희주</b> |
 |:-:|:-:|:-:|:-:|
 |<img src="https://i.imgur.com/I3g5HkU.png" width="150">|<img src="https://i.imgur.com/GNC10jI.png" width="150">|<img src="https://i.imgur.com/jFNY6Sy.png" width="150">|<img src="https://i.imgur.com/cdOsNrV.png" width="150">
 | [@KTH-INHA-16](https://github.com/KTH-INHA-16) | [@s1gnature](https://github.com/s1gnature)   | [@Hani-Levenshtein](https://github.com/Hani-Levenshtein)       | [@rose6649](https://github.com/rose6649)   |
@@ -30,17 +30,20 @@
 </center>
 </div>
 <br>    
-
+<H1>
+</H1>
 <br>
+<div>
 <center> 
     <img src="https://i.imgur.com/6BZsKkQ.png" width=120px><br><br>
-    <H3>부스터는 <span style="color:#ff5c00">오늘의 걸음 수</span>를 보여주고<br><br>
-        걸음을 <span style="color:#ff5c00">트래킹</span>하면서<br><br>
-        <span style="color:#ff5c00">산책 기록을 모아</span> 추억을 쌓는 🍎 iOS 앱입니다
+    <H3>부스터는 <b style="color:#ff5c00">오늘의 걸음 수</b>를 보여주고<br><br>
+        걸음을 <b style="color:#ff5c00">트래킹</b>하면서<br><br>
+        <b style="color:#ff5c00">산책 기록을 모아</b> 추억을 쌓는 🍎 iOS 앱입니다
     </H3>
 
 
 ##### 산책으로 오늘 하루도 힐링해보시는 건 어떠세요? 🚶🚶🏼🚶🏼
+</div>
 </center>
     
 <br>
