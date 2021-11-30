@@ -10,15 +10,6 @@ import RxSwift
 import RxCocoa
 
 final class TrackingInfoView: UIView {
-    weak var pedometerTrailingConstraint: NSLayoutConstraint?
-    weak var pedometerTopConstraint: NSLayoutConstraint?
-    weak var kcalTopConstraint: NSLayoutConstraint?
-    weak var timeTopConstraint: NSLayoutConstraint?
-    weak var distanceTopConstraint: NSLayoutConstraint?
-    weak var rightButtonHeightConstraint: NSLayoutConstraint?
-    weak var rightButtonWidthConstraint: NSLayoutConstraint?
-    weak var rightButtonTrailingConstraint: NSLayoutConstraint?
-    weak var rightButtonBottomConstraint: NSLayoutConstraint?
     lazy var leftButton: UIButton = {
         let button = UIButton(frame: frame)
         button.layer.borderWidth = 1
@@ -28,6 +19,7 @@ final class TrackingInfoView: UIView {
         button.setImage(.systemCamera, for: .normal)
         button.layer.cornerRadius = 50
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.setPreferredSymbolConfiguration(.some(.init(pointSize: 25)), forImageIn: .normal)
         return button
     }()
     lazy var rightButton: UIButton = {
@@ -37,6 +29,7 @@ final class TrackingInfoView: UIView {
         button.setImage(.systemPause, for: .normal)
         button.layer.cornerRadius = 50
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.setPreferredSymbolConfiguration(.some(.init(pointSize: 25)), forImageIn: .normal)
         return button
     }()
     lazy var distanceLabel: UILabel = {
@@ -98,28 +91,7 @@ final class TrackingInfoView: UIView {
     lazy var contentTextView: UITextView = {
         let textView = UITextView()
         let emptyText = "오늘 산책은 어땠나요?"
-        textView.rx
-            .didBeginEditing
-            .asDriver()
-            .drive { [weak rightButton] _ in
-                if textView.textColor == UIColor.lightGray {
-                    textView.text = nil
-                    textView.textColor = .boosterLabel
-                }
-
-                rightButton?.isHidden = true
-            }
-        textView.rx
-            .didEndEditing
-            .asDriver()
-            .drive { [weak rightButton] _ in
-                if textView.text.isEmpty {
-                    let emptyText = "오늘 산책은 어땠나요?"
-                    textView.text = emptyText
-                    textView.textColor = .lightGray
-                }
-                rightButton?.isHidden = false
-            }
+        textView.delegate = self
         textView.backgroundColor = .clear
         textView.font = .notoSansKR(.light, 17)
         textView.text = emptyText
@@ -129,7 +101,16 @@ final class TrackingInfoView: UIView {
         return textView
     }()
     private let disposeBag = DisposeBag()
-
+    private weak var pedometerTrailingConstraint: NSLayoutConstraint?
+    private weak var pedometerTopConstraint: NSLayoutConstraint?
+    private weak var kcalTopConstraint: NSLayoutConstraint?
+    private weak var timeTopConstraint: NSLayoutConstraint?
+    private weak var distanceTopConstraint: NSLayoutConstraint?
+    private weak var rightButtonHeightConstraint: NSLayoutConstraint?
+    private weak var rightButtonWidthConstraint: NSLayoutConstraint?
+    private weak var rightButtonTrailingConstraint: NSLayoutConstraint?
+    private weak var rightButtonBottomConstraint: NSLayoutConstraint?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
@@ -311,5 +292,26 @@ extension TrackingInfoView: UITextFieldDelegate {
         let maximum = 15
 
         return text.count + string.count < maximum
+    }
+}
+
+// MARK: text view delegate
+extension TrackingInfoView: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = .boosterLabel
+        }
+
+        rightButton.isHidden = true
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            let emptyText = "오늘 산책은 어땠나요?"
+            textView.text = emptyText
+            textView.textColor = .lightGray
+        }
+        rightButton.isHidden = false
     }
 }

@@ -1,5 +1,7 @@
 PODS:
   - Differentiator (5.0.0)
+  - RxBlocking (6.2.0):
+    - RxSwift (= 6.2.0)
   - RxCocoa (6.2.0):
     - RxRelay (= 6.2.0)
     - RxSwift (= 6.2.0)
@@ -17,6 +19,7 @@ PODS:
     - RxSwift (= 6.2.0)
 
 DEPENDENCIES:
+  - RxBlocking
   - RxCocoa
   - RxDataSources
   - RxGesture
@@ -26,6 +29,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Differentiator
+    - RxBlocking
     - RxCocoa
     - RxDataSources
     - RxGesture
@@ -35,6 +39,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
+  RxBlocking: 0b29f7d2079109a8de49c411381bed7c33ef1eeb
   RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
   RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
   RxGesture: f059f2aeef966fb17dad56ee440e76410f10e55f

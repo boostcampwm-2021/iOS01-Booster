@@ -26,7 +26,7 @@ final class GradientLabel: UILabel {
 
         layer.opacity = Opacity.zero
 
-        let gradientLayer: CAGradientLayer = configuregradientLayer(using: ratio)
+        let gradientLayer: CAGradientLayer = configureGradientLayer(using: ratio)
         let gradientColor: UIColor = configureGradientColor(using: gradientLayer)
         textColor = gradientColor
 
@@ -35,8 +35,9 @@ final class GradientLabel: UILabel {
         }
     }
 
-    private func configuregradientLayer(using ratio: Double) -> CAGradientLayer {
-        let ratio = NSNumber(value: ratio * 0.75 + 0.25)
+    private func configureGradientLayer(using ratio: Double) -> CAGradientLayer {
+        let correctRatio = ratio > 1 ? 1 : ratio
+        let ratio = NSNumber(value: correctRatio * 0.75 + 0.25)
 
         let gradient = CAGradientLayer()
         gradient.frame = self.bounds

@@ -7,26 +7,99 @@
 
 import XCTest
 
-class StatisticsViewModelTests: XCTestCase {
+import RxCocoa
+import RxSwift
 
+final class StatisticsViewModelTests: XCTestCase {
+    private var viewModel: StatisticsViewModel!
+    private var disposeBag: DisposeBag!
+    
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        viewModel = StatisticsViewModel()
+        disposeBag = DisposeBag()
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        viewModel = nil
+        disposeBag = nil
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    func test_바인드() throws {
+        // given
+        let newDuration: StatisticsViewModel.Duration = .year
+        
+        // when
+        viewModel.bind()
+        viewModel.selectedDuration.accept(newDuration)
+        let index: Int? = viewModel.selectedStatisticsIndex.value
+       
+        // then
+        XCTAssertNil(index)
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func test_쿼리요청해서_모델생성_성공() throws {
+        // given
+        let staitisticsUsecase = StatisticsUsecase()
+        var stepStatisticsCollection: StepStatisticsCollection?
+        let expectation = expectation(description: "Query")
+        
+        // when
+        staitisticsUsecase.execute(duration: .year, interval: .init(month: 1))
+            .subscribe({ queryResult in
+                stepStatisticsCollection = try? queryResult.get()
+                expectation.fulfill()
+            })
+            .disposed(by: disposeBag)
+        
+        //then
+        waitForExpectations(timeout: 2)
     }
-
+    
+    func test_처음탭했을때_인덱스생성_성공() throws {
+        // given
+        viewModel.requestQueryForStatisticsCollection()
+        sleep(1)
+        let mockCoordinate: Float = 1 / 7
+        
+        // when
+        viewModel.selectStatistics(tappedCoordinate: mockCoordinate)
+        let index: Int? = viewModel.selectedStatisticsIndex.value
+        
+        // then
+        XCTAssertNotNil(index)
+    }
+    
+    func test_탭한곳또탭했을때_인덱스삭제_성공() throws {
+        // given
+        viewModel.requestQueryForStatisticsCollection()
+        sleep(1)
+        let mockCoordinate: Float = 1 / 7
+        viewModel.selectStatistics(tappedCoordinate: mockCoordinate)
+        
+        // when
+        viewModel.selectStatistics(tappedCoordinate: mockCoordinate)
+        let index: Int? = viewModel.selectedStatisticsIndex.value
+        
+        // then
+        XCTAssertNil(index)
+    }
+    
+    func test_팬해서_인덱스변경_성공() throws {
+        // given
+        viewModel.requestQueryForStatisticsCollection()
+        sleep(1)
+        let count: Float = Float(try XCTUnwrap(viewModel.selectedStatisticsCollection()?.count))
+        let firstIndex = 0
+        let lastIndex = 1
+        let mockFirstCoordinate: Float = Float(firstIndex) / count
+        let mockSecondCoordinate: Float = Float(lastIndex) / count
+        viewModel.selectStatistics(tappedCoordinate: mockFirstCoordinate)
+        
+        // when
+        viewModel.selectStatistics(pannedCoordinate: mockSecondCoordinate)
+        let index: Int? = viewModel.selectedStatisticsIndex.value
+        
+        // then
+        XCTAssertTrue(index == lastIndex)
+    }
 }

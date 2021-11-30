@@ -151,7 +151,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1165"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Lo-0f-1rw">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="664"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="650"/>
                                                 <subviews>
                                                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="gCe-Qv-haU" customClass="DetailFeedMapView" customModule="Booster" customModuleProvider="target">
                                                         <rect key="frame" x="30" y="101" width="354" height="354"/>
@@ -184,8 +184,9 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RSR-tU-lf1" customClass="ThreeColumnRecordView" customModule="Booster" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="564.5" width="414" height="99.5"/>
+                                                        <rect key="frame" x="0.0" y="564.5" width="414" height="85.5"/>
                                                         <color key="backgroundColor" name="boosterBackground"/>
+                                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -200,6 +201,7 @@
                                                     <constraint firstItem="B7Q-Cx-YM2" firstAttribute="leading" secondItem="gCe-Qv-haU" secondAttribute="leading" id="MDg-Ep-8Qf"/>
                                                     <constraint firstAttribute="bottom" secondItem="RSR-tU-lf1" secondAttribute="bottom" id="Mu0-LE-8un"/>
                                                     <constraint firstItem="fmg-7e-yqO" firstAttribute="top" secondItem="IQ7-gI-wGX" secondAttribute="bottom" id="QH3-e0-AZC"/>
+                                                    <constraint firstAttribute="height" constant="650" id="RXn-1o-URE"/>
                                                     <constraint firstItem="RSR-tU-lf1" firstAttribute="leading" secondItem="6Lo-0f-1rw" secondAttribute="leading" id="c5K-pr-JWm"/>
                                                     <constraint firstItem="ph3-zt-nOG" firstAttribute="leading" secondItem="B7Q-Cx-YM2" secondAttribute="trailing" constant="5" id="igT-J3-I3a"/>
                                                     <constraint firstAttribute="trailing" secondItem="fmg-7e-yqO" secondAttribute="trailing" constant="30" id="lRm-ym-dJo"/>
@@ -211,7 +213,7 @@
                                                 </constraints>
                                             </view>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" text="--" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="BvC-uD-hJr">
-                                                <rect key="frame" x="30" y="664" width="354" height="45"/>
+                                                <rect key="frame" x="30" y="650" width="354" height="45"/>
                                                 <color key="backgroundColor" name="boosterBackground"/>
                                                 <color key="tintColor" name="boosterOrange"/>
                                                 <color key="textColor" name="boosterLabel"/>
@@ -223,7 +225,6 @@
                                         <constraints>
                                             <constraint firstItem="BvC-uD-hJr" firstAttribute="leading" secondItem="ecH-rG-cv5" secondAttribute="leading" constant="30" id="6n0-Yh-AgM"/>
                                             <constraint firstItem="6Lo-0f-1rw" firstAttribute="leading" secondItem="ecH-rG-cv5" secondAttribute="leading" id="8Hs-N5-rAC"/>
-                                            <constraint firstItem="6Lo-0f-1rw" firstAttribute="height" secondItem="ecH-rG-cv5" secondAttribute="height" multiplier="0.57" id="Nex-9z-zhq"/>
                                             <constraint firstItem="BvC-uD-hJr" firstAttribute="top" secondItem="6Lo-0f-1rw" secondAttribute="bottom" id="Wlz-5K-eEa"/>
                                             <constraint firstAttribute="trailing" secondItem="BvC-uD-hJr" secondAttribute="trailing" constant="30" id="aBf-Np-4Tm"/>
                                             <constraint firstAttribute="trailing" secondItem="6Lo-0f-1rw" secondAttribute="trailing" id="dLf-oR-YDa"/>
@@ -282,7 +283,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="아직 안했지롱" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="0sF-uL-ly2">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="내용" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="0sF-uL-ly2">
                                 <rect key="frame" x="30" y="136" width="354" height="269"/>
                                 <color key="backgroundColor" name="boosterBackground"/>
                                 <color key="tintColor" name="boosterOrange"/>
@@ -290,7 +291,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="라랄라" placeholder="제목" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eKE-zl-J4v">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="제목" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eKE-zl-J4v">
                                 <rect key="frame" x="30" y="74" width="354" height="45"/>
                                 <color key="tintColor" name="boosterOrange"/>
                                 <color key="textColor" name="boosterLabel"/>

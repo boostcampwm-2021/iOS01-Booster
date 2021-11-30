@@ -1,5 +1,6 @@
 import UIKit
 import MapKit
+import Network
 import CoreMotion
 import RxSwift
 import RxCocoa
@@ -12,6 +13,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
 
     // MARK: - Properties
     private let pedometer = CMPedometer()
+    private let monitor = NWPathMonitor()
     private var pedomterSteps: Int = 0
     private var lastestTime: Int = 0
     private var timerDate = Date()
@@ -31,7 +33,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         buttonItem.image = .systemArrowLeft
         buttonItem.tintColor = .boosterBlackLabel
         buttonItem.rx.tap
-            .throttle(.seconds(1), scheduler: MainScheduler.asyncInstance)
+            .throttle(.seconds(1), scheduler: MainScheduler.instance)
             .bind { [weak self] in
                 let title = "되돌아가기"
                 let message = "현재 기록 상황이 다 지워집니다\n정말로 되돌아가실 건가요?"
@@ -135,6 +137,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         configureNotifications()
         bindViewModel()
         bindView()
+        startMonitor()
     }
 
     private func configureNotifications() {
@@ -194,7 +197,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
                 }
             }.disposed(by: disposeBag)
         infoView.leftButton.rx.tap
-            .throttle(.microseconds(1500), scheduler: MainScheduler.asyncInstance)
+            .throttle(.microseconds(1500), scheduler: MainScheduler.instance)
             .bind { [weak self] _ in
                 guard let self = self
                 else { return }
@@ -236,7 +239,7 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
             }.disposed(by: disposeBag)
 
         infoView.rightButton.rx.tap
-            .throttle(.seconds(1), scheduler: MainScheduler.asyncInstance)
+            .throttle(.seconds(1), scheduler: MainScheduler.instance)
             .bind { [weak self] _ in
                 guard let self = self
                 else { return }
@@ -295,13 +298,18 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         }.disposed(by: disposeBag)
 
         viewModel.saveResult
-            .asDriver(onErrorJustReturn: .none)
-            .drive(onNext: { [weak self] error in
-                guard error == nil
-                else { return }
-
-                self?.navigationController?.popViewController(animated: true)
-            }).disposed(by: disposeBag)
+            .observe(on: MainScheduler.instance)
+            .map { [weak self] value -> Bool in
+                let title = value ? "저장이 완료되었습니다." : "다시 시도해주시기 바랍니다."
+                self?.view.showToastView(message: title)
+                return value
+            }
+            .delay(.milliseconds(800), scheduler: MainScheduler.instance)
+            .bind { [weak self] value in
+                if value {
+                    self?.navigationController?.popViewController(animated: true)
+                }
+            }.disposed(by: disposeBag)
     }
 
     private func update() {
@@ -382,6 +390,29 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
 
             return Disposables.create { observable.onCompleted() }
         }
+    }
+    
+    private func startMonitor() {
+        monitor.rx
+            .observe(on: MainScheduler.instance)
+            .subscribe { [weak self] event in
+                guard let element = event.element,
+                      let state = self?.viewModel.state.value
+                else { return }
+                
+                switch element.status {
+                case .satisfied:
+                    self?.infoView.leftButton.isUserInteractionEnabled = true
+                    self?.infoView.rightButton.isUserInteractionEnabled = true
+                default :
+                    self?.viewModel.state.accept(state == .start ? .pause : state)
+                    self?.infoView.leftButton.isUserInteractionEnabled = false
+                    self?.infoView.rightButton.isUserInteractionEnabled = false
+                    let message = "원할한 서비스를 위해 \n네트워크를 연결해주세요\n네트워크 재연결 이후\n기록을 재시작/저장이 가능합니다."
+                    self?.view.showToastView(message: message)
+                }
+            }
+            .disposed(by: disposeBag)
     }
 }
 

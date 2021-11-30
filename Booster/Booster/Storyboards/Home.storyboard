@@ -41,8 +41,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TBK-bI-lVF" customClass="ChartView" customModule="Booster" customModuleProvider="target">
-                                <rect key="frame" x="30" y="648.5" width="354" height="134.5"/>
+                                <rect key="frame" x="30" y="643" width="354" height="140"/>
                                 <color key="backgroundColor" name="boosterBackground"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="140" id="lXh-fR-AcS"/>
+                                </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SqD-jA-YKV" customClass="ThreeColumnRecordView" customModule="Booster" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="64" width="414" height="100"/>
@@ -58,7 +61,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hourly" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FqG-gg-gIl">
-                                <rect key="frame" x="30" y="616.5" width="45.5" height="22"/>
+                                <rect key="frame" x="30" y="611" width="45.5" height="22"/>
                                 <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="15"/>
                                 <color key="textColor" name="boosterLabel"/>
                                 <nil key="highlightedColor"/>
@@ -70,8 +73,7 @@
                             <constraint firstItem="FqG-gg-gIl" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="4No-r3-mb8"/>
                             <constraint firstItem="TZn-KZ-HUf" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="8Jl-ms-AJ2"/>
                             <constraint firstItem="Ssn-6d-STD" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" multiplier="0.9" id="8Vn-4G-Ip2"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="TBK-bI-lVF" secondAttribute="bottom" constant="30" id="9fv-rE-kuO"/>
-                            <constraint firstItem="FqG-gg-gIl" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" multiplier="1.4" id="Amu-ax-XIE"/>
+                            <constraint firstItem="TBK-bI-lVF" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" constant="-30" id="9fv-rE-kuO"/>
                             <constraint firstItem="fPg-k0-zrM" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="FTo-pS-Waa"/>
                             <constraint firstItem="TZn-KZ-HUf" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" multiplier="1.1" id="KfM-fJ-FOK"/>
                             <constraint firstItem="SqD-jA-YKV" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="NMB-Yt-h1a"/>
@@ -79,11 +81,9 @@
                             <constraint firstItem="Ssn-6d-STD" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" multiplier="1.04" id="cvj-ls-Jg8"/>
                             <constraint firstItem="SqD-jA-YKV" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="fRa-i7-tmI"/>
                             <constraint firstItem="fPg-k0-zrM" firstAttribute="top" secondItem="TZn-KZ-HUf" secondAttribute="bottom" constant="4" id="iTP-9b-eei"/>
-                            <constraint firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" multiplier="0.2" id="non-pq-QWR"/>
                             <constraint firstAttribute="trailing" secondItem="SqD-jA-YKV" secondAttribute="trailing" id="qxK-In-OMO"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="TBK-bI-lVF" secondAttribute="trailing" constant="30" id="u28-3r-V2B"/>
-                            <constraint firstItem="TBK-bI-lVF" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.150298" id="vXS-9d-yiL"/>
-                            <constraint firstItem="TBK-bI-lVF" firstAttribute="top" secondItem="FqG-gg-gIl" secondAttribute="bottom" constant="10" id="xZR-YU-i2m"/>
+                            <constraint firstItem="TBK-bI-lVF" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" constant="-30" id="u28-3r-V2B"/>
+                            <constraint firstItem="FqG-gg-gIl" firstAttribute="bottom" secondItem="TBK-bI-lVF" secondAttribute="top" constant="-10" id="xZR-YU-i2m"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="home" selectedImage="home" id="ZN1-p6-8Xg"/>

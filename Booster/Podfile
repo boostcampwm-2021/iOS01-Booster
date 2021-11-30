@@ -16,10 +16,14 @@ end
 
 target 'StatisticsTests' do
   pods
+  pod 'RxTest'
+  pod 'RxBlocking'
 end
 
 target 'TrackingProgressTests' do
   pods
+  pod 'RxTest'
+  pod 'RxBlocking'
 end
 
 target 'UserTests' do
