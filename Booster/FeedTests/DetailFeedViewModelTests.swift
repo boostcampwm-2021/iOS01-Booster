@@ -9,7 +9,6 @@ import XCTest
 import RxSwift
 import RxCocoa
 import RxTest
-@testable import Booster
 
 final class DetailFeedViewModelTests: XCTestCase {
     private var viewModel: DetailFeedViewModel!
@@ -29,7 +28,7 @@ final class DetailFeedViewModelTests: XCTestCase {
         feedUsecase.fetch()
             .bind { value in
                 guard let startDate = value.first?.startDate
-                else { return XCTAssert(false) }
+                else { return XCTAssert(false, "startDate값이 없습니다") }
                 self.viewModel = DetailFeedViewModel(start: startDate, usecase: DetailFeedUsecase())
                 //when
                 let value = self.viewModel.milestone(at: Coordinate(latitude: 23.12421, longitude: 35.1232))
@@ -66,7 +65,6 @@ final class DetailFeedViewModelTests: XCTestCase {
             .skip(1)
             .bind { _ in
                 //then
-                XCTAssertTrue(true)
                 expectation.fulfill()
             }
             .disposed(by: disposeBag)
