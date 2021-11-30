@@ -64,6 +64,16 @@
                ReferencedContainer = "container:Booster.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "37B2B3532755B8C600F906E8"
+               BuildableName = "HomeTests.xctest"
+               BlueprintName = "HomeTests"
+               ReferencedContainer = "container:Booster.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
