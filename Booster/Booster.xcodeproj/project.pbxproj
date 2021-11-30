@@ -76,8 +76,6 @@
 		FA473A412743788B0000C5DC /* UserInfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA473A402743788B0000C5DC /* UserInfoHeaderView.swift */; };
 		FA473A43274387920000C5DC /* MyInfoHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA473A42274387920000C5DC /* MyInfoHeaderView.xib */; };
 		FA473A4527438A3E0000C5DC /* MyInfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA473A4427438A3E0000C5DC /* MyInfoHeaderView.swift */; };
-		FA473A49274391740000C5DC /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA473A48274391740000C5DC /* UserViewModel.swift */; };
-		FA473A4B2743A2FB0000C5DC /* UserUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA473A4A2743A2FB0000C5DC /* UserUsecase.swift */; };
 		FA473A4D2744EC1C0000C5DC /* ChangeGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA473A4C2744EC1C0000C5DC /* ChangeGoalViewController.swift */; };
 		FA473A4F2744EE730000C5DC /* GoalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA473A4E2744EE730000C5DC /* GoalViewModel.swift */; };
 		FA614F542733CDAA00B090D9 /* Statistics.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA614F092733CDAA00B090D9 /* Statistics.storyboard */; };
@@ -155,6 +153,9 @@
 		FAB252F82754CFF100A4FC5B /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F332733CDAA00B090D9 /* Coordinate.swift */; };
 		FAB252F92754CFF500A4FC5B /* Milestone.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F312733CDAA00B090D9 /* Milestone.swift */; };
 		FAB252FB2755329300A4FC5B /* NotificationSettingViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB252FA2755329300A4FC5B /* NotificationSettingViewModelTests.swift */; };
+		FAB252FC2755BC1A00A4FC5B /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA473A48274391740000C5DC /* UserViewModel.swift */; };
+		FAB252FE2755BC5600A4FC5B /* GoalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA473A4E2744EE730000C5DC /* GoalViewModel.swift */; };
+		FAB252FF2755BC6700A4FC5B /* UserUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA473A4A2743A2FB0000C5DC /* UserUsecase.swift */; };
 		FACBAB6A2746034900CD6B76 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACBAB692746034900CD6B76 /* UIButton+Extension.swift */; };
 		FADAC0D02745F55100A026E2 /* EditUserInfoTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADAC0CF2745F55100A026E2 /* EditUserInfoTextField.swift */; };
 /* End PBXBuildFile section */
@@ -1340,11 +1341,13 @@
 				28C97068274E26E1005BD7BC /* DetailFeedMapView.swift in Sources */,
 				3B31B5F9273C05D8009D9190 /* FeedCell.swift in Sources */,
 				FA614F7A2733CDAA00B090D9 /* TimeInterval+extension.swift in Sources */,
+				FAB252FC2755BC1A00A4FC5B /* UserViewModel.swift in Sources */,
 				FA614F5B2733CDAA00B090D9 /* CircleRenderer.swift in Sources */,
 				3B38FB1C273BF7CD00F8620D /* FeedUseCase.swift in Sources */,
 				3BE60F6127464DE800B4EFB8 /* StatisticsUsecase.swift in Sources */,
 				FA614F802733CDAA00B090D9 /* TrackingProgressViewController.swift in Sources */,
 				FA473A4527438A3E0000C5DC /* MyInfoHeaderView.swift in Sources */,
+				FAB252FF2755BC6700A4FC5B /* UserUsecase.swift in Sources */,
 				3B37B99C274371B9001EB120 /* GenderEnrollView.swift in Sources */,
 				FA614F792733CDAA00B090D9 /* UIAlertController+Extention.swift in Sources */,
 				28C9708A275283FA005BD7BC /* UIView+Extension.swift in Sources */,
@@ -1353,7 +1356,6 @@
 				FA2578F72745E99800597382 /* EditUserInfoViewController.swift in Sources */,
 				FA473A05273A1F8A0000C5DC /* UIImage+Extension.swift in Sources */,
 				FA614F732733CDAA00B090D9 /* Coordinate.swift in Sources */,
-				FA473A49274391740000C5DC /* UserViewModel.swift in Sources */,
 				FA614F762733CDAA00B090D9 /* TrackingModel.swift in Sources */,
 				FA614F6B2733CDAA00B090D9 /* User+CoreDataProperties.swift in Sources */,
 				FA614F902733D2CA00B090D9 /* UIColor+Extension.swift in Sources */,
@@ -1392,7 +1394,6 @@
 				FA473A16273B95750000C5DC /* BaseViewControllerTemplate.swift in Sources */,
 				FA614F852733CDAA00B090D9 /* TrackingMapView.swift in Sources */,
 				28C9703B274C84DC005BD7BC /* ModifyFeedUsecase.swift in Sources */,
-				FA473A4B2743A2FB0000C5DC /* UserUsecase.swift in Sources */,
 				FA614F5E2733CDAA00B090D9 /* TrackingProgressViewModel.swift in Sources */,
 				FA614F7D2733CDAA00B090D9 /* SceneDelegate.swift in Sources */,
 				FADAC0D02745F55100A026E2 /* EditUserInfoTextField.swift in Sources */,
@@ -1460,6 +1461,7 @@
 				FAB252EE2754C7F000A4FC5B /* UserViewModel.swift in Sources */,
 				FAB252F52754CF9C00A4FC5B /* User+CoreDataProperties.swift in Sources */,
 				FAB252ED2754C7D500A4FC5B /* UserViewModelTests.swift in Sources */,
+				FAB252FE2755BC5600A4FC5B /* GoalViewModel.swift in Sources */,
 				FAB252FB2755329300A4FC5B /* NotificationSettingViewModelTests.swift in Sources */,
 				FAB252F82754CFF100A4FC5B /* Coordinate.swift in Sources */,
 			);

@@ -30,6 +30,17 @@ class MilestoneTests: XCTestCase {
         XCTAssertEqual(newMilestones.all, milestonesList, "배열이 정상적으로 초기화 되지 않았습니다.")
     }
 
+    func test_초기화_기본값_성공() throws {
+        // given
+        let newMilestone: Milestone = Milestone(latitude: 1, longitude: 1, imageData: Data())
+
+        // when
+        milestones = Milestones(milestone: newMilestone)
+
+        // then
+        XCTAssertEqual(milestones.all, [newMilestone], "배열이 정상적으로 초기화 되지 않았습니다.")
+    }
+    
     func test_초기화_배열_성공() throws {
         // given
         let newMilestones: Milestones!
