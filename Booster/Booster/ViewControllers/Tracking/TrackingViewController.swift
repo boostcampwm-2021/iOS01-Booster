@@ -71,8 +71,8 @@ final class TrackingViewController: UIViewController, BaseViewControllerTemplate
                 case .satisfied:
                     self?.nextButton.isUserInteractionEnabled = true
                 default :
-                    let message = "원할한 서비스를 위해 \n네트워크를 연결해주세요"
-                    self?.view.showToastView(message: message)
+                    let message = "원활한 서비스를 위해\n네트워크를 연결해주세요"
+                    self?.view.showToastView(message: message, isOnTabBar: true)
                     self?.nextButton.isUserInteractionEnabled = false
                 }
             }

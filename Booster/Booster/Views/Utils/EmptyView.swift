@@ -24,7 +24,7 @@ final class EmptyView: UIView {
         imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         imageView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -50).isActive = true
         imageView.widthAnchor.constraint(equalToConstant: self.frame.width / 5).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: self.frame.width / 5 * 52 / 70).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: self.frame.width / 5).isActive = true
         titlelabel.translatesAutoresizingMaskIntoConstraints = false
         titlelabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         titlelabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 40).isActive = true
@@ -32,9 +32,12 @@ final class EmptyView: UIView {
 
     func apply(title: String, image: UIImage) {
         imageView.image = image
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = .boosterGray
+        
         titlelabel.text = title
         titlelabel.textColor = .boosterGray
-        titlelabel.numberOfLines = 2
+        titlelabel.numberOfLines = 3
         titlelabel.textAlignment = .center
         titlelabel.font = .notoSansKR(.regular, 17)
     }
