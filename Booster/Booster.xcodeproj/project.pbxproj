@@ -65,7 +65,6 @@
 		3B31B613274107CF009D9190 /* Tracking+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B31B5FD273CD2F7009D9190 /* Tracking+CoreDataClass.swift */; };
 		3B31B614274107D3009D9190 /* Tracking+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B31B5FE273CD2F7009D9190 /* Tracking+CoreDataProperties.swift */; };
 		3B31B61527410819009D9190 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F2F2733CDAA00B090D9 /* UserInfo.swift */; };
-		3B31B616274108F3009D9190 /* BoosterObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F3C2733CDAA00B090D9 /* BoosterObservable.swift */; };
 		3B31B61827410935009D9190 /* TrackingProgressUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F502733CDAA00B090D9 /* TrackingProgressUsecase.swift */; };
 		3B31B61C2741098C009D9190 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F262733CDAA00B090D9 /* CoreDataManager.swift */; };
 		3B31B61D27410997009D9190 /* StatisticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F162733CDAA00B090D9 /* StatisticsViewModel.swift */; };
@@ -114,7 +113,6 @@
 		FA614F582733CDAA00B090D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA614F0E2733CDAA00B090D9 /* Main.storyboard */; };
 		FA614F592733CDAA00B090D9 /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA614F102733CDAA00B090D9 /* User.storyboard */; };
 		FA614F5A2733CDAA00B090D9 /* Tracking.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA614F122733CDAA00B090D9 /* Tracking.storyboard */; };
-		FA614F5B2733CDAA00B090D9 /* CircleRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F142733CDAA00B090D9 /* CircleRenderer.swift */; };
 		FA614F5C2733CDAA00B090D9 /* StatisticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F162733CDAA00B090D9 /* StatisticsViewModel.swift */; };
 		FA614F5D2733CDAA00B090D9 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F172733CDAA00B090D9 /* HomeViewModel.swift */; };
 		FA614F5E2733CDAA00B090D9 /* TrackingProgressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F182733CDAA00B090D9 /* TrackingProgressViewModel.swift */; };
@@ -140,7 +138,6 @@
 		FA614F782733CDAA00B090D9 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F392733CDAA00B090D9 /* UIFont+Extension.swift */; };
 		FA614F792733CDAA00B090D9 /* UIAlertController+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F3A2733CDAA00B090D9 /* UIAlertController+Extention.swift */; };
 		FA614F7A2733CDAA00B090D9 /* TimeInterval+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F3B2733CDAA00B090D9 /* TimeInterval+extension.swift */; };
-		FA614F7B2733CDAA00B090D9 /* BoosterObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F3C2733CDAA00B090D9 /* BoosterObservable.swift */; };
 		FA614F7C2733CDAA00B090D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F3E2733CDAA00B090D9 /* AppDelegate.swift */; };
 		FA614F7D2733CDAA00B090D9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F3F2733CDAA00B090D9 /* SceneDelegate.swift */; };
 		FA614F7E2733CDAA00B090D9 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA614F412733CDAA00B090D9 /* StatisticsViewController.swift */; };
@@ -386,7 +383,6 @@
 		FA614F0F2733CDAA00B090D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FA614F102733CDAA00B090D9 /* User.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
 		FA614F122733CDAA00B090D9 /* Tracking.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Tracking.storyboard; sourceTree = "<group>"; };
-		FA614F142733CDAA00B090D9 /* CircleRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleRenderer.swift; sourceTree = "<group>"; };
 		FA614F162733CDAA00B090D9 /* StatisticsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticsViewModel.swift; sourceTree = "<group>"; };
 		FA614F172733CDAA00B090D9 /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		FA614F182733CDAA00B090D9 /* TrackingProgressViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingProgressViewModel.swift; sourceTree = "<group>"; };
@@ -413,7 +409,6 @@
 		FA614F392733CDAA00B090D9 /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		FA614F3A2733CDAA00B090D9 /* UIAlertController+Extention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extention.swift"; sourceTree = "<group>"; };
 		FA614F3B2733CDAA00B090D9 /* TimeInterval+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TimeInterval+extension.swift"; sourceTree = "<group>"; };
-		FA614F3C2733CDAA00B090D9 /* BoosterObservable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoosterObservable.swift; sourceTree = "<group>"; };
 		FA614F3E2733CDAA00B090D9 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA614F3F2733CDAA00B090D9 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		FA614F412733CDAA00B090D9 /* StatisticsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
@@ -908,14 +903,6 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
-		FA614F132733CDAA00B090D9 /* Renderers */ = {
-			isa = PBXGroup;
-			children = (
-				FA614F142733CDAA00B090D9 /* CircleRenderer.swift */,
-			);
-			path = Renderers;
-			sourceTree = "<group>";
-		};
 		FA614F152733CDAA00B090D9 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -999,7 +986,6 @@
 				FA614F392733CDAA00B090D9 /* UIFont+Extension.swift */,
 				FA614F3A2733CDAA00B090D9 /* UIAlertController+Extention.swift */,
 				FA614F3B2733CDAA00B090D9 /* TimeInterval+extension.swift */,
-				FA614F3C2733CDAA00B090D9 /* BoosterObservable.swift */,
 				FA614F8F2733D2CA00B090D9 /* UIColor+Extension.swift */,
 				FA473A04273A1F8A0000C5DC /* UIImage+Extension.swift */,
 				28C96FF2273A4634005BD7BC /* UIResponder+Extension.swift */,
@@ -1049,7 +1035,6 @@
 				3B6FE5012743A83000A815D1 /* Utils */,
 				3B37B99A274371AA001EB120 /* Enroll */,
 				3B31B5FA273C0A52009D9190 /* Configurator */,
-				FA614F132733CDAA00B090D9 /* Renderers */,
 				FA473A1B273BA2130000C5DC /* Home */,
 				FA473A1A273BA20D0000C5DC /* User */,
 				FA473A19273BA2050000C5DC /* Feed */,
@@ -1865,7 +1850,6 @@
 				3B31B61C2741098C009D9190 /* CoreDataManager.swift in Sources */,
 				FAB25335275612FD00A4FC5B /* User+CoreDataProperties.swift in Sources */,
 				3B31B612274107BD009D9190 /* TrackingModel.swift in Sources */,
-				3B31B616274108F3009D9190 /* BoosterObservable.swift in Sources */,
 				3B31B614274107D3009D9190 /* Tracking+CoreDataProperties.swift in Sources */,
 				FAB25332275612C100A4FC5B /* HealthKitManager.swift in Sources */,
 				3B31B61527410819009D9190 /* UserInfo.swift in Sources */,
@@ -1882,7 +1866,6 @@
 				28C97068274E26E1005BD7BC /* DetailFeedMapView.swift in Sources */,
 				3B31B5F9273C05D8009D9190 /* FeedCell.swift in Sources */,
 				FA614F7A2733CDAA00B090D9 /* TimeInterval+extension.swift in Sources */,
-				FA614F5B2733CDAA00B090D9 /* CircleRenderer.swift in Sources */,
 				3B38FB1C273BF7CD00F8620D /* FeedUseCase.swift in Sources */,
 				3BE60F6127464DE800B4EFB8 /* StatisticsUsecase.swift in Sources */,
 				FA614F802733CDAA00B090D9 /* TrackingProgressViewController.swift in Sources */,
@@ -1921,7 +1904,6 @@
 				3B6FE5032743A85B00A815D1 /* InfoPickerView.swift in Sources */,
 				FA614F862733CDAA00B090D9 /* PhotoAnnotationView.swift in Sources */,
 				FA614F942733D51C00B090D9 /* EnrollViewController.swift in Sources */,
-				FA614F7B2733CDAA00B090D9 /* BoosterObservable.swift in Sources */,
 				FA614F7F2733CDAA00B090D9 /* HomeViewController.swift in Sources */,
 				28C9708C27528CFC005BD7BC /* ThreeColumnRecordView.swift in Sources */,
 				28C9702D273C3041005BD7BC /* DetailFeedUsecase.swift in Sources */,
