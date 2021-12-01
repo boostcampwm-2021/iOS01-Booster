@@ -8,15 +8,9 @@
 import Foundation
 import RxSwift
 
-protocol DetailFeedUsecaseProtocol {
-    func update(milestones: [Milestone], predicate: NSPredicate) -> Observable<Void>
-    func fetch(predicate: NSPredicate) -> Observable<TrackingModel>
-    func remove(predicate: NSPredicate) -> Observable<Void>
-}
-
 typealias TrackingSaveError = DetailFeedUsecase.TrackingError
 
-final class DetailFeedUsecase: DetailFeedUsecaseProtocol {
+final class DetailFeedUsecase {
     enum TrackingError: Error {
         case modelError
         case error(Error)

@@ -16,13 +16,12 @@ final class DetailFeedViewModel {
     var isDeletedMilestone = PublishSubject<Bool>()
     var isDeletedAll = PublishSubject<Bool>()
     private let predicate: NSPredicate
-    private let usecase: DetailFeedUsecaseProtocol
+    private let usecase = DetailFeedUsecase()
     private let disposeBag = DisposeBag()
     private var gradientColorOffset = -1
 
     // MARK: - Init
-    init(start date: Date, usecase: DetailFeedUsecaseProtocol) {
-        self.usecase = usecase
+    init(start date: Date) {
         startDate = date
         predicate = NSPredicate(format: "startDate = %@", startDate as NSDate)
         fetchDetailFeedList()
@@ -81,6 +80,6 @@ final class DetailFeedViewModel {
 
     func createModifyFeedViewModel() -> ModifyFeedViewModel {
         let writingRecord = WritingRecord(title: trackingModel.value.title, content: trackingModel.value.content)
-        return ModifyFeedViewModel(startDate: startDate, writingRecord: writingRecord, usecase: ModifyFeedUsecase())
+        return ModifyFeedViewModel(startDate: startDate, writingRecord: writingRecord)
     }
 }

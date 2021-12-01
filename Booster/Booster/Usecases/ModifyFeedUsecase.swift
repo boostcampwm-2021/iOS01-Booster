@@ -8,11 +8,7 @@
 import Foundation
 import RxSwift
 
-protocol ModifyFeedUsecaseProtocol {
-    func update(model: WritingRecord, predicate: NSPredicate) -> Observable<Void>
-}
-
-final class ModifyFeedUsecase: ModifyFeedUsecaseProtocol {
+final class ModifyFeedUsecase {
     private let entityName = "Tracking"
 
     func update(model: WritingRecord, predicate: NSPredicate) -> Observable<Void> {
