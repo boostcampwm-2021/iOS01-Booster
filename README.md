@@ -78,6 +78,8 @@
 
 ![](https://i.imgur.com/UVbUI22.png)
 
+ViewModel이 각 Manager들에 접근할 존재는 필요했고, 해당 로직을 ViewModel에서 모두 처리하기에는 ViewModel의 크기가 커지기에 UseCase를 남겨두고 해당 비지니스 로직을 UseCase에서 처리했습니다.
+> [🍌참고](https://github.com/boostcampwm-2021/iOS01-Booster/wiki/MVVM%3F-or-Clean-Architecture-%EA%B3%A0%EC%B0%B0%EC%97%90-%EB%8C%80%ED%95%9C-%EA%B2%B0%EA%B3%BC)
 
 <br><br>
     
@@ -85,4 +87,32 @@
 > Booster에서 사용한 프레임워크 입니다.
     
 ![](https://i.imgur.com/wn03W7p.png)
-    
+
+#### HealthKit
+- 같은 애플 계정을 공유하는 기기간 연동된 건강 데이터를 활용하기 위해 선택하였습니다
+- 앱을 다운로드 받기 전과 트래킹하지 않았을 때의 걸음 수까지 보여주기 위해 사용하였습니다
+- 트래킹 정보를 저장한 뒤, 건강 앱에도 기록되어 이 정보를 앱에 함께 불러올 수 있었습니다
+
+#### CoreData
+- 네트워크 상황에 관계 없이 기록을 저장하고 보여주기 위하여 사용하였습니다
+- NSPredicate 사용해 CRUD를 구현하여 CoreData에 접근을 용이하게 하도록 구현하였습니다
+- 동시성을 위해 main loop가 아닌 private context(child context)를 활용하였습니다
+
+#### MapKit
+- 다른 라이브러리를 이용하지 않고, 애플 지도를 이용하여 사용자의 트래킹 정보를 표현하기 위해 사용하였습니다
+- 트래킹한 사용자의 위치 정보를 지도상에 나타내기 위해 MKPolyLine을 이용하였습니다
+- 사용자의 현 위치에 마일스톤 기록을 남기기 위하여 MKAnnotationView를 커스텀 하여 표현하였습니다
+
+#### RxSwift
+> 계기
+- escaping closure와 같은 비동기 처리가 많아졌고, 이를 처리하는 방식이 매개변수와 같이 있어 다른 방법으로 표현할 수 없을까 고민하였습니다 
+- 데이터 바인딩, UI 이벤트 처리에 대한 코드가 나눠져서 불편함이 생겨 코드를 보았을 때 이해하기 쉽도록 하고 싶었습니다
+
+> 도입 결과
+- IBAction/UIGesture와 Target method를 통합하여 하나의 스트림으로 표현할 수 있었습니다
+- escaping closure에서 벗어나 리턴값으로 Observable을 사용하게 되면서 간결한 코드로 나타낼 수 있었습니다
+- 기존에 직접 만든 Observable 클래스 만으로는 할 수 없었던 NSObject에서도 Rx에 관한 작업들을 할 수 있었습니다
+
+#### CoreLocation
+- 디바이스의 위치 정보를 추적하여 사용자의 위치를 실시간으로 추적하고자 사용하였습니다
+- 사용자의 위치에 대한 위도/경도 정보를 통해 지역명으로 받아오고자 CLGeocoder를 이용했습니다
