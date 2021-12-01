@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="BAZARONI.TTF">
+            <string>Bazaronite</string>
+        </array>
+        <array key="NotoSansKR-Light.otf">
+            <string>NotoSansKR-Light</string>
+        </array>
+        <array key="NotoSansKR-Regular.otf">
+            <string>NotoSansKR-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Home View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="HomeViewController" id="Y6W-OH-hqX" customClass="HomeViewController" customModule="Booster" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ssn-6d-STD" customClass="GradientLabel" customModule="Booster" customModuleProvider="target">
+                                <rect key="frame" x="182" y="343.5" width="67" height="119"/>
+                                <fontDescription key="fontDescription" name="Bazaronite" family="Bazaronite" pointSize="100"/>
+                                <color key="textColor" name="boosterLabel"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="goal" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZn-KZ-HUf" userLabel="Goal ">
+                                <rect key="frame" x="192.5" y="482" width="29" height="22"/>
+                                <fontDescription key="fontDescription" name="NotoSansKR-Light" family="Noto Sans KR" pointSize="15"/>
+                                <color key="textColor" name="boosterLabel"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TBK-bI-lVF" customClass="ChartView" customModule="Booster" customModuleProvider="target">
+                                <rect key="frame" x="30" y="643" width="354" height="140"/>
+                                <color key="backgroundColor" name="boosterBackground"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="140" id="lXh-fR-AcS"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SqD-jA-YKV" customClass="ThreeColumnRecordView" customModule="Booster" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="414" height="100"/>
+                                <color key="backgroundColor" name="boosterBackground"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="5GG-df-P1i"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10000" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fPg-k0-zrM" userLabel="Goal Label">
+                                <rect key="frame" x="187" y="508" width="40.5" height="22"/>
+                                <fontDescription key="fontDescription" name="NotoSansKR-Light" family="Noto Sans KR" pointSize="15"/>
+                                <color key="textColor" name="boosterLabel"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hourly" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FqG-gg-gIl">
+                                <rect key="frame" x="30" y="611" width="45.5" height="22"/>
+                                <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="15"/>
+                                <color key="textColor" name="boosterLabel"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" name="boosterBackground"/>
+                        <constraints>
+                            <constraint firstItem="FqG-gg-gIl" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="4No-r3-mb8"/>
+                            <constraint firstItem="TZn-KZ-HUf" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="8Jl-ms-AJ2"/>
+                            <constraint firstItem="Ssn-6d-STD" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" multiplier="0.9" id="8Vn-4G-Ip2"/>
+                            <constraint firstItem="TBK-bI-lVF" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" constant="-30" id="9fv-rE-kuO"/>
+                            <constraint firstItem="fPg-k0-zrM" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="FTo-pS-Waa"/>
+                            <constraint firstItem="TZn-KZ-HUf" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" multiplier="1.1" id="KfM-fJ-FOK"/>
+                            <constraint firstItem="SqD-jA-YKV" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="NMB-Yt-h1a"/>
+                            <constraint firstItem="TBK-bI-lVF" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="Vb6-hK-AQV"/>
+                            <constraint firstItem="Ssn-6d-STD" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" multiplier="1.04" id="cvj-ls-Jg8"/>
+                            <constraint firstItem="SqD-jA-YKV" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="fRa-i7-tmI"/>
+                            <constraint firstItem="fPg-k0-zrM" firstAttribute="top" secondItem="TZn-KZ-HUf" secondAttribute="bottom" constant="4" id="iTP-9b-eei"/>
+                            <constraint firstAttribute="trailing" secondItem="SqD-jA-YKV" secondAttribute="trailing" id="qxK-In-OMO"/>
+                            <constraint firstItem="TBK-bI-lVF" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" constant="-30" id="u28-3r-V2B"/>
+                            <constraint firstItem="FqG-gg-gIl" firstAttribute="bottom" secondItem="TBK-bI-lVF" secondAttribute="top" constant="-10" id="xZR-YU-i2m"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="home" selectedImage="home" id="ZN1-p6-8Xg"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="goalLabel" destination="fPg-k0-zrM" id="SAa-T5-Uu8"/>
+                        <outlet property="hourlyBarChartView" destination="TBK-bI-lVF" id="lkg-ka-wVa"/>
+                        <outlet property="recordView" destination="SqD-jA-YKV" id="1a6-SE-gsK"/>
+                        <outlet property="todayTotalStepCountLabel" destination="Ssn-6d-STD" id="gdw-or-0vE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="127.53623188405798" y="97.767857142857139"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="home" width="25" height="25"/>
+        <namedColor name="boosterBackground">
+            <color red="0.050999999046325684" green="0.050999999046325684" blue="0.050999999046325684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="boosterLabel">
+            <color red="0.92900002002716064" green="0.92900002002716064" blue="0.92900002002716064" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

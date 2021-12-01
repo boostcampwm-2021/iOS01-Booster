@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Rgs-ka-K2j">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Home-->
+        <scene sceneID="k8d-V6-5Pj">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="Home" storyboardName="Home" id="ecx-f6-j6h" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" id="kUX-Xc-lcf"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uoZ-I0-QVX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="803" y="-170"/>
+        </scene>
+        <!--Tracking-->
+        <scene sceneID="bBI-4P-gay">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="Tracking" storyboardName="Tracking" id="WDC-fW-hqj" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="트래킹" id="pjy-3z-oIg"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NQI-ME-RkV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="820" y="98"/>
+        </scene>
+        <!--Statistics-->
+        <scene sceneID="VYg-4f-MpV">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="Statistics" storyboardName="Statistics" id="huO-gt-DbM" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="DdJ-2s-Oih"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tDj-Gv-jHx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="816" y="-28"/>
+        </scene>
+        <!--Feed-->
+        <scene sceneID="Idc-t1-sf5">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="Feed" storyboardName="Feed" id="eit-pR-CCu" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="E3r-Ba-JJR"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CCl-BN-KcQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="819" y="286"/>
+        </scene>
+        <!--User-->
+        <scene sceneID="fsS-or-eX2">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="User" storyboardName="User" id="fIQ-xE-VwK" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="Uct-yf-afx"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xjq-b7-Mm8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="820" y="389"/>
+        </scene>
+        <!--Booster Tab Bar View Controller-->
+        <scene sceneID="V2F-j8-B2t">
+            <objects>
+                <tabBarController storyboardIdentifier="MainNavigationViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Rgs-ka-K2j" customClass="BoosterTabBarViewController" customModule="Booster" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="gPf-l2-P7d">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" name="boosterBackground"/>
+                        <color key="tintColor" name="boosterOrange"/>
+                        <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" name="boosterOrange"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="ecx-f6-j6h" kind="relationship" relationship="viewControllers" id="Fha-ai-NKQ"/>
+                        <segue destination="huO-gt-DbM" kind="relationship" relationship="viewControllers" id="wE5-C3-VZU"/>
+                        <segue destination="WDC-fW-hqj" kind="relationship" relationship="viewControllers" id="GnB-k3-VM2"/>
+                        <segue destination="eit-pR-CCu" kind="relationship" relationship="viewControllers" id="EyE-UE-IVI"/>
+                        <segue destination="fIQ-xE-VwK" kind="relationship" relationship="viewControllers" id="uQa-yT-vjR"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fyg-QU-Lel" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="127.53623188405798" y="97.767857142857139"/>
+        </scene>
+    </scenes>
+    <resources>
+        <namedColor name="boosterBackground">
+            <color red="0.050999999046325684" green="0.050999999046325684" blue="0.050999999046325684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="boosterOrange">
+            <color red="1" green="0.36100000143051147" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

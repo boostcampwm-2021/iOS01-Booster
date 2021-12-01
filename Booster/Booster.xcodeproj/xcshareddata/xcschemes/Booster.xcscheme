@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scheme
+   LastUpgradeVersion = "1310"
+   version = "1.3">
+   <BuildAction
+      parallelizeBuildables = "YES"
+      buildImplicitDependencies = "YES">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3B4E3FE3272A696E00577625"
+               BuildableName = "Booster.app"
+               BlueprintName = "Booster"
+               ReferencedContainer = "container:Booster.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
+   </BuildAction>
+   <TestAction
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES">
+      <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "37852ACB273C27F100BA3D67"
+               BuildableName = "StatisticsTests.xctest"
+               BlueprintName = "StatisticsTests"
+               ReferencedContainer = "container:Booster.xcodeproj">
+            </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "StatisticsModelTests">
+               </Test>
+            </SkippedTests>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FAB252732753BCD900A4FC5B"
+               BuildableName = "CoordinatesTests.xctest"
+               BlueprintName = "CoordinatesTests"
+               ReferencedContainer = "container:Booster.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FAB252852753C3CE00A4FC5B"
+               BuildableName = "CoordinateTEsts.xctest"
+               BlueprintName = "CoordinateTEsts"
+               ReferencedContainer = "container:Booster.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "37B2B3532755B8C600F906E8"
+               BuildableName = "HomeTests.xctest"
+               BlueprintName = "HomeTests"
+               ReferencedContainer = "container:Booster.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "28C970E127551A97005BD7BC"
+               BuildableName = "FeedTests.xctest"
+               BlueprintName = "FeedTests"
+               ReferencedContainer = "container:Booster.xcodeproj">
+            </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "FeedTests">
+               </Test>
+            </SkippedTests>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3B31B60427410470009D9190"
+               BuildableName = "TrackingProgressTests.xctest"
+               BlueprintName = "TrackingProgressTests"
+               ReferencedContainer = "container:Booster.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FAB253062755FA2800A4FC5B"
+               BuildableName = "UserTests.xctest"
+               BlueprintName = "UserTests"
+               ReferencedContainer = "container:Booster.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3BCBE2AA275602A500D165F5"
+               BuildableName = "FeedListTests.xctest"
+               BlueprintName = "FeedListTests"
+               ReferencedContainer = "container:Booster.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3BCBE2B7275602CC00D165F5"
+               BuildableName = "EnrollTests.xctest"
+               BlueprintName = "EnrollTests"
+               ReferencedContainer = "container:Booster.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FAB252BA2753C5EB00A4FC5B"
+               BuildableName = "CoordinateTests.xctest"
+               BlueprintName = "CoordinateTests"
+               ReferencedContainer = "container:Booster.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FAB252C82753D1AF00A4FC5B"
+               BuildableName = "MilestoneTests.xctest"
+               BlueprintName = "MilestoneTests"
+               ReferencedContainer = "container:Booster.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+      </Testables>
+   </TestAction>
+   <LaunchAction
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      launchStyle = "0"
+      useCustomWorkingDirectory = "NO"
+      ignoresPersistentStateOnLaunch = "NO"
+      debugDocumentVersioning = "YES"
+      debugServiceExtension = "internal"
+      allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "3B4E3FE3272A696E00577625"
+            BuildableName = "Booster.app"
+            BlueprintName = "Booster"
+            ReferencedContainer = "container:Booster.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+   </LaunchAction>
+   <ProfileAction
+      buildConfiguration = "Release"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      savedToolIdentifier = ""
+      useCustomWorkingDirectory = "NO"
+      debugDocumentVersioning = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "3B4E3FE3272A696E00577625"
+            BuildableName = "Booster.app"
+            BlueprintName = "Booster"
+            ReferencedContainer = "container:Booster.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+   </ProfileAction>
+   <AnalyzeAction
+      buildConfiguration = "Debug">
+   </AnalyzeAction>
+   <ArchiveAction
+      buildConfiguration = "Release"
+      revealArchiveInOrganizer = "YES">
+   </ArchiveAction>
+</Scheme>

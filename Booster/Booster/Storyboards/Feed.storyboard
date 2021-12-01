@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7kW-7S-rP7">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="BAZARONI.TTF">
+            <string>Bazaronite</string>
+        </array>
+        <array key="NotoSansKR-Light.otf">
+            <string>NotoSansKR-Light</string>
+        </array>
+        <array key="NotoSansKR-Medium.otf">
+            <string>NotoSansKR-Medium</string>
+        </array>
+        <array key="NotoSansKR-Regular.otf">
+            <string>NotoSansKR-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--나의 발자취-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="FeedViewController" id="Y6W-OH-hqX" customClass="FeedViewController" customModule="Booster" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="o9V-Yn-X36">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="36u-Xv-cNw">
+                                    <size key="itemSize" width="269" height="190"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="30" minY="30" maxX="30" maxY="30"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FeedCell" id="qX8-zV-M7B" customClass="FeedCell" customModule="Booster" customModuleProvider="target">
+                                        <rect key="frame" x="77" y="30" width="260" height="190"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Wj7-91-8AJ">
+                                            <rect key="frame" x="0.0" y="0.0" width="260" height="190"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6ko-pE-sq5">
+                                                    <rect key="frame" x="40" y="20" width="135" height="150"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="135" id="Iaf-vO-2ie"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="750" constant="135" id="PGV-wO-pQU"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Lz-29-Ne5">
+                                                    <rect key="frame" x="20" y="10" width="31" height="14.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" name="boosterBackground"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Hf-V6-ZrQ">
+                                                    <rect key="frame" x="20" y="34.5" width="48" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <color key="textColor" name="boosterBackground"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6VG-7y-nXI">
+                                                    <rect key="frame" x="202" y="8.5" width="38" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" name="boosterBackground"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y82-30-O6e">
+                                                    <rect key="frame" x="107" y="126" width="138" height="54"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="45"/>
+                                                    <color key="textColor" name="boosterBackground"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="y82-30-O6e" secondAttribute="bottom" constant="10" id="1KT-fw-BJ3"/>
+                                                <constraint firstAttribute="trailing" secondItem="y82-30-O6e" secondAttribute="trailing" constant="15" id="5ng-Bo-uxT"/>
+                                                <constraint firstItem="6VG-7y-nXI" firstAttribute="centerY" secondItem="9Lz-29-Ne5" secondAttribute="centerY" id="6ko-2l-eJd"/>
+                                                <constraint firstItem="9Lz-29-Ne5" firstAttribute="top" secondItem="Wj7-91-8AJ" secondAttribute="top" constant="10" id="97G-d6-RF4"/>
+                                                <constraint firstItem="8Hf-V6-ZrQ" firstAttribute="leading" secondItem="Wj7-91-8AJ" secondAttribute="leading" constant="20" id="98P-4P-Gi8"/>
+                                                <constraint firstItem="6ko-pE-sq5" firstAttribute="top" secondItem="Wj7-91-8AJ" secondAttribute="top" constant="20" id="9mC-9Q-uxw"/>
+                                                <constraint firstAttribute="trailing" secondItem="6VG-7y-nXI" secondAttribute="trailing" constant="20" id="Pof-zX-ZqY"/>
+                                                <constraint firstAttribute="bottom" secondItem="6ko-pE-sq5" secondAttribute="bottom" constant="20" id="fG9-hb-RKG"/>
+                                                <constraint firstItem="9Lz-29-Ne5" firstAttribute="leading" secondItem="Wj7-91-8AJ" secondAttribute="leading" constant="20" id="gtf-o6-hh8"/>
+                                                <constraint firstItem="6ko-pE-sq5" firstAttribute="leading" secondItem="Wj7-91-8AJ" secondAttribute="leading" constant="40" id="xCk-Xn-oea"/>
+                                                <constraint firstItem="8Hf-V6-ZrQ" firstAttribute="top" secondItem="9Lz-29-Ne5" secondAttribute="bottom" constant="10" id="yDr-jO-0LX"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <color key="backgroundColor" red="0.93710464240000002" green="0.93708735700000001" blue="0.93709760900000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <size key="customSize" width="260" height="190"/>
+                                        <connections>
+                                            <outlet property="dateLabel" destination="9Lz-29-Ne5" id="aAQ-tE-xmo"/>
+                                            <outlet property="distanceLabel" destination="8Hf-V6-ZrQ" id="0eG-h9-IHk"/>
+                                            <outlet property="pathImageView" destination="6ko-pE-sq5" id="cIL-N7-Sjr"/>
+                                            <outlet property="stepLabel" destination="y82-30-O6e" id="LDx-lL-Wbh"/>
+                                            <outlet property="weekdayLabel" destination="6VG-7y-nXI" id="vVJ-8e-sn6"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" name="boosterBackground"/>
+                        <constraints>
+                            <constraint firstItem="o9V-Yn-X36" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="7fB-q5-F0c"/>
+                            <constraint firstItem="o9V-Yn-X36" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="Mh7-HZ-8ba"/>
+                            <constraint firstItem="o9V-Yn-X36" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="WUF-LG-c1i"/>
+                            <constraint firstItem="o9V-Yn-X36" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="gbX-UX-QOO"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="feed" selectedImage="feed" id="0Kj-SX-TW1">
+                        <color key="badgeColor" name="boosterLabel"/>
+                    </tabBarItem>
+                    <navigationItem key="navigationItem" title="나의 발자취" id="44R-ct-b10">
+                        <barButtonItem key="backBarButtonItem" title=" " id="oWY-Rj-I4s">
+                            <color key="tintColor" name="boosterLabel"/>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="collectionView" destination="o9V-Yn-X36" id="6V3-aI-LqE"/>
+                        <segue destination="SNN-pe-2iF" kind="show" identifier="feedDetailSegue" id="FgF-ac-xkN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1036.875" y="97.183098591549296"/>
+        </scene>
+        <!--Detail Feed View Controller-->
+        <scene sceneID="Q7V-vS-jzf">
+            <objects>
+                <viewController storyboardIdentifier="DetailFeedViewController" hidesBottomBarWhenPushed="YES" id="SNN-pe-2iF" customClass="DetailFeedViewController" customModule="Booster" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1Og-uv-51R">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H06-jc-bhO">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ecH-rG-cv5">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1165"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Lo-0f-1rw">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="650"/>
+                                                <subviews>
+                                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="gCe-Qv-haU" customClass="DetailFeedMapView" customModule="Booster" customModuleProvider="target">
+                                                        <rect key="frame" x="30" y="101" width="354" height="354"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="gCe-Qv-haU" secondAttribute="height" multiplier="1:1" id="cJO-Xl-ovD"/>
+                                                        </constraints>
+                                                    </mapView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="산책 제목" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="20" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IQ7-gI-wGX">
+                                                        <rect key="frame" x="30" y="20" width="354" height="43.5"/>
+                                                        <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans KR" pointSize="30"/>
+                                                        <color key="textColor" name="boosterLabel"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="booster-gu, booster-si" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fmg-7e-yqO">
+                                                        <rect key="frame" x="30" y="63.5" width="354" height="17.5"/>
+                                                        <fontDescription key="fontDescription" name="NotoSansKR-Light" family="Noto Sans KR" pointSize="12"/>
+                                                        <color key="textColor" name="boosterLabel"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B7Q-Cx-YM2">
+                                                        <rect key="frame" x="30" y="475" width="33.5" height="59.5"/>
+                                                        <fontDescription key="fontDescription" name="Bazaronite" family="Bazaronite" pointSize="50"/>
+                                                        <color key="textColor" name="boosterOrange"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="steps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ph3-zt-nOG">
+                                                        <rect key="frame" x="68.5" y="495.5" width="49" height="29"/>
+                                                        <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="20"/>
+                                                        <color key="textColor" name="boosterOrange"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RSR-tU-lf1" customClass="ThreeColumnRecordView" customModule="Booster" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="564.5" width="414" height="85.5"/>
+                                                        <color key="backgroundColor" name="boosterBackground"/>
+                                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="fmg-7e-yqO" firstAttribute="leading" secondItem="IQ7-gI-wGX" secondAttribute="leading" id="0Mp-bh-XEM"/>
+                                                    <constraint firstItem="IQ7-gI-wGX" firstAttribute="leading" secondItem="6Lo-0f-1rw" secondAttribute="leading" constant="30" id="4Rp-EB-XNY"/>
+                                                    <constraint firstItem="RSR-tU-lf1" firstAttribute="top" secondItem="B7Q-Cx-YM2" secondAttribute="bottom" constant="30" id="9PE-fF-kVK"/>
+                                                    <constraint firstItem="B7Q-Cx-YM2" firstAttribute="top" secondItem="gCe-Qv-haU" secondAttribute="bottom" constant="20" id="DFd-r0-lhy"/>
+                                                    <constraint firstAttribute="trailing" secondItem="RSR-tU-lf1" secondAttribute="trailing" id="FY3-R1-DRV"/>
+                                                    <constraint firstAttribute="trailing" secondItem="IQ7-gI-wGX" secondAttribute="trailing" constant="30" id="M96-cq-Kmh"/>
+                                                    <constraint firstItem="B7Q-Cx-YM2" firstAttribute="leading" secondItem="gCe-Qv-haU" secondAttribute="leading" id="MDg-Ep-8Qf"/>
+                                                    <constraint firstAttribute="bottom" secondItem="RSR-tU-lf1" secondAttribute="bottom" id="Mu0-LE-8un"/>
+                                                    <constraint firstItem="fmg-7e-yqO" firstAttribute="top" secondItem="IQ7-gI-wGX" secondAttribute="bottom" id="QH3-e0-AZC"/>
+                                                    <constraint firstAttribute="height" constant="650" id="RXn-1o-URE"/>
+                                                    <constraint firstItem="RSR-tU-lf1" firstAttribute="leading" secondItem="6Lo-0f-1rw" secondAttribute="leading" id="c5K-pr-JWm"/>
+                                                    <constraint firstItem="ph3-zt-nOG" firstAttribute="leading" secondItem="B7Q-Cx-YM2" secondAttribute="trailing" constant="5" id="igT-J3-I3a"/>
+                                                    <constraint firstAttribute="trailing" secondItem="fmg-7e-yqO" secondAttribute="trailing" constant="30" id="lRm-ym-dJo"/>
+                                                    <constraint firstItem="ph3-zt-nOG" firstAttribute="bottom" secondItem="B7Q-Cx-YM2" secondAttribute="bottom" constant="-10" id="qNI-Od-BOo"/>
+                                                    <constraint firstAttribute="trailing" secondItem="gCe-Qv-haU" secondAttribute="trailing" constant="30" id="tCj-7I-SZh"/>
+                                                    <constraint firstItem="gCe-Qv-haU" firstAttribute="top" secondItem="fmg-7e-yqO" secondAttribute="bottom" constant="20" id="uZN-9b-vK4"/>
+                                                    <constraint firstItem="IQ7-gI-wGX" firstAttribute="top" secondItem="6Lo-0f-1rw" secondAttribute="top" constant="20" id="wDm-uw-MWJ"/>
+                                                    <constraint firstItem="gCe-Qv-haU" firstAttribute="leading" secondItem="fmg-7e-yqO" secondAttribute="leading" id="yeg-xf-k50"/>
+                                                </constraints>
+                                            </view>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" text="--" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="BvC-uD-hJr">
+                                                <rect key="frame" x="30" y="650" width="354" height="45"/>
+                                                <color key="backgroundColor" name="boosterBackground"/>
+                                                <color key="tintColor" name="boosterOrange"/>
+                                                <color key="textColor" name="boosterLabel"/>
+                                                <fontDescription key="fontDescription" name="NotoSansKR-Light" family="Noto Sans KR" pointSize="20"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                        </subviews>
+                                        <color key="backgroundColor" name="boosterBackground"/>
+                                        <constraints>
+                                            <constraint firstItem="BvC-uD-hJr" firstAttribute="leading" secondItem="ecH-rG-cv5" secondAttribute="leading" constant="30" id="6n0-Yh-AgM"/>
+                                            <constraint firstItem="6Lo-0f-1rw" firstAttribute="leading" secondItem="ecH-rG-cv5" secondAttribute="leading" id="8Hs-N5-rAC"/>
+                                            <constraint firstItem="BvC-uD-hJr" firstAttribute="top" secondItem="6Lo-0f-1rw" secondAttribute="bottom" id="Wlz-5K-eEa"/>
+                                            <constraint firstAttribute="trailing" secondItem="BvC-uD-hJr" secondAttribute="trailing" constant="30" id="aBf-Np-4Tm"/>
+                                            <constraint firstAttribute="trailing" secondItem="6Lo-0f-1rw" secondAttribute="trailing" id="dLf-oR-YDa"/>
+                                            <constraint firstItem="6Lo-0f-1rw" firstAttribute="top" secondItem="ecH-rG-cv5" secondAttribute="top" id="oiW-2U-7QS"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="ecH-rG-cv5" firstAttribute="width" secondItem="h8P-QU-Yoj" secondAttribute="width" id="79Q-fm-Oqi"/>
+                                    <constraint firstItem="ecH-rG-cv5" firstAttribute="top" secondItem="y5m-Ei-sfK" secondAttribute="top" id="8ss-YO-ypB"/>
+                                    <constraint firstItem="ecH-rG-cv5" firstAttribute="bottom" secondItem="y5m-Ei-sfK" secondAttribute="bottom" id="DPh-HB-fLz"/>
+                                    <constraint firstItem="ecH-rG-cv5" firstAttribute="trailing" secondItem="y5m-Ei-sfK" secondAttribute="trailing" id="KZd-fz-ATI"/>
+                                    <constraint firstItem="ecH-rG-cv5" firstAttribute="leading" secondItem="y5m-Ei-sfK" secondAttribute="leading" id="mla-SC-3um"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="y5m-Ei-sfK"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="h8P-QU-Yoj"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="SSh-xW-eYH"/>
+                        <color key="backgroundColor" name="boosterBackground"/>
+                        <constraints>
+                            <constraint firstItem="ecH-rG-cv5" firstAttribute="height" secondItem="1Og-uv-51R" secondAttribute="height" multiplier="1.3" priority="250" id="Pks-UF-N91"/>
+                            <constraint firstItem="H06-jc-bhO" firstAttribute="top" secondItem="SSh-xW-eYH" secondAttribute="top" id="QMi-bX-98V"/>
+                            <constraint firstItem="H06-jc-bhO" firstAttribute="leading" secondItem="SSh-xW-eYH" secondAttribute="leading" id="TGB-Yq-dya"/>
+                            <constraint firstItem="SSh-xW-eYH" firstAttribute="trailing" secondItem="H06-jc-bhO" secondAttribute="trailing" id="mSQ-qZ-zyK"/>
+                            <constraint firstItem="SSh-xW-eYH" firstAttribute="bottom" secondItem="H06-jc-bhO" secondAttribute="bottom" id="nHD-wq-XC1"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="cYC-aO-Ox6">
+                        <barButtonItem key="backBarButtonItem" title="    " id="FPd-K5-IyH"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="gearshape.fill" catalog="system" id="GPP-8c-MDj">
+                            <color key="tintColor" name="boosterLabel"/>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="contentTextView" destination="BvC-uD-hJr" id="hOH-Qn-ZtH"/>
+                        <outlet property="locationInfoLabel" destination="fmg-7e-yqO" id="abW-0v-V0D"/>
+                        <outlet property="pathMapView" destination="gCe-Qv-haU" id="vgR-Gc-VPU"/>
+                        <outlet property="recordView" destination="RSR-tU-lf1" id="OsY-dJ-OCp"/>
+                        <outlet property="screenshotView" destination="6Lo-0f-1rw" id="iPF-dQ-q6H"/>
+                        <outlet property="scrollView" destination="H06-jc-bhO" id="B4e-8d-lik"/>
+                        <outlet property="settingBarButtonItem" destination="GPP-8c-MDj" id="hAH-6U-hOT"/>
+                        <outlet property="stepCountsLabel" destination="B7Q-Cx-YM2" id="ILD-Ty-DIC"/>
+                        <outlet property="titleLabel" destination="IQ7-gI-wGX" id="PhN-PO-4Os"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="psD-uM-Jpp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2131.8840579710145" y="97.767857142857139"/>
+        </scene>
+        <!--Modify Feed View Controller-->
+        <scene sceneID="4pK-ub-82t">
+            <objects>
+                <viewController storyboardIdentifier="ModifyFeedViewController" hidesBottomBarWhenPushed="YES" id="f3O-Yw-uaq" customClass="ModifyFeedViewController" customModule="Booster" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2Vp-SG-z2Q">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="내용" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="0sF-uL-ly2">
+                                <rect key="frame" x="30" y="136" width="354" height="269"/>
+                                <color key="backgroundColor" name="boosterBackground"/>
+                                <color key="tintColor" name="boosterOrange"/>
+                                <color key="textColor" name="boosterLabel"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="제목" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eKE-zl-J4v">
+                                <rect key="frame" x="30" y="74" width="354" height="45"/>
+                                <color key="tintColor" name="boosterOrange"/>
+                                <color key="textColor" name="boosterLabel"/>
+                                <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans KR" pointSize="30"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="i2n-DW-KoS"/>
+                        <color key="backgroundColor" name="boosterBackground"/>
+                        <constraints>
+                            <constraint firstItem="0sF-uL-ly2" firstAttribute="leading" secondItem="i2n-DW-KoS" secondAttribute="leading" constant="30" id="3kK-lO-OBJ"/>
+                            <constraint firstItem="0sF-uL-ly2" firstAttribute="height" secondItem="2Vp-SG-z2Q" secondAttribute="height" multiplier="0.3" id="Bqx-dB-dth"/>
+                            <constraint firstItem="i2n-DW-KoS" firstAttribute="trailing" secondItem="eKE-zl-J4v" secondAttribute="trailing" constant="30" id="LqB-84-OGk"/>
+                            <constraint firstItem="eKE-zl-J4v" firstAttribute="leading" secondItem="i2n-DW-KoS" secondAttribute="leading" constant="30" id="Vgn-fO-7On"/>
+                            <constraint firstItem="eKE-zl-J4v" firstAttribute="top" secondItem="i2n-DW-KoS" secondAttribute="top" constant="30" id="ViH-MJ-THV"/>
+                            <constraint firstItem="0sF-uL-ly2" firstAttribute="top" secondItem="eKE-zl-J4v" secondAttribute="bottom" constant="17" id="rpQ-wj-u4f"/>
+                            <constraint firstItem="i2n-DW-KoS" firstAttribute="trailing" secondItem="0sF-uL-ly2" secondAttribute="trailing" constant="30" id="y6e-qk-VRg"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="contentTextView" destination="0sF-uL-ly2" id="fyg-4y-Ww7"/>
+                        <outlet property="titleTextField" destination="eKE-zl-J4v" id="eIX-Fx-plC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JpP-0M-g5F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3021.739130434783" y="97.767857142857139"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="j4Y-rs-hEH">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7kW-7S-rP7" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" backIndicatorImage="arrow.backward" catalog="system" largeTitles="YES" backIndicatorTransitionMaskImage="arrow.backward" id="VuG-05-Ips">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" name="boosterBackground"/>
+                        <color key="tintColor" name="boosterLabel"/>
+                        <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" name="boosterLabel"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans KR" pointSize="30"/>
+                            <color key="textColor" name="boosterLabel"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="HNw-NT-XDZ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ezX-dQ-HG7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="127.53623188405798" y="97.767857142857139"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="arrow.backward" catalog="system" width="128" height="98"/>
+        <image name="feed" width="25" height="25"/>
+        <image name="gearshape.fill" catalog="system" width="128" height="121"/>
+        <namedColor name="boosterBackground">
+            <color red="0.050999999046325684" green="0.050999999046325684" blue="0.050999999046325684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="boosterLabel">
+            <color red="0.92900002002716064" green="0.92900002002716064" blue="0.92900002002716064" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="boosterOrange">
+            <color red="1" green="0.36100000143051147" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
