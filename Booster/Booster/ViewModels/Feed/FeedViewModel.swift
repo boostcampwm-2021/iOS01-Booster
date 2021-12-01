@@ -58,10 +58,8 @@ final class FeedViewModel {
         usecase.fetch()
             .map { (values) -> [FeedList] in
                 return values.reversed()
-            }.subscribe(onNext: { [weak self] values in
+            }.subscribe(onSuccess: { [weak self] values in
                 self?.list.accept(values)
-            }, onError: { [weak self] _ in
-                self?.list.accept([])
             }).disposed(by: disposeBag)
     }
 }

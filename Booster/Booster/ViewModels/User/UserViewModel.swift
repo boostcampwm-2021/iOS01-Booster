@@ -27,16 +27,15 @@ final class UserViewModel {
         return "\(model.value.age)살, \(model.value.height)cm, \(model.value.weight)kg, \(model.value.gender)"
     }
 
-    func removeAllData() -> Observable<Bool> {
-        return Observable.create { [weak self] observer in
+    func removeAllData() -> Single<Bool> {
+        return Single.create { [weak self] single in
             guard let self = self
             else { return Disposables.create() }
 
-            return Observable.zip(self.usecase.removeAllDataOfHealthKit(), self.usecase.removeAllDataOfCoreData())
-                .subscribe(onNext: { healthKitResult, coreDataResult in
-                    observer.onNext(healthKitResult || coreDataResult)
-                    observer.onCompleted()
-                })
+            return Single.zip(self.usecase.removeAllDataOfHealthKit(), self.usecase.removeAllDataOfCoreData())
+                .subscribe { healthKitResult, coreDataResult in
+                    single(.success(healthKitResult || coreDataResult))
+                }
         }
     }
 
@@ -49,50 +48,36 @@ final class UserViewModel {
         if let nickname = nickname { newModel.nickname = nickname }
 
         self.usecase.editUserInfo(model: newModel)
-            .take(1)
-            .subscribe(onNext: { [weak self] success in
-                if success {
+            .subscribe { [weak self] result in
+                switch result {
+                case .success:
                     self?.model.accept(newModel)
                     self?.isEditingComplete.accept(true)
-                } else {
+                case .failure:
                     self?.isEditingComplete.accept(false)
                 }
-            }, onError: { [weak self] _ in
-                self?.isEditingComplete.accept(false)
-            }).disposed(by: disposeBag)
+            }.disposed(by: disposeBag)
     }
 
-    func changeGoal(to goal: Int) -> Observable<Bool> {
+    func changeGoal(to goal: Int) -> Single<Bool> {
         var newModel = model.value
         newModel.goal = goal
-        return Observable.create { [weak self] observer in
+        return Single.create { [weak self] single in
             guard let self = self
             else { return Disposables.create() }
 
             return self.usecase.changeGoal(to: goal)
-                .take(1)
-                .subscribe(onNext: { result in
-                    if result {
-                        self.model.accept(newModel)
-                        observer.onNext(true)
-                    } else {
-                        observer.onNext(false)
-                    }
-                    observer.onCompleted()
-                }, onError: { (_) in
-                    observer.onNext(false)
+                .subscribe(onSuccess: { [weak self] _ in
+                    self?.model.accept(newModel)
+                    single(.success(true))
                 })
         }
     }
 
     private func fetchUserInfo() {
         usecase.fetchUserInfo()
-            .subscribe { [weak self] result in
-                guard let self = self,
-                      let fetchedModel = result.element
-                else { return }
-
-                self.model.accept(fetchedModel)
-            }.disposed(by: disposeBag)
+            .subscribe(onSuccess: { [weak self] userInfo in
+                self?.model.accept(userInfo)
+            }).disposed(by: disposeBag)
     }
 }
