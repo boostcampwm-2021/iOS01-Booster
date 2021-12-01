@@ -78,7 +78,7 @@
 
 ![](https://i.imgur.com/UVbUI22.png)
 
-ViewModel이 각 Manager들에 접근할 존재는 필요했고, 해당 로직을 ViewModel에서 모두 처리하기에는 ViewModel의 크기가 커지기에 UseCase를 남겨두고 해당 비지니스 로직을 UseCase에서 처리했습니다.
+ViewModel이 각 Manager들에 접근해야 하는데, 해당 로직을 ViewModel에서 모두 처리하기에는 ViewModel의 크기가 커지기에 UseCase를 남겨두고 해당 비지니스 로직을 UseCase에서 처리했습니다.
 > [🍌참고](https://github.com/boostcampwm-2021/iOS01-Booster/wiki/MVVM%3F-or-Clean-Architecture-%EA%B3%A0%EC%B0%B0%EC%97%90-%EB%8C%80%ED%95%9C-%EA%B2%B0%EA%B3%BC)
 
 <br><br>
