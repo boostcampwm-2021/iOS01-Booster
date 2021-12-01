@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		282956B92756884E00751C62 /* CoreDataKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282956B82756884E00751C62 /* CoreDataKeys.swift */; };
 		28C96FE72737F7BC005BD7BC /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28C96FE62737F7BC005BD7BC /* HealthKit.framework */; };
 		28C96FEB27396892005BD7BC /* DetailFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C96FEA27396892005BD7BC /* DetailFeedViewController.swift */; };
 		28C96FED27396F6B005BD7BC /* DetailFeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C96FEC27396F6B005BD7BC /* DetailFeedViewModel.swift */; };
@@ -285,6 +286,7 @@
 
 /* Begin PBXFileReference section */
 		27185E4E100BB3C7ACE7D18A /* Pods-FeedListTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FeedListTests.release.xcconfig"; path = "Target Support Files/Pods-FeedListTests/Pods-FeedListTests.release.xcconfig"; sourceTree = "<group>"; };
+		282956B82756884E00751C62 /* CoreDataKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataKeys.swift; sourceTree = "<group>"; };
 		28C96FE62737F7BC005BD7BC /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		28C96FEA27396892005BD7BC /* DetailFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFeedViewController.swift; sourceTree = "<group>"; };
 		28C96FEC27396F6B005BD7BC /* DetailFeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFeedViewModel.swift; sourceTree = "<group>"; };
@@ -970,6 +972,7 @@
 				3B31B5FE273CD2F7009D9190 /* Tracking+CoreDataProperties.swift */,
 				FA614F292733CDAA00B090D9 /* User+CoreDataProperties.swift */,
 				FA614F2C2733CDAA00B090D9 /* User+CoreDataClass.swift */,
+				282956B82756884E00751C62 /* CoreDataKeys.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -1890,6 +1893,7 @@
 				FA614F832733CDAA00B090D9 /* FeedViewController.swift in Sources */,
 				FA614F712733CDAA00B090D9 /* Milestone.swift in Sources */,
 				FA2578F72745E99800597382 /* EditUserInfoViewController.swift in Sources */,
+				282956B92756884E00751C62 /* CoreDataKeys.swift in Sources */,
 				28C9710027560AB4005BD7BC /* BoosterTabBarUsecase.swift in Sources */,
 				FA473A05273A1F8A0000C5DC /* UIImage+Extension.swift in Sources */,
 				FA614F732733CDAA00B090D9 /* Coordinate.swift in Sources */,

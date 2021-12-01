@@ -11,6 +11,7 @@ import RxSwift
 final class RemoveAllDataViewController: UIViewController, BaseViewControllerTemplate {
     // MARK: - @IBOutlet
     @IBOutlet private weak var subTitleLabel: UILabel!
+    @IBOutlet private weak var cameraImageView: UIImageView!
 
     // MARK: - Properties
     var viewModel: UserViewModel
@@ -37,6 +38,12 @@ final class RemoveAllDataViewController: UIViewController, BaseViewControllerTem
 
         configureNavigationBarTitle()
         bind()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        repeatAnimationImage()
     }
 
     // MARK: - @IBAction
@@ -77,6 +84,14 @@ final class RemoveAllDataViewController: UIViewController, BaseViewControllerTem
                 let subTitle = "산책에 대한 기록들은 \(userInfo.nickname)님의\n휴대폰에서만 소중하게 보관하고 있어요"
                 self.subTitleLabel.text = subTitle
             }).disposed(by: disposeBag)
+    }
+    
+    private func repeatAnimationImage() {
+        cameraImageView.layer.cornerRadius = 5
+        UIView.transition(with: cameraImageView, duration: 2, options: [.repeat, .autoreverse, .curveEaseIn], animations: {
+            self.cameraImageView.image = .cameraFill
+            self.cameraImageView.backgroundColor = .boosterOrange
+        }, completion: nil)
     }
 
     private func configureNavigationBarTitle() {

@@ -13,11 +13,6 @@ protocol ModifyFeedUsecaseProtocol {
 }
 
 final class ModifyFeedUsecase: ModifyFeedUsecaseProtocol {
-    private enum CoreDataKeys {
-        static let title = "title"
-        static let content = "content"
-    }
-
     private let entityName = "Tracking"
 
     func update(model: WritingRecord, predicate: NSPredicate) -> Observable<Void> {
