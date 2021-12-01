@@ -35,6 +35,8 @@ final class UserUsecase {
             return CoreDataManager.shared.delete(entityName: entityName)
                 .subscribe(onSuccess: {
                     single(.success(true))
+                }, onFailure: { _ in
+                    single(.success(false))
                 })
         }
     }
