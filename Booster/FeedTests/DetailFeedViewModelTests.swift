@@ -19,24 +19,23 @@ final class DetailFeedViewModelTests: XCTestCase {
     override func setUp() {
         disposeBag = DisposeBag()
         feedUsecase = FeedUseCase()
-        viewModel = DetailFeedViewModel(start: Date(), usecase: DetailFeedUsecase())
+        viewModel = DetailFeedViewModel(start: Date())
     }
 
     func test_모델에없는_마일스톤_nil받기_성공() throws {
         // given
         let expectation = expectation(description: "Fetch")
         feedUsecase.fetch()
-            .bind { value in
+            .subscribe(onSuccess: { value in
                 guard let startDate = value.first?.startDate
                 else { return XCTAssert(false, "startDate값이 없습니다") }
-                self.viewModel = DetailFeedViewModel(start: startDate, usecase: DetailFeedUsecase())
+                self.viewModel = DetailFeedViewModel(start: startDate)
                 //when
                 let value = self.viewModel.milestone(at: Coordinate(latitude: 23.12421, longitude: 35.1232))
                 //then
                 XCTAssertNil(value, "값이 있습니다")
                 expectation.fulfill()
-            }
-            .disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
         
         waitForExpectations(timeout: 2)
     }
@@ -70,14 +69,13 @@ final class DetailFeedViewModelTests: XCTestCase {
             .disposed(by: disposeBag)
         
         feedUsecase.fetch()
-            .bind { value in
+            .subscribe(onSuccess: { value in
                 guard let startDate = value.first?.startDate
                 else { return }
-                self.viewModel = DetailFeedViewModel(start: startDate, usecase: DetailFeedUsecase())
+                self.viewModel = DetailFeedViewModel(start: startDate)
                 //when
                 self.viewModel.fetchDetailFeedList()
-            }
-            .disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
         
         waitForExpectations(timeout: 2)
     }
@@ -92,10 +90,10 @@ final class DetailFeedViewModelTests: XCTestCase {
         
         //given
         feedUsecase.fetch()
-            .bind { value in
+            .subscribe(onSuccess: { value in
                 guard let startDate = value.last?.startDate
                 else { return XCTAssert(false, "startDate가 존재하지 않습니다") }
-                self.viewModel = DetailFeedViewModel(start: startDate, usecase: DetailFeedUsecase())
+                self.viewModel = DetailFeedViewModel(start: startDate)
                 sleep(2)
                 guard let milestone = self.viewModel.trackingModel.value.milestones.first
                 else { return XCTAssert(false, "트래킹모델 마일스톤 데이터가 없습니다") }
@@ -110,8 +108,8 @@ final class DetailFeedViewModelTests: XCTestCase {
                 
                 //when
                 self.viewModel.remove(of: milestone)
-            }
-            .disposed(by: disposeBag)
+                
+            }).disposed(by: disposeBag)
         
         waitForExpectations(timeout: 5)
     }
@@ -121,10 +119,10 @@ final class DetailFeedViewModelTests: XCTestCase {
         
         //given
         feedUsecase.fetch()
-            .bind { value in
+            .subscribe(onSuccess: { value in
                 guard let startDate = value.first?.startDate
                 else { return XCTAssert(false, "startDate가 존재하지 않습니다") }
-                self.viewModel = DetailFeedViewModel(start: startDate, usecase: DetailFeedUsecase())
+                self.viewModel = DetailFeedViewModel(start: startDate)
                 sleep(2)
                 
                 self.viewModel.isDeletedAll
@@ -137,8 +135,7 @@ final class DetailFeedViewModelTests: XCTestCase {
                 
                 //when
                 self.viewModel.removeAll()
-            }
-            .disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
         
         waitForExpectations(timeout: 5)
     }
@@ -155,10 +152,10 @@ final class DetailFeedViewModelTests: XCTestCase {
         
         //given
         feedUsecase.fetch()
-            .bind { value in
+            .subscribe(onSuccess: { value in
                 guard let startDate = value.last?.startDate
                 else { return XCTAssert(false, "startDate가 존재하지 않습니다") }
-                self.viewModel = DetailFeedViewModel(start: startDate, usecase: DetailFeedUsecase())
+                self.viewModel = DetailFeedViewModel(start: startDate)
                 sleep(2)
                 
                 //when
@@ -166,8 +163,7 @@ final class DetailFeedViewModelTests: XCTestCase {
                 //then
                 XCTAssertNotNil(coordinate, "오프셋 값이 없습니다")
                 expectation.fulfill()
-            }
-            .disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
         
         waitForExpectations(timeout: 5)
     }
@@ -177,10 +173,10 @@ final class DetailFeedViewModelTests: XCTestCase {
         
         //given
         feedUsecase.fetch()
-            .bind { value in
+            .subscribe(onSuccess: { value in
                 guard let startDate = value.last?.startDate
                 else { return XCTAssert(false, "startDate가 존재하지 않습니다") }
-                self.viewModel = DetailFeedViewModel(start: startDate, usecase: DetailFeedUsecase())
+                self.viewModel = DetailFeedViewModel(start: startDate)
                 sleep(2)
                 
                 //when
@@ -189,8 +185,7 @@ final class DetailFeedViewModelTests: XCTestCase {
                 //then
                 XCTAssertNotNil(ratio, "인덱스 비율값이 없습니다")
                 expectation.fulfill()
-            }
-            .disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
         
         waitForExpectations(timeout: 5)
     }

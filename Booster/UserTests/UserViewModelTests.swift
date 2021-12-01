@@ -28,7 +28,7 @@ class UserViewModelTests: XCTestCase {
 
         // when
         viewModel.removeAllData()
-            .subscribe(onNext: { isRemoved in
+            .subscribe(onSuccess: { isRemoved in
                 
                 // then
                 XCTAssertTrue(isRemoved, "유저 정보 전체 삭제에 실패하였습니다.")
@@ -79,10 +79,10 @@ class UserViewModelTests: XCTestCase {
         
         // when
         viewModel.changeGoal(to: changeGoalValue)
-            .subscribe(onNext: { isChanged in
+            .subscribe(onSuccess: { isChanged in
                 
                 // then
-                XCTAssertTrue(isChanged, "목표 걸음수 변경에 실패하였습니다.")
+                XCTAssertTrue(isChanged, "유저 정보 전체 삭제에 실패하였습니다.")
                 expect.fulfill()
             }).disposed(by: disposeBag)
         
