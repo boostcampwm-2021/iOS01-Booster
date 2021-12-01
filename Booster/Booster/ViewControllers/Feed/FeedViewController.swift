@@ -37,7 +37,7 @@ final class FeedViewController: UIViewController, BaseViewControllerTemplate {
                 let storyboardName = "Feed"
                 let detailFeedViewController = UIStoryboard(name: storyboardName, bundle: .main)
                     .instantiateViewController(identifier: DetailFeedViewController.identifier) { coder in
-                        return DetailFeedViewController(coder: coder, viewModel: DetailFeedViewModel(start: date, usecase: DetailFeedUsecase()))
+                        return DetailFeedViewController(coder: coder, viewModel: DetailFeedViewModel(start: date))
                     }
 
                 self?.navigationController?.pushViewController(detailFeedViewController, animated: true)

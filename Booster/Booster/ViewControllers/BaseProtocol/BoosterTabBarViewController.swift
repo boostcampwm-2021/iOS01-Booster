@@ -10,7 +10,7 @@ import RxSwift
 
 final class BoosterTabBarViewController: UITabBarController, BaseViewControllerTemplate {
     // MARK: - Properties
-    var viewModel = BoosterTabBarViewModel(usecase: BoosterTabBarUsecase())
+    var viewModel = BoosterTabBarViewModel()
     private let disposeBag = DisposeBag()
     
     // MARK: - Life Cycles

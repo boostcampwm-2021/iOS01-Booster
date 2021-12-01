@@ -23,13 +23,12 @@ final class TrackingProgressViewModel {
         return trackingModel.value.coordinates.last
     }
     private let disposeBag = DisposeBag()
-    private let trackingUsecase: TrackingProgressUsecase
+    private let trackingUsecase = TrackingProgressUsecase()
     private(set) var trackingModel = BehaviorRelay<TrackingModel>(value: TrackingModel())
     private(set) var userModel =  BehaviorRelay<UserInfo>(value: UserInfo())
     private(set) var state = BehaviorRelay<TrackingState>(value: .start)
 
     init() {
-        trackingUsecase = TrackingProgressUsecase()
         fetchUserInfo()
         bind()
     }

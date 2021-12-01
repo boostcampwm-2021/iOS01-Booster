@@ -9,11 +9,7 @@ import Foundation
 import HealthKit
 import RxSwift
 
-protocol BoosterTabBarUsecaseProtocol {
-    func configureHealthKit()
-}
-
-final class BoosterTabBarUsecase: BoosterTabBarUsecaseProtocol {
+final class BoosterTabBarUsecase {
     private let disposeBag = DisposeBag()
     
     func configureHealthKit() {

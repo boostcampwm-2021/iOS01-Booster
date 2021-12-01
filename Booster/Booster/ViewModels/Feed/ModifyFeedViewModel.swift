@@ -14,14 +14,13 @@ final class ModifyFeedViewModel {
     var isUpdated = PublishSubject<Bool>()
     var writingRecord: BehaviorRelay<WritingRecord>
     private let startDate: Date
-    private let usecase: ModifyFeedUsecaseProtocol
+    private let usecase = ModifyFeedUsecase()
     private let disposeBag = DisposeBag()
 
     // MARK: - Init
-    init(startDate: Date, writingRecord: WritingRecord, usecase: ModifyFeedUsecaseProtocol) {
+    init(startDate: Date, writingRecord: WritingRecord) {
         self.startDate = startDate
         self.writingRecord = BehaviorRelay<WritingRecord>(value: writingRecord)
-        self.usecase = usecase
     }
 
     // MARK: - Functions

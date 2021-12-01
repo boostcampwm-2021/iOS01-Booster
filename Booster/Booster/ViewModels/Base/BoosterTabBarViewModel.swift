@@ -10,12 +10,7 @@ import RxSwift
 
 final class BoosterTabBarViewModel {
     //MARK: - Properties
-    private let usecase: BoosterTabBarUsecaseProtocol
-    
-    //MARK: - Init
-    init(usecase: BoosterTabBarUsecaseProtocol) {
-        self.usecase = usecase
-    }
+    private let usecase = BoosterTabBarUsecase()
     
     //MARK: - Functions
     func requestHealthKitAccess() {
