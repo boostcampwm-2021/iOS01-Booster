@@ -119,15 +119,14 @@ class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
 
     private func updateGoal(goal: Int) {
         viewModel.changeGoal(to: goal)
-            .take(1)
             .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] success in
+            .subscribe(onSuccess: { [weak self] isSuccess in
                 guard let self = self
                 else { return }
 
                 var alert = UIAlertController()
 
-                if success {
+                if isSuccess {
                     let title = "변경 성공"
                     let message = "걸음 수를 \(goal)으로 변경했어요"
                     alert = self.popViewControllerAlertController(title: title, message: message)
@@ -136,6 +135,7 @@ class ChangeGoalViewController: UIViewController, BaseViewControllerTemplate {
                     let message = "알 수 없는 오류로 변경을 할 수 없어요"
                     alert = UIAlertController.simpleAlert(title: title, message: message)
                 }
+                
                 self.present(alert, animated: true, completion: nil)
             }).disposed(by: disposeBag)
     }

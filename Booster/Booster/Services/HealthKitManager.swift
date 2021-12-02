@@ -124,31 +124,25 @@ final class HealthKitManager {
         healthStore.save(sample) { _, _ in }
     }
     
-    func removeAll(completion: @escaping (Result<Int, Error>) -> Void) {
-        var removedCount = 0
+    func removeAll() -> Single<Bool> {
+        return Single.create { [weak self] single in
+            let predicate = HKQuery.predicateForObjects(from: HKSource.default())
 
-        guard let healthStore = healthStore
-        else {
-            completion(.failure(HealthKitError.optionalCasting))
-            return
-        }
+            for type in HealthQuantityType.allCases {
+                guard let quantity = type.quantity
+                else { continue }
 
-        let predicate = HKQuery.predicateForObjects(from: HKSource.default())
+                self?.healthStore?.deleteObjects(of: quantity, predicate: predicate) { (isDeleted, count, error) in
+                    if !isDeleted,
+                       let error = error {
+                        single(.failure(error))
+                        return
+                    }
 
-        for type in HealthQuantityType.allCases {
-            guard let quantity = type.quantity
-            else { continue }
-
-            healthStore.deleteObjects(of: quantity, predicate: predicate) { (isDeleted, count, error) in
-                if !isDeleted,
-                   let error = error {
-                    completion(.failure(error))
-                    return
+                    single(.success(isDeleted))
                 }
-
-                removedCount += count
             }
+            return Disposables.create()
         }
-        completion(.success(removedCount / HealthQuantityType.allCases.count))
     }
 }

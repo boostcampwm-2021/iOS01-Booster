@@ -17,7 +17,7 @@ final class EnrollUsecase {
         disposeBag = DisposeBag()
     }
 
-    func save(info: UserInfo) -> Observable<Void> {
+    func save(info: UserInfo) -> Single<Void> {
         let type = "User"
         let value: [String: Any] = [
             CoreDataKeys.age: info.age,

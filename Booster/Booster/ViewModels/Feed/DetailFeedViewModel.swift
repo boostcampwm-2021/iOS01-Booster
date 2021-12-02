@@ -39,23 +39,27 @@ final class DetailFeedViewModel {
         _ = newTrackingModel.milestones.remove(of: milestone)
 
         usecase.update(milestones: newTrackingModel.milestones.all, predicate: predicate)
-            .subscribe(onError: { _ in
-                self.isDeletedMilestone.onNext(false)
-            }, onCompleted: {
-                self.trackingModel.accept(newTrackingModel)
-                self.isDeletedMilestone.onNext(true)
-            })
-            .disposed(by: disposeBag)
+            .subscribe { [weak self] result in
+                switch result {
+                case .success:
+                    self?.trackingModel.accept(newTrackingModel)
+                    self?.isDeletedMilestone.onNext(true)
+                case .failure:
+                    self?.isDeletedMilestone.onNext(false)
+                }
+            }.disposed(by: disposeBag)
     }
 
     func removeAll() {
         usecase.remove(predicate: predicate)
-            .subscribe(onError: { _ in
-                self.isDeletedAll.onNext(false)
-            }, onCompleted: {
-                self.isDeletedAll.onNext(true)
-            })
-            .disposed(by: disposeBag)
+            .subscribe { [weak self] result in
+                switch result {
+                case .success:
+                    self?.isDeletedAll.onNext(true)
+                case .failure:
+                    self?.isDeletedAll.onNext(false)
+                }
+            }.disposed(by: disposeBag)
     }
 
     func offsetOfGradientColorCoordinate() -> Coordinate? {
@@ -69,13 +73,9 @@ final class DetailFeedViewModel {
 
     func fetchDetailFeedList() {
         usecase.fetch(predicate: predicate)
-            .subscribe { [weak self] value in
-                guard let model = value.element
-                else { return }
-
-                self?.trackingModel.accept(model)
-            }
-            .disposed(by: disposeBag)
+            .subscribe(onSuccess: { [weak self] value in
+                self?.trackingModel.accept(value)
+            }).disposed(by: disposeBag)
     }
 
     func createModifyFeedViewModel() -> ModifyFeedViewModel {

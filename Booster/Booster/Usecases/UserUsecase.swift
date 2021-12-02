@@ -11,7 +11,7 @@ import RxSwift
 final class UserUsecase {
     private let disposeBag = DisposeBag()
 
-    func fetchUserInfo() -> Observable<UserInfo> {
+    func fetchUserInfo() -> Single<UserInfo> {
         return CoreDataManager.shared.fetch()
             .map { [weak self] (value: [User]) in
                 var userInfo = UserInfo()
@@ -25,41 +25,24 @@ final class UserUsecase {
             }
     }
 
-    func removeAllDataOfHealthKit() -> Observable<Bool> {
-        return Observable.create { observer in
-            HealthKitManager.shared.removeAll { result in
-                switch result {
-                case .success:
-                    observer.onNext(true)
-                case .failure:
-                    observer.onNext(false)
-                }
-                observer.onCompleted()
-            }
-
-            return Disposables.create()
-        }
+    func removeAllDataOfHealthKit() -> Single<Bool> {
+        return HealthKitManager.shared.removeAll()
     }
 
-    func removeAllDataOfCoreData() -> Observable<Bool> {
-        return Observable.create { observer in
+    func removeAllDataOfCoreData() -> Single<Bool> {
+        return Single.create { single in
             let entityName = "Tracking"
-            CoreDataManager.shared.delete(entityName: entityName) { result in
-                switch result {
-                case .success:
-                    observer.onNext(true)
-                case .failure:
-                    observer.onNext(false)
-                }
-                observer.onCompleted()
-            }
-
-            return Disposables.create()
+            return CoreDataManager.shared.delete(entityName: entityName)
+                .subscribe(onSuccess: {
+                    single(.success(true))
+                }, onFailure: { _ in
+                    single(.success(false))
+                })
         }
     }
 
-    func editUserInfo(model: UserInfo) -> Observable<Bool> {
-        return Observable.create { observer in
+    func editUserInfo(model: UserInfo) -> Single<Bool> {
+        return Single.create { single in
             let entityName = "User"
             let value: [String: Any] = [
                 CoreDataKeys.age: model.age,
@@ -70,30 +53,24 @@ final class UserUsecase {
             ]
 
             return CoreDataManager.shared.update(entityName: entityName, attributes: value)
-                .take(1)
-                .subscribe(onError: { _ in
-                    observer.onNext(false)
-                }, onCompleted: {
-                    observer.onNext(true)
-                    observer.onCompleted()
+                .subscribe(onSuccess: {
+                    single(.success(true))
+                }, onFailure: { error in
+                    single(.failure(error))
                 })
         }
     }
 
-    func changeGoal(to goal: Int) -> Observable<Bool> {
-        return Observable.create { observer in
+    func changeGoal(to goal: Int) -> Single<Bool> {
+        return Single.create { single in
             let entityName = "User"
             let value: [String: Any] = [
                 CoreDataKeys.goal: goal
             ]
 
             return CoreDataManager.shared.update(entityName: entityName, attributes: value)
-                .take(1)
-                .subscribe(onError: { _ in
-                    observer.onNext(false)
-                }, onCompleted: {
-                    observer.onNext(true)
-                    observer.onCompleted()
+                .subscribe(onSuccess: {
+                    single(.success(true))
                 })
         }
     }

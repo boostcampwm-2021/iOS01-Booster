@@ -52,10 +52,10 @@ final class RemoveAllDataViewController: UIViewController, BaseViewControllerTem
 
         viewModel.removeAllData()
             .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] isRemoved in
+            .subscribe(onSuccess: { [weak self] isRemoved in
                 guard let self = self
                 else { return }
-
+                
                 if isRemoved {
                     let title = "삭제 완료"
                     let message = "모든 정보가 삭제됐어요!"
@@ -65,8 +65,7 @@ final class RemoveAllDataViewController: UIViewController, BaseViewControllerTem
                     let message = "알 수 없는 오류로 인하여 삭제를 실패했어요"
                     alert = self.popViewControllerAlertController(title: title, message: message)
                 }
-            }, onCompleted: { [weak self] in
-                self?.present(alert, animated: true, completion: nil)
+                self.present(alert, animated: true, completion: nil)
             }).disposed(by: disposeBag)
     }
 

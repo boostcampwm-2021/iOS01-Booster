@@ -35,11 +35,14 @@ final class TrackingProgressViewModel {
 
     func save() {
         return trackingUsecase.save(model: trackingModel.value)
-            .subscribe(onNext: { [weak self] in
-                self?.saveResult.onNext(true)
-            }, onError: { [weak self] error in
-                self?.saveResult.onNext(false)
-            }).disposed(by: disposeBag)
+            .subscribe { [weak self] result in
+                switch result {
+                case .success:
+                    self?.saveResult.onNext(true)
+                case .failure:
+                    self?.saveResult.onNext(false)
+                }
+            }.disposed(by: disposeBag)
     }
 
     func remove(of mileStone: Milestone) -> Observable<Bool> {
@@ -48,7 +51,6 @@ final class TrackingProgressViewModel {
             else { return Disposables.create() }
 
             if let _ = self.trackingModel.value.milestones.remove(of: mileStone) {
-
                 observable.onNext(true)
             } else {
                 observable.onNext(false)

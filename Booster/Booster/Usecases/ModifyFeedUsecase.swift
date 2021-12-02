@@ -11,7 +11,7 @@ import RxSwift
 final class ModifyFeedUsecase {
     private let entityName = "Tracking"
 
-    func update(model: WritingRecord, predicate: NSPredicate) -> Observable<Void> {
+    func update(model: WritingRecord, predicate: NSPredicate) -> Single<Void> {
         let attributes: [String: Any] = [
             CoreDataKeys.title: model.title,
             CoreDataKeys.content: model.content

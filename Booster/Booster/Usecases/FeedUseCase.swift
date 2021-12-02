@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 class FeedUseCase {
-    func fetch() -> Observable<[FeedList]> {
+    func fetch() -> Single<[FeedList]> {
         return CoreDataManager.shared.fetch()
             .map { (value: [Tracking]) in
                 var feedList: [FeedList] = []

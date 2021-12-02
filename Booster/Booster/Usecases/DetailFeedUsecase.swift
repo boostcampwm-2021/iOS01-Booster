@@ -8,21 +8,21 @@
 import Foundation
 import RxSwift
 
-typealias TrackingSaveError = DetailFeedUsecase.TrackingError
+typealias DetailFeedUpdateError = DetailFeedUsecase.DetailFeedError
 
 final class DetailFeedUsecase {
-    enum TrackingError: Error {
+    enum DetailFeedError: Error {
         case modelError
         case error(Error)
     }
 
     private let entityName = "Tracking"
 
-    func update(milestones: [Milestone], predicate: NSPredicate) -> Observable<Void> {
+    func update(milestones: [Milestone], predicate: NSPredicate) -> Single<Void> {
         guard let milestones = try? NSKeyedArchiver.archivedData(withRootObject: milestones, requiringSecureCoding: false)
         else {
-            return Observable.create { observer in
-                observer.onError(TrackingError.modelError)
+            return Single.create { single in
+                single(.failure(DetailFeedError.modelError))
                 return Disposables.create()
             }
         }
@@ -34,7 +34,7 @@ final class DetailFeedUsecase {
                                              predicate: predicate)
     }
 
-    func fetch(predicate: NSPredicate) -> Observable<TrackingModel> {
+    func fetch(predicate: NSPredicate) -> Single<TrackingModel> {
         return CoreDataManager.shared.fetch(entityName: entityName, predicate: predicate)
             .map { (value: [Tracking]) in
                 guard let tracking = value.first,
@@ -45,7 +45,7 @@ final class DetailFeedUsecase {
             }
     }
 
-    func remove(predicate: NSPredicate) -> Observable<Void> {
+    func remove(predicate: NSPredicate) -> Single<Void> {
         return CoreDataManager.shared.delete(entityName: entityName, predicate: predicate)
     }
 

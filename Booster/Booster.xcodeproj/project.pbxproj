@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		282956B92756884E00751C62 /* CoreDataKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282956B82756884E00751C62 /* CoreDataKeys.swift */; };
+		282956BA2757D32D00751C62 /* CoreDataKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282956B82756884E00751C62 /* CoreDataKeys.swift */; };
+		282956BB2757D32D00751C62 /* CoreDataKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282956B82756884E00751C62 /* CoreDataKeys.swift */; };
+		282956BE2757D32E00751C62 /* CoreDataKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282956B82756884E00751C62 /* CoreDataKeys.swift */; };
+		282956BF2757D32F00751C62 /* CoreDataKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282956B82756884E00751C62 /* CoreDataKeys.swift */; };
+		282956C02757D32F00751C62 /* CoreDataKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282956B82756884E00751C62 /* CoreDataKeys.swift */; };
+		282956C12757D33000751C62 /* CoreDataKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282956B82756884E00751C62 /* CoreDataKeys.swift */; };
+		282956C22757D33000751C62 /* CoreDataKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282956B82756884E00751C62 /* CoreDataKeys.swift */; };
 		28C96FE72737F7BC005BD7BC /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28C96FE62737F7BC005BD7BC /* HealthKit.framework */; };
 		28C96FEB27396892005BD7BC /* DetailFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C96FEA27396892005BD7BC /* DetailFeedViewController.swift */; };
 		28C96FED27396F6B005BD7BC /* DetailFeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C96FEC27396F6B005BD7BC /* DetailFeedViewModel.swift */; };
@@ -1794,6 +1801,7 @@
 				FAB253402756148100A4FC5B /* FeedUseCase.swift in Sources */,
 				FAB253422756148B00A4FC5B /* Coordinate.swift in Sources */,
 				FAB2532D2756127400A4FC5B /* CoreDataManager.swift in Sources */,
+				282956BE2757D32E00751C62 /* CoreDataKeys.swift in Sources */,
 				28C970EC27551ABF005BD7BC /* DetailFeedViewModelTests.swift in Sources */,
 				FAB25348275614E900A4FC5B /* ModifyFeedUsecase.swift in Sources */,
 				FAB2532F2756128300A4FC5B /* Tracking+CoreDataProperties.swift in Sources */,
@@ -1804,6 +1812,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				282956BA2757D32D00751C62 /* CoreDataKeys.swift in Sources */,
 				37952E1A2754B4D000D1B0E3 /* StatisticsUsecase.swift in Sources */,
 				37C3F67E275267C8009AE5D5 /* StatisticsViewModelTests.swift in Sources */,
 				37852AD8273C2D0B00BA3D67 /* StepStatisticsTests.swift in Sources */,
@@ -1821,6 +1830,7 @@
 				37B2B35F2755B90900F906E8 /* HomeModel.swift in Sources */,
 				37B2B36C2755BFDF00F906E8 /* User+CoreDataProperties.swift in Sources */,
 				37B2B35D2755B8F800F906E8 /* HomeUsecase.swift in Sources */,
+				282956BF2757D32F00751C62 /* CoreDataKeys.swift in Sources */,
 				37B2B35E2755B90000F906E8 /* HomeViewModel.swift in Sources */,
 				37B2B3612755BC9200F906E8 /* HomeUsecaseTests.swift in Sources */,
 				37B2B3682755BF7000F906E8 /* TrackingProgressUsecase.swift in Sources */,
@@ -1850,6 +1860,7 @@
 				3B31B61C2741098C009D9190 /* CoreDataManager.swift in Sources */,
 				FAB25335275612FD00A4FC5B /* User+CoreDataProperties.swift in Sources */,
 				3B31B612274107BD009D9190 /* TrackingModel.swift in Sources */,
+				282956BB2757D32D00751C62 /* CoreDataKeys.swift in Sources */,
 				3B31B614274107D3009D9190 /* Tracking+CoreDataProperties.swift in Sources */,
 				FAB25332275612C100A4FC5B /* HealthKitManager.swift in Sources */,
 				3B31B61527410819009D9190 /* UserInfo.swift in Sources */,
@@ -1958,6 +1969,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				282956C02757D32F00751C62 /* CoreDataKeys.swift in Sources */,
 				FAB2533C2756145500A4FC5B /* UIImage+Extension.swift in Sources */,
 				FAB2532E2756127F00A4FC5B /* Tracking+CoreDataClass.swift in Sources */,
 				FAB2532B2756124800A4FC5B /* FeedCell.swift in Sources */,
@@ -1982,6 +1994,7 @@
 				FAB253212756111400A4FC5B /* EnrollViewModel.swift in Sources */,
 				FAB25334275612D200A4FC5B /* User+CoreDataClass.swift in Sources */,
 				FAB25336275612FF00A4FC5B /* User+CoreDataProperties.swift in Sources */,
+				282956C12757D33000751C62 /* CoreDataKeys.swift in Sources */,
 				3BCBE2BB275602CD00D165F5 /* EnrollTests.swift in Sources */,
 				FAB253302756129700A4FC5B /* CoreDataManager.swift in Sources */,
 				FAB253272756120D00A4FC5B /* EnrollUsecase.swift in Sources */,
@@ -2015,6 +2028,7 @@
 				FAB253492756151F00A4FC5B /* NotificationSettingViewModel.swift in Sources */,
 				FAB2530A2755FA2800A4FC5B /* UserTests.swift in Sources */,
 				FAB25331275612A200A4FC5B /* HealthKitManager.swift in Sources */,
+				282956C22757D33000751C62 /* CoreDataKeys.swift in Sources */,
 				FAB253252756119C00A4FC5B /* UserViewModel.swift in Sources */,
 				FAB253132755FA7400A4FC5B /* NotificationSettingViewModelTests.swift in Sources */,
 				FAB2533D2756145E00A4FC5B /* User+CoreDataClass.swift in Sources */,

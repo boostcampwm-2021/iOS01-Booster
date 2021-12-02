@@ -80,8 +80,8 @@ final class HomeUsecase {
             guard let self = self
             else { return Disposables.create() }
             
-            let observable: Observable<UserInfo> = CoreDataManager.shared.fetch()
-                .map { [weak self] (userOfCoreData: [User]) in
+            return CoreDataManager.shared.fetch()
+                .map { [weak self] (userOfCoreData: [User]) -> UserInfo in
                     var userInfo = UserInfo()
                     
                     if let userModel = userOfCoreData.first,
@@ -90,12 +90,9 @@ final class HomeUsecase {
                     }
                     return userInfo
                 }
-        
-            observable.subscribe { result in
-                single(.success(result.element?.goal))
-            }.disposed(by: self.disposeBag)
-            
-            return Disposables.create()
+                .subscribe(onSuccess: { result in
+                    single(.success(result.goal))
+                })
         }
     }
     
