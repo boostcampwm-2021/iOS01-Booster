@@ -12,8 +12,7 @@ final class CoreDataManager {
 
     private var container: NSPersistentContainer
 
-    func save(attributes: [String: Any],
-              type name: String) -> Single<Void> {
+    func save(attributes: [String: Any], type name: String) -> Single<Void> {
         return Single.create { [weak self] single in
             guard let self = self,
                   let entity = NSEntityDescription.entity(forEntityName: name, in: self.container.viewContext)
@@ -41,7 +40,9 @@ final class CoreDataManager {
         }
     }
 
-    func update(entityName: String, attributes: [String: Any], predicate: NSPredicate? = nil) -> Single<Void> {
+    func update(entityName: String,
+                attributes: [String: Any],
+                predicate: NSPredicate? = nil) -> Single<Void> {
         return Single.create { [weak self] single in
             guard let self = self
             else { return Disposables.create() }
@@ -95,8 +96,7 @@ final class CoreDataManager {
         }
     }
 
-    func fetch<DataType: NSManagedObject>(entityName: String,
-                                          predicate: NSPredicate) -> Single<[DataType]> {
+    func fetch<DataType: NSManagedObject>(entityName: String, predicate: NSPredicate) -> Single<[DataType]> {
         return Single.create { [weak self] single in
             guard let self = self
             else { return Disposables.create() }
