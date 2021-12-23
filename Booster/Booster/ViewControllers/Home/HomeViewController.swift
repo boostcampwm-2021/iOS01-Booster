@@ -35,7 +35,7 @@ final class HomeViewController: UIViewController {
 
     private func bindHomeViewModel() {
         viewModel.homeModel.asDriver()
-            .skip(4)
+            .skip(5)
             .drive { [weak self] homeModel in
                 self?.updateUI(using: homeModel)
                 self?.viewModel.sendGoalNotification()
