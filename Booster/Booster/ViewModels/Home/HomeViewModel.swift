@@ -27,8 +27,10 @@ final class HomeViewModel {
     }
     
     func sendGoalNotification() {
-        let boosterUserNotification = BoosterUserNotification()
-        boosterUserNotification.setNotification(requestType: .add, type: .goal)
+        if homeModel.value.goal <= homeModel.value.totalStepCount {
+            let boosterUserNotification = BoosterUserNotification()
+            boosterUserNotification.setNotification(requestType: .add, type: .goal)
+        }
     }
 
     private func fetchTodayHourlyStepCountsData() {
