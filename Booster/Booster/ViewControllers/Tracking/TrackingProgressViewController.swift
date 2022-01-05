@@ -128,12 +128,10 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         navigationItem.leftBarButtonItem = backButtonItem
         mapView.delegate = self
         manager.delegate = self
-        if manager.responds(to: #selector(getter: manager.allowsBackgroundLocationUpdates)) {
-            manager.allowsBackgroundLocationUpdates = true
-        }
+
         manager.startUpdatingLocation()
         manager.startMonitoringVisits()
-        manager.startMonitoringSignificantLocationChanges()
+       
         
         
         manager.desiredAccuracy = kCLLocationAccuracyBest
