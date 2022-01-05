@@ -620,6 +620,7 @@
 		3B4E3FDB272A696E00577625 = {
 			isa = PBXGroup;
 			children = (
+				3703A6F92785E3A300948AFD /* ci_scripts */,
 				FA614F072733CDAA00B090D9 /* Booster */,
 				37852ACD273C27F100BA3D67 /* StatisticsTests */,
 				3B31B60627410470009D9190 /* TrackingProgressTests */,
@@ -892,7 +893,6 @@
 		FA614F072733CDAA00B090D9 /* Booster */ = {
 			isa = PBXGroup;
 			children = (
-				3703A6F92785E3A300948AFD /* ci_scripts */,
 				FA614F082733CDAA00B090D9 /* Storyboards */,
 				FA614F152733CDAA00B090D9 /* ViewModels */,
 				FA614F1A2733CDAA00B090D9 /* Resources */,
