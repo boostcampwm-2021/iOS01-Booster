@@ -61,7 +61,7 @@ final class TrackingViewController: UIViewController, BaseViewControllerTemplate
         trackingMapView.showsUserLocation = true
         trackingMapView.delegate = self
         startMonitor()
-        manager.allowsBackgroundLocationUpdates = true
+        manager.pausesLocationUpdatesAutomatically = false
         manager.requestAlwaysAuthorization()
         pedometer.startUpdates(from: Date()) { _, _ in }
     }
