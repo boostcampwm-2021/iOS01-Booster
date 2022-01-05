@@ -318,6 +318,9 @@
 		2EAB35FC78890D016279F086 /* Pods_HomeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HomeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F7BBB03A210953A9959BA39 /* Pods-FeedTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FeedTests.debug.xcconfig"; path = "Target Support Files/Pods-FeedTests/Pods-FeedTests.debug.xcconfig"; sourceTree = "<group>"; };
 		33C9A6FAD95F3BFA7B08A079 /* Pods-HomeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HomeTests.release.xcconfig"; path = "Target Support Files/Pods-HomeTests/Pods-HomeTests.release.xcconfig"; sourceTree = "<group>"; };
+		3703A6FA2785E3A300948AFD /* ci_post_xcodebuild.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_xcodebuild.sh; sourceTree = "<group>"; };
+		3703A6FB2785E3A300948AFD /* ci_pre_xcodebuild.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_pre_xcodebuild.sh; sourceTree = "<group>"; };
+		3703A6FC2785E3A300948AFD /* ci_post_clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
 		37852ACC273C27F100BA3D67 /* StatisticsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StatisticsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		37852AD7273C2D0B00BA3D67 /* StepStatisticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepStatisticsTests.swift; sourceTree = "<group>"; };
 		379E3C56273BC182002B0B15 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
@@ -551,6 +554,16 @@
 			);
 			path = Base;
 			sourceTree = "<group>";
+		};
+		3703A6F92785E3A300948AFD /* ci_scripts */ = {
+			isa = PBXGroup;
+			children = (
+				3703A6FA2785E3A300948AFD /* ci_post_xcodebuild.sh */,
+				3703A6FB2785E3A300948AFD /* ci_pre_xcodebuild.sh */,
+				3703A6FC2785E3A300948AFD /* ci_post_clone.sh */,
+			);
+			path = ci_scripts;
+			sourceTree = SOURCE_ROOT;
 		};
 		37852ACD273C27F100BA3D67 /* StatisticsTests */ = {
 			isa = PBXGroup;
@@ -879,6 +892,7 @@
 		FA614F072733CDAA00B090D9 /* Booster */ = {
 			isa = PBXGroup;
 			children = (
+				3703A6F92785E3A300948AFD /* ci_scripts */,
 				FA614F082733CDAA00B090D9 /* Storyboards */,
 				FA614F152733CDAA00B090D9 /* ViewModels */,
 				FA614F1A2733CDAA00B090D9 /* Resources */,
