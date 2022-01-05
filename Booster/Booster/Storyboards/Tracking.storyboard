@@ -33,7 +33,7 @@
                                     <attributedString key="attributedTitle">
                                         <fragment content="시작">
                                             <attributes>
-                                                <font key="NSFont" size="25" name="NotoSansKR-Bold"/>
+                                                <font key="NSFont" metaFont="system" size="25"/>
                                             </attributes>
                                         </fragment>
                                     </attributedString>
