@@ -128,9 +128,9 @@ final class TrackingProgressViewController: UIViewController, BaseViewController
         navigationItem.leftBarButtonItem = backButtonItem
         mapView.delegate = self
         manager.delegate = self
-
+        
+        manager.allowsBackgroundLocationUpdates = true
         manager.startUpdatingLocation()
-        manager.startMonitoringVisits()
        
         
         

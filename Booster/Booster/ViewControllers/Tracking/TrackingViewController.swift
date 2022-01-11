@@ -62,9 +62,7 @@ final class TrackingViewController: UIViewController, BaseViewControllerTemplate
         trackingMapView.delegate = self
         startMonitor()
         manager.delegate = self
-        manager.pausesLocationUpdatesAutomatically = false
-        manager.startMonitoringSignificantLocationChanges()
-        manager.requestAlwaysAuthorization()
+        manager.requestWhenInUseAuthorization()
         pedometer.startUpdates(from: Date()) { _, _ in }
     }
     
