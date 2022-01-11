@@ -8,7 +8,7 @@ protocol TrackingProgressDelegate: AnyObject {
     func location(mapView: TrackingMapView)
 }
 
-final class TrackingViewController: UIViewController, BaseViewControllerTemplate {
+final class TrackingViewController: UIViewController, BaseViewControllerTemplate, CLLocationManagerDelegate{
     // MARK: - Enum
     enum Segue {
         static let progressSegue = "trackingProgressSegue"
@@ -61,7 +61,8 @@ final class TrackingViewController: UIViewController, BaseViewControllerTemplate
         trackingMapView.showsUserLocation = true
         trackingMapView.delegate = self
         startMonitor()
-        manager.requestAlwaysAuthorization()
+        manager.delegate = self
+        manager.requestWhenInUseAuthorization()
         pedometer.startUpdates(from: Date()) { _, _ in }
     }
     

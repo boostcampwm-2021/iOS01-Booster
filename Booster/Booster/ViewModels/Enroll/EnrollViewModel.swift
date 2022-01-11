@@ -32,11 +32,14 @@ final class EnrollViewModel {
                 guard let self = self
                 else { return }
                 self.usecase.save(info: self.userinfo.value)
-                    .subscribe(onNext: {
-                        self.save.onNext(true)
-                    }, onError: { _ in
-                        self.save.onNext(false)
-                    }).disposed(by: self.disposeBag)
+                    .subscribe { [weak self] result in
+                        switch result {
+                        case .success:
+                            self?.save.onNext(true)
+                        case .failure:
+                            self?.save.onNext(false)
+                        }
+                    }.disposed(by: self.disposeBag)
             }.disposed(by: disposeBag)
     }
 

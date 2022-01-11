@@ -10,6 +10,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if !boosterUserNotification.isAlreadyAdded(type: .morning) { boosterUserNotification.setNotification(requestType: .add, type: .morning)}
         })
         
+        UNUserNotificationCenter.current().delegate = self
         return true
     }
 
@@ -18,8 +19,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
-
-        // 세로방향 고정
         return UIInterfaceOrientationMask.portrait
+    }
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        if #available(iOS 14.0, *) {
+            completionHandler([.banner, .list])
+        }
     }
 }

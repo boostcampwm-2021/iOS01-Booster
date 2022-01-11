@@ -27,12 +27,14 @@ final class ModifyFeedViewModel {
     func update() {
         let predicate = NSPredicate(format: "startDate = %@", startDate as NSDate)
         usecase.update(model: writingRecord.value, predicate: predicate)
-            .subscribe(onError: { _ in
-                self.isUpdated.onNext(false)
-            }, onCompleted: {
-                self.isUpdated.onNext(true)
-            })
-            .disposed(by: disposeBag)
+            .subscribe { [weak self] result in
+                switch result {
+                case .success:
+                    self?.isUpdated.onNext(true)
+                case .failure:
+                    self?.isUpdated.onNext(false)
+                }
+            }.disposed(by: disposeBag)
     }
 
     func modifyTitle(_ title: String) {
