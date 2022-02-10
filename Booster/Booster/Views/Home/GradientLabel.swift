@@ -23,40 +23,30 @@ final class GradientLabel: UILabel {
 
     func drawLabel(step: Int, ratio: Double) {
         text = "\(step)"
-
+        textColor = configureGradientColor(using: ratio)
+        
         layer.opacity = Opacity.zero
-
-        let gradientLayer: CAGradientLayer = configureGradientLayer(using: ratio)
-        let gradientColor: UIColor = configureGradientColor(using: gradientLayer)
-        textColor = gradientColor
-
         UIView.animate(withDuration: 2) { [weak self] in
             self?.layer.opacity = Opacity.one
         }
     }
-
-    private func configureGradientLayer(using ratio: Double) -> CAGradientLayer {
+    
+    private func configureGradientColor(using ratio: Double) -> UIColor {
         let correctRatio = ratio > 1 ? 1 : ratio
         let ratio = NSNumber(value: correctRatio * 0.75 + 0.25)
-
-        let gradient = CAGradientLayer()
-        gradient.frame = self.bounds
-        gradient.colors =  [UIColor.boosterOrange.cgColor, UIColor.boosterLabel.cgColor]
-        gradient.locations = [ratio, ratio]
-        gradient.startPoint = CGPoint(x: 0.5, y: 1)
-        gradient.endPoint = CGPoint(x: 0.5, y: 0)
-
-        return gradient
-    }
-
-    private func configureGradientColor(using gradientLayer: CAGradientLayer) -> UIColor {
-        UIGraphicsBeginImageContextWithOptions(gradientLayer.bounds.size, false, 0.0)
-        guard let currentContext = UIGraphicsGetCurrentContext()
-        else { return .boosterLabel }
-        gradientLayer.render(in: currentContext)
-        guard let image = UIGraphicsGetImageFromCurrentImageContext()
-        else { return .boosterLabel }
-        UIGraphicsEndImageContext()
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.bounds
+        gradientLayer.colors =  [UIColor.boosterOrange.cgColor, UIColor.boosterLabel.cgColor]
+        gradientLayer.locations = [ratio, ratio]
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 1)
+        gradientLayer.endPoint = CGPoint(x: 0.5, y: 0)
+        
+        let renderer = UIGraphicsImageRenderer(bounds: bounds)
+        let image = renderer.image { context in
+            gradientLayer.render(in: context.cgContext)
+        }
+        
         return UIColor(patternImage: image)
     }
 }
